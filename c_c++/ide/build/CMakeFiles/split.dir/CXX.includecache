@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/zzt/01CEC27C454731B01/recent/Daily-practice/c_c++/ide/src/split.cpp
+iostream
+-
+cctype
+-
+vector
+-
+algorithm
+-
+

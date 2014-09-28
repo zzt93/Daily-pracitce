@@ -1,0 +1,12 @@
+/*
+ *getting the file opened and positioned at the right place, and       *setting the flag bits to indicate proper state
+ */
+#include <scntl.h>
+#include "syscalls.h"
+#define PERMS 0666
+
+FILE *fopen(char *name, char mode) {
+	int fd;
+	FILE *fd;
+
+	if

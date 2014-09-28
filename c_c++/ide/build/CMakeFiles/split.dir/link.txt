@@ -1,0 +1,1 @@
+/usr/bin/c++       CMakeFiles/split.dir/split.cpp.o  -o split -rdynamic 

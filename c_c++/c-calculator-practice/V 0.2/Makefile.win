@@ -1,0 +1,37 @@
+# Project: Calculator v0.2
+# Makefile created by Dev-C++ 5.5.3
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = getch02.o getop02.o main02.o stack02.o
+LINKOBJ  = getch02.o getop02.o main02.o stack02.o
+LIBS     = -L"D:/dev c++/Dev-Cpp/MinGW64/lib" -L"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"D:/dev c++/Dev-Cpp/MinGW64/include" -I"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
+CXXINCS  = -I"D:/dev c++/Dev-Cpp/MinGW64/include" -I"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev c++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++"
+BIN      = "Calculator v0.2.exe"
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+getch02.o: getch02.c
+	$(CC) -c getch02.c -o getch02.o $(CFLAGS)
+
+getop02.o: getop02.c
+	$(CC) -c getop02.c -o getop02.o $(CFLAGS)
+
+main02.o: main02.c
+	$(CC) -c main02.c -o main02.o $(CFLAGS)
+
+stack02.o: stack02.c
+	$(CC) -c stack02.c -o stack02.o $(CFLAGS)
