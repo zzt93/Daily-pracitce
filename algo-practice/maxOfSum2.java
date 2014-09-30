@@ -70,14 +70,14 @@ public class maxOfSum {
 		set.addAll(0, temp);
 
 		temp.clear();
-		sum = 0;
-		for (int i = 0; i < set.size() ; ++i) {
+		sum = set.get(0);
+		for (int i = 1; i+1 < set.size() ; i+=2) {
 			number = set.get(i);
-			if (number+sum < 0) {
+			if (number+sum < 0 || number+set.get(i+1)<=0) {
 				temp.add(sum);
-				sum = 0;
+				sum = set.get(i+1);
 			}else {
-				sum += number;
+				sum = number + set.get(i+1) + sum;
 			}
 		}
         temp.add(sum);

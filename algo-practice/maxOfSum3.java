@@ -31,7 +31,7 @@ public class maxOfSum {
         int j = i;//record the begin index of contiguous positive, negative number
 		for (; i < set.size(); ++i) {
 			number = set.get(i);
-            //enter the following two blocks when the sign of number is changed
+            //enter the following two blocks when the sign of a number is changed
 			if (number < 0 && sign) {
 				sign = false;
                 tMap.put(sum, new double[]{j, i});// [j, i) is the interval
@@ -55,16 +55,19 @@ public class maxOfSum {
 		set.addAll(0, temp);
 
 		temp.clear();
-		sum = 0;
-		for (int i = 0; i < set.size() ; ++i) {
+		sum = set.get(0);
+		for (int i = 1; i+1 < set.size() ; i+=2) {
 			number = set.get(i);
-			if (number+sum < 0) {
+			if (number+sum<0 || number+set.get(i+1)<=0) {
 				temp.add(sum);
-                tMap.get()
-				sum = 0;
+				sum = set.get(i+1);
 			}else {
-				sum += number;
-                tMap.get()
+				sum = number + set.get(i+1) + sum;
+                if(tMap.get(sum)[1] == tMap.get(number)[0] && tMap.get(set.get(i+1))[0] == tMap.get(number)[1]){
+                    tMap.put(sum, new double[]{tMap.get(sum)[0], tMap.get(set.get(i+1))[1]});
+                }else{
+                    System.err("wrong in concatenation");
+                }
 			}
 		}
         temp.add(sum);
@@ -75,7 +78,7 @@ public class maxOfSum {
 				max = d;
 			}
 		}
-		System.out.println(max);
+		System.out.println(max + ": from " + tMap.get(max)[0] + " to " + tMap.get(max)[0]);
 	}
 		
 	

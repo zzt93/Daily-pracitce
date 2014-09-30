@@ -1,0 +1,7 @@
+#define STACK_SIZE
+
+char stack[STACK_SIZE];
+extern int sp ;
+
+int push(int a);
+int pop();

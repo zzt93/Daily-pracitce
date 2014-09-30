@@ -5,7 +5,7 @@
  * version:0.1 -- trimming algorithm
 
  * update:2014.9.28
- * description: the initial algorithm is wrong, so try to fix it
+ * description: the initial algorithm is wrong, so try to fix it: change 59, 61, 63, 65, add 68
 
  */
 import java.util.*;
@@ -54,17 +54,18 @@ public class maxOfSum {
 		collapse(produceSeparator(false));
 
 		ArrayList<Double> temp = new ArrayList<Double>();
-		double sum = 0;
+		double sum = set.get(0);
 		double number = 0;
-		for (int i = 0; i < set.size() ; ++i) {
+		for (int i = 1; i+1 < set.size() ; i+=2) {
 			number = set.get(i);
-			if (number+sum < 0) {
+			if (number+sum<=0 || number+set.get(i+1)<=0) {
 				temp.add(sum);
-				sum = 0;
+				sum = set.get(i+1);
 			}else {
-				sum += number;
+				sum = number + set.get(i+1) + sum;
 			}
 		}
+        temp.add(sum);
 		//find the max of sum
 		double max = 0;
 		for (Double d: temp) {
