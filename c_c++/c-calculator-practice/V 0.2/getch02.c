@@ -77,18 +77,24 @@ int judgeR (char *b, int *i) {
  *check the buf[start] to buf[end] whether have a number or digit
  */
 int hasNum (char* partStr, int start, int end){
-	while (start <= end) {
+    if(start >= end) {
+        return -1;
+    }
+	while (start < end) {
 		if (isdigit(partStr[start]) || partStr[start] == '.'){
 			return start;
 		}
 		++start;
 	}
-	return -1;
+    return -1;
 }
 int sp = 0;
 char stack[BUFSIZE];
+/*
+  params: a char pointer; the size of buf; the start index of pattern; the ending index of pattern
+  return the interval of the pattern: [start, end)
+*/
 int matchParen(char *contentBuf, size_t len, int *start, int *end){
-    //char checkParenBuf[BUFSIZE];
     size_t i = 0;
     int hasParen = 0;
     int countPop = 0;
@@ -105,7 +111,7 @@ int matchParen(char *contentBuf, size_t len, int *start, int *end){
             hasParen = 1;
             countPop++;
             if(countPop == 1){
-                *end = i;
+                *end = i+1;
                 if((*start = pop()) == -1){//means that the number of ')' is larger than that of ')'
                     return -1;
                 }
@@ -121,7 +127,7 @@ int matchParen(char *contentBuf, size_t len, int *start, int *end){
     if(!hasParen){//no parenthesis
         return 1;
     }
-    if(*start < *end){
+    if(*start < *end){//mean find a pair of parenthesis
         return 0;
     }
 }
@@ -154,7 +160,7 @@ int findCentral (char *inputStr, size_t size) {
 	regmatch_t matchptr[nmatch];
 	int matchC, start, end;
 	strncpy(recurBuf, inputStr, size);
-	recurBuf[size] = '\0';
+    recurBuf[size] = '\0';
 	//cases not to recur: 1; (-1); -1.1  --> just one operand
 	//cases needing recursion: 1+2; 1.1*2.2; (-1)*2; -1*2; -(1+2) ; ((1+2)*3)-4; 1*(2-3); (1+2)*(3-4)
 	switch (judgeR (recurBuf, &i)) {
@@ -173,16 +179,14 @@ int findCentral (char *inputStr, size_t size) {
         case 2:	//mean more than one
             //two situations: useful parenthesis ;; no () or useless ()
             matchC = matchParen(recurBuf, size+1,  &start, &end);
-            
             if(matchC == -1){
                 fprintf(stderr, "parenthesis are not in pair: %s, %s", recurBuf, inputStr);
                 exit(1);
             }
             //means match! -- () exists
             else if (matchC == 0) {
-                
                 //useful ()
-                if ( hasNum(recurBuf, 0, start-1) != -1 || hasNum(recurBuf, end+1, size-1) != -1 ) {
+                if ( hasNum(recurBuf, 0, start-1) != -1 || hasNum(recurBuf, end, size-1) != -1 ) {
                     while (i < start){
                         c = recurBuf[i++]; 
                         if ((c == '+' 
@@ -192,7 +196,7 @@ int findCentral (char *inputStr, size_t size) {
                             goto ufRecursion;
                         }
                     }
-                    i = end+1;
+                    i = end;
                     while (i < size){
                         c = recurBuf[i++]; 
                         if ((c == '+' 
@@ -211,7 +215,7 @@ int findCentral (char *inputStr, size_t size) {
                             goto ufRecursion;
                         }
                     }
-                    i = end+1;
+                    i = end;
                     while (i < size){
                         c = recurBuf[i++];
                         if ((c == '*' || c == '/') && hasNum(recurBuf, i, size-1)!=-1){
@@ -231,7 +235,7 @@ int findCentral (char *inputStr, size_t size) {
                         }
                     }
                     ungetch(' ');
-                    state &= findCentral(&recurBuf[start+1],end-start-2); 
+                    state &= findCentral(&recurBuf[start+1], end-start-2); 
                 }
                 return 0;//means the input is not right
             ufRecursion:
