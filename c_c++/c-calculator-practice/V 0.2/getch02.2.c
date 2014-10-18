@@ -4,7 +4,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <regex.h>  //standard of perl
-//#include "calc02.h"
+#include "calc02.h"
 #include "myStack.h"
 #define BUFSIZE 100
 
@@ -12,7 +12,7 @@ char buf[2*BUFSIZE];
 int bufp = 0;
 
 int getch (void){
-	//return (bufp>0) ? buf[--bufp] : getNormal();
+    return (bufp>0) ? buf[--bufp] : getNormal();
 }
 
 void ungetch (int c){
@@ -80,7 +80,7 @@ int transform(char *inputStr, size_t len){
             }
         }
     }
-    if(size() == 0){
+    if(size() != 0){
         fprintf(stderr, "something wrong in transform");
         exit(1);
     }
@@ -150,8 +150,8 @@ int getNormal() {
 		//make it reverse order
 		state = transform(inputStr, len);
 		if (!state){
-			return '$';//flush the stack of previous input in order to start again
             fprintf(stderr, "something wrong in transform: %s", inputStr);
+			return '$';//flush the stack of previous input in order to start again
 		}
 		return buf[--bufp];
 	}
