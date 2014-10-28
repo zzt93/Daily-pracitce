@@ -1,9 +1,6 @@
-
-struct Node{
-    double coef;
-    double exp;
-    Node* next;
-};
+#include <iostream>
+#include <fstream>
+#include "myList.hpp"
 
 bool add(Node* now){
 }
@@ -23,6 +20,7 @@ bool hasNext(Node* now){
 }
 Node* next(Node* now){
 }
+
 Node* get(int i){
 }
 

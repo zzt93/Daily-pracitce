@@ -27,7 +27,7 @@ void int_s(int c, char *s){
     if (times) {
         *s++ = c+'0';
     } else {
-        int_s(c/10, s);
+       int_s(c/10, s);
         *s++ = c%10;
     }
 

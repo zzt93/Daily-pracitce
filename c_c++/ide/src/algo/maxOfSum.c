@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#incldue <myList.h>
+#include "myList.h"
 
 /* algorithm of max of sub-array
    c implements
@@ -21,12 +21,12 @@ int readData(char *fname){
         fprintf(stderr, "can't open file");
         exit(1);
     }
-    while((x = fgets(file, 10, str)) != NULL){
+    while((x = fgets(str, 10, file)) != NULL){
         Node *a = (Node *)malloc(sizeof(Node));
         a->x = atoi(str);
         add(a);
     }
-    fclose(fname);
+    fclose(file);
 }
 
 int main(int argc, char *argv[]){

@@ -1,19 +1,19 @@
 #include <stddef.h>
 
+typedef struct node Node;
 struct node{
     double x;
     Node *last;
     Node *next;
 };
-typedef struct node Node;
 
 extern Node head;
 extern Node *ph;
 extern Node *pe;
 extern size_t size;
 
-bool flush(){
-    head = null;
+void flush(){
+    ph = NULL;
 }
 
 int add(Node *);
