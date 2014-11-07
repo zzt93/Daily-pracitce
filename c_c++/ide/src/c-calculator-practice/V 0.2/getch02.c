@@ -92,7 +92,7 @@ int sp = 0;
 char stack[BUFSIZE];
 /*
   params: a char pointer; the size of buf; the start index of pattern; the ending index of pattern
-  return the interval of the pattern: [start, end)
+  return value: the interval of the pattern: [start, end)
 */
 int matchParen(char *contentBuf, size_t len, int *start, int *end){
     size_t i = 0;

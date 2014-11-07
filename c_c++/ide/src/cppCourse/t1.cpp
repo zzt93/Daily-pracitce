@@ -8,11 +8,12 @@
 
 using namespace std;
 
-void swap(int a[], int m, int n){
+void swap(int a[], int delim, int size){
     int i = 0;
-    int dm = m;
+    int n = size - delim;
+    int m = delim;
     for(; i < n; ++i){
-        m = dm;
+        m = delim;
         while (m) {
             int temp = a[m+i] ;
             a[m+i] = a[m+i-1];
@@ -33,15 +34,23 @@ void int_s(int c, char *s){
 
 }
 
+bool space(char c){
+    return isspace(c);
+}
+bool not_space(char c){
+    return !isspace(c);
+}
 template <class Out>
-void split(string s, Out b, Out e){
+void split(string s, Out e){
     string::iterator sit, sb = s.begin(), se = s.end();
-    while(b != e){
-        while(sb != se){
-            sit = find(sb, se, ' ');
-            *b++ = string(sb, sit);
-            sb = ++sit;
+    while(sb != se){
+        sb = find_if(sb, se, not_space);//find the first non-space char, ie skip the space
+        if(sb == se){
+            break;
         }
+        sit = find_if(sb, se, space);
+        *e++ = string(sb, sit);
+        sb = sit;
     }
 }
 
@@ -56,29 +65,35 @@ int main()
         int i = 0;
         istringstream is;
         while (getline(data, line) && i < 100) {
-            split(line, nums.begin(), nums.end());
+            //must use the adapter to change it even it is random-access iterator
+            //for they are not the relationship of super and sub
+            split(line, back_inserter(nums));
             for (iter=nums.begin(); iter!=nums.end(); ++iter) {
                 is.str(*iter);
+                is.clear();
                 is >> a[i++];
             }
+            nums.clear();
         }
         data.close();
         //get the delimeter
-        cout << "enter the delimiter (it must smaller than )" << i;
+        cout << "enter the delimiter (it must not smaller than 0 and smaller than " << i << ")\n";
+        cout << "[0, delimeter) [delimeter, i)\n";
         int m;
         cin >> m;
-        if (m > i) {
-            cerr << "delimiter is too large";
+        if (m > i || m < 0) {
+            cerr << "delimiter is too large" << endl;
             exit(0);
         } else {
-            swap(a, m, i-m);
+            swap(a, m, i);
         }
         //write back to file
         ofstream out;
         out.open("data.txt", ios::out | ios::app);
         int index = 0;
+        out << "\n";
         while(index < i-1){
-            out << a[index] << ", ";
+            out << a[index++] << ", ";
         }
         out << a[i-1];
     } else {

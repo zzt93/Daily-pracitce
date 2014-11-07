@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "myList.hpp"
+#include "generic_double_linked_list.hpp"
 
 bool add(Node* now){
 }
@@ -13,7 +13,7 @@ bool insertAt(int i, Node* now){
 
 bool deleteN(Node* bef){
 }
-bool deleteN(int i){
+bool deleteN(int index){
 }
 
 bool hasNext(Node* now){

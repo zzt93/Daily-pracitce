@@ -1,3 +1,5 @@
+package ADT;
+
 /**
  * author:zzt
  * date:2014.7.8
@@ -6,14 +8,14 @@
  */
 import java.util.*;
 
-public class maxOfSum {
+public class maxOfSum2 {
 	ArrayList<Double> set ;
 
-	public maxOfSum (ArrayList<Double> set) {
+	public maxOfSum2 (ArrayList<Double> set) {
 		this.set = set;
 	}
 
-	public void parts () {
+	public double parts () {
 		//trim the negative head if any
 		int i;
 		int j;
@@ -29,7 +31,7 @@ public class maxOfSum {
 		}
 
 		//trim the non-positive tail if any
-		int lastIndex = set.lastIndexOf();
+		int lastIndex = set.size() - 1;
 		if (set.get(lastIndex) <= 0) {
 			for (i = lastIndex-1; i > 0 ; --i) {
 				if (set.get(i) > 0) {
@@ -51,7 +53,7 @@ public class maxOfSum {
 		double sum = 0;
 		double number = 0;
 		boolean sign = true; // means the number is positive
-		for (int i = 0; i < set.size(); ++i) {
+		for (i = 0; i < set.size(); ++i) {
 			number = set.get(i);
             //enter the following two blocks when the sign of number is changed
 			if (number < 0 && sign) {
@@ -71,7 +73,7 @@ public class maxOfSum {
 
 		temp.clear();
 		sum = set.get(0);
-		for (int i = 1; i+1 < set.size() ; i+=2) {
+		for (i = 1; i+1 < set.size() ; i+=2) {
 			number = set.get(i);
 			if (number+sum < 0 || number+set.get(i+1)<=0) {
 				temp.add(sum);
@@ -89,6 +91,7 @@ public class maxOfSum {
 			}
 		}
 		System.out.println(max);
+        return max;
 	}
 
 	public double addAll(ArrayList<Double> set) {
@@ -107,4 +110,7 @@ public class maxOfSum {
 		}
 		return true;
 	}
+    public static void main (String[] argv) {
+		new maxOfSum (new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0, -7.0, 8.0, 9.0))).parts();
+    }
 }

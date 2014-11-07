@@ -3,9 +3,7 @@
 #include <stddef.h>
 #include <string.h>
 #include <ctype.h>
-#include <regex.h>  //standard of perl
 #include "calc02.h"
-#include "myStack.h"
 #define BUFSIZE 100
 
 char buf[2*BUFSIZE];
@@ -45,42 +43,49 @@ void ungets (char s[]) {
   priority out of stack: (:8 *:5 /:5 +:3 -:3 ):2 '\n':0
   return the state of input
 */
-int sp = 0;
+int spT = 0;
 char stack[BUFSIZE];
+
+int pushT(int c);
+int popT();
+int topT();
+int flushToCharT(char *,char);
+int sizeT();
+
 int transform(char *inputStr, size_t len){
     char reversedBuf[2*len];
     int i = 0, j = 0;
     //transform the input to postfix order
-    push('\n');
+    pushT('\n');
     char c;
     char topE;
     for(; i < len; ++i){
         c = inputStr[i];
-        topE = top();
+        topE = topT();
         if (isdigit(c) || c == '.') {
             reversedBuf[j++] = inputStr[i];
         } else {
-            push(' ');//in order to separate numbers
+            pushT(' ');//in order to separate numbers
             if (c == '(') {
-                push('(');
+                pushT('(');
             } else if (isspace(c)) {//ignore the space
             } else if (c == ')'|| c == '\n' ) {
-                j += flushToChar(&reversedBuf[j], c);
+                j += flushToCharT(&reversedBuf[j], c);
             } else {//compare the priority of two operator
                 while(topE == '*' || topE == '/'
                     || topE == c //means they are all + or -
                     || (topE == '+' && c == '-')
                     ||  (topE == '-' && c == '+')){
                     
-                    reversedBuf[j++] = pop();
+                    reversedBuf[j++] = popT();
                     //update
-                    topE = top();
+                    topE = topT();
                 }
-                push(c);
+                pushT(c);
             }
         }
     }
-    if(size() != 0){
+    if(sizeT() != 0){
         fprintf(stderr, "something wrong in transform");
         exit(1);
     }
@@ -92,42 +97,42 @@ int transform(char *inputStr, size_t len){
         }
     }
 }
-int size(){
-    return sp;
+int sizeT(){
+    return spT;
 }
 /*
   parameter: char *: destination of elements; char: the symbol of end
   return: the state of function
 */
-int flushToChar(char *des, char c){
+int flushToCharT(char *des, char c){
     int i = 0;
     if(c == ')'){
         c = '(';
     }
-    for(; stack[sp] != c; --sp){
-        des[i++] = stack[sp];
+    for(; stack[spT] != c; --spT){
+        des[i++] = stack[spT];
     }
     pop();//pop the '(' or '\n' in the stack
     return i;
 }
-int push(int c){
-    if(sp < BUFSIZE){
-        stack[sp++] = c;
+int pushT(int c){
+    if(spT < BUFSIZE){
+        stack[spT++] = c;
         return c;
     }else{
         fprintf(stderr,"stack is full");
         return -1;
     }
 }
-int pop(){
-    if(sp > 0){
-        return stack[--sp];
+int popT(){
+    if(spT > 0){
+        return stack[--spT];
     }else{
         fprintf(stderr, "stack is empty");
         return -1;
     }
 }
-int top(){
+int topT(){
     int temp = pop();
     push(temp);
     return temp;

@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
 				break;
 			case '/':
 				op2 = pop ();
-				if (op2 != 0.0);
+				if (op2 != 0.0)
 				{
 					push (pop() / op2);
 				}

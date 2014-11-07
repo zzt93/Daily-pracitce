@@ -1,3 +1,5 @@
+package ADT;
+
 /**
  * author:zzt
  * date:2014.8.13, 9.28
@@ -6,14 +8,14 @@
  */
 import java.util.*;
 
-public class maxOfSum {
+public class maxOfSum3 {
 	ArrayList<Double> set ;
 
-	public maxOfSum (ArrayList<Double> set) {
+	public maxOfSum3 (ArrayList<Double> set) {
 		this.set = set;
 	}
 
-	public void parts () {
+	public double parts () {
         int i;
 		int leftI = 0;
 		int rightI = 0;
@@ -56,7 +58,7 @@ public class maxOfSum {
 
 		temp.clear();
 		sum = set.get(0);
-		for (int i = 1; i+1 < set.size() ; i+=2) {
+		for (i = 1; i+1 < set.size() ; i+=2) {
 			number = set.get(i);
 			if (number+sum<0 || number+set.get(i+1)<=0) {
 				temp.add(sum);
@@ -66,7 +68,7 @@ public class maxOfSum {
                 if(tMap.get(sum)[1] == tMap.get(number)[0] && tMap.get(set.get(i+1))[0] == tMap.get(number)[1]){
                     tMap.put(sum, new double[]{tMap.get(sum)[0], tMap.get(set.get(i+1))[1]});
                 }else{
-                    System.err("wrong in concatenation");
+                    System.err.println("wrong in concatenation");
                 }
 			}
 		}
@@ -79,9 +81,10 @@ public class maxOfSum {
 			}
 		}
 		System.out.println(max + ": from " + tMap.get(max)[0] + " to " + tMap.get(max)[0]);
+        return max;
 	}
 		
-	
-	public static void main (int argc, string[] argv) {
-		new maxOfSum (new ArrayList(Arrays.asList(1, 2, 3, -4, 5, -6, -7, 8, 9))).parts();
+	public static void main (String[] argv) {
+		new maxOfSum (new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, -4.0, 7.0, -6.0, -7.0, 8.0))).parts();
+    }
 }

@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "tree.h"
-#include "myList.h"
+#include "union_node_tree.h"
+#include "double_linked_list<double>.h"
 #include "treeStack.h"
 
-//for treeStack
+//for treeNode Stack
 TNode *stack[SIZE];
 int sp = 0;
 
@@ -27,26 +27,27 @@ int empty(){
     return sp == 0;
 }
 
+//for print the node
 void printNode(TNode *root){
     switch(root->type){
         case DOUBLE:
-            printf("%lf", root->data.d);
+            printf("%lf ", root->data.d);
             break;
         case STRING:
-            printf("%s", root->data.str);
+            printf("%s ", root->data.str);
             break;
         case INT:
-            printf("%d", root->data.i);
+            printf("%d ", root->data.i);
             break;
         case CHAR:
-            printf("%c", root->data.c);
+            printf("%c ", root->data.c);
             break;
         default:
             printf("no such type");
     }
 }
 
-//for list
+//for list of expression: add at the tail, take at the head
 Node head = {0, NULL, NULL};
 Node *ph = &head;
 
@@ -184,12 +185,28 @@ void postOrderRec(TNode *root){
     }
 }
 void postOrderLoop(TNode *root){
-    while (root != NULL) {
-        
-    }}
+    while (root != NULL || !empty()) {
+        while (root->left != NULL) {
+            push(root);
+            root = root->left;
+        }
+        push(root);
+        if (root->right == NULL) {
+            printNode(pop());
+            root = pop();
+        } else {
+            root = root->right;
+            
+        }
+
+    }
+}
 
 void evaluation(TNode *root){
-    
+    if (root->type == STRING) {
+        return;
+    }
+
     //use the post order to analyze the tree
 
     //evaluate the expression

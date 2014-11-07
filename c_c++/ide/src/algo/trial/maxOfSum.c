@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "myList.h"
+#include "double_linked_list<double>.h"
 
 /* algorithm of max of sub-array
    c implements

@@ -50,27 +50,7 @@ ProductVersion=
 AutoIncBuildNr=0
 SyncProduct=1
 
-[Unit2]
-FileName=getch02.c
-CompileCpp=0
-Folder=Calculator v0.2
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
 [Unit3]
-FileName=getop02.c
-CompileCpp=0
-Folder=Calculator v0.2
-Compile=1
-Link=1
-Priority=1000
-OverrideBuildCmd=0
-BuildCmd=
-
-[Unit4]
 FileName=main02.c
 CompileCpp=0
 Folder=Calculator v0.2
@@ -80,8 +60,18 @@ Priority=1000
 OverrideBuildCmd=0
 BuildCmd=
 
-[Unit5]
+[Unit4]
 FileName=stack02.c
+CompileCpp=0
+Folder=Calculator v0.2
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit5]
+FileName=getch02.2.c
 CompileCpp=0
 Folder=Calculator v0.2
 Compile=1
@@ -92,6 +82,16 @@ BuildCmd=
 
 [Unit1]
 FileName=calc02.h
+CompileCpp=0
+Folder=Calculator v0.2
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit2]
+FileName=getop02.c
 CompileCpp=0
 Folder=Calculator v0.2
 Compile=1

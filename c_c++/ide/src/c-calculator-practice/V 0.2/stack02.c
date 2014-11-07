@@ -2,7 +2,7 @@
 #include "calc02.h"
 #define MAXVAL 100
 
-sp = 0;
+int sp = 0;
 double val [MAXVAL];
 
 void push (double f){

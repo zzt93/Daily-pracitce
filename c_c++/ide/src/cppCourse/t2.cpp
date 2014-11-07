@@ -3,45 +3,46 @@
 #include <cstdlib>
 
 using namespace std;
-
+//TODO: compile and test
 /*
   delete every char in s2 that show in s1
 */
 int squeeze1(char *s1, const char *s2){
     int count = 0, length = 0;
-    char *duS1 = s1;
+    char * const duS1 = s1;
     while(*s1++ != '\0'){
         length++;
     }
-    char *tem = (char *)malloc(sizeof length);
-    bool exit = false;
+    char *tem = (char *)malloc(sizeof(char)* length);
+    bool exist = false;
 
     s1 = duS1;
     while (*s1 != '\0') {
         while (*s2 != '\0') {
             if(*s1 == *s2){
                 count++;
-                exit = true;
+                exist = true;
                 break;
             }
             ++s2;
         }
-        if(!exit){
+        if(!exist){
             *tem++ = *s1;
         }
         ++s1;
     }
     //copy back
+    s1 = duS1;
     while (*tem != '\0') {
-        *duS1++ = *tem++;
+        *s1++ = *tem++;
     }
-    *duS1 = '\0';
+    *s1 = '\0';
     return count;
 }
 
 int squeeze2(char *s1, char *s2){
     int count = 0, length = 0;
-    char *duS1 = s1;
+    char * const duS1 = s1;
     while (*s1++ != '\0') {
         ++length;
     }
@@ -66,9 +67,9 @@ int squeeze2(char *s1, char *s2){
     int last_i = 0;
     int first = 1;
     while (i < length) {
-        if((sign & (1 << i) == 0)&&(last == 1)){
+        if(( (sign & (1 << i)) == 0)&&(last == 1)){
             duS1[last_i++] = duS1[i];
-        } else if((sign & (1 << i) == 1) && last == 0 && first == 1) {
+        } else if(( (sign & (1 << i)) == 1) && last == 0 && first == 1) {
             first++;
             last_i = i;
         }
@@ -88,9 +89,9 @@ int find_replace_str(char *s, const char *find, const char *replace){
     int count = 0;
     size_t lenF = strlen(find);
     size_t lenR = strlen(replace);
-    const char *duf = find;
-    const char *dur = replace;
-    char *dus = s;
+    const char * const duf = find;
+    const char * const dur = replace;
+    char * const dus = s;
     char *ss = s;
     if (lenF > lenR) {
         //find the string and replace it with re+1... then squeeze
@@ -106,7 +107,7 @@ int find_replace_str(char *s, const char *find, const char *replace){
                 find = duf;
                 //copy
                 while (*find != '\0') {
-                    if (replace-dur < lenR) {
+                    if (replace-dur < lenR) {//comparison between signed and unsigned integer expressions [-Wsign-compare]
                         *ss++ = *replace++;
                     } else {
                         *ss++ = '\n';
@@ -134,7 +135,28 @@ int find_replace_str(char *s, const char *find, const char *replace){
                 ++s;// find from next char
             }
         }
+        //allocate space to reserve the string
         char *temp = (char *)malloc(strlen(dus)+count*(lenR-lenF));
+        //copy and replace
+        s = dus;
+        while (*s != '\0') {
+            ss = s;
+            find = duf;
+            replace = dur;
+
+            while (*ss++ == *find++);
+            if (*find == '\0'){
+                strncpy(temp, s, ss-s-strlen(duf));//TODO: let to check the number
+                temp += ss-s-strlen(duf);
+                strcpy(temp, dur);
+                s = ss;
+            } else {
+                strncpy(temp, s, ss-s);
+                temp += ss-s;
+                ++s;
+            }
+        }
+        return count;
     } else {
         while (*s != '\0') {
             ss = s;
@@ -156,22 +178,22 @@ int find_replace_str(char *s, const char *find, const char *replace){
             }
         }
         return count;
-    }         
+    }
 }
 
 int main(int argc, char *argv[])
 {
     if (argc <= 2) {
-        cout << "Usage: ./a.out str str (squeeze)" << endl;
-        cout << "Or: ./a.out str strToFind strToReplace" << endl;
+        cout << "Usage: ./t2 str str (squeeze)" << endl;
+        cout << "Or: ./t2 str strToFind strToReplace" << endl;
     } else if (argc == 3) {
         squeeze1(argv[1], argv[2]);
-        cout << argv[1];
+        cout << argv[1] << endl;
     } else if(argc == 4) {
         find_replace_str(argv[1], argv[2], argv[3]);
-        cout << argv[1];
+        cout << argv[1] << endl;
     } else {
-        cerr << "Too many parameter";
+        cerr << "Too many parameter" << endl;
     }
 
     return 0;

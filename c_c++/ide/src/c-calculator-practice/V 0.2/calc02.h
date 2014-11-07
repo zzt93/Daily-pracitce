@@ -8,7 +8,7 @@ void accumulateN (char c, char s[]);
 int getch (void);
 void ungetch (int);
 void ungets (char s[]);
-void getNormal();
+int getNormal();
 int findCentral(char *, size_t);
 //stack02.c
 extern int sp;

@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = getch02.o getop02.o main02.o stack02.o
-LINKOBJ  = getch02.o getop02.o main02.o stack02.o
+OBJ      = getop02.o main02.o stack02.o getch02.2.o
+LINKOBJ  = getop02.o main02.o stack02.o getch02.2.o
 LIBS     = -L"D:/dev c++/Dev-Cpp/MinGW64/lib" -L"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"D:/dev c++/Dev-Cpp/MinGW64/include" -I"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include"
 CXXINCS  = -I"D:/dev c++/Dev-Cpp/MinGW64/include" -I"D:/dev c++/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/dev c++/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.7.1/include/c++"
@@ -24,9 +24,6 @@ clean: clean-custom
 $(BIN): $(OBJ)
 	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
-getch02.o: getch02.c
-	$(CC) -c getch02.c -o getch02.o $(CFLAGS)
-
 getop02.o: getop02.c
 	$(CC) -c getop02.c -o getop02.o $(CFLAGS)
 
@@ -35,3 +32,6 @@ main02.o: main02.c
 
 stack02.o: stack02.c
 	$(CC) -c stack02.c -o stack02.o $(CFLAGS)
+
+getch02.2.o: getch02.2.c
+	$(CC) -c getch02.2.c -o getch02.2.o $(CFLAGS)
