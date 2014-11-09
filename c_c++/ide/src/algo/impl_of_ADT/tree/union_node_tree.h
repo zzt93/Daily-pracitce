@@ -6,7 +6,7 @@ typedef union {
     char c;
 } Data;
 
-enum Type {DOUBLE, STRING, INT, CHAR};
+typedef enum {DOUBLE, STRING, INT, CHAR} Type;
     
 struct T{
     Data data;

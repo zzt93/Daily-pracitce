@@ -80,7 +80,7 @@ int main(int argc, char ** argv)
 	if (argc != 3) {
 		//regex_text = "([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)";
 		regex_text = "[0-9]+|[.][0-9]+|[0-9]+[.][0-9]+";
-		find_text = "1 + 2\0";
+		find_text = "1 + 2\n";
 	}
 	else {
 		regex_text = argv[1];

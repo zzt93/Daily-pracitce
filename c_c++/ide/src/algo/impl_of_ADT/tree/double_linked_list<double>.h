@@ -8,17 +8,22 @@ struct node{
 };
 
 extern Node head;
+extern Node tail;
 extern Node *ph;
-extern Node *pe;
+extern Node *pt;
 extern size_t size;
 
 void flush(){
     ph = NULL;
+    pt = NULL;
 }
 
 int add(Node *);
+double first();
+double last();
 int insert(int , Node *);
+
 int hasNext(Node *);
 int hasLast(Node *);
-double next(Node *);
-double last(Node *);
+double nextE(Node *);
+double lastE(Node *);

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "union_node_tree.h"
-#include "double_linked_list<double>.h"
+#include "double_linked_list<double>.h"  //use it as a queue here
 #include "treeStack.h"
 
 //for treeNode Stack
@@ -14,6 +14,7 @@ TNode *pop(){
         return stack[--sp];
     } else {
         fprintf(stderr, "no elements");
+        return NULL;
     }
 }
 void push(TNode *t){
@@ -47,26 +48,16 @@ void printNode(TNode *root){
     }
 }
 
-//for list of expression: add at the tail, take at the head
-Node head = {0, NULL, NULL};
-Node *ph = &head;
-
-int add(Node *node){
-}
-double next(Node *){
-}
-
-int main(int argc, char*argv[]){
-}
-
 /*
   make tree from the leaves to root
   return: the pointer to root
 */
 TNode *make_RandomTree(){
+    return NULL;
 }
 
 TNode *make_tree(Data data[]){
+    return NULL;
 }
 
 void preorderRec(TNode *root){
@@ -77,8 +68,10 @@ void preorderRec(TNode *root){
     }
 }
 void preorderLoop(TNode *root){
-    while(root != NULL || !empty()){
-        while (root != NULL) {
+    /*version 1: */
+    //the outer loop has two function: judge the end ; find right
+    while(root != NULL || !empty()){//how to judge a recursion is done? The stack is empty and root == NULL
+        while (root != NULL) {//find left
             printNode(root);
             push(root);
             root = root->left;
@@ -87,6 +80,7 @@ void preorderLoop(TNode *root){
         root = pop()->right;
     }
 }
+
 
 void inorderRec(TNode *root){
     if(root != NULL){
@@ -184,23 +178,88 @@ void postOrderRec(TNode *root){
         printNode(root);
     }
 }
+TNode *print_stack[SIZE];
+int p_sp = 0;
+
+void push_p(TNode *t){
+    if (p_sp < SIZE) {
+        print_stack[p_sp++] = t;
+    } else {
+        puts("stack is full");
+    }
+}
+TNode *pop_p(){
+    if (p_sp > 0) {
+        return print_stack[--p_sp];
+    } else {
+        puts("stack is empty");
+    }
+}
+
+int count_stack[SIZE];
+int c_sp = 0;
+
+void push_c(int i){
+    if (p_sp < SIZE) {
+        count_stack[c_sp++] = i;
+    } else {
+        puts("stack is full");
+    }
+}
+int pop_c(){
+    if (c_sp > 0) {
+        return count_stack[--c_sp];
+    } else {
+        puts("stack is empty");
+    }
+}
 void postOrderLoop(TNode *root){
     while (root != NULL || !empty()) {
-        while (root->left != NULL) {
+        //find the left-most node
+        while (root != NULL) {
             push(root);
+            //version 2:
+            push_c(0);
+            //---
             root = root->left;
         }
-        push(root);
-        if (root->right == NULL) {
-            printNode(pop());
-            root = pop();
+        /*version 1:
+        TNode *temp = pop();
+        push_p(temp);
+        root = temp->right;
+        if(root == NULL){
+            while (p_sp) {
+                printNode(pop_p());
+            }
+        }
+        */
+        TNode *temp = pop();
+        int count = pop_c();
+        if (count == 0) {
+            push(temp);
+            push_c(++count);
+            root = temp->right;
         } else {
-            root = root->right;
-            
+            printNode(temp);
         }
 
     }
 }
+
+//for list of expression: add at the tail, take at the head
+//using as queue
+Node head = {0, NULL, NULL};
+Node tail = {0, NULL, NULL};
+Node *pt = &tail;
+Node *ph = &head;
+
+int add(Node *node){
+    return 0;
+}
+double last(){
+    return 0.0;
+}
+
 
 void evaluation(TNode *root){
     if (root->type == STRING) {
@@ -211,3 +270,40 @@ void evaluation(TNode *root){
 
     //evaluate the expression
 }
+
+int main(int argc, char*argv[]){
+    TNode c = (TNode){{'C'}, CHAR, NULL, NULL};
+    c.data.c = 'C';
+    
+    TNode b =  (TNode){{'C'}, CHAR, NULL, NULL};
+    b.data.c = 'B';
+    
+    TNode e = (TNode){{'C'}, CHAR, NULL, NULL};
+    e.data.c = 'E';
+    
+    TNode d = (TNode){{'D'}, CHAR, NULL, NULL};
+    d.data.c = 'D';
+    
+    TNode a = (TNode){{'A'}, CHAR, NULL, NULL};
+    a.data.c = 'A';
+
+    b.right = &c;
+    a.left = &b;
+    d.left = &e;
+    a.right = &d;
+
+    preorderRec(&a);
+    puts("");
+    inorderRec(&a);
+    puts("");
+    postOrderRec(&a);
+    puts("");
+    preorderLoop(&a);
+    puts("");
+    inorderLoop(&a);
+    puts("");
+    postOrderLoop(&a);
+    
+    return 0;
+}
+
