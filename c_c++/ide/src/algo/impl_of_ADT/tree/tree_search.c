@@ -56,7 +56,16 @@ TNode *make_RandomTree(){
     return NULL;
 }
 
-TNode *make_tree(Data data[]){
+TNode *make_tree(Order order1, Data data1[], Order order2, Data data2[]){
+    if (order1 == PREORDER && order2 == INORDER){
+        
+    } else if (order1 == INORDER && order2 == PREORDER){
+        
+    } else if (order1 == INORDER && order2 == POSTORDER){
+    } else if (order1 == POSTORDER && order2 == INORDER){
+    } else {
+        puts("Wrong order, can't make tree");
+    }
     return NULL;
 }
 
