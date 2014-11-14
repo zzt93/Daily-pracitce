@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "union_node_tree.h"
 #include "double_linked_list<double>.h"  //use it as a queue here
 #include "treeStack.h"
@@ -48,21 +49,121 @@ void printNode(TNode *root){
     }
 }
 
+int data_comp(Type type, Data d1, Data d2){
+    switch(type) {
+        case DOUBLE:
+            if (d1.d > d2.d){
+                return 1;
+            } else if (d1.d == d2.d){
+                return 0;
+            } else {
+                return -1;
+            }
+        case STRING:
+            return strcmp(d1.str, d2.str);
+        case INT:
+            if (d1.i > d2.i){
+                return 1;
+            } else if (d1.i == d2.i){
+                return 0;
+            } else {
+                return -1;
+            }
+        case CHAR:
+            if (d1.c > d2.c){
+                return 1;
+            } else if (d1.c == d2.c){
+                return 0;
+            } else {
+                return -1;
+            }
+      
+        default:
+            puts("no such type");
+            break;
+    }
+    return NULL;
+}
+
 /*
   make tree from the leaves to root
   return: the pointer to root
 */
 TNode *make_RandomTree(){
+    TNode *root = malloc(sizeof(TNode));
+    srand(time(0));
+    int a = rand();
+    root->data.i = a;
     return NULL;
 }
 
-TNode *make_tree(Order order1, Data data1[], Order order2, Data data2[]){
+TNode *make_tree(Type type, Order order1, Data data1[], int size1,  Order order2, Data data2[], int size2){
+    printf("size1:%d, size2:%d\n", size1, size2);
+    if (size1 == size2 && size1 == 1 || size1 == 0) {
+        if (size1 == 0){
+            return NULL;
+        }
+        TNode * temp =  malloc(sizeof(TNode));
+        temp->data = data1[0];
+        temp->left = NULL;
+        temp->right = NULL;
+        temp->type = type;
+        return temp;
+    } else if (size1 != size2){
+        printf("size of two data are different, size1:%d, size2:%d \n", size1, size2);
+    }
+
+    int i = 0;
     if (order1 == PREORDER && order2 == INORDER){
-        
+        while (i < size2) {
+            if(data_comp(type, data1[0], data2[i]) == 0){
+                TNode *root = malloc(sizeof(TNode));
+                root->data = data1[0];
+                root->left = make_tree(type, order1, &data1[1], i, order2, data2, i);
+                root->right = make_tree(type, order1, &data1[i+1], size1-i-1, order2, &data2[i+1], size1-i-1);
+                root->type = type;
+                return root;
+            }
+            ++i;
+        }
     } else if (order1 == INORDER && order2 == PREORDER){
-        
+        while (i < size1) {
+            if(data_comp(type, data2[0], data1[i]) == 0){
+                TNode *root = malloc(sizeof(TNode));
+                root->data = data2[0];
+                root->left = make_tree(type, order1, data1, i, order2, &data2[1], i);
+                root->right = make_tree(type, order1, &data1[i+1], size1-i-1, order2, &data2[i+1], size1-i-1);
+                root->type = type;
+                return root;
+            }
+            ++i;
+        }
+
     } else if (order1 == INORDER && order2 == POSTORDER){
+         while (i < size1) {
+            if(data_comp(type, data2[size2-1], data1[i]) == 0){
+                TNode *root = malloc(sizeof(TNode));
+                root->data = data2[size2-1];
+                root->left = make_tree(type, order1, data1, i, order2, data2, i);
+                root->right = make_tree(type, order1, &data1[i+1], size1-i-1, order2, &data2[i], size1-i-1);
+                root->type = type;
+                return root;
+            }
+            ++i;
+         }
+
     } else if (order1 == POSTORDER && order2 == INORDER){
+        while (i < size2) {
+            if(data_comp(type, data1[size2-1], data2[i]) == 0){
+                TNode *root = malloc(sizeof(TNode));
+                root->data = data1[size1-1];
+                root->left = make_tree(type, order1, data1, i, order2, data2, i);
+                root->right = make_tree(type, order1, &data1[i], size1-i-1, order2, &data2[i+1], size1-i-1);
+                root->type = type;
+                return root;
+            }
+            ++i;
+        }
     } else {
         puts("Wrong order, can't make tree");
     }
@@ -115,69 +216,18 @@ void inorderLoop(TNode *root){
   place the node at the right place
 */
 void sort_tree(TNode *root, Data data, Type t){
-    switch(t) {
-        case STRING:{
-            char *s = data.str;
-            while(root != NULL){
-                if(strcmp(s, root->data.str) > 0){
-                    root = root->right;
-                } else {
-                    root = root->left;
-                }
-            }
-            TNode *temp = malloc(sizeof(TNode));
-            temp->data.str = s;
-            temp->type = STRING;
-            break;
+    while (root != NULL) {
+        if (data_comp(t, data, root->data) > 0) {
+            root = root->right;
+        } else {
+            root = root->left;
         }
-        case DOUBLE:{
-            double d = data.d;
-            while(root != NULL){
-                if(d > root->data.d){
-                    root = root->right;
-                } else {
-                    root = root->left;
-                }
-            }
-            TNode *temp = malloc(sizeof(TNode));
-            temp->data.d = d;
-            temp->type = STRING;
- 
-            break;
-        }
-        case INT:{
-            int i = data.i;
-            while(root != NULL){
-                if(i > root->data.i){
-                    root = root->right;
-                } else {
-                    root = root->left;
-                }
-            }
-            TNode *temp = malloc(sizeof(TNode));
-            temp->data.i = i;
-            temp->type = STRING;
 
-            break;
-        }
-        case CHAR:{
-            char c = data.c;
-            while(root != NULL){
-                if(c > root->data.c){
-                    root = root->right;
-                } else {
-                    root = root->left;
-                }
-            }
-            TNode *temp = malloc(sizeof(TNode));
-            temp->data.c = c;
-            temp->type = STRING;
-            break;
-        }
-        default:
-            fprintf(stderr, "no such type");
-            break;
     }
+    root = malloc(sizeof(TNode));
+    root->data = data;
+    root->type = t;
+    return;
 }
 
 void postOrderRec(TNode *root){
@@ -202,6 +252,7 @@ TNode *pop_p(){
         return print_stack[--p_sp];
     } else {
         puts("stack is empty");
+        return NULL;
     }
 }
 
@@ -220,6 +271,7 @@ int pop_c(){
         return count_stack[--c_sp];
     } else {
         puts("stack is empty");
+        return 0;
     }
 }
 void postOrderLoop(TNode *root){
@@ -281,7 +333,7 @@ void evaluation(TNode *root){
 }
 
 int main(int argc, char*argv[]){
-    TNode c = (TNode){{'C'}, CHAR, NULL, NULL};
+    /*    TNode c = (TNode){{'C'}, CHAR, NULL, NULL};
     c.data.c = 'C';
     
     TNode b =  (TNode){{'C'}, CHAR, NULL, NULL};
@@ -295,23 +347,47 @@ int main(int argc, char*argv[]){
     
     TNode a = (TNode){{'A'}, CHAR, NULL, NULL};
     a.data.c = 'A';
-
+    */
+    /*
     b.right = &c;
     a.left = &b;
     d.left = &e;
     a.right = &d;
+    */
+    Data pre_data[5] = {
+        {.c = 'A'},
+        {.c = 'B'},
+        {.c = 'C'},
+        {.c = 'D'},
+        {.c = 'E'},
+    };
+    Data in_data[5] = {
+        {.c = 'B'},
+        {.c = 'C'},
+        {.c = 'A'},
+        {.c = 'E'},
+        {.c = 'D'},
+    };
+    Data post_data[5] = {
+        {.c = 'C'},
+        {.c = 'B'},
+        {.c = 'E'},
+        {.c = 'D'},
+        {.c = 'A'},
+    };
 
-    preorderRec(&a);
+    TNode * root = make_tree(CHAR, PREORDER, pre_data, 5, INORDER, in_data, 5);
+    preorderRec(root);
     puts("");
-    inorderRec(&a);
+    inorderRec(root);
     puts("");
-    postOrderRec(&a);
+    postOrderRec(root);
     puts("");
-    preorderLoop(&a);
+    preorderLoop(root);
     puts("");
-    inorderLoop(&a);
+    inorderLoop(root);
     puts("");
-    postOrderLoop(&a);
+    postOrderLoop(root);
     
     return 0;
 }

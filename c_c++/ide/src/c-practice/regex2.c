@@ -46,14 +46,11 @@ static int match_regex (regex_t * r, const char * to_match)
 			printf ("No more matches.\n");
 			return nomatch;
 		}
-if(m[1].rm_so == -1){
-printf("...");
-}
 		for (i = 0; i < n_matches; i++) {
 			int start;
 			int finish;
 			if (m[i].rm_so == -1) {
-				printf("break ");
+				printf("break \n");
 				break;
 			}
 			start = m[i].rm_so + (p - to_match);
@@ -76,11 +73,13 @@ int main(int argc, char ** argv)
 {
 	regex_t r;
 	const char * regex_text;
+	const char * regex_text0;
 	const char * find_text;
 	if (argc != 3) {
 		//regex_text = "([[:digit:]]+)[^[:digit:]]+([[:digit:]]+)";
+        regex_text0 = "[0-9]+|\\.[0-9]+|[0-9]+\\.[0-9]";
 		regex_text = "[0-9]+|[.][0-9]+|[0-9]+[.][0-9]+";
-		find_text = "1 + 2\0";
+		find_text = "1.0 + 2.3\0";
 	}
 	else {
 		regex_text = argv[1];
@@ -89,6 +88,12 @@ int main(int argc, char ** argv)
 	printf ("Trying to find '%s' in '%s'\n", regex_text, find_text);
 	compile_regex(& r, regex_text);
 	match_regex(& r, find_text);
+
+    
+	printf ("Trying to find '%s' in '%s'\n", regex_text0, find_text);
+    compile_regex(& r, regex_text0);
+	match_regex(& r, find_text);
+    
 	regfree (& r);
 	return 0;
 }

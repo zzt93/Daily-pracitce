@@ -1,9 +1,9 @@
 
 typedef union {
     double d;
+    char c;
     char *str;
     int i;
-    char c;
 } Data;
 
 typedef enum {DOUBLE, STRING, INT, CHAR} Type;
