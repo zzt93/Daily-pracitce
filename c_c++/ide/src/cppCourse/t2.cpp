@@ -1,23 +1,27 @@
 #include <iostream>
+#include <cassert>
 #include <cstring>
 #include <cstdlib>
 
 using namespace std;
-//TODO: compile and test
 /*
   delete every char in s2 that show in s1
 */
 int squeeze1(char *s1, const char *s2){
     int count = 0, length = 0;
     char * const duS1 = s1;
+    const char * const duS2 = s2;
     while(*s1++ != '\0'){
         length++;
     }
     char *tem = (char *)malloc(sizeof(char)* length);
+    char * const dut = tem;
     bool exist = false;
 
     s1 = duS1;
     while (*s1 != '\0') {
+        exist = false;
+        s2 = duS2;
         while (*s2 != '\0') {
             if(*s1 == *s2){
                 count++;
@@ -33,24 +37,30 @@ int squeeze1(char *s1, const char *s2){
     }
     //copy back
     s1 = duS1;
+    tem = dut;
     while (*tem != '\0') {
         *s1++ = *tem++;
     }
     *s1 = '\0';
+    //    cout << duS1 << endl;
     return count;
 }
 
+// TODO : compile and test
 int squeeze2(char *s1, char *s2){
     int count = 0, length = 0;
     char * const duS1 = s1;
+    char * const duS2 = s2;
     while (*s1++ != '\0') {
         ++length;
     }
 
     long sign = 0;//employ the every bit to mark whether it is duplicated
+    assert(length <= 64);
     //assume that length is smaller than 64
     s1 = duS1;
     while (*s1 != '\0') {
+        s2 = duS2;
         while (*s2 != '\0') {
             if(*s1 == *s2){
                 count++;
@@ -61,13 +71,13 @@ int squeeze2(char *s1, char *s2){
         }
         ++s1;
     }
-    //copy in original array
+    //copy to original array
     int i = 0;
     int last = 0;
     int last_i = 0;
     int first = 1;
     while (i < length) {
-        if(( (sign & (1 << i)) == 0)&&(last == 1)){
+        if( ((sign & (1 << i)) == 0) && (last == 1) ){
             duS1[last_i++] = duS1[i];
         } else if(( (sign & (1 << i)) == 1) && last == 0 && first == 1) {
             first++;
@@ -76,9 +86,11 @@ int squeeze2(char *s1, char *s2){
         last = sign & (1 << i);
         ++i;
     }
+    //    cout << duS1 << endl;
     return count;
 }
 
+// TODO : compile and test
 /*
   we assume that:
   1.when the length of replace is larger than that of find,
@@ -119,6 +131,7 @@ int find_replace_str(char *s, const char *find, const char *replace){
             }
         }
         squeeze1(dus, "\n");
+        cout << dus << endl;
         return count;
     } else if (lenR > lenF) {
         //first find how many times need to expand the string, then copy from and back
@@ -156,6 +169,7 @@ int find_replace_str(char *s, const char *find, const char *replace){
                 ++s;
             }
         }
+        cout << dus << endl;
         return count;
     } else {
         while (*s != '\0') {
@@ -177,6 +191,7 @@ int find_replace_str(char *s, const char *find, const char *replace){
                 ++s;// find from next char
             }
         }
+        cout << dus << endl;
         return count;
     }
 }
@@ -187,11 +202,10 @@ int main(int argc, char *argv[])
         cout << "Usage: ./t2 str str (squeeze)" << endl;
         cout << "Or: ./t2 str strToFind strToReplace" << endl;
     } else if (argc == 3) {
-        squeeze1(argv[1], argv[2]);
-        cout << argv[1] << endl;
+        //        cout << argv[1] << " " << squeeze1(argv[1], argv[2]) <<endl;
+        cout << argv[1] << " " << squeeze2(argv[1], argv[2]) <<endl;
     } else if(argc == 4) {
-        find_replace_str(argv[1], argv[2], argv[3]);
-        cout << argv[1] << endl;
+        cout << argv[1] << " " << find_replace_str(argv[1], argv[2], argv[3]) << endl;
     } else {
         cerr << "Too many parameter" << endl;
     }

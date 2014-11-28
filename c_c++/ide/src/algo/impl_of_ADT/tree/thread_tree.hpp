@@ -1,8 +1,8 @@
 
 template <class T>
-struct Thread_tree {
+class Thread_tree {
 
-    struct Thread_node {
+    class Thread_node {
         T t;
         Thread_node * left;
         Thread_node *right;
@@ -10,4 +10,18 @@ struct Thread_tree {
     };
 
     void in_order();
+    void pre_order();
+    void post_order();
+
+public:
+    //default is in_order
+    void in_order_thread();
+
+    //make to pre_order by updating index
+    void make_pre_order();
+    void pre_order_thread();
+
+    //make to post_order by updating index
+    void make_post_order();
+    void post_order_thread();
 };

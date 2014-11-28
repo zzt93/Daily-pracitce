@@ -12,6 +12,8 @@
 
 /*
   TODO: test
+  failed:((3+5)/(1+1)-2)
+	(3+5)/(1+1)-2   matchParen match 6 - 10
 */
 
 char buf[BUFSIZE];
@@ -138,7 +140,6 @@ char stack[BUFSIZE];
 int matchParen(char *contentBuf, size_t len, int *start, int *end){
     size_t i = 0;
     int hasParen = 0;
-    int countPop = 0;
     *end = -1;
     *start = 0;
     //first part: check whether the parenthesis is in pairs
@@ -150,8 +151,7 @@ int matchParen(char *contentBuf, size_t len, int *start, int *end){
             }
         }else if(contentBuf[i] == ')'){//the second part: find the first pair legal ()
             hasParen = 1;
-            countPop++;
-            if(countPop == 1){//the first pair of parenthesis
+            if(spParen == 1){//the out-most pair of parenthesis
                 *end = i+1;
                 if((*start = popParen()) == -1){//means that there is no a '(' is before first ')'
                     return -1;
@@ -204,7 +204,8 @@ int findCentral (char *inputStr, size_t size) {
 
     // TODO : tested --  1+2 , (1+2)
     //        tested --  1.2 + 2.2
-    //        failed --  (1+2) * 3 -- wrong result 3
+    //        tested --  (1+2) * 3
+    //        failed --  ((3+5)/(2+2)-2)
 	//cases not to recur: 1; (-1); -1.1  --> just one operand
 	//cases needing recursion: 1+2; 1.1*2.2; (-1)*2; -1*2; -(1+2) ; ((1+2)*3)-4; 1*(2-3); (1+2)*(3-4)
 	switch (judgeR (recurBuf, &i)) {

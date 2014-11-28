@@ -8,7 +8,7 @@
 
 int main(int argc, char const *argv[])
 {
-    puts("(calculator v0.2.1)");
+    puts("(calculator v0.2)");
     puts("enter the expression:");
 	int type;
 	double op2;

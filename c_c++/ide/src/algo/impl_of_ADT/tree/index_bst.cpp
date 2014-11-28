@@ -8,10 +8,12 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-bool Index_tree::has(T t){
+template <class T>
+bool Index_tree<T>::has(T t){
+    return false;
 }
 
-bool deleteNode(T t){
+bool Index_tree<T>::deleteNode(T t){
     if (!has(t)) {
         return false;
     } else {
