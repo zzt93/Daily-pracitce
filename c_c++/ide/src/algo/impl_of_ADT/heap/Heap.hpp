@@ -1,19 +1,26 @@
+#include <iostream>
+#include "binary_tree.hpp"
 
-Template <class T>
+template <class T>
+class Hnode: public Tree_node<T>{
+public:
+    Hnode(T t):Tree_node<T>(t){}
+}
+    
+template <class T>
 class Heap{
 
-    Node root;
-    
-    class Node{
-    };
+    Hnode* root;
     
 public:
-    Heap();
-    Heap(Heap&);
+    Heap():root(NULL){
+    }
+    Heap(T[]);
+    Heap(const Heap&);
     virtual ~Heap();
 
-    void initialize(T[]);
     T& top();
+    T pop();
     void add(T);
 
     void percolate_down();

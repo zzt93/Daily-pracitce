@@ -16,6 +16,8 @@ extern size_t size;
 void flush(){
     ph = NULL;
     pt = NULL;
+
+
 }
 
 int add(Node *);

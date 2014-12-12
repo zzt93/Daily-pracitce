@@ -2,35 +2,16 @@
 #include <fstream>
 #include "index_bst.hpp"
 
+using std::endl;
+using std::cout;
+
 int main(int argc, char *argv[])
 {
-    
+    Index_tree_node<int> a(1);
+    cout << a.data() << endl;
+    int ar[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    Index_tree<int> t(ar, sizeof(ar)/ar[0]);
+    cout << t;
     return 0;
 }
 
-template <class T>
-bool Index_tree<T>::has(T t){
-    return false;
-}
-
-bool Index_tree<T>::deleteNode(T t){
-    if (!has(t)) {
-        return false;
-    } else {
-        Index_tree_node * temp = find(t);
-        if(temp->left){
-            //the node is leaf
-        } else if(){
-            //the node has one children
-        } else {
-            //the node has two children
-        }
-    }
-}
-
-/*
-  params: generic type
-  return value: the pointer to t's father
-*/
-Index_tree_node * find(T t){
-}
