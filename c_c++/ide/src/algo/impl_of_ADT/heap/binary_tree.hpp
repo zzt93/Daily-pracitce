@@ -1,5 +1,7 @@
 #include <iostream>
 
+template <class T>
+class Heap;
 
 template <class T>
 class Tree_node{
@@ -21,10 +23,10 @@ public:
     Tree_node(const Tree_node& n): mdata(n.data()), mleft(NULL), mright (NULL){
     }
 
-    Tree_node<T> *left(){
+    Tree_node<T> *left() const{
         return mleft;
     }
-    Tree_node<T> *right(){
+    Tree_node<T> *right() const{
         return mright;
     }
     void set_left(Tree_node<T> *l){
@@ -36,9 +38,13 @@ public:
     void set_data(T t){
         mdata = t;
     }
-    T data(){
+    T data() const{
         return mdata;
     }
+
+
+    //friend
+    friend class Heap<T>;
 };
 
 
