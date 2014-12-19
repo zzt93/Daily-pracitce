@@ -176,10 +176,14 @@ void Heap<T>::percolate_up(int i){
     }
 }
 
+/*
+  This method is not right for the time being
+  because the algorithm of this method is not clear enough now
+*/
 template <class T>
 void Heap<T>::adjust_to_heap_up(){
     int last = nodes.size()-1;
-    for(int i = last; i > last/2; i-=2){
+    for(int i = last; i > last/2; i-=1){//the step of i is not in clarity
         percolate_up(i);
     }
 }
