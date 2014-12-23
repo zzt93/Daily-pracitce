@@ -10,6 +10,9 @@ template <class T>
 class Index_tree_node: public Tree_node<T>{//inherit with type params
     int left_size;
 
+    void set_size(int i){
+        left_size = i;
+    }
     void set_data(T t){
         Tree_node<T>::set_data(t);
     }
@@ -47,17 +50,25 @@ public:
     }
 };
 
+
+
+/*
+  This tree is convenient for find the ordinal of a element.
+  left node <= fa < right node
+*/
 template <class T>
 class Index_tree {
 
     Index_tree_node<T> *m_root;
 
-    Index_tree_node<T> *find(T t);
+    Index_tree_node<T> *find(T t);//find the node contains the element
+    Index_tree_node<T> *find_position(T);//find the father of node contains the element
     void delete_tree(Index_tree_node<T> *root);
     Index_tree_node<T> *copy_tree(const Index_tree_node<T> *root);
     void set_root(Index_tree_node<T> *root){
         m_root = root;
     }
+    int count_tree(Index_tree_node<T>*);
 public:
     Index_tree(): m_root(NULL){}
     Index_tree(T a): m_root(Index_tree_node<T>(a)){}
@@ -108,6 +119,7 @@ public:
     bool empty() const{
         return m_root==NULL;
     }
+    bool add(T);
 };
 
 
@@ -129,7 +141,21 @@ Index_tree<T>::Index_tree(T* t, int size){
         nodes[i]->set_right(nodes[2*i+2]);
     }
     m_root = nodes[0];
-    //TODO add the left size
+    //add the left size
+    for (int i = 0; i < size; i++) {
+        nodes[i]->set_size( count_tree(nodes[i]->left()) );
+    }
+    //TODO sort the tree
+    
+}
+
+template <class T>
+int Index_tree<T>::count_tree(Index_tree_node<T>* root){
+    if (root == NULL){
+        return 0;
+    }
+    //std::cout << root->data() << std::endl;
+    return count_tree(root->left())+count_tree(root->right()) + 1;//the root
 }
 
 template <class T>
@@ -159,31 +185,101 @@ void Index_tree<T>::delete_tree(Index_tree_node<T> *root){
 
 template <class T>
 bool Index_tree<T>::has(T t) const{
+    if (find(t) != NULL){
+        return true;
+    }
     return false;
 }
 
 template <class T>
 bool Index_tree<T>::deleteNode(T t){
+    //TODO
     if (!has(t)) {
         return false;
     } else {
         Index_tree_node<T> * temp = find(t);
-        if(temp->left == NULL &&
-           temp->right == NULL){
+        int nums = count_child(temp);
+        if(nums == 0){
             //the node is leaf
-        } else if(temp->left == NULL ||
-                  temp->right == NULL){
+        } else if(nums == 1){
             //the node has one children
         } else {
             //the node has two children
         }
+        return true;
     }
 }
 
 /*
   params: generic type
-  return value: the pointer to the node of t
+  return value: the pointer to the first node that has value of t
 */
 template <class T>
 Index_tree_node<T> * Index_tree<T>::find(T t){
+    Index_tree_node<T> * root = root();
+    while (root != NULL){
+        if (root->data() > t) {
+            root = root->left();
+        } else if (root->data() < t){
+            root = root->right();
+        } else {
+            return root;
+        }
+    }
+    if (root == NULL){
+        return NULL;
+    }
+}
+
+template <class T>
+Index_tree_node<T> * Index_tree<T>::find_position(T t){
+    if (root() == NULL){
+        return NULL;
+    }
+    Index_tree_node<T> * fa = root();
+    Index_tree_node<T> * root = root();
+    while (root != NULL){
+        if (root->data() > t) {
+            fa = root;
+            root = root->left();
+        } else {
+            fa = root;
+            root = root->right();
+        }
+    }
+    return fa;
+}
+
+/*
+  if the root has children and equals the t
+  we can't just set the left
+*/
+template <class T>
+bool Index_tree<T>::add(T t){
+    Index_tree_node<T> *now = new Index_tree_node<T>(t);
+    //find the father of the right node
+    Index_tree_node<T> * fa = find_position(t);
+    if (fa == NULL) {
+        set_root(now);
+    } else if(fa->data() < t){
+        fa->set_left(now);
+    } else {
+        fa->set_right(now);
+    }
+    return true;
+}
+
+
+/*
+  return: the numbers of direct childern, ie 0, 1 or 2
+*/
+template <class T>
+int count_child(Tree_node<T> *fa){
+    if (fa->left() != NULL && fa->right() != NULL){
+        return 2;
+    } else if (fa->left() != NULL || fa->right() != NULL){
+        return 1;
+    } else {
+        return 0;
+    }
 }

@@ -16,7 +16,8 @@ int main(int argc, char *argv[])
     //cout << t2;
     Index_tree<int> t3;
     t3 = t2;
-    cout << t3;
+    //   cout << t3;
+    cout << t.root()->left()->ordinal() << endl;
     return 0;
 }
 
