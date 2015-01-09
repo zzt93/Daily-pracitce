@@ -1,6 +1,0 @@
-1.
-./pro1 > output (if no this file, it will be created)
-
-2.
-./pro1 | ./pro2
-pipe the output of pro1 to the standard input of pro2

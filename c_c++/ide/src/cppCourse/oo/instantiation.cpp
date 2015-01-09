@@ -1,10 +1,11 @@
 #include <iostream>
+#include "instantiation.hpp"
 
 using std::cout;
 using std::endl;
 
 template <class T>
-T max_zzt(T t1, T t2){
+T my_max(T t1, T t2){
     return (t1>t2)?t1:t2;
 }
 
@@ -15,6 +16,10 @@ int main(int argc, char *argv[])
     return 0;
 }
 */
+
+// explicit instantiation
+// template double my_max(double, double);
+
 void use_max(){
-    cout << max_zzt(1.1, 2.1);
+    cout << my_max(1.1, 2.1);
 }
