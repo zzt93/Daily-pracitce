@@ -1,0 +1,11 @@
+GPP = g++
+CPPFLAGS = -g -O1
+
+CFILES  = $(shell find src/ -name "*.cpp")
+
+using_instantiation: $(CFILES)
+	$(GPP) $(CPPFLAGS) $(CFILES) -o using_instantiation
+
+run: $(using_instantiation)
+	./using_instantiation
+
