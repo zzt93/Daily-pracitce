@@ -26,11 +26,11 @@ private:
     static const int inf = INT_MAX;//std::numeric_limits<int>::max();
     
 public:
-    Edge(Vertex<K, V>& o, Vertex<K, V>& a, int w=1)
-        : one_side(&o), ano_side(&a),  weight(w){
-        o.set_adj(&a);
-        o.set_out(this);
-        a.set_in(this);
+    Edge(Vertex<K, V>* o, Vertex<K, V>* a, int w=1)
+        : one_side(o), ano_side(a),  weight(w){
+        o->set_adj(a);
+        o->set_out(this);
+        a->set_in(this);
     }
 
     /* const functions */

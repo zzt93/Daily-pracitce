@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 #include "vertex.hpp"
 #include "edge.hpp"
 
 using std::vector;
 using std::map;
+using std::set;
 using std::cout;
 using std::endl;
 
@@ -13,10 +15,10 @@ using std::endl;
 template <class K, class V>
 class Digraph {
 private:
-    map< K, Vertex<K, V> > vertices;
-    vector< Edge<K, V> > edges;
+    map< K, Vertex<K, V>* > vertices;
+    vector< Edge<K, V>* > edges;
 
-    map< K, bool > search_map;
+    set<K> search_set;
     template <class O>
     void dfs(Vertex<K, V>*, O);
 public:
@@ -26,29 +28,28 @@ public:
     //
     template <class O>
     void all_vertices(O o) const{
-        for (auto v: vertices) {
+        for (auto& v: vertices) {
             *o++ = v.second;
         }
     }
     
-    bool add_vertex(const Vertex<K, V>& v){
+    bool add_vertex(Vertex<K, V>* const v){
         if (has(v)) {
             return false;
         }
-
-        vertices[v.key()] = v;
+        vertices[v->key()] = v;
         return true;
     }
-    bool has(const Vertex<K, V>& v) const{
-        if (vertices.find(v.key()) == vertices.end()){
+    bool has(const Vertex<K, V>* v) const{
+        if (vertices.find(v->key()) == vertices.end()){
             return false;
         }
         return true;
     }
-    void add_edge(const Edge<K, V>& e){
+    void add_edge(Edge<K, V>* const e){
         edges.push_back(e);
     }
-    int add_vertices(const vector< Vertex<K, V> >& vs){
+    int add_vertices(const vector< Vertex<K, V>* >& vs){
         int o_size = vertices.size();
         for (unsigned int i = 0;i < vs.size(); ++i) {
             add_vertex(vs[i]);
@@ -56,7 +57,7 @@ public:
         int gap = vertices.size() - o_size;
         return gap;
     }
-    void add_edges(const vector< Edge<K, V> >& es){
+    void add_edges(const vector< Edge<K, V>* >& es){
         for (unsigned int i = 0;i < es.size(); ++i) {
             add_edge(es[i]);
         }
@@ -79,8 +80,8 @@ void Digraph<K, V>::dfs(O o, K k){
         cout << "no such vertex now" << endl;
         return;
     }
-    Vertex<K, V> first = vertices.find(k)->second;
-    dfs(&first, o);
+    Vertex<K, V>* first = vertices.find(k)->second;
+    dfs(first, o);
 }
 
 template <class K, class V>
@@ -88,11 +89,11 @@ template <class O>
 void Digraph<K, V>::dfs(Vertex<K, V>* v, O o){
     //cout << v->key() << endl;
     *o++ = v;
-    if (search_map.find(v->key()) != search_map.end()){//check whether it is travelled
+    if (search_set.find(v->key()) != search_set.end()){//check whether it is travelled
         *o++ = NULL;
         return;
     }
-    search_map[v->key()] = true;//set traversal true;
+    search_set.insert(v->key());//set traversal true;
     
     v->restart();// make the iterator has been correctly set
     while (v->has_next()){

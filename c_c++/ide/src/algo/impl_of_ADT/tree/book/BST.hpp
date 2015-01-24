@@ -1,6 +1,9 @@
 #include <iostream>
 
 template <class E, class K>
+class BST;
+
+template <class E, class K>
 class BSTNode {
 private:
     E data;
@@ -10,10 +13,10 @@ private:
     BSTNode(const BSTNode& n){
         data = n.get_data();
         key = n.get_key();
-        if (n.*left != NULL){
+        if (n.left != NULL){
             left = new BSTNode<E, K>(n.*left);
         }
-        if (n.*right != NULL){
+        if (n.right != NULL){
             right = new BSTNode<E, K>(n.*right);
         }
     }
@@ -27,8 +30,8 @@ public:
         right = r;
     }
     virtual ~BSTNode(){
-        delete[] left;
-        delete[] right;
+        delete left;
+        delete right;
     }
     
     void set_data(E d){
@@ -48,7 +51,7 @@ public:
     bool operator > (BSTNode<E, K>& n);
     bool operator == (BSTNode<E, K>& n);
 
-    friend class BST;
+    friend class BST<E, K>;
 };
 
 template <class E, class K>
@@ -70,19 +73,21 @@ private:
     BSTNode<E, K> *root;
 
     BSTNode<E, K> *search(BSTNode<E, K> *ptr, const K k);
-    void make_empty(BSTNode<E, K> *& ptr);
+    void make_empty(BSTNode<E, K> * ptr);
     void print_tree(BSTNode<E, K> ptr);
-    bool insert(BSTNode<E, K> *& ptr, const E& e, const K& k);
-    bool remove(BSTNode<E, K> *& prt, const K& k);
+    bool insert(BSTNode<E, K> * ptr, BSTNode<E, K>*);
+    bool remove(BSTNode<E, K> * prt, const K& k);
     
     BSTNode<E, K> * copy(const BSTNode<E, K> *ptr);
     BSTNode<E, K> * max(BSTNode<E, K> *ptr) const;
     BSTNode<E, K> * min(BSTNode<E, K> *ptr) const;
+    template <class Out>
+    void inorder(Out o, BSTNode<E, K>*);
 public:
     BST():root(NULL){}
     BST(K value);
     virtual ~BST(){
-        delete[] root;
+        delete root;
     }
     BST(const BST& tree){
         root = new BSTNode<E, K>(tree.root);
@@ -103,7 +108,22 @@ public:
     bool insert(const E& e, const K& k){
         return insert(root, new BSTNode<E, K>(e, k));
     }
-    bool remove(const K x){
+    bool remove(const K& x){
         return remove(root, x);
     }
+
+    template <class Out>
+    void in_order(Out o){
+        inorder(o, root);
+    }
 };
+
+template <class E, class K>
+template <class Out>
+void inorder(Out o, BSTNode<E, K>* root){
+    while (root != NULL){
+        //TODO
+        *o++ = root;
+    }
+}
+
