@@ -88,7 +88,7 @@ public:
     
     char& operator[] (unsigned int i);
     char operator[] (unsigned int i) const;
-
+    
     //TODO implement it
     unsigned int copy(char *s, unsigned int len, unsigned int pos=0);
     my_string& erase(unsigned int s = 0, unsigned int count = END);

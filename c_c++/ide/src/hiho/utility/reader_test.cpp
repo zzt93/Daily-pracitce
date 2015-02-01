@@ -42,7 +42,7 @@ void test_file_reader(){
 }
 int main(int argc, char *argv[])
 {
-    //test_console_reader();
-    test_file_reader();
+    test_console_reader();
+    //test_file_reader();
     return 0;
 }

@@ -1,3 +1,8 @@
+#ifndef _UTILITY_FILE_RAEDER_
+#define _UTILITY_FILE_RAEDER_
+
+
+
 #include <iostream>
 #include <exception>
 #include <fstream>
@@ -83,3 +88,5 @@ public:
         mlines.clear();
     }
 };
+
+#endif /* _UTILITY_FILE_RAEDER_ */

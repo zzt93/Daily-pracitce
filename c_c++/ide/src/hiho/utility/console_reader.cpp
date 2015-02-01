@@ -1,3 +1,8 @@
+#ifndef _UITILITY_CONSOLE_READER_
+#define _UITILITY_CONSOLE_READER_
+
+
+
 #include <iostream>
 #include <string>
 #include <vector>
@@ -27,7 +32,23 @@ public:
         }
         return cin;
     }
-
+    istream& next_int(int& i){
+        string s;
+        cin >> s;
+        if (cin){
+            i =  std::stoi(s);
+        }
+        return cin;
+    }
+    istream& next_double(double& d){
+        string s;
+        cin >> s;
+        if (cin){
+            d = std::stod(s);
+        }
+        return cin;
+    }
+ 
     istream& next_line(string& s) {
         getline(cin, s);
         mlines.push_back(s);
@@ -57,3 +78,5 @@ public:
         mlines.clear();
     }
 };
+
+#endif /* _UITILITY_CONSOLE_READER_ */
