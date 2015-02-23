@@ -19,6 +19,7 @@ public:
     virtual istream& readlines() = 0;
     virtual vector<string> lines() const = 0;
     virtual vector<string> words() const = 0;
+    virtual istream& next_int(int& i) = 0;
 
 };
 

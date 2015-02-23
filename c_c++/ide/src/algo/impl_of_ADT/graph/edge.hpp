@@ -24,13 +24,15 @@ private:
 
     // to represent the infinite
     static const int inf = INT_MAX;//std::numeric_limits<int>::max();
-    
-public:
-    Edge(Vertex<K, V>* o, Vertex<K, V>* a, int w=1)
-        : one_side(o), ano_side(a),  weight(w){
+    void setV(Vertex<K, V>* o, Vertex<K, V>* a, int w=1) {
         o->set_adj(a);
         o->set_out(this);
         a->set_in(this);
+    }
+public:
+    Edge(Vertex<K, V>* o, Vertex<K, V>* a, int w=1)
+        : one_side(o), ano_side(a),  weight(w){
+        setV(o, a);
     }
 
     /* const functions */
@@ -41,7 +43,12 @@ public:
         return ano_side;
     }
 
-    
+    void reverse() {
+        one_side->remove_adj(ano_side);
+        one_side->remove_out(this);
+        ano_side->remove_in(this);
+        setV(ano_side, one_side);
+    }
 };
 
 #endif

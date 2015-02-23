@@ -17,7 +17,7 @@ using std::string;
 using std::istream;
 using std::ios;
 
-class File_reader: Reader {
+class File_reader: public Reader {
     vector<string> mlines;
     vector<string> mwords;
     string path;

@@ -9,6 +9,7 @@ using std::endl;
 */
 Union::Union(unsigned int n){
     size = n;
+    component = size;
     a = new int[n];
     for (unsigned int i = 0; i < size; ++i) {
         a[i] = i;
@@ -26,6 +27,7 @@ void Union::unio(int p, int q){
     if (connected(p, q)){
         return;
     }
+    component--;
     int aim = find(p);
     int src = find(q);
     for (unsigned int i = 0; i < size; ++i) {

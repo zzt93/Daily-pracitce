@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <vector>
 #include "reader.cpp"
 
@@ -14,13 +15,22 @@ using std::cin;
 using std::string;
 using std::istream;
 
-class Console_reader: Reader {
+class Console_reader: public Reader {
     vector<string> mlines;
     vector<string> mwords;
 
 public:
     Console_reader(){}
 
+    
+    /*
+      args: {:}
+      return value: the reference of istream
+      Usage: use like the following example
+      while (next_word(str)) {
+         cout << s << " ";
+      }
+    */
     istream& next_word(string& s) {
         cin >> s;
         mwords.push_back(s);
@@ -48,7 +58,6 @@ public:
         }
         return cin;
     }
- 
     istream& next_line(string& s) {
         getline(cin, s);
         mlines.push_back(s);
@@ -60,6 +69,32 @@ public:
         }
         return cin;
     }
+    
+    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+        std::stringstream ss(s);
+        std::string item;
+        while (std::getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+
+    std::vector<std::string> split(const std::string &s, char delim) {
+        std::vector<std::string> elems;
+        split(s, delim, elems);
+        return elems;
+    }
+
+    std::vector<std::string> split(const std::string &s) {
+        std::stringstream ss(s);
+        std::string item;
+        vector<string> elems;
+        while (ss >> item) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+    
     vector<string> lines() const{
         return mlines;
     }

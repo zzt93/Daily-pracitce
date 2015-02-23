@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cassert>
 #include "union.hpp"
 
 using std::cout;
@@ -14,9 +15,7 @@ using std::endl;
 Union::Union(unsigned int n){
     size = n;
     a = new int[size];
-    for (unsigned int i = 0; i < size; ++i) {
-        a[i] = -1;//the size = 1;
-    }
+    reset();
 }
 
 int Union::find(int p){
@@ -37,6 +36,8 @@ void Union::unio(int p, int q){
     if (connected(p, q)){
         return;
     }
+    // change the component
+    component--;
     int aim = find(p);
     int src = find(q);
     int size1 = -a[aim];
@@ -53,6 +54,18 @@ void Union::unio(int p, int q){
 
 }
 
+int Union::ith_size(int i) {
+    assert (-a[i] > 0);
+    return -a[i];
+}
+
+void Union::reset() {
+    component = size;
+    for (unsigned int i = 0; i < size; ++i) {
+        a[i] = -1;//the size = 1;
+    }
+}
+/*
 int main(int argc, char *argv[])
 {
     Union u(10);
@@ -69,3 +82,4 @@ int main(int argc, char *argv[])
     cout << u;
     return 0;
 }
+*/
