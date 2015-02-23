@@ -4,7 +4,7 @@
 /**
  * Created by zzt on 2/1/15.
  */
-public class temp  {
+public class Percolation_h {
     private WeightedQuickUnionUF quickFindUF;
     private final int head;
     private final int tail;
@@ -12,7 +12,7 @@ public class temp  {
     private boolean[][] sites;
     private int openSites = 0;
 
-    public temp(int N) {               // create N-by-N grid, with all sites blocked
+    public Percolation_h(int N) {               // create N-by-N grid, with all sites blocked
         if (N <= 0) {
             throw new IllegalArgumentException("N is "+N);
         }

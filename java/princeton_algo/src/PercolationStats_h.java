@@ -1,7 +1,7 @@
 /**
  * Created by zzt on 2/1/15.
  */
-public class test  {
+public class PercolationStats_h {
     private Percolation percolation;
     private int trial;
     private int[] x;
@@ -10,7 +10,7 @@ public class test  {
     private int size;
 
 
-    public test(int N, int T)  {
+    public PercolationStats_h(int N, int T)  {
         if (N <= 0 || T <= 0)  {
             throw new IllegalArgumentException("N is "+N + "T is " + T);
         }
@@ -62,7 +62,7 @@ public class test  {
 
     public static void main(String[] args)  {
         if (args.length == 2) {
-            test percolationStats = new test(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
+            PercolationStats_h percolationStats = new PercolationStats_h(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
             int N = percolationStats.size;
 
             System.out.println("mean                    = "+percolationStats.mean()/(N*N));
