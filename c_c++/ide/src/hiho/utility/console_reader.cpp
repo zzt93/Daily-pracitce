@@ -14,6 +14,7 @@ using std::getline;
 using std::cin;
 using std::string;
 using std::istream;
+using std::stringstream;
 
 class Console_reader: public Reader {
     vector<string> mlines;
@@ -70,30 +71,6 @@ public:
         return cin;
     }
     
-    std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-        std::stringstream ss(s);
-        std::string item;
-        while (std::getline(ss, item, delim)) {
-            elems.push_back(item);
-        }
-        return elems;
-    }
-
-    std::vector<std::string> split(const std::string &s, char delim) {
-        std::vector<std::string> elems;
-        split(s, delim, elems);
-        return elems;
-    }
-
-    std::vector<std::string> split(const std::string &s) {
-        std::stringstream ss(s);
-        std::string item;
-        vector<string> elems;
-        while (ss >> item) {
-            elems.push_back(item);
-        }
-        return elems;
-    }
     
     vector<string> lines() const{
         return mlines;
@@ -111,6 +88,31 @@ public:
     }
     void clear_lines(){
         mlines.clear();
+    }
+    
+    vector<string> &split(const string &s, char delim, vector<string> &elems) {
+        stringstream ss(s);
+        string item;
+        while (getline(ss, item, delim)) {
+            elems.push_back(item);
+        }
+        return elems;
+    }
+
+    vector<string> split(const string &s, char delim) {
+        vector<string> elems;
+        split(s, delim, elems);
+        return elems;
+    }
+
+    vector<string> split(const string &s) {
+        stringstream ss(s);
+        string item;
+        vector<string> elems;
+        while (ss >> item) {
+            elems.push_back(item);
+        }
+        return elems;
     }
 };
 

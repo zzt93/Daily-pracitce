@@ -14,16 +14,22 @@ using std::cout;
 using std::endl;
 using std::find;
 
+enum Visit {
+    VISITED, AGAIN, NO_MORE_EDGE,
+};
+
 template <class K, class V>
 class Vertex {
 private:
     K m_key;
     V m_value;
+    Visit state;
     vector< Vertex<K, V>* > adjacent;
     vector< Edge<K, V>* > in;
     vector< Edge<K, V>* > out;
     
     typedef typename vector< Vertex<K, V>* >::iterator vit;
+    typename vector< Edge<K, V>*>::iterator out_it;
     vit adj;
     
 public:
@@ -36,7 +42,6 @@ public:
     /* to use reference_wrapper, you can't use
        const .., for you can't assign the const to non-const */
     void set_adj(Vertex<K, V>* v){
-        //        cout << "in " << m_key << " push " << v->key() << endl;
         adjacent.push_back(v);
     }
     void remove_adj(Vertex<K, V>* v) {
@@ -59,6 +64,13 @@ public:
         auto a = find(out.begin(), out.end(), e);
         assert(a != out.end());
         out.erase(a);
+    }
+
+    Visit visit() const {
+        return state;
+    }
+    void set_visit(Visit v) {
+        state = v;
     }
     /* const functions */
     K key() const {
@@ -87,6 +99,18 @@ public:
         adj = adjacent.begin();
     }
     
+    void init_out() {
+        out_it = out.begin();
+    }
+    bool has_out() const {
+        if (out_it == out.end()) {
+            return false;
+        }
+        return true;
+    }
+    Edge<K, V>* next_out() {
+        return *out_it++;
+    }
 };
 
 #endif

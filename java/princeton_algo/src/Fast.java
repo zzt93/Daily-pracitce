@@ -13,12 +13,12 @@ public class Fast {
         In in = new In(filename);
         int size = in.readInt();
         Point[] points = new Point[size];
-        boolean[] find = new boolean[size];
+//        boolean[] find = new boolean[size];
         for (int i = 0; i < size; i++) {
             int x = in.readInt();
             int y = in.readInt();
             points[i] = new Point(x, y);
-            find[i] = false;
+            //find[i] = false;
             StdDraw.setXscale(0, 32768);
             StdDraw.setYscale(0, 32768);
             points[i].draw();
@@ -26,7 +26,8 @@ public class Fast {
         Arrays.sort(points, 0, points.length);
 
         for (int i = 0; i + LEN -1 < points.length; i++) {
-            if (find[i]) {
+
+            if (points[i].isFind()) {
                 continue;
             }
             Comparator<Point> temp = points[i].SLOPE_ORDER;
@@ -42,11 +43,11 @@ public class Fast {
                     last = points[i1].slopeTo(points[i]);
                     if (count >= LEN - 1) { //plus points[i] meet the requirements
                         System.out.print(points[i].toString());
-                        find[i] = true;
-                        for (int i2 = 0; i2 < count; i2++) {
+                        points[i].setFind(true);
+                        for (int i2 = count - 1; i2 >= 0; i2--) {
                             System.out.print("->");
                             System.out.print(points[i1-i2-1]);
-                            find[i1-i2-1] = true;
+                            points[i1-i2-1].setFind(true);
                         }
                         System.out.println();
                         StdDraw.setXscale(0, 32768);
@@ -58,17 +59,19 @@ public class Fast {
             }
             if (count >= LEN - 1) { //plus points[i] meet the requirements
                 System.out.print(points[i].toString());
-                find[i] = true;
-                for (int i2 = 0; i2 < count; i2++) {
+                points[i].setFind(true);
+                for (int i2 = count - 1; i2 >= 0; i2--) {
                     System.out.print("->");
                     System.out.print(points[i1-i2-1]);
-                    find[i1-i2-1] = true;
+                    points[i1-i2-1].setFind(true);
                 }
                 System.out.println();
                 StdDraw.setXscale(0, 32768);
                 StdDraw.setYscale(0, 32768);
                 points[i].drawTo(points[i1-1]);
             }
+
+            Arrays.sort(points, i+1, points.length);
         }
     }
 }

@@ -28,19 +28,23 @@ private:
         o->set_adj(a);
         o->set_out(this);
         a->set_in(this);
+        weight = w;
     }
 public:
     Edge(Vertex<K, V>* o, Vertex<K, V>* a, int w=1)
         : one_side(o), ano_side(a),  weight(w){
-        setV(o, a);
+        setV(o, a, w);
     }
 
     /* const functions */
-    Vertex<K, V> one () const{
+    Vertex<K, V>* one () const{
         return one_side;
     }
-    Vertex<K, V> another() const {
+    Vertex<K, V>* another() const {
         return ano_side;
+    }
+    int wei() const {
+        return weight;
     }
 
     void reverse() {

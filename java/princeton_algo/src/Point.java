@@ -30,6 +30,7 @@ public class Point implements Comparable<Point> {
 
     private final int x;                              // x coordinate
     private final int y;                              // y coordinate
+    private boolean find = false;
 
     // create the point (x, y)
     public Point(int x, int y) {
@@ -90,5 +91,13 @@ public class Point implements Comparable<Point> {
     public static void main(String[] args) {
         /* YOUR CODE HERE */
         System.out.print(Double.POSITIVE_INFINITY == Double.POSITIVE_INFINITY);
+    }
+
+    public boolean isFind() {
+        return find;
+    }
+
+    public void setFind(boolean find) {
+        this.find = find;
     }
 }

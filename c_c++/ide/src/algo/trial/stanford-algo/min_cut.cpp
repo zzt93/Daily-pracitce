@@ -5,6 +5,7 @@
 #include <cassert>
 #include <random>
 #include "utility/console_reader.cpp"
+#include "utility/input_handler.hpp"
 #include "union/improved_union.cpp"
 
 using std::endl;
@@ -97,10 +98,11 @@ int min_cut(vector< vector<string> >& ve){
 int main(int argc, char *argv[])
 {
     Console_reader r;
+    Input_handler in;
     vector<vector<string> > v;
     string s;
     while (r.next_line(s)){
-        v.push_back(r.split(s));
+        v.push_back(in.split(s));
     }
     cout << min_cut(v) << endl;
     return 0;

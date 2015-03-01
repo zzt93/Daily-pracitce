@@ -49,6 +49,8 @@ private:
     void reverse_edges();
     template <class O>
     void dfs_loop(Vertex<K, V>*, O);
+
+    void update_len(Vertex<K, V>*, vector<long>&, long, bool[]);
 public:
     Digraph(){
     }
@@ -68,9 +70,9 @@ public:
         }
         return true;
     }
-    void add_edge(K tail, K head) {
+    void add_edge(K tail, K head, int w=1) {
         //assert(( cout << " head is " << head << " tail is " << tail << endl, head < vertices.size() && tail < vertices.size()));
-        Edge<K, V> *e = new Edge<K, V>(vertices[tail], vertices[head]);
+        Edge<K, V> *e = new Edge<K, V>(vertices[tail], vertices[head], w);
         add_edge(e);
     }
     
@@ -107,6 +109,8 @@ public:
     void scc_size(O);
     template <class O>
     void scc_content(O);
+
+    vector<long> shortest_path(int);
 };
 
 /*
@@ -126,6 +130,14 @@ void Digraph<K, V>::dfs(O o, K k){
     search_set.clear();
 }
 
+
+/*
+  args: {:}
+  return value:
+  Usage: @deprecated
+  for this method can't differ whether it is no more outgoing edge or
+  the edge has been visited.
+*/
 template <class K, class V>
 template <class O>
 void Digraph<K, V>::dfs(Vertex<K, V>* v, O o){
@@ -145,6 +157,12 @@ void Digraph<K, V>::dfs(Vertex<K, V>* v, O o){
     *o++ = NULL;
 }
 
+
+/*
+  args: {:}
+  return value:
+  Usage: if the vertex is already visited, the method just return
+*/
 template <class K, class V>
 template <class O>
 void Digraph<K, V>::dfs_loop(Vertex<K, V>* v, O o){
