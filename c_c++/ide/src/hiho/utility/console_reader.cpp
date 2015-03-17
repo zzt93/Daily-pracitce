@@ -34,7 +34,9 @@ public:
     */
     istream& next_word(string& s) {
         cin >> s;
-        mwords.push_back(s);
+        if (cin) {
+            mwords.push_back(s);
+        }
         return cin;
     }
     istream& readwords() {
@@ -51,6 +53,14 @@ public:
         }
         return cin;
     }
+    istream& next_long(long& i) {
+        string s;
+        cin >> s;
+        if (cin) {
+            i = std::stol(s);
+        }
+        return cin;
+    }
     istream& next_double(double& d){
         string s;
         cin >> s;
@@ -61,7 +71,9 @@ public:
     }
     istream& next_line(string& s) {
         getline(cin, s);
-        mlines.push_back(s);
+        if (cin) {
+            mlines.push_back(s);
+        }
         return cin;
     }
     istream& readlines() {
@@ -89,7 +101,13 @@ public:
     void clear_lines(){
         mlines.clear();
     }
+
     
+    /*
+      args: {:}
+      return value:
+      Usage: @deprecated: to use input_handler.split
+    */
     vector<string> &split(const string &s, char delim, vector<string> &elems) {
         stringstream ss(s);
         string item;

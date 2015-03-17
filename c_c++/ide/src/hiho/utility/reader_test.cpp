@@ -42,7 +42,14 @@ void test_file_reader(){
 }
 int main(int argc, char *argv[])
 {
-    test_console_reader();
+    //test_console_reader();
     //test_file_reader();
+    vector<int> nums;
+    int i = 0;
+    while (r.next_int(i)){
+        //int me = median_heap(i);
+        nums.push_back(me);
+    }
+
     return 0;
 }

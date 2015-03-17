@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
+#include <algorithm>
 
 using std::vector;
 using std::cout;
@@ -25,6 +26,10 @@ void heap_sort1(vector<T> t){
 
 }
 
+bool large_fun(int t1, int t2) {
+    return t1>t2;
+}
+
 int main(int argc, char *argv[])
 {
     if (argc != 3){
@@ -37,7 +42,6 @@ int main(int argc, char *argv[])
         vector<int> vec;
         int temp = 0;
         while (nums >> temp){
-            //cout << temp << endl;
             vec.push_back(temp);
         }
         nums.close();
@@ -48,7 +52,9 @@ int main(int argc, char *argv[])
             max = true;
         }
         Heap<int> heap(max, vec);
-        cout << heap ;
+        auto tmp = heap.get_node();
+        cout << std::is_heap(tmp.begin(), tmp.end(), large_fun) << endl;
+        cout << heap;
         // sort and output
     } else {
         cout << "Fail to open file" << endl;

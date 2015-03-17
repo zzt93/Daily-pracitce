@@ -13,7 +13,7 @@ class Heap{
 
     bool max;
     std::vector<T> nodes;
-    void percolate_down(int b);
+    void percolate_down(unsigned int b);
     void percolate_up_add(int b);
     void percolate_up(int b);
     
@@ -29,7 +29,8 @@ public:
         if (max) {
             adjust_to_heap_down();
         } else {
-            adjust_to_heap_up();
+            //adjust_to_heap_up();
+            adjust_to_heap_down();
         }
     }
 
@@ -65,7 +66,7 @@ public:
         os << "Heap:" << std::endl;
         ::print_space(os, nodes.size()/2);
         int cout_of_line = 0;
-        for (int i = 0; i < nodes.size(); ++i){
+        for (unsigned int i = 0; i < nodes.size(); ++i){
             os << nodes[i] << " ";
             if ( ::is_2power(i+2) ){//2^n -2
                 os << std::endl;
@@ -92,8 +93,8 @@ public:
                      /  \
                     i2
     */
-    int cmp_swap(int i1 , bool max){
-        int i2 = 2*i1+1;
+    int cmp_swap(unsigned int i1 , bool max){
+        unsigned int i2 = 2*i1+1;
         int which_child = 0;
         if(max) {
             if (i2+1 < nodes.size()) {
@@ -129,7 +130,7 @@ public:
   So this function should be only invoke once at one father node
 */
 template <class T>
-void Heap<T>::percolate_down(int i){
+void Heap<T>::percolate_down(unsigned int i){
     for (; 2*i+1 < nodes.size(); ) {
         i = 2*i+1 + cmp_swap(i, max);// the cmp_swap will tell which child node to go
     }
