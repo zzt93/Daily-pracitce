@@ -1,4 +1,4 @@
-package ADT;
+package maxOfSum;
 
 /**
  * author:zzt
