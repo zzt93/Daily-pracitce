@@ -11,4 +11,10 @@ public class Swap {
         ts.set(i, ts.get(j));
         ts.set(j, tmp);
     }
+
+    public static <T> void swap(T[] ts, int i, int j) {
+        T tmp = ts[i];
+        ts[i] = ts[j];
+        ts[j] = tmp;
+    }
 }

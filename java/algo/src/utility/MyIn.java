@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
@@ -16,7 +17,7 @@ public class MyIn {
     /**
      * read from stdin
      */
-    MyIn() {
+    public MyIn() {
         scanner = new Scanner(new BufferedInputStream(System.in));
     }
 
@@ -24,7 +25,7 @@ public class MyIn {
      * read from inputStream
      * @param inputStream
      */
-    MyIn(InputStream inputStream) {
+    public MyIn(InputStream inputStream) {
         scanner = new Scanner(new BufferedInputStream(inputStream));
     }
 
@@ -33,7 +34,7 @@ public class MyIn {
      * @param s
      * @throws FileNotFoundException
      */
-    MyIn(String s) throws FileNotFoundException {
+    public MyIn(String s) throws FileNotFoundException {
         scanner = new Scanner(new BufferedInputStream(new FileInputStream(s)));
     }
 
@@ -107,5 +108,26 @@ public class MyIn {
      */
     public Scanner reset() {
        return scanner.reset();
+    }
+
+    public ArrayList<Integer> oneLineToInt(String del) {
+        String line = scanner.nextLine();
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        for (String s : line.split(del)) {
+            if (s.equals("")) {
+                continue;
+            }
+            res.add(Integer.parseInt(s));
+        }
+        return res;
+    }
+
+    public ArrayList<Double> oneLineToDouble(String del) {
+        String line = scanner.nextLine();
+        ArrayList<Double> res = new ArrayList<Double>();
+        for (String s : line.split(del)) {
+            res.add(Double.parseDouble(s));
+        }
+        return res;
     }
 }
