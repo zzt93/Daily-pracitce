@@ -30,8 +30,13 @@ public class ArrayUtility {
      * @param from -- inclusive
      * @param end -- exclusive
      * @param key -- the aim to find
+<<<<<<< HEAD
      * @param <T> -- type
      * @return -- the index of key or -1
+=======
+     * @param <T>
+     * @return
+>>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
      */
     public static <T extends Comparable<T>> int binarySearch(ArrayList<T> ts, int from, int end, T key) {
         if (from >= end) {
@@ -82,7 +87,11 @@ public class ArrayUtility {
     public static void main(String[] args) {
         MyIn in;
         try {
+<<<<<<< HEAD
             in = new MyIn("testCase/binarySearch.txt");
+=======
+            in = new MyIn("binarySearch.txt");
+>>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;

@@ -1,0 +1,8 @@
+<<<<<<< HEAD
+Some features distinguish my calculaotr:
+1.Basic operation and some functions : sin, cos, exp, pow.
+=======
+Some features distinguish my calculaotr:
+1.Basic operation and some functions : sin, cos, exp, pow.
+>>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+2.add the transformation between reverse Polish notation and normal order

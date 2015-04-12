@@ -7,8 +7,6 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <exception>
-#include <limits>
 #include "reader.cpp"
 
 using std::vector;
@@ -53,11 +51,6 @@ public:
         if (cin){
             i =  std::stoi(s);
         }
-        return cin;
-    }
-    istream& next_hex(int& i) {
-        cin >> std::hex >> i;
-        reset();
         return cin;
     }
     istream& next_long(long& i) {
@@ -138,21 +131,6 @@ public:
             elems.push_back(item);
         }
         return elems;
-    }
-
-    void skip_line(int x) {
-        if (x < 0) {
-            throw std::exception();
-        }
-        for (unsigned int i = 0; i < x; ++i) {
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        }
-    }
-    void skip_char(int x, char c) {
-        if (x < 0) {
-            throw std::exception();
-        }
-        cin.ignore(x, c);
     }
 };
 

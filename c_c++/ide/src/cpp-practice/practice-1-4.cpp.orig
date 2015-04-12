@@ -1,0 +1,33 @@
+<<<<<<< HEAD
+#include <iostream>
+#include <string>
+
+int main(int argc, char const *argv[])
+{
+	{
+		const std::string s = "a string";
+		std::cout<< s << std::endl;
+		{
+			const std::string s = "another string";
+			std::cout<< s << std::endl;
+		};
+	}
+	return 0;
+}
+=======
+#include <iostream>
+#include <string>
+
+int main(int argc, char const *argv[])
+{
+	{
+		const std::string s = "a string";
+		std::cout<< s << std::endl;
+		{
+			const std::string s = "another string";
+			std::cout<< s << std::endl;
+		};
+	}
+	return 0;
+}
+>>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c

@@ -110,6 +110,7 @@ public class MyIn {
        return scanner.reset();
     }
 
+<<<<<<< HEAD
     /**
      * {http://stackoverflow.com/questions/13102045/
      * skipping-nextline-after-use-next-nextint-or-other-nextfoo-methods}
@@ -122,6 +123,10 @@ public class MyIn {
         if (line.isEmpty()) {
             line = scanner.nextLine();
         }
+=======
+    public ArrayList<Integer> oneLineToInt(String del) {
+        String line = scanner.nextLine();
+>>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (String s : line.split(del)) {
             if (s.equals("")) {
