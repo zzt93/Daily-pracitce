@@ -87,11 +87,9 @@ public class ArrayUtility {
     public static void main(String[] args) {
         MyIn in;
         try {
-<<<<<<< HEAD
+
             in = new MyIn("testCase/binarySearch.txt");
-=======
-            in = new MyIn("binarySearch.txt");
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;

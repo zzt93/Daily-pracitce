@@ -21,6 +21,14 @@ void test_console_reader(){
     for (unsigned int i = 0;i < words.size(); ++i) {
         cout << words[i] << " " ;
     }
+    r.reset();
+    int i =0;
+    r.skip_line(1);
+    while (r.next_hex(i)) {
+        r.skip_char(999);
+        cout << i << " ";
+        r.skip(1, ',');
+    }
 }
 void test_file_reader(){
     File_reader r("data");
@@ -42,14 +50,15 @@ void test_file_reader(){
 }
 int main(int argc, char *argv[])
 {
-    //test_console_reader();
+    test_console_reader();
     //test_file_reader();
+    /*
     vector<int> nums;
     int i = 0;
     while (r.next_int(i)){
         //int me = median_heap(i);
         nums.push_back(me);
     }
-
+    */
     return 0;
 }

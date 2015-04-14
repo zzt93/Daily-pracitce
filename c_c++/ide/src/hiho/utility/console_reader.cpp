@@ -7,6 +7,8 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <limits>
+#include <exception>
 #include "reader.cpp"
 
 using std::vector;
@@ -15,6 +17,7 @@ using std::cin;
 using std::string;
 using std::istream;
 using std::stringstream;
+using std::exception;
 
 class Console_reader: public Reader {
     vector<string> mlines;
@@ -51,6 +54,10 @@ public:
         if (cin){
             i =  std::stoi(s);
         }
+        return cin;
+    }
+    istream& next_hex(int &i) {
+        cin >> std::hex >> i;
         return cin;
     }
     istream& next_long(long& i) {
@@ -132,6 +139,22 @@ public:
         }
         return elems;
     }
+
+    void skip_line(int line) {
+        for(int i = 0; i < line; i++) {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+        reset();
+    }
+
+    void skip_char(int i, char c = '\n') {
+        if (i < 0) {
+            throw exception();
+        }
+        cin.ignore(i, c);
+        reset();
+    }
+
 };
 
 #endif /* _UITILITY_CONSOLE_READER_ */

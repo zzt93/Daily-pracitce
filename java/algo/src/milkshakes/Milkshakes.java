@@ -6,7 +6,6 @@ import utility.MyOut;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
-<<<<<<< HEAD
 import java.util.HashSet;
 import java.util.List;
 
@@ -50,15 +49,7 @@ public class Milkshakes {
 
     public static final String IMPOSSIBLE = " IMPOSSIBLE";
     private static HashSet<Integer> optionOne;
-=======
 
-/**
- * Created by zzt on 3/19/15.
- */
-public class Milkshakes {
-
-    public static final String IMPOSSIBLE = "IMPOSSIBLE";
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
 
     public static String milk(int flavor, ArrayList<Order> orders) {
         if (conflict(orders, 0)) {
@@ -68,7 +59,6 @@ public class Milkshakes {
         // get minimum
         StringBuilder res = new StringBuilder(2 * flavor);
         int flavorCount = 1;
-<<<<<<< HEAD
         for (Order order : orders) {
             if (order.getUnmalt() == 1 && !order.isRemoved()) {
                 solved(order);
@@ -86,7 +76,7 @@ public class Milkshakes {
             res.append(" 0");
         }
 
-=======
+
         for (int i = 0; i < orders.size(); i++) {
             Order order = orders.get(i);
             if (order.isRemoved()) {
@@ -126,7 +116,6 @@ public class Milkshakes {
 //                res.append("0 ");
 //            }
 //        }
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
         return res.toString();
     }
 
@@ -136,22 +125,17 @@ public class Milkshakes {
             return false;
         }
         if ((con = hasConflict(orders, start)) < orders.size()) {
-<<<<<<< HEAD
+
             int removeCount = remove(con, orders, true);
-=======
-            int removeCount = remove(con, orders, true);//TODO check count
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
             boolean conflict = false;
             for (int i = 0; i < removeCount; i++) {
                 // satisfy all the related customers
                 Order order = orders.get(i + con);
                 Customer customer = order.getCustomer();
-<<<<<<< HEAD
+
                 if (!customer.canSatisfyForNow()) {
                     customer.getRemoved(optionOne);
-=======
-                if (!customer.canSatisfyWithout()) {
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
                     conflict = true;
                     break;
                 }
@@ -161,15 +145,12 @@ public class Milkshakes {
                 return false;
             }
 
-<<<<<<< HEAD
 
             if (!optionOne.contains(orders.get(con).getFlavor())) {
                 recover(con, orders, true);
                 return true;
             }
             optionOne.clear();
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
             conflict = false;
             int recover = recover(con, orders, true);
             assert removeCount == recover && recover >= 1;
@@ -178,32 +159,27 @@ public class Milkshakes {
                 // satisfy all the related customers
                 Order order = orders.get(con - count);
                 Customer customer = order.getCustomer();
-<<<<<<< HEAD
+
                 if (!customer.canSatisfyForNow()) {
                     customer.getRemoved(optionOne);
-=======
-                if (!customer.canSatisfyWithout()) {
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
                     conflict = true;
                     break;
                 }
             }
 
-<<<<<<< HEAD
+
             if (conflict || conflict(orders, con + recover)) {
                 recover(con, orders, false);
-=======
-            if (conflict || conflict(orders, con + recover)) {//TODO check start
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
                 return true;
             }
         }
         return false;
     }
 
-<<<<<<< HEAD
+
     /**
      * Invoke when this order is malted
+     *
      * @param order this order
      * @return whether this can be replaced by other order -- for one customer only have
      * one order that is malted, so if it exist, it must be better
@@ -221,10 +197,6 @@ public class Milkshakes {
                 I don't know why, but without it can also solve the test case
             }*/
         }
-=======
-    private static boolean solved(Order order) {
-        //
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
         return false;
     }
 
@@ -232,25 +204,17 @@ public class Milkshakes {
     private static int remove(int i, ArrayList<Order> orders, boolean after) {
         return removeOrRecover(i, orders, after, true);
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
     private static int recover(int i, ArrayList<Order> orders, boolean after) {
         return removeOrRecover(i, orders, after, false);
     }
 
     /**
-<<<<<<< HEAD
+     *
      * @param index  -- starting (inclusive) or ending (exclusive) index depending on @parm after
      * @param orders -- collections of order
      * @param after  -- mark it as removed after this index or before
-=======
      *
-     * @param index -- starting (inclusive) or ending (exclusive) index depending on @parm after
-     * @param orders
-     * @param after -- mark it as removed after this index or before
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
      * @param remove -- whether set it as removed or ...
      * @return count of removed/recover item
      */
@@ -262,16 +226,12 @@ public class Milkshakes {
 
             while (i1 < orders.size()) {
                 Order order = orders.get(i1);
-<<<<<<< HEAD
+
                 if (!order.equals(aim)) {
                     break;
                 }
                 order.setRemoved(remove);
-=======
-                if (order.compareTo(aim) != 0) {
-                    break;
-                }
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
                 i1++;
             }
             return i1 - index;
@@ -283,18 +243,13 @@ public class Milkshakes {
             int j = index - 2;
             while (j >= 0) {
                 Order order = orders.get(j);
-<<<<<<< HEAD
+
                 if (!order.equals(aim)) {
                     break;
                 }
                 order.setRemoved(remove);
                 j--;
-=======
-                if (order.compareTo(aim) != 0) {
-                    break;
-                }
-                j++;
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
             }
             return index - 1 - j;
         }
@@ -302,14 +257,10 @@ public class Milkshakes {
 
     /**
      * Judge whether orders has conflict
-<<<<<<< HEAD
+     * <<<<<<< HEAD
      *
      * @param orders -- collections of order
      * @param start  -- start index to check
-=======
-     * @param orders
-     * @param start
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
      * @return the index where conflict happen
      */
     private static int hasConflict(ArrayList<Order> orders, int start) {
@@ -317,26 +268,23 @@ public class Milkshakes {
         int unmalt = orders.get(start).getUnmalt();
         for (int i = start + 1; i < orders.size(); i++) {
             Order t = orders.get(i);
-<<<<<<< HEAD
+
             if (t.isRemoved()) {
                 continue;
             }
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
             if (t.getFlavor() == last && t.getUnmalt() != unmalt) {
                 return i;
             }
             last = t.getFlavor();
-<<<<<<< HEAD
+
             unmalt = t.getUnmalt();
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
         }
         return orders.size();
     }
 
     public static void main(String[] args) {
-<<<<<<< HEAD
+
 //        try {
 //            System.in.read();
 //        } catch (IOException e) {
@@ -346,12 +294,7 @@ public class Milkshakes {
         MyOut out = new MyOut("res");
         try {
             in = new MyIn("testCase/Milk-large-practice.in");
-=======
-        MyIn in;
-        MyOut out = new MyOut("res");
-        try {
-            in = new MyIn("Milk-minor-practice.in");
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
@@ -359,10 +302,9 @@ public class Milkshakes {
         int trail = in.nextInt();
         for (int i = 0; i < trail; i++) {
             int flavor = in.nextInt();
-<<<<<<< HEAD
+
             optionOne = new HashSet<Integer>(flavor);
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
             int customerCount = in.nextInt();
             Customer[] customers = new Customer[customerCount];
             ArrayList<Order> orders = new ArrayList<Order>(flavor);
@@ -372,11 +314,10 @@ public class Milkshakes {
             }
             Collections.sort(orders);
             String res = milk(flavor, orders);
-<<<<<<< HEAD
+
             out.println("case #" + (i + 1) + ":" + res);
-=======
-            out.println("case #" + (i+1) + ": " + res);
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
         }
     }
+
 }

@@ -4,10 +4,8 @@ import utility.MyIn;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-<<<<<<< HEAD
 import java.util.HashSet;
-=======
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
 import java.util.List;
 
 /**
@@ -38,25 +36,17 @@ public class Customer{
         return Arrays.asList(orders);
     }
 
-<<<<<<< HEAD
+
     public boolean canSatisfyForNow() {
         return removeCount < orders.length;
     }
 
-=======
-    public boolean canSatisfyWithout() {
-        return removeCount < orders.length;
-    }
 
-    public int getRemoveCount() {
-        return removeCount;
-    }
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
 
     public void updateRemove(boolean removed) {
         if (!removed) {
             removeCount--;
-<<<<<<< HEAD
+
         } else {
             removeCount++;
         }
@@ -72,9 +62,6 @@ public class Customer{
                 option.add(order.getFlavor());
             }
         }
-=======
-        }
-        removeCount++;
->>>>>>> c2cda320b02ff013ad6a1e316c0b332d67e4583c
+
     }
 }
