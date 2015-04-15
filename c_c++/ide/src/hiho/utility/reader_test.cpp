@@ -7,6 +7,7 @@ using std::endl;
 
 void test_console_reader(){
     Console_reader r;
+    /*
     string s;
     while (r.next_line(s)){
     }
@@ -22,13 +23,14 @@ void test_console_reader(){
         cout << words[i] << " " ;
     }
     r.reset();
+    */
     int i =0;
-    r.skip_line(1);
+    r.skip_line(1 + 1);
     while (r.next_hex(i)) {
-        r.skip_char(999);
+        r.skip_char(1, ',');
         cout << i << " ";
-        r.skip(1, ',');
     }
+    
 }
 void test_file_reader(){
     File_reader r("data");

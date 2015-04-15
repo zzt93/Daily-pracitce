@@ -9,19 +9,19 @@ using std::cerr;
 
 int main(int argc, char *argv[]){
     Console_reader r;
-    string s;
-    r.skip_line(375 + 1);
+    r.skip_line(379 + 1);
     cout << "unsigned char head_bmp[] = {\n";
-    for (unsigned int i = 0; i < 20; ++i) {
-        for (unsigned int i = 0; i < 999; ++i) {
-            int i = 0;
-            r.next_int(i);
+    for (unsigned int i = 0; i < 21; ++i) {
+        int t = 0;
+        for (unsigned int i = 0; i < 1000; ++i) {
+            r.next_hex(t);
+            r.skip_char(1, ',');
         }
-
-        for (unsigned int j = 0; j < 25; ++j) {
-            int t = 0;
-            cerr << r.next_hex(t);
+        int j = 0;
+        while (r.next_hex(t) && j < 23) {
+            r.skip_char(1, ',');
             cout << t << ", ";
+            j++;
         }
         cout << endl;
         r.skip_line(1);
