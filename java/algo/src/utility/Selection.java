@@ -35,7 +35,7 @@ public class Selection {
         int great = --to;
         while (le <= great) {//even le == great, we should go into it
             //find large
-            while (comparator.compare(ts.get(le), (p)) <= 0) {
+            while (le <= great && comparator.compare(ts.get(le), (p)) <= 0) {
                 le++;
             }
             //find small
