@@ -1,4 +1,4 @@
-package jtable;
+package hw2l;
 
 import javax.swing.table.DefaultTableModel;
 

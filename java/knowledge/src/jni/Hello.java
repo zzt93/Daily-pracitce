@@ -1,4 +1,4 @@
-package JNI;
+package jni;
 
 /**
  * Created by zzt on 4/5/15.

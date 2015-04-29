@@ -1,4 +1,4 @@
-package jtable.sort;
+package hw2l.sort;
 
 import java.io.*;
 import java.util.ArrayList;

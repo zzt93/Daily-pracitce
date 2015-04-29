@@ -1,4 +1,4 @@
-package jtable;
+package hw2l;
 
 /**
  * Created by zzt on 3/8/15.
