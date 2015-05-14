@@ -52,4 +52,4 @@ hs_err_pid*
 !/.gitignore
 
 
-java/princeton_algo/out/
+java/**/out/
