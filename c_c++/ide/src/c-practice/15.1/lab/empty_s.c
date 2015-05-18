@@ -1,10 +1,12 @@
 #include <stdio.h>
 
 
-static struct {
+struct {
     int t;
     int *s;
 } empty, full;
+
+int a;
 
 int main(){
     printf("full is at %p", &full);
