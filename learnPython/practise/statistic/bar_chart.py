@@ -16,7 +16,7 @@ def get_data():
 def draw(IMG_PATH):
     # get input data
     x = get_data()
-    print 'data is : ' + str(x)
+    print('data is : ' + str(x))
     # the histogram of the data
     plt.hist(x, bins=50, color='g', alpha=0.5)
     # show image
@@ -25,7 +25,7 @@ def draw(IMG_PATH):
 # the code should not be changed
 if __name__ == '__main__':
     if len(sys.argv) == 1:
-        print 'error'
+        print('error')
     else:
         # the path of image to show
         IMG_PATH = sys.argv[1] + 'fig.jpg'
