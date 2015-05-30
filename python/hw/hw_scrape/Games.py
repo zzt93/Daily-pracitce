@@ -34,7 +34,7 @@ def find_detail(season, game_id, detail_type):
              '&SeasonType=Regular+Season&StartPeriod=1&StartRange=0'
 
     detail_resp = requests.get(detail)
-    if detail_resp.status_code > 400:
+    if detail_resp.status_code >= 400:
         print('no suck game ' + str(detail_resp.status_code))
         return
 
@@ -63,7 +63,7 @@ def find_summary(game_id):
               + str(game_id)
 
     summary_resp = requests.get(summary)
-    if summary_resp.status_code > 400:
+    if summary_resp.status_code >= 400:
         print('no suck game ' + str(summary_resp.status_code))
         return
 

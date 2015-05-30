@@ -14,7 +14,7 @@ def find_all_players(current, season='2014-15'):
           + season
 
     players_resp = requests.get(all)
-    if players_resp.status_code > 400:
+    if players_resp.status_code >= 400:
         print('wrong url for players')
         return
 

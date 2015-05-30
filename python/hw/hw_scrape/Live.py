@@ -19,7 +19,7 @@ def find_live(game_id, period):
 
     game = requests.get(aim)
     game.encoding = 'utf-8'
-    if game.status_code > 400:
+    if game.status_code >= 400:
         print('no suck game ' + str(game.status_code))
         return
 

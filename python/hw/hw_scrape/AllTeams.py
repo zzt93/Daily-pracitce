@@ -24,9 +24,15 @@ def find_all_teams(data_type=GameType.traditional,
           '&SeasonSegment=&SeasonType=' \
           + season_type.value + \
           '&ShotClockRange=&StarterBench=&TeamID=0&VsConference=&VsDivision='
-
+    # http://stats.nba.com/stats/leaguedashteamstats?Conference=&DateFrom=&DateTo=&Division=&GameScope=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=
+    # Base
+    # &Month=0&OpponentTeamID=0&Outcome=&PORound=0&PaceAdjust=N&PerMode=PerGame&Period=0&PlayerExperience=&PlayerPosition=&PlusMinus=N&Rank=N&Season=
+    # 2014-15
+    # &SeasonSegment=&SeasonType=
+    # Playoffs
+    # &ShotClockRange=&StarterBench=&TeamID=0&VsConference=&VsDivision=
     resp = requests.get(url)
-    if resp.status_code > 400:
+    if resp.status_code >= 400:
         print('wrong url for teams')
         return
 
