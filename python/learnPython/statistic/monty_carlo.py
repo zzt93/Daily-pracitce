@@ -5,7 +5,8 @@ import random
 import math
 
 '''
-LCGs should not be used for applications where high-quality randomness is critical.
+LCGs(Linear Cong) should not be used for applications
+where high-quality randomness is critical.
 For example, it is not suitable for
 a Monte Carlo simulation because of the serial correlation (among other things)
 '''

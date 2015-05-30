@@ -1,7 +1,9 @@
 def test(n):
-	n = 1
-	print n
+    n = 1
+    print n
 
-n = 2
-test(n)
-print n	
+
+if __name__ == '__main__':
+    n = 2
+    test(n)
+    print n

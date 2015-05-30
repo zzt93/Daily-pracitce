@@ -1,8 +1,8 @@
 # -*- coding:utf-8 -*-
 
-import json
 import requests
-from practise.Scrape.CsvHelper import dict_to_csv
+import sys
+import CsvHelper
 
 __author__ = 'zzt'
 
@@ -22,13 +22,12 @@ def find_live(game_id, period):
         return
 
     events = game.json()['payload']['playByPlays'][0]['events']
-    id_ = 'live' + str(game_id)
-    dict_to_csv(
-        events[0], id_
-    )
+    # file_id = 'live' + str(game_id) + '_' + str(period)
+
+    CsvHelper.dict_to_csv_stream(events[0])
     for x in range(1, len(events)):
-        dict_to_csv(
-            events[x], id_, False, 'a'
+        CsvHelper.dict_to_csv_stream(
+            events[x], False
         )
 
 
@@ -36,10 +35,10 @@ if __name__ == '__main__':
     playoff_date_code = '004'
     season = 14
     round_of = '{:03}'.format(3)
-    rank = 1
+    rank = 0
     kth = 1
 
-    period = 4
+    period = int(sys.argv[1])
 
     find_live(playoff_date_code +
               str(season) + round_of +

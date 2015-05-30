@@ -13,14 +13,14 @@ def get_data():
 
 
 # you can write your code here
-def draw(IMG_PATH):
+def draw(img_path):
     # get input data
     x = get_data()
     print('data is : ' + str(x))
     # the histogram of the data
     plt.hist(x, bins=50, color='g', alpha=0.5)
     # show image
-    plt.savefig(IMG_PATH)
+    plt.savefig(img_path)
 
 # the code should not be changed
 if __name__ == '__main__':
