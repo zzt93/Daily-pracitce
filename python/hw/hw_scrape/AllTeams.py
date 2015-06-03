@@ -1,5 +1,5 @@
 import requests
-from hw_scrape.ParameterType import SeasonType, GameType
+from hw_scrape.ParameterType import SeasonType, GameType, TeamType
 from hw_scrape.Games import SEASON_HEAD, SEASON_SPLIT
 
 UNDER = '_'
@@ -7,7 +7,7 @@ UNDER = '_'
 __author__ = 'zzt'
 
 
-def find_all_teams(data_type=GameType.traditional,
+def find_all_teams(data_type=TeamType.Base,
                    season='2014-15',
                    season_type=SeasonType.regular):
     # http://stats.nba.com/stats/leaguedashteamstats?Conference=&DateFrom=&DateTo=&Division=&GameScope=&GameSegment=&LastNGames=0&LeagueID=00&Location=&MeasureType=
@@ -49,8 +49,7 @@ def find_all_teams(data_type=GameType.traditional,
 
 
 if __name__ == '__main__':
-    tradition = GameType.traditional
     s = 14
     sea = SEASON_HEAD + str(s) + SEASON_SPLIT + str(s + 1)
 
-    find_all_teams(tradition, sea)
+    find_all_teams()

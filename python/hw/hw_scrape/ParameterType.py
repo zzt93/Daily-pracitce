@@ -23,6 +23,8 @@ class SeasonType(Enum):
     regular = 'Regular+Season'
     playoff = 'playoffs'
 
+class TeamType(Enum):
+    Base = 1
 
 if __name__ == '__main__':
     for t in GameType:

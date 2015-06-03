@@ -13,7 +13,6 @@ SEASON_SPLIT = '-'
 
 SEASON_HEAD = '20'
 
-
 __author__ = 'zzt'
 
 
@@ -67,10 +66,19 @@ def find_summary(game_id):
         print('no suck game ' + str(summary_resp.status_code))
         return
 
-    game_summary = summary_resp.json()['resultSets'][0]
+    home_team_id = summary_resp.json()['resultSets'][0]['rowSet'][0][6]
+    line_score = summary_resp.json()['resultSets'][5]
+    line_score['headers'].append('IS_HOME')
+    is_home = (line_score['rowSet'][0][3] == home_team_id)
 
+    line_score['rowSet'][0].append(is_home)
+    line_score['rowSet'][1].append(not is_home)
+
+    # CsvHelper.list2d_to_csv(
+    #     dict_to_list2d(game_summary), 'summary_' + str(game_id)
+    # )
     CsvHelper.list2d_to_csv(
-        dict_to_list2d(game_summary), 'summary_' + str(game_id)
+        dict_to_list2d(line_score), 'line_score_' + str(game_id)
     )
     # with open('summary' + str(game_id), 'w') as fp:
     #     json.dump(game_summary, fp)
@@ -103,8 +111,7 @@ def playoff(season):
 
 
 if __name__ == '__main__':
-
-    for sea in range(14, 15):
+    for sea in range(13, 14):
         regular(sea)
         playoff(sea)
 
@@ -112,7 +119,7 @@ if __name__ == '__main__':
         #             regular_date_code + str(season) + '00001',
         #             DetailType.traditional)
         #
-        # find_summary(regular_date_code + str(season) + '00001')
+        # find_summary('0021401217')
 
         # get regular game -- from 1 to 1230
         #
