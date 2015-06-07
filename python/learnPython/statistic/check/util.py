@@ -14,9 +14,9 @@ def ssum(l):
     return ssum
 
 
-def sigma(l):
+def sigma_2(l):
     return ssum(l) / len(l)
 
 
-def s(l):
+def s_2(l):
     return ssum(l) / (len(l) - 1)
