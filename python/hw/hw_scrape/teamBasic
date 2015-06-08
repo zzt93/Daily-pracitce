@@ -1,0 +1,81 @@
+{
+  "resource": "teaminfocommon",
+  "parameters": {
+    "LeagueID": "00",
+    "Season": "2014-15",
+    "SeasonType": "Regular Season",
+    "TeamID": 1610612752
+  },
+  "resultSets": [
+    {
+      "name": "TeamInfoCommon",
+      "headers": [
+        "TEAM_ID",
+        "SEASON_YEAR",
+        "TEAM_CITY",
+        "TEAM_NAME",
+        "TEAM_ABBREVIATION",
+        "TEAM_CONFERENCE",
+        "TEAM_DIVISION",
+        "TEAM_CODE",
+        "W",
+        "L",
+        "PCT",
+        "CONF_RANK",
+        "DIV_RANK",
+        "MIN_YEAR",
+        "MAX_YEAR"
+      ],
+      "rowSet": [
+        [
+          1610612752,
+          "2014-15",
+          "New York",
+          "Knicks",
+          "NYK",
+          "East",
+          "Atlantic",
+          "knicks",
+          17,
+          65,
+          0.207,
+          15,
+          5,
+          "1946",
+          "2014"
+        ]
+      ]
+    },
+    {
+      "name": "TeamSeasonRanks",
+      "headers": [
+        "LEAGUE_ID",
+        "SEASON_ID",
+        "TEAM_ID",
+        "PTS_RANK",
+        "PTS_PG",
+        "REB_RANK",
+        "REB_PG",
+        "AST_RANK",
+        "AST_PG",
+        "OPP_PTS_RANK",
+        "OPP_PTS_PG"
+      ],
+      "rowSet": [
+        [
+          "00",
+          "22014",
+          1610612752,
+          30,
+          91.9,
+          29,
+          40.4,
+          19,
+          21.3,
+          21,
+          101.2
+        ]
+      ]
+    }
+  ]
+}

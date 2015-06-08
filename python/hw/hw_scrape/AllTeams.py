@@ -38,13 +38,13 @@ def find_all_teams(data_type=TeamType.Base,
 
     teams = resp.json()['resultSets'][0]
 
-    from hw_scrape import CsvHelper
-    from hw_scrape.CsvHelper import dict_to_list2d
-
-    CsvHelper.list2d_to_csv(
-        dict_to_list2d(teams),
-        'teams_' + str(data_type.name) + UNDER + season + UNDER + season_type.value
-    )
+    # from hw_scrape import CsvHelper
+    # from hw_scrape.CsvHelper import dict_to_list2d
+    #
+    # CsvHelper.list2d_to_csv(
+    #     dict_to_list2d(teams),
+    #     'teams_' + str(data_type.name) + UNDER + season + UNDER + season_type.value
+    # )
     return teams
 
 

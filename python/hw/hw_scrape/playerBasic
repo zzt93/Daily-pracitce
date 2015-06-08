@@ -1,0 +1,95 @@
+{
+  "resource": "commonplayerinfo",
+  "parameters": [
+    {
+      "PlayerID": 203112
+    },
+    {
+      "LeagueID": "00"
+    }
+  ],
+  "resultSets": [
+    {
+      "name": "CommonPlayerInfo",
+      "headers": [
+        "PERSON_ID",
+        "FIRST_NAME",
+        "LAST_NAME",
+        "DISPLAY_FIRST_LAST",
+        "DISPLAY_LAST_COMMA_FIRST",
+        "DISPLAY_FI_LAST",
+        "BIRTHDATE",
+        "SCHOOL",
+        "COUNTRY",
+        "LAST_AFFILIATION",
+        "HEIGHT",
+        "WEIGHT",
+        "SEASON_EXP",
+        "JERSEY",
+        "POSITION",
+        "ROSTERSTATUS",
+        "TEAM_ID",
+        "TEAM_NAME",
+        "TEAM_ABBREVIATION",
+        "TEAM_CODE",
+        "TEAM_CITY",
+        "PLAYERCODE",
+        "FROM_YEAR",
+        "TO_YEAR",
+        "DLEAGUE_FLAG"
+      ],
+      "rowSet": [
+        [
+          203112,
+          "Quincy",
+          "Acy",
+          "Quincy Acy",
+          "Acy, Quincy",
+          "Q. Acy",
+          "1990-10-06T00:00:00",
+          "Baylor",
+          "USA",
+          "Baylor/USA",
+          "6-7",
+          "240",
+          2,
+          "4",
+          "Forward",
+          "Active",
+          1610612752,
+          "Knicks",
+          "NYK",
+          "knicks",
+          "New York",
+          "quincy_acy",
+          "2012",
+          "2014",
+          "Y"
+        ]
+      ]
+    },
+    {
+      "name": "PlayerHeadlineStats",
+      "headers": [
+        "PLAYER_ID",
+        "PLAYER_NAME",
+        "TimeFrame",
+        "PTS",
+        "AST",
+        "REB",
+        "PIE"
+      ],
+      "rowSet": [
+        [
+          203112,
+          "Quincy Acy",
+          "2014-15",
+          5.9,
+          1.0,
+          4.4,
+          0.089
+        ]
+      ]
+    }
+  ]
+}

@@ -20,12 +20,12 @@ def find_all_players(current, season='2014-15'):
 
     players = players_resp.json()['resultSets'][0]
 
-    from hw_scrape import CsvHelper
-    from hw_scrape.CsvHelper import dict_to_list2d
+    # from hw_scrape import CsvHelper
+    # from hw_scrape.CsvHelper import dict_to_list2d
 
-    CsvHelper.list2d_to_csv(
-        dict_to_list2d(players), 'players_' + str(current) + '_' + season
-    )
+    # CsvHelper.list2d_to_csv(
+    #     dict_to_list2d(players), 'players_' + str(current) + '_' + season
+    # )
     return players
 
 

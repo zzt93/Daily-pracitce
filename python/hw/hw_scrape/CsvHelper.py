@@ -3,7 +3,7 @@ import sys
 
 __author__ = 'zzt'
 
-PATH = '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/newData/'
+PATH = ''  # '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/IterationThreeData/matches/pre_season/'
 
 
 def dict_to_csv(stats, filename, has_header=True, mode='w'):

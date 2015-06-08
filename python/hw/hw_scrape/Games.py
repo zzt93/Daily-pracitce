@@ -9,6 +9,8 @@ PLAY_OFF = '004'
 
 REGULAR_CODE = '002'
 
+PRE_SEASON = '001'
+
 SEASON_SPLIT = '-'
 
 SEASON_HEAD = '20'
@@ -110,10 +112,23 @@ def playoff(season):
                 find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
 
 
+def pre_season(season):
+    for x in range(1, 120):
+        num = '{:05}'.format(x)
+        # print(num)
+        from hw_scrape.ParameterType import GameType
+
+        find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
+                    PRE_SEASON + str(season) + num,
+                    GameType.traditional)
+        find_summary(PRE_SEASON + str(season) + num)
+
+
 if __name__ == '__main__':
-    for sea in range(13, 14):
-        regular(sea)
-        playoff(sea)
+    for sea in range(13, 15):
+        # regular(sea)
+        # playoff(sea)
+        pre_season(sea)
 
         # find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
         #             regular_date_code + str(season) + '00001',
