@@ -6,6 +6,7 @@ from hw_scrape.PlayerBasic import valid_response
 
 __author__ = 'zzt'
 
+PATH = '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/IterationThreeData/teams/basic/'
 
 def team_profile(team_id, season='2014-15'):
     url = 'http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=' \
@@ -19,11 +20,11 @@ def team_profile(team_id, season='2014-15'):
 
     stats = response.json()['resultSets'][0]
     list2d_to_csv(
-        dict_to_list2d(stats), 'team_profile_' + str(team_id) + UNDER + season
+        dict_to_list2d(stats), PATH + 'team_profile_' + str(team_id) + UNDER + season
     )
 
 
-def find_every_team(season='2014-15'):
+def find_every_team(season='2013-14'):
     stats = find_all_teams(season=season)
     l2d = dict_to_list2d(stats)[1:]
     for l in l2d:

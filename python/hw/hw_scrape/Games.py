@@ -17,6 +17,8 @@ SEASON_HEAD = '20'
 
 __author__ = 'zzt'
 
+PATH = '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/IterationThreeData/matches/regu_playoff/'
+
 
 def find_detail(season, game_id, detail_type):
     # http://stats.nba.com/stats/boxscoreadvancedv2?EndPeriod=10&EndRange=28800&GameID=
@@ -36,20 +38,26 @@ def find_detail(season, game_id, detail_type):
 
     detail_resp = requests.get(detail)
     if detail_resp.status_code >= 400:
-        print('no suck game ' + str(detail_resp.status_code))
-        return
+        print('no such game ' + str(detail_resp.status_code))
+        return False
 
-    player_stats = detail_resp.json()['resultSets'][0]
-    team_stats = detail_resp.json()['resultSets'][1]
+    try:
+        player_stats = detail_resp.json()['resultSets'][0]
+        team_stats = detail_resp.json()['resultSets'][1]
 
-    from hw_scrape import CsvHelper
+        from hw_scrape import CsvHelper
 
-    CsvHelper.list2d_to_csv(
-        dict_to_list2d(player_stats), 'player_' + str(game_id) + UNDER + str(detail_type.name)
-    )
-    CsvHelper.list2d_to_csv(
-        dict_to_list2d(team_stats), 'team_' + str(game_id) + UNDER + str(detail_type.name)
-    )
+        CsvHelper.list2d_to_csv(
+            dict_to_list2d(player_stats), PATH + 'player_' + str(game_id) + UNDER + str(detail_type.name)
+        )
+        CsvHelper.list2d_to_csv(
+            dict_to_list2d(team_stats), PATH + 'team_' + str(game_id) + UNDER + str(detail_type.name)
+        )
+
+    except (KeyError, IndexError, TypeError):
+        print(detail)
+
+    return True
 
     # with open('player' + str(game_id), 'w') as fp:
     #     json.dump(player_stats, fp)
@@ -65,23 +73,28 @@ def find_summary(game_id):
 
     summary_resp = requests.get(summary)
     if summary_resp.status_code >= 400:
-        print('no suck game ' + str(summary_resp.status_code))
-        return
+        print('no such game ' + str(summary_resp.status_code))
+        return False
 
-    home_team_id = summary_resp.json()['resultSets'][0]['rowSet'][0][6]
-    line_score = summary_resp.json()['resultSets'][5]
-    line_score['headers'].append('IS_HOME')
-    is_home = (line_score['rowSet'][0][3] == home_team_id)
+    try:
+        home_team_id = summary_resp.json()['resultSets'][0]['rowSet'][0][6]
+        line_score = summary_resp.json()['resultSets'][5]
+        line_score['headers'].append('IS_HOME')
+        is_home = (line_score['rowSet'][0][3] == home_team_id)
 
-    line_score['rowSet'][0].append(is_home)
-    line_score['rowSet'][1].append(not is_home)
+        line_score['rowSet'][0].append(is_home)
+        line_score['rowSet'][1].append(not is_home)
 
-    # CsvHelper.list2d_to_csv(
-    #     dict_to_list2d(game_summary), 'summary_' + str(game_id)
-    # )
-    CsvHelper.list2d_to_csv(
-        dict_to_list2d(line_score), 'line_score_' + str(game_id)
-    )
+        # CsvHelper.list2d_to_csv(
+        #     dict_to_list2d(game_summary), 'summary_' + str(game_id)
+        # )
+        CsvHelper.list2d_to_csv(
+            dict_to_list2d(line_score), PATH + 'line_score_' + str(game_id)
+        )
+    except (KeyError, IndexError, TypeError):
+        print(summary)
+
+    return True
     # with open('summary' + str(game_id), 'w') as fp:
     #     json.dump(game_summary, fp)
 
@@ -106,10 +119,14 @@ def playoff(season):
             for k in range(1, 7 + 1):
                 from hw_scrape.ParameterType import GameType
 
-                find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
-                            PLAY_OFF + str(season) + r + str(rank) + str(k),
-                            GameType.traditional)
-                find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
+                res = find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
+                                  PLAY_OFF + str(season) + r + str(rank) + str(k),
+                                  GameType.traditional)
+                if not res:
+                    break
+                res = find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
+                if not res:
+                    break
 
 
 def pre_season(season):
@@ -125,10 +142,10 @@ def pre_season(season):
 
 
 if __name__ == '__main__':
-    for sea in range(13, 15):
-        # regular(sea)
-        # playoff(sea)
-        pre_season(sea)
+    for sea in range(11, 12):
+        regular(sea)
+        playoff(sea)
+        # pre_season(sea)
 
         # find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
         #             regular_date_code + str(season) + '00001',
@@ -138,3 +155,6 @@ if __name__ == '__main__':
 
         # get regular game -- from 1 to 1230
         #
+
+        # exceptions:
+        # season=12, 0020000113
