@@ -4,7 +4,7 @@ from hw_scrape.Games import SEASON_HEAD, SEASON_SPLIT
 __author__ = 'zzt'
 
 
-def find_all_players(current, season='2014-15'):
+def find_all_players(current=1, season='2014-15'):
     # http://stats.nba.com/stats/commonallplayers?IsOnlyCurrentSeason=
     # 1&LeagueID=00&Season=20
     # 14-15

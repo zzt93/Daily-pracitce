@@ -1,6 +1,6 @@
 from math import sqrt
-from statistic.check.util import average, s_2
 from scipy.stats import t
+from statistic.check.util import average, s_2
 
 __author__ = 'zzt'
 

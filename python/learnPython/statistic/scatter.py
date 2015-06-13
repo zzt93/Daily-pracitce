@@ -30,6 +30,7 @@ def draw(img_path):
     colors = ('b', 'g', 'r', 'c', 'm', 'y', 'k', 'w')
     # the scatter chart of the data
     plt.scatter(x, y, s=area, c=colors, alpha=0.4)
+    # plt.hist(x, bins=50, color='g', alpha=0.5)
     # show image
     plt.savefig(img_path)
 

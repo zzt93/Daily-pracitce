@@ -23,8 +23,15 @@ class SeasonType(Enum):
     regular = 'Regular+Season'
     playoff = 'playoffs'
 
+
 class TeamType(Enum):
     Base = 1
+
+
+class PIEType(Enum):
+    overall = 1
+    rest = 2
+
 
 if __name__ == '__main__':
     for t in GameType:

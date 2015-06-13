@@ -8,6 +8,7 @@ __author__ = 'zzt'
 
 PATH = '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/IterationThreeData/teams/basic/'
 
+
 def team_profile(team_id, season='2014-15'):
     url = 'http://stats.nba.com/stats/teaminfocommon?LeagueID=00&SeasonType=Regular+Season&TeamID=' \
           + str(team_id) + \
@@ -32,4 +33,7 @@ def find_every_team(season='2013-14'):
 
 
 if __name__ == '__main__':
-    find_every_team()
+    head = '20'
+    for x in range(10, 13):
+        sea = head + str(x) + '-' + str(x + 1)
+        find_every_team(sea)
