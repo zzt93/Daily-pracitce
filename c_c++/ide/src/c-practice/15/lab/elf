@@ -1,0 +1,42 @@
+
+
+Symbols from res.out:
+
+Name                  Value           Class        Type         Size             Line  Section
+
+__bss_start         |0000000000601040|   B  |            NOTYPE|                |     |.bss
+completed.7291      |0000000000601040|   b  |            OBJECT|0000000000000001|     |.bss
+__data_start        |0000000000601030|   D  |            NOTYPE|                |     |.data
+data_start          |0000000000601030|   W  |            NOTYPE|                |     |.data
+deregister_tm_clones|0000000000400470|   t  |              FUNC|                |     |.text
+__do_global_dtors_aux|00000000004004f0|   t  |              FUNC|                |     |.text
+__do_global_dtors_aux_fini_array_entry|0000000000600e18|   t  |            OBJECT|                |     |.fini_array
+__dso_handle        |0000000000601038|   D  |            OBJECT|                |     |.data
+_DYNAMIC            |0000000000600e28|   d  |            OBJECT|                |     |.dynamic
+_edata              |0000000000601040|   D  |            NOTYPE|                |     |.data
+empty               |0000000000400573|   T  |              FUNC|000000000000000b|     |.text
+_end                |0000000000601060|   B  |            NOTYPE|                |     |.bss
+_fini               |00000000004005f4|   T  |              FUNC|                |     |.fini
+frame_dummy         |0000000000400510|   t  |              FUNC|                |     |.text
+__frame_dummy_init_array_entry|0000000000600e10|   t  |            OBJECT|                |     |.init_array
+__FRAME_END__       |0000000000400770|   r  |            OBJECT|                |     |.eh_frame
+full                |0000000000601050|   B  |            OBJECT|0000000000000010|     |.bss
+_GLOBAL_OFFSET_TABLE_|0000000000601000|   d  |            OBJECT|                |     |.got.plt
+__gmon_start__      |                |   w  |            NOTYPE|                |     |*UND*
+_init               |00000000004003e0|   T  |              FUNC|                |     |.init
+__init_array_end    |0000000000600e18|   t  |            NOTYPE|                |     |.init_array
+__init_array_start  |0000000000600e10|   t  |            NOTYPE|                |     |.init_array
+_IO_stdin_used      |0000000000400600|   R  |            OBJECT|0000000000000004|     |.rodata
+_ITM_deregisterTMCloneTable|                |   w  |            NOTYPE|                |     |*UND*
+_ITM_registerTMCloneTable|                |   w  |            NOTYPE|                |     |*UND*
+__JCR_END__         |0000000000600e20|   d  |            OBJECT|                |     |.jcr
+__JCR_LIST__        |0000000000600e20|   d  |            OBJECT|                |     |.jcr
+_Jv_RegisterClasses |                |   w  |            NOTYPE|                |     |*UND*
+__libc_csu_fini     |00000000004005f0|   T  |              FUNC|0000000000000002|     |.text
+__libc_csu_init     |0000000000400580|   T  |              FUNC|0000000000000065|     |.text
+__libc_start_main@@GLIBC_2.2.5|                |   U  |              FUNC|                |     |*UND*
+main                |0000000000400536|   T  |              FUNC|000000000000003d|     |.text
+printf@@GLIBC_2.2.5 |                |   U  |              FUNC|                |     |*UND*
+register_tm_clones  |00000000004004b0|   t  |              FUNC|                |     |.text
+_start              |0000000000400440|   T  |              FUNC|000000000000002a|     |.text
+__TMC_END__         |0000000000601040|   D  |            OBJECT|                |     |.data
