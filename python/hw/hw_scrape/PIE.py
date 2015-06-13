@@ -28,7 +28,6 @@ def get_pie(player_id, ptype=PIEType.rest):
     result_sets = resp.json()['resultSets']
     keep = FORBID
     for row in result_sets[5]['rowSet']:
-        # TODO add to different container?
         if row[1] == 'Starters' and row[2] > 42:
             keep = STARTER
         elif row[1] == 'Bench' and row[2] > 42:
@@ -36,9 +35,12 @@ def get_pie(player_id, ptype=PIEType.rest):
 
     if ptype == PIEType.overall:
         pie = [keep]
-        overall_pie = result_sets[0]['rowSet'][0][PIE_INDEX]
-        pie.append(overall_pie)
-        return pie
+        try:
+            overall_pie = result_sets[0]['rowSet'][0][PIE_INDEX]
+            pie.append(overall_pie)
+            return pie
+        except (KeyError, IndexError, TypeError):
+            return pie
 
     # diminish some game < 3
     rest_pie = [player_id]

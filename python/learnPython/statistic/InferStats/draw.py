@@ -1,4 +1,4 @@
-from matplotlib.pyplot import scatter, savefig, hist
+from matplotlib.pyplot import scatter, savefig, hist, plot
 
 __author__ = 'zzt'
 
@@ -16,6 +16,10 @@ def draw_hist(x, bin):
     print('data is : ' + str(x))
     # the histogram of the data
     hist(x, bins=bin, color='g', alpha=0.5)
+
+
+def draw_line(x):
+    plot(x)
 
 
 def finish(path=''):

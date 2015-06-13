@@ -24,13 +24,19 @@ def jw(user, pw):
     # Use 'with' to ensure the session context is closed after use.
     with requests.Session() as s:
         # login
-        s.post(JW_LOG, data=payload)
+        tmp = s.post(JW_LOG, data=payload)
         # print the html returned or something more intelligent to see if it's a successful login page.
         # print(p.text)
-        course_list_html = s.get(EVAL_COURSE_LIST)
-        # print(course_list_html.text)
+        course_list_resp = s.get(EVAL_COURSE_LIST)
+        if (tmp.status_code >= 400) \
+                or course_list_resp.status_code >= 400:
+            print('Invalid user name or password')
+            return
+
+        # print(course_list_resp.text)
         from bs4 import BeautifulSoup
-        soup = BeautifulSoup(course_list_html.text)
+
+        soup = BeautifulSoup(course_list_resp.text)
         course_list = []
         for tag in soup.find_all('tr'):
             ids = tag.get('id')
@@ -68,7 +74,6 @@ def jw(user, pw):
 
 
 if __name__ == '__main__':
-    if len(argv) == 3:
-        jw(argv[1], argv[2])
-    else:
-        print('Enter: python jw.py user_name password')
+    name = input('Enter user name: ')
+    password = input('Enter password: ')
+    jw(name, password)
