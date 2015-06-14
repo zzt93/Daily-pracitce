@@ -1,6 +1,6 @@
 import requests
 from hw_scrape.AllPlayers import find_all_players
-from hw_scrape.CsvHelper import dict_to_list2d, list2d_to_csv
+from hw_scrape.CsvHelper import dict_to_list2d
 from hw_scrape.ParameterType import PIEType
 from hw_scrape.PlayerBasic import valid_response
 
@@ -44,8 +44,14 @@ def get_pie(player_id, ptype=PIEType.rest):
 
     # diminish some game < 3
     rest_pie = [player_id]
-    for row in result_sets[6]['rowSet']:
+    for i in range(0, 7):
+        if i >= len(result_sets[6]['rowSet']):
+            rest_pie.append(0)
+            continue
+        row = result_sets[6]['rowSet'][i]
         if row[2] < 3:
+            rest_pie.append(0)
+        elif row[1][0] != str(i):
             rest_pie.append(0)
         else:
             rest_pie.append(row[PIE_INDEX])

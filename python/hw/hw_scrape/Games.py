@@ -142,8 +142,8 @@ def pre_season(season):
 
 
 if __name__ == '__main__':
-    for sea in range(11, 12):
-        regular(sea)
+    for sea in range(14, 15):
+        # regular(sea)
         playoff(sea)
         # pre_season(sea)
 
