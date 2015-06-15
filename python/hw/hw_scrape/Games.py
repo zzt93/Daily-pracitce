@@ -102,31 +102,33 @@ def find_summary(game_id):
 def regular(season):
     for x in range(1, 1230 + 1):
         num = '{:05}'.format(x)
+        s = '{:02}'.format(season)
         # print(num)
         from hw_scrape.ParameterType import GameType
 
-        find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
-                    REGULAR_CODE + str(season) + num,
+        find_detail(SEASON_HEAD + s + SEASON_SPLIT + '{:02}'.format(season + 1),
+                    REGULAR_CODE + s + num,
                     GameType.traditional)
-        find_summary(REGULAR_CODE + str(season) + num)
+        # find_summary(REGULAR_CODE + s + num)
 
 
 # 0041400311
 def playoff(season):
     for round_of in range(1, 4 + 1):
         r = '{:03}'.format(round_of)
+        s = '{:02}'.format(season)
         for rank in range(0, 16 // (2 ** round_of)):
             for k in range(1, 7 + 1):
                 from hw_scrape.ParameterType import GameType
 
-                res = find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
-                                  PLAY_OFF + str(season) + r + str(rank) + str(k),
+                res = find_detail(SEASON_HEAD + s + SEASON_SPLIT + '{:02}'.format(season + 1),
+                                  PLAY_OFF + s + r + str(rank) + str(k),
                                   GameType.traditional)
                 if not res:
                     break
-                res = find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
-                if not res:
-                    break
+                    # res = find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
+                    # if not res:
+                    #     break
 
 
 def pre_season(season):
@@ -138,12 +140,12 @@ def pre_season(season):
         find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
                     PRE_SEASON + str(season) + num,
                     GameType.traditional)
-        find_summary(PRE_SEASON + str(season) + num)
+        # find_summary(PRE_SEASON + str(season) + num)
 
 
 if __name__ == '__main__':
-    for sea in range(14, 15):
-        # regular(sea)
+    for sea in range(9, 10):
+        regular(sea)
         playoff(sea)
         # pre_season(sea)
 

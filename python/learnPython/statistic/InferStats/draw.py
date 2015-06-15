@@ -1,4 +1,4 @@
-from matplotlib.pyplot import scatter, savefig, hist, plot
+from matplotlib.pyplot import scatter, savefig, hist, plot, figtext, show
 
 __author__ = 'zzt'
 
@@ -31,8 +31,14 @@ def finish(path=''):
     savefig(path + '.png')
 
 
+def add_text(x, y, s, font=15):
+    figtext(x, y, s, fontsize=font)
+
+
 if __name__ == '__main__':
     x = [1.0, 2.9, 3.8]
-    # draw_line(x)
-    # show()
+    draw_line(x)
+    add_text(0.5, 0.5, 'asdfasdf')
+    show()
+
     # finish('test_line')

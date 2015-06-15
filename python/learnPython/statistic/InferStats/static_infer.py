@@ -1,9 +1,8 @@
 from __future__ import division
 from math import sqrt
-import numpy as np
 from numpy.ma import std
 from scipy.stats.stats import kstest
-from hw_scrape.PIE import get_overall_pie
+from statistic.InferStats.PIE import get_overall_pie
 from statistic.InferStats.draw import draw_hist, finish
 from statistic.check.util import average, s_2
 from scipy.stats import t

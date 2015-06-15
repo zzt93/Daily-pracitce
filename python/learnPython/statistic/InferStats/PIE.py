@@ -44,16 +44,19 @@ def get_pie(player_id, ptype=PIEType.rest):
 
     # diminish some game < 3
     rest_pie = [player_id]
+    j = 0
     for i in range(0, 7):
-        if i >= len(result_sets[6]['rowSet']):
+        if j >= len(result_sets[6]['rowSet']):
             rest_pie.append(0)
             continue
-        row = result_sets[6]['rowSet'][i]
+        row = result_sets[6]['rowSet'][j]
         if row[2] < 3:
+            j += 1
             rest_pie.append(0)
         elif row[1][0] != str(i):
             rest_pie.append(0)
         else:
+            j += 1
             rest_pie.append(row[PIE_INDEX])
 
     return rest_pie

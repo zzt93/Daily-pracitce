@@ -1,18 +1,18 @@
 from __future__ import division
-from gi.overrides.Gdk import argv
 import math
 import numpy as np
-from hw_scrape.PIE import get_pie
-from statistic import pearson_r
+from sys import argv
+from statistic.InferStats.PIE import get_pie
+from statistic.InferStats import pearson_r
 from statistic.InferStats import draw
-from statistic.InferStats.draw import draw_scatter, draw_curve
+from statistic.InferStats.draw import draw_scatter, draw_curve, add_text
 from statistic.check.util import average
 
 THRESHOLD = 0.7
 
 __author__ = 'zzt'
 
-PATH = ''
+PATH = '../'
 REST_LIST = [0.0000001, 1, 2, 3, 4, 5, 6]
 
 functions = {
@@ -35,9 +35,27 @@ def min_2(x, y):
     l_xx = sum(a ** 2 for a in x) - sum(x) ** 2 / len(x)
     b = lxy / l_xx
     a = y_bar - b * x_bar
-    print('y = {} + {}*b'.format(a, b))
     r = pearson_r.pearson_r(x, y)
+    print('{}: y = {} + {}*x'.format(r, a, b))
     return [r, a, b]
+
+
+def get_f(a, b, i):
+    def f(x):
+        return functions[i](x, a, b)
+
+    return f
+
+
+def get_infer(a, b, i):
+    f = get_f(a, b, i)
+    r = f(range(0, len(REST_LIST)))
+
+    index = r.index(max(r))
+    if index != len(REST_LIST) - 1:
+        return 'The player should rest {} day'.format(index)
+    else:
+        return 'The player should rest {}+ day'.format(index)
 
 
 def different_model(x, y):
@@ -57,9 +75,10 @@ def different_model(x, y):
     r_ = [abs(t) for t in r]
     i = r_.index(max(r_))
     if max(r_) < THRESHOLD:
-        return
+        return 'The player is too unsteady'
     else:
         draw_curve(np.linspace(0, 6, 3001), functions[i], a[i], b[i])
+        return get_infer(a[1], b[i], i)
 
 
 def infer_rest_player(player_id, path=PATH):
@@ -76,7 +95,8 @@ def infer_rest_player(player_id, path=PATH):
     draw_scatter(tmp, final, 10)
     if len(tmp) < 3:
         return
-    different_model(tmp, final)
+    s = different_model(tmp, final)
+    add_text(0.3, 0.15, s)
     draw.finish(path + player_id)
 
 
