@@ -2,6 +2,7 @@ import requests
 
 from hw_scrape import CsvHelper
 from hw_scrape.CsvHelper import dict_to_list2d
+from hw_scrape.ParameterType import GameType
 
 UNDER = '_'
 
@@ -13,11 +14,11 @@ PRE_SEASON = '001'
 
 SEASON_SPLIT = '-'
 
-SEASON_HEAD = '20'
+SEASON_HEAD = '19'
 
 __author__ = 'zzt'
 
-PATH = '/home/zzt/hw2l/trunk/NBADataAnalysisSystem/IterationThreeData/matches/regu_playoff/'
+PATH = '/home/zzt/tmp/'
 
 
 def find_detail(season, game_id, detail_type):
@@ -91,7 +92,7 @@ def find_summary(game_id):
         CsvHelper.list2d_to_csv(
             dict_to_list2d(line_score), PATH + 'line_score_' + str(game_id)
         )
-    except (KeyError, IndexError, TypeError):
+    except (KeyError, IndexError, TypeError, ValueError):
         print(summary)
 
     return True
@@ -109,7 +110,21 @@ def regular(season):
         find_detail(SEASON_HEAD + s + SEASON_SPLIT + '{:02}'.format(season + 1),
                     REGULAR_CODE + s + num,
                     GameType.traditional)
-        # find_summary(REGULAR_CODE + s + num)
+        find_summary(REGULAR_CODE + s + num)
+
+
+def old_playoff(season):
+    s = '{:02}'.format(season)
+    for x in range(1, 105):
+        rank = '{:03}'.format(x)
+        res = find_detail(SEASON_HEAD + s + SEASON_SPLIT + '{:02}'.format(season + 1),
+                          PLAY_OFF + s + '00' + rank,
+                          GameType.traditional)
+        if not res:
+            break
+        res = find_summary(PLAY_OFF + s + '00' + rank)
+        if not res:
+            break
 
 
 # 0041400311
@@ -126,7 +141,7 @@ def playoff(season):
                                   GameType.traditional)
                 if not res:
                     break
-                    # res = find_summary(PLAY_OFF + str(season) + r + str(rank) + str(k))
+                    # res = find_summary(PLAY_OFF + s + r + str(rank) + str(k))
                     # if not res:
                     #     break
 
@@ -149,14 +164,15 @@ if __name__ == '__main__':
         playoff(sea)
         # pre_season(sea)
 
-        # find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
-        #             regular_date_code + str(season) + '00001',
-        #             DetailType.traditional)
-        #
-        # find_summary('0021401217')
+    # season = 14
+    # find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
+    #             PLAY_OFF + str(season) + '00405',
+    #             GameType.traditional)
+    #
+    # find_summary('0041400405')
 
-        # get regular game -- from 1 to 1230
-        #
+    # get regular game -- from 1 to 1230
+    #
 
-        # exceptions:
-        # season=12, 0020000113
+    # exceptions:
+    # season=12, 0020000113

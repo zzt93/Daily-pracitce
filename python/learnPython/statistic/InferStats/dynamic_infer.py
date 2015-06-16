@@ -59,19 +59,25 @@ def get_infer(a, b, i):
 
 
 def different_model(x, y):
-    r = [0] * 5
-    a = [1] * 5
-    b = [1] * 5
+    r = [0] * 10
+    a = [1] * 10
+    b = [1] * 10
     # linear
     r[0], a[0], b[0] = min_2(x, y)
     # 1/x
     r[1], a[1], b[1] = min_2([1 / ax for ax in x], [1 / bx for bx in y])
-    # e^x
-    r[2], a[2], b[2] = min_2(x, [math.log(bx) for bx in y])
     # lnx
     r[3], a[3], b[3] = min_2([math.log(ax) for ax in x], y)
-    # x^b
-    r[4], a[4], b[4] = min_2([math.log(ax) for ax in x], [math.log(bx) for bx in y])
+
+    try:
+        # e^x
+        r[2], a[2], b[2] = min_2(x, [math.log(bx) for bx in y])
+        # x^b
+        for i in range(0, len(REST_LIST)):
+            r[4 + i], a[4 + i], b[4 + i] = min_2([math.log(ax - i) for ax in x], [math.log(bx) for bx in y])
+    except:
+        pass
+
     r_ = [abs(t) for t in r]
     i = r_.index(max(r_))
     if max(r_) < THRESHOLD:

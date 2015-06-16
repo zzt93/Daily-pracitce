@@ -34,6 +34,6 @@ def find_every_team(season='2013-14'):
 
 if __name__ == '__main__':
     head = '20'
-    for x in range(10, 13):
-        sea = head + str(x) + '-' + str(x + 1)
+    for x in range(0, 10):
+        sea = head + '{:02}'.format(x) + '-' + '{:02}'.format(x + 1)
         find_every_team(sea)
