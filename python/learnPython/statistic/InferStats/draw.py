@@ -1,4 +1,4 @@
-from matplotlib.pyplot import scatter, savefig, hist, plot, figtext, show
+from matplotlib.pyplot import scatter, savefig, hist, plot, figtext, show, ylabel, xlabel
 
 __author__ = 'zzt'
 
@@ -26,7 +26,9 @@ def draw_curve(x, f, a, b):
     plot(x, f(x, a, b))
 
 
-def finish(path=''):
+def finish(x_str, y_str, path=''):
+    xlabel(x_str)
+    ylabel(y_str)
     # show image
     savefig(path + '.png')
 
@@ -38,7 +40,7 @@ def add_text(x, y, s, font=15):
 if __name__ == '__main__':
     x = [1.0, 2.9, 3.8]
     draw_line(x)
-    add_text(0.5, 0.5, 'asdfasdf')
+    add_text(0.5, 0.3, 'asdfasdf')
     show()
 
     # finish('test_line')

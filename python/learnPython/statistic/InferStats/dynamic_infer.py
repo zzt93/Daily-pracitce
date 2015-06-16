@@ -97,7 +97,7 @@ def infer_rest_player(player_id, path=PATH):
         return
     s = different_model(tmp, final)
     add_text(0.3, 0.15, s)
-    draw.finish(path + player_id)
+    draw.finish('Day(s)', 'PIE', path + player_id)
 
 
 if __name__ == '__main__':
