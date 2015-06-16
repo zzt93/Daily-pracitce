@@ -57,7 +57,7 @@ def infer_ks_test_goodness(l1):
         print('reject')
     else:
         print('accept')
-    # print(res)
+    print(res)
 
 
 def infer_overall():
@@ -97,4 +97,4 @@ if __name__ == '__main__':
     # draw_hist(l0, BIN)
     # draw_hist(l1, BIN, 'b')
     # finish('./static_infer')
-    infer_ks_test_goodness(l1)
+    infer_ks_test_goodness(l0)
