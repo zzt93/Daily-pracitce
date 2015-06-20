@@ -60,11 +60,11 @@ def infer_ks_test_goodness(l1):
     print(res)
 
 
-def infer_overall():
-    l = get_overall_pie()
+def infer_overall(season):
+    l = get_overall_pie(season)
     draw_hist(l[0], BIN)
     draw_hist(l[1], BIN)
-    finish('./static_infer')
+    finish('x', 'y', './static_infer')
     infer_by_t(l[1], l[0])
     infer_by_chi(l[1], l[0])
 

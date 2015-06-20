@@ -26,14 +26,15 @@ def team_profile(team_id, season='2014-15'):
 
 
 def find_every_team(season='2013-14'):
-    stats = find_all_teams(season=season)
+    stats = find_all_teams()
     l2d = dict_to_list2d(stats)[1:]
     for l in l2d:
         team_profile(l[0], season)
 
 
 if __name__ == '__main__':
-    head = '20'
-    for x in range(0, 10):
-        sea = head + '{:02}'.format(x) + '-' + '{:02}'.format(x + 1)
-        find_every_team(sea)
+    # head = '19'
+    # for x in range(85, 100):
+    #     sea = head + '{:02}'.format(x) + '-' + '{:02}'.format(x + 1)
+    #     find_every_team(sea)
+    find_every_team('1999-00')

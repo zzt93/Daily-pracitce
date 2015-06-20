@@ -15,7 +15,7 @@ def binom_pmf(img_path):
     plt.bar(x, y, width=0.6, color='grey')  # make bar chart
     plt.savefig(img_path + 'fig.png')
 
-# the code should not be changed
+# the coding should not be changed
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print 'error'

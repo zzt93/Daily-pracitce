@@ -12,7 +12,7 @@ def get_data(mu):
     return x
 
 
-# you can write your code here
+# you can write your coding here
 def draw(img_path):
     # get input data
     x = get_data(100)
@@ -24,7 +24,7 @@ def draw(img_path):
     # show image
     plt.savefig(img_path)
 
-# the code should not be changed
+# the coding should not be changed
 if __name__ == '__main__':
     if len(sys.argv) == 1:
         print('error')

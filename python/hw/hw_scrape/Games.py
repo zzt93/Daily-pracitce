@@ -18,7 +18,7 @@ SEASON_HEAD = '19'
 
 __author__ = 'zzt'
 
-PATH = '/home/zzt/tmp/'
+PATH = '/home/zzt/'
 
 
 def find_detail(season, game_id, detail_type):
@@ -159,17 +159,17 @@ def pre_season(season):
 
 
 if __name__ == '__main__':
-    for sea in range(9, 10):
-        regular(sea)
-        playoff(sea)
-        # pre_season(sea)
+    # for sea in range(9, 10):
+    #     regular(sea)
+    #     playoff(sea)
+    #     # pre_season(sea)
 
-    # season = 14
-    # find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
-    #             PLAY_OFF + str(season) + '00405',
-    #             GameType.traditional)
-    #
-    # find_summary('0041400405')
+    season = 14
+    find_detail(SEASON_HEAD + str(season) + SEASON_SPLIT + str(season + 1),
+                PLAY_OFF + str(season) + '00405',
+                GameType.traditional)
+
+    find_summary('0041400405')
 
     # get regular game -- from 1 to 1230
     #
