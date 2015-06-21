@@ -34,8 +34,14 @@ def t4():
     print 'café'
 
 
+def t5():
+    s = 'café'
+    print(type(s))
+
+
 if __name__ == '__main__':
     # t1()
     # t2()
     # t3()
-    t4()
+    # t4()
+    t5()

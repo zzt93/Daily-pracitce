@@ -1,5 +1,5 @@
 from __future__ import division
-from scipy.stats import chi2
+from scipy.stats import chi2, chi2_contingency
 
 __author__ = 'zzt'
 
@@ -31,4 +31,5 @@ def indep(a):
 
 if __name__ == '__main__':
     a = [[1, 2, 3], [2, 2, 3]]
+    # print(chi2_contingency(a))
     print(indep(a))
