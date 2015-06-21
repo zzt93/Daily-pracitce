@@ -52,10 +52,6 @@ if __name__ == '__main__':
     for i, v in enumerate(square):
         print i, v, ';',
 
-
     # condition
     print(square == square2)
     print(square is square2)
-
-
-
