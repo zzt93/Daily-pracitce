@@ -12,7 +12,8 @@ def f_one(*args):
             return [None, None]
     r = len(a[0])
     m = len(a)
-    x_bar = mean(sum([], a))
+    x_bar = mean(a)
+    # t = mean(sum(a, []))
     x_ib = []
     for x in a:
         x_ib.append(mean(x))

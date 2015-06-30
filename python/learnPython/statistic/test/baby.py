@@ -33,7 +33,7 @@ def handle_data():
 class Solution:
     def solve(self):
         weeks = handle_data()
-        upper = norm.interval(0.95)[1]
+        upper = norm.ppf(0.975)
 
         ave = mean(weeks)
         weeks_upper = 4 / sqrt(len(weeks)) * upper

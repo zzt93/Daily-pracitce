@@ -26,7 +26,7 @@ def age(stats):
     a = ybar - b * xbar
     # difference
     st = sum([(yi - ybar) ** 2 for yi in y])
-    yesit = [ybar + b * (xi - xbar) for xi in x]
+    yesit = [a + b * xi for xi in x]
     sr = sum([(ye - ybar) ** 2 for ye in yesit])
     return [a, b, sr / st]
 

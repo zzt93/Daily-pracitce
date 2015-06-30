@@ -52,6 +52,6 @@ if __name__ == '__main__':
     # norm1 = norm(loc=0, scale=4)
     # l = norm1.rvs(size=1000)
     l = [1, 2, 3]
-    print(mean(l), var(l), skew(l), kurtosis(l) + 3)
+    print(mean(l), var(l), skew(l), kurtosis(l))
     print(s.describe(l))
     # print(norm1.stats(moments='mvsk'))

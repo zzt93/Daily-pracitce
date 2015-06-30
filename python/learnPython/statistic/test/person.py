@@ -15,9 +15,9 @@ def pers(x, y):
     s_y = std(y, ddof=1)
     tmp = 0.0
     for i in range(0, len(x)):
-        tmp += (x[i] - x_bar) * (y[i] - y_bar) / s_x / s_y
+        tmp += (x[i] - x_bar) * (y[i] - y_bar)
 
-    r = tmp / (len(x) - 1)
+    r = tmp / (len(x) - 1) / s_x / s_y
     if r == 1:
         return [1, 0]
     tt = r * sqrt((len(x) - 2) / (1 - r ** 2))

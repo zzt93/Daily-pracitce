@@ -26,7 +26,7 @@ class Solution():
 
 
 if __name__ == '__main__':
-    rvs = [1, 2, 3]
+    rvs = [2, 2, 3]
     print(stats.ttest_1samp(rvs, 2))
     # print(ttest(rvs, 2))
     s = Solution()

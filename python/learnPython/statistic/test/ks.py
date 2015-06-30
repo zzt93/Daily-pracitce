@@ -1,4 +1,5 @@
 from __future__ import division
+import math
 
 __author__ = 'zzt'
 
@@ -27,7 +28,9 @@ def find_sorted(l, ll):
 
 
 def ks2(d1, d2):
-    data_all = sum([d1, d2], [])
+    # d1 = list(d1)
+    # d2 = list(d2)
+    data_all = d1 + d2
     n1 = len(d1)
     n2 = len(d2)
     data_all.sort()
