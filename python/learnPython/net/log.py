@@ -2,6 +2,7 @@ import sys
 
 PORTAL_IN = 'http://p.nju.edu.cn/portal_io/login'
 PORTAL_OUT = 'http://p.nju.edu.cn/portal_io/logout'
+PORTAL_USER = 'http://p.nju.edu.cn/portal_io/proxy/userinfo'
 
 __author__ = 'zzt'
 
@@ -23,8 +24,12 @@ def log_in():
         # print(p.text)
 
         # An authorised request.
-        r = s.get('https://www.baidu.com')
-        print(r.status_code)
+        try:
+            r = s.post(PORTAL_USER).json()['results']['total_time']
+        except KeyError:
+            # r = s.post(PORTAL_USER).json()['results']['total_time']
+        # r = s.get('https://www.baidu.com')
+        print('{}h{}m{}s'.format(r // 3600, r % 3600 // 60, r % 3600 % 60))
 
 
 def log_out():

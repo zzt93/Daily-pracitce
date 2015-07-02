@@ -8,6 +8,12 @@ import java.util.ArrayList;
  * Description: an emulation of Semaphore
  * and P&V
  *
+ * Semaphore is the abstraction of resource (A semaphore is
+ * a resource that shared by all threads),
+ * the value represent how many threads can share this resource
+ * simultaneously
+ * the list store the thread waiting for it
+ *
  */
 public class Semaphore {
     private int value;

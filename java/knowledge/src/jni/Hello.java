@@ -2,6 +2,9 @@ package jni;
 
 /**
  * Created by zzt on 4/5/15.
+ *
+ * Description:
+ *
  */
 public class Hello {
     static {

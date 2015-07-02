@@ -7,7 +7,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * Created by zzt on 6/30/15.
  * <p>
- * Description:
+ * Description: an emulation of Monitor
+ *
+ *
  */
 public class Monitor {
     private Semaphore mutex;
