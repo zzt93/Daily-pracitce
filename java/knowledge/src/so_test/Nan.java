@@ -1,4 +1,4 @@
-package number;
+package so_test;
 
 /**
  * Created by zzt on 5/10/15.
