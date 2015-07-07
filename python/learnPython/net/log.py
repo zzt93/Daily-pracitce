@@ -3,8 +3,8 @@ import time
 
 LOGIN_USERNAME_PASSWORD_ = {
     'action': 'login',
-    'username': '131250069',
-    'password': 'hch19950809'
+    'username': '',
+    'password': ''
 }
 
 PORTAL_IN = 'http://p.nju.edu.cn/portal_io/login'
@@ -50,7 +50,7 @@ def test():
     with requests.Session() as s:
         last = time.time()
         now = time.time()
-        while now - last < 60:
+        while now - last < 600:
             s.post(PORTAL_IN, data=LOGIN_USERNAME_PASSWORD_)
             time.sleep(0.8)
             s.post(PORTAL_OUT)
