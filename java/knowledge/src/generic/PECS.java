@@ -1,7 +1,6 @@
 package generic;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 7/6/15.
@@ -16,9 +15,9 @@ public class PECS {
         }
     }
 
-    public <T> List<T> getNew(List<? extends T> src) {
-        return src.stream()
-                .collect(Collectors.toList());
-    }
+//    public <T> List<T> getNew(List<? extends T> src) {
+//        return src.stream()
+//                .collect(Collectors.toList());
+//    }
 
 }

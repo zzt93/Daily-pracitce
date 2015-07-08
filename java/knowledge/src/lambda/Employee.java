@@ -1,5 +1,6 @@
 package lambda;
 
+import enum_type.Department;
 import enum_type.Gender;
 
 /**
@@ -9,10 +10,15 @@ import enum_type.Gender;
  */
 public class Employee {
     private Gender gender;
+    private Department department;
     private double salary;
     private String name;
     private int age;
     private String eNum;
+
+    public Department getDepartment() {
+        return department;
+    }
 
     public Gender getGender() {
         return gender;
