@@ -13,10 +13,10 @@ public class Compare {
 
     static final int SIZE = 100000;
     Integer[] toSort = new Integer[SIZE];
-    ArrayList<Integer> arrayList = new ArrayList<Integer>(SIZE);
+    ArrayList<Integer> arrayList = new ArrayList<>(SIZE);
     int[] sort = new int[SIZE];
 
-    Compare() {
+    public Compare() {
         Scanner scanner = null;
         try {
             scanner = new Scanner(new BufferedInputStream(new FileInputStream(new File("IntegerArray.txt"))));
@@ -32,7 +32,7 @@ public class Compare {
         assert i == SIZE;
     }
     public void parallel() {
-        System.out.println("----------Integer parellel Arrays.sort------:");
+        System.out.println("----------Integer parallel Arrays.sort------:");
         long start = System.nanoTime();
         Arrays.parallelSort(toSort);
         System.out.println(System.nanoTime() - start);
@@ -46,7 +46,7 @@ public class Compare {
     }
 
     public void sortInt() {
-        System.out.println("----------Int parellel Arrays.sort------:");
+        System.out.println("----------Int parallel Arrays.sort------:");
         long start = System.nanoTime();
         Arrays.parallelSort(sort);
         System.out.println(System.nanoTime() - start);

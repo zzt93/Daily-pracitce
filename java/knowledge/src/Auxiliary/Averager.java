@@ -1,4 +1,4 @@
-package lambda;
+package Auxiliary;
 
 import java.util.function.DoubleConsumer;
 

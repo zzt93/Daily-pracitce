@@ -1,4 +1,4 @@
-package lambda;
+package Auxiliary;
 
 import enum_type.Department;
 import enum_type.Gender;

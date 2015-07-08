@@ -1,5 +1,6 @@
 package lambda;
 
+import Auxiliary.Employee;
 import enum_type.Department;
 import enum_type.Gender;
 
