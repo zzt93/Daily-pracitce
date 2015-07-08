@@ -40,12 +40,13 @@ public class Employee {
         return eNum;
     }
 
-    public Employee(Gender gender, double salary, String name, int age, String eNum) {
-
+    public Employee(Gender gender, Department department, double salary, String name, int age, String eNum) {
         this.gender = gender;
+        this.department = department;
         this.salary = salary;
         this.name = name;
         this.age = age;
         this.eNum = eNum;
     }
+
 }

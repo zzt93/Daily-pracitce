@@ -1,5 +1,6 @@
 package lambda;
 
+import enum_type.Department;
 import enum_type.Gender;
 
 import java.math.BigInteger;
@@ -13,7 +14,6 @@ import java.util.stream.Collectors;
  * Created by zzt on 7/7/15.
  * <p>
  * Description: learn collect by code and example
- *
  */
 public class Collect {
     private static final int CAPACITY = 3;
@@ -24,6 +24,7 @@ public class Collect {
         for (int i = 0; i < CAPACITY; i++) {
             employees.add(new Employee(
                     (i % 2 == 0) ? Gender.FEMALE : Gender.MALE,
+                    Department.getRandomDepartment(),
                     random.nextDouble(),
                     new BigInteger(60, random).toString(32),
                     random.nextInt(100),
