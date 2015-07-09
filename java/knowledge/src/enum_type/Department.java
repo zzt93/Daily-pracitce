@@ -10,12 +10,11 @@ import java.util.Random;
 public enum Department {
     SALES, SUPPORT, TECH, DESIGN;
 
-    public static final Department values[] = values();
-    public static final int size = values.length;
-    private static Random random;
+    public static final Department all[] = values();
+    public static final int size = all.length;
+    private static Random random = new Random(23);
 
     public static Department getRandomDepartment() {
-        random = new Random();
-        return values[random.nextInt(size)];
+        return all[random.nextInt(size)];
     }
 }

@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * Description: learn collect by code and example
  */
 public class Collect {
-    private static final int CAPACITY = 3;
+    private static final int CAPACITY = 10;
     private ArrayList<Employee> employees = new ArrayList<>();
 
     public ArrayList<Employee> getEmployees() {
@@ -28,7 +28,7 @@ public class Collect {
         final Random random = new Random();
         for (int i = 0; i < CAPACITY; i++) {
             employees.add(new Employee(
-                    (i % 2 == 0) ? Gender.FEMALE : Gender.MALE,
+                    Gender.getRandomGender(),
                     Department.getRandomDepartment(),
                     random.nextDouble(),
                     new BigInteger(60, random).toString(32),
@@ -62,7 +62,7 @@ public class Collect {
                         )
                         /*
                         Consequently, this groupingBy operation enables you to
-                        apply a collect method to the List values created by the groupingBy operator.
+                        apply a collect method to the List all created by the groupingBy operator.
                         ie, first groupBy gender than mapping it to name
                          */
                 );

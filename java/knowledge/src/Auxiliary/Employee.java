@@ -49,4 +49,15 @@ public class Employee {
         this.eNum = eNum;
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "gender=" + gender +
+                ", department=" + department +
+                ", salary=" + salary +
+                ", name='" + name + '\'' +
+                ", age=" + age +
+                ", eNum='" + eNum + '\'' +
+                '}';
+    }
 }
