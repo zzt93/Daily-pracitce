@@ -20,6 +20,10 @@ public class Collect {
     private static final int CAPACITY = 3;
     private ArrayList<Employee> employees = new ArrayList<>();
 
+    public ArrayList<Employee> getEmployees() {
+        return employees;
+    }
+
     public Collect() {
         final Random random = new Random();
         for (int i = 0; i < CAPACITY; i++) {
