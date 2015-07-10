@@ -40,12 +40,14 @@ public class Parallel {
     }
 
     public void describe() {
+        System.out.println("\nDescribe");
         employees
                 .parallelStream()
                 .forEach(System.out::println);
     }
 
     public void describeOrderly() {
+        System.out.println("\nDescribe orderly");
         employees
                 .parallelStream()
                 .forEachOrdered(System.out::println);

@@ -4,7 +4,6 @@ import Auxiliary.Employee;
 import enum_type.Department;
 import enum_type.Gender;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,9 +30,9 @@ public class Collect {
                     Gender.getRandomGender(),
                     Department.getRandomDepartment(),
                     random.nextDouble(),
-                    new BigInteger(60, random).toString(32),
-                    random.nextInt(100),
-                    new BigInteger(40, random).toString(32)
+                    Employee.randomString(10),
+                    Employee.randomAge(),
+                    Employee.randomString(5)
             ));
         }
     }
