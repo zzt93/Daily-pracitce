@@ -1,4 +1,4 @@
-package Auxiliary;
+package auxiliary;
 
 import java.util.function.DoubleConsumer;
 

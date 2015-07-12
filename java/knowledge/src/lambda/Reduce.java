@@ -1,6 +1,6 @@
 package lambda;
 
-import Auxiliary.Averager;
+import auxiliary.Averager;
 
 import java.util.ArrayList;
 import java.util.List;

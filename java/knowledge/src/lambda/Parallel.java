@@ -1,6 +1,6 @@
 package lambda;
 
-import Auxiliary.Employee;
+import auxiliary.Employee;
 import enum_type.Gender;
 
 import java.util.ArrayList;

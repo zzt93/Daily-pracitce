@@ -1,4 +1,4 @@
-package Auxiliary;
+package auxiliary;
 
 import enum_type.Department;
 import enum_type.Gender;
@@ -9,7 +9,7 @@ import java.util.Random;
 /**
  * Created by zzt on 7/7/15.
  * <p>
- * Description: Auxiliary class for collect
+ * Description: auxiliary class for collect
  */
 public class Employee {
     private static Random random = new Random(34);
