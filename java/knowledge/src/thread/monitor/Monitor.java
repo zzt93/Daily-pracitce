@@ -2,24 +2,21 @@ package thread.monitor;
 
 import thread.pv.Semaphore;
 
-import java.util.concurrent.atomic.AtomicInteger;
-
 /**
- * Created by zzt on 6/30/15.
+ * Created by zzt on 7/14/15.
  * <p>
- * Description: an emulation of Monitor
- *
- *
+ * Description: An emulation of Monitor
  */
 public class Monitor {
-    private Semaphore mutex;
-    private Semaphore notified;
-    private int notifyCount;
+    private final Semaphore conditionV;
+    /**
+     * The protector of resource that the monitor represented
+     */
+    private Semaphore mutex = new Semaphore(1);
 
-    public Monitor() {
+    public Monitor(Semaphore conditionV) {
         mutex = new Semaphore(1);
-        notified = new Semaphore(0);
-        notifyCount = 0;
+        this.conditionV = conditionV;
     }
 
     public void enter() {
@@ -27,26 +24,15 @@ public class Monitor {
     }
 
     public void leave() {
-        if (notifyCount > 0) {
-            notified.V();
-        } else {
-            mutex.V();
-        }
+        mutex.V();
     }
 
-    public void waiton(Semaphore condition, AtomicInteger wantResource) {
-        wantResource.getAndIncrement();
+    public void waiton() {
         leave();
-        condition.P();
-        wantResource.getAndDecrement();
+        conditionV.P();
     }
 
-    public void notifyWith(Semaphore condition, AtomicInteger wantResource) {
-        if (wantResource.get() > 0) {
-            notifyCount++;
-            condition.V();
-            notified.P();
-            notifyCount--;
-        }
+    public void notifyWith() {
+        conditionV.V();
     }
 }
