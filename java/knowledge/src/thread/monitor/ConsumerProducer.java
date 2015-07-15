@@ -1,5 +1,7 @@
 package thread.monitor;
 
+import thread.pv.Semaphore;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
@@ -15,14 +17,16 @@ public class ConsumerProducer {
     public static final int CAPACITY = 10;
     public static final int THREAD_BOUND = 5;
     ArrayList<Integer> buffer = new ArrayList<>(CAPACITY);
+    private final Semaphore full = new Semaphore(0);
+    Monitor bufferMonitor = new Monitor(full);
 
-    public void p_i() {
+    public void producer() {
         while (true) {
 
         }
     }
 
-    public void c_i() {
+    public void consumer() {
         while (true) {
 
         }
@@ -34,10 +38,10 @@ public class ConsumerProducer {
         int pNum = random.nextInt(THREAD_BOUND);
         int cNum = THREAD_BOUND - pNum;
         for (int i = 0; i < pNum; i++) {
-            executorService.submit(this::p_i);
+            executorService.submit(this::producer);
         }
         for (int i = 0; i < cNum; i++) {
-            executorService.submit(this::c_i);
+            executorService.submit(this::consumer);
         }
     }
 

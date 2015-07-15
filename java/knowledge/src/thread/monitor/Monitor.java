@@ -6,6 +6,14 @@ import thread.pv.Semaphore;
  * Created by zzt on 7/14/15.
  * <p>
  * Description: An emulation of Monitor
+ * <p>
+ * A monitor is used to protect a resource which can be
+ * associated with multiple condition variables: eg. {@link thread.monitor.ConsumerProducer} --
+ * Producer and Consumer problem<br></>
+ * <p>
+ * The buffer has a monitor to stop thread interleave;<br>
+ * The buffer has a condition that all space are full and producer has to wait;<br>
+ * The buffer has a condition that all space are empty and consumer has to wait;<br>
  */
 public class Monitor {
     private final Semaphore conditionV;
