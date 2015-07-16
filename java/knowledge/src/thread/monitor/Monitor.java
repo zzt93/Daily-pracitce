@@ -9,7 +9,7 @@ import thread.pv.Semaphore;
  * <p>
  * A monitor is used to protect a resource which can be
  * associated with multiple condition variables: eg. {@link thread.monitor.ConsumerProducer} --
- * Producer and Consumer problem<br></>
+ * Producer and Consumer problem<br>
  * <p>
  * The buffer has a monitor to stop thread interleave;<br>
  * The buffer has a condition that all space are full and producer has to wait;<br>

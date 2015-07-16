@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
  * Created by zzt on 7/12/15.
  * <p>
  * Description: Using Monitor to solve consumer and Producer problem
+ * using monitor
  *
  */
 public class ConsumerProducer {
