@@ -7,8 +7,9 @@ import thread.pv.Semaphore;
  * <p>
  * Description: An emulation of Monitor
  * <p>
- * A monitor is used to protect a resource which can be
- * associated with multiple condition variables: eg. {@link thread.monitor.ConsumerProducer} --
+ * In my implementation, a monitor is a way to inspect/protect a resource which has some state and
+ * can be associated with a condition variable. Multiple monitors can protect a single resource
+ * which have different condition variables: eg. {@link thread.monitor.ConsumerProducer} --
  * Producer and Consumer problem<br>
  * <p>
  * The buffer has a monitor to stop thread interleave;<br>
@@ -16,15 +17,13 @@ import thread.pv.Semaphore;
  * The buffer has a condition that all space are empty and consumer has to wait;<br>
  */
 public class Monitor {
-    private final Semaphore conditionV;
+    private final Semaphore conditionV = new Semaphore(0);
     /**
      * The protector of resource that the monitor represented
      */
     private Semaphore mutex = new Semaphore(1);
 
-    public Monitor(Semaphore conditionV) {
-        mutex = new Semaphore(1);
-        this.conditionV = conditionV;
+    public Monitor() {
     }
 
     public void enter() {
@@ -38,9 +37,14 @@ public class Monitor {
     public void waiton() {
         leave();
         conditionV.P();
+        enter();
     }
 
     public void notifyWith() {
         conditionV.V();
+    }
+
+    public void shareResource(Monitor monitor) {
+        monitor.mutex = mutex;
     }
 }

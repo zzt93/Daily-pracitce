@@ -14,7 +14,6 @@ import java.util.function.Supplier;
  * <p>
  * Description: An emulation of Producer and Consumer problem
  * using Semaphore
- *
  */
 public class ProCon<T> {
     public static final int BOUND = 1000;
@@ -50,14 +49,16 @@ public class ProCon<T> {
             empty.P();
             mutex.P();
             // handle buffer
-            buffer.forEach(i -> System.out.print(":" + i));
-            System.out.println();
             try {
                 Thread.sleep(random.nextInt(BOUND));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             buffer.add(producer.get());
+
+            System.out.println("After producing:");
+            buffer.forEach(i -> System.out.print(":" + i));
+            System.out.println();
             // handle buffer end
             mutex.V();
             full.V();
@@ -69,8 +70,6 @@ public class ProCon<T> {
             full.P();
             mutex.P();
             // handle buffer
-            buffer.forEach(i -> System.out.print(":" + i));
-            System.out.println();
             try {
                 Thread.sleep(random.nextInt(BOUND));
             } catch (InterruptedException e) {
@@ -78,6 +77,10 @@ public class ProCon<T> {
             }
             consumer.accept(buffer.get(0));
             buffer.remove(0);
+
+            System.out.println("After consuming");
+            buffer.forEach(i -> System.out.print(":" + i));
+            System.out.println();
             // handle buffer end
             mutex.V();
             empty.V();
@@ -98,8 +101,8 @@ public class ProCon<T> {
 
     public static void main(String[] args) {
         new ProCon<Integer>(10,
-                integer -> System.out.println("0" + integer),
-                () -> random.nextInt(10))
-                .test();
+                integer -> System.out.println("consuming " + integer),
+                () -> random.nextInt(10)
+        ).test();
     }
 }
