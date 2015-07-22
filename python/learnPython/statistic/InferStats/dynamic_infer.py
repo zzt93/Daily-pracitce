@@ -114,4 +114,4 @@ if __name__ == '__main__':
         # y = [255.7, 263.3, 275.4, 278.4, 296.7, 309.3, 315.8, 318.8]
         # draw_scatter(y, l, 10)
         # different_model(y, l)
-        # draw.finish('test')
+        # draw.finish('test.txt')

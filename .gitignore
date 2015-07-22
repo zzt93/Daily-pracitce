@@ -52,5 +52,11 @@ hs_err_pid*
 *.iml
 !/.gitignore
 
-
+*.dump
+*.png
+*.jpg
+*.s
+python/hw/distribute/build/
+python/hw/hw_scrape/Scrape_data/
+*.txt
 java/**/out/
