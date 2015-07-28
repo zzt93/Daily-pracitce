@@ -45,3 +45,6 @@ if __name__ == '__main__':
     print(a.f)
     a.f()
     A.f(a)
+    b = A(2)
+    print(b.f)
+    print(a.f == b.f)
