@@ -168,8 +168,9 @@ void Heap<T>::percolate_up_add(int i){
 */
 template <class T>
 void Heap<T>::percolate_up(int i){
-    for (; i != 0 && i/2 >= 0; i/=2) {
-        int tei = i/2;
+	int tei;
+    for (; i != 0 && i/2 >= 0; i = tei) {
+        tei = i/2;
         if (i%2 == 0 && i/2-1 >= 0) {
             tei -= 1;
         }
