@@ -10,7 +10,8 @@ package thread;
  * __________________
  *
  * Answer: Every time you set `mutex` to `true` or `false`,
- * it will autoboxing a new object and
+ * it will autoboxing the boolean so produce a new object which
+ * cause deadlock and exception
  *
  */
 public class Alternate {
@@ -34,13 +35,13 @@ class Odd implements Runnable {
     @Override
     public void run() {
         try {
-            synchronized (mutex) {
+            synchronized (mutex) {// this one
                 while (mutex) {
                     mutex.wait();
                 }
                 System.out.println("odd");
                 mutex = true;
-                mutex.notifyAll();
+                mutex.notifyAll(); // another one
                 Thread.sleep(500);
             }
         } catch (InterruptedException e) {
