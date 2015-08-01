@@ -9,7 +9,8 @@ def main():
     with open(sys.argv[1], 'rb') as fh:
         c = fh.read()
 
-    if c[:3] != 'CWS':
+    # for c is array of bytes
+    if c[:3] != 'CWS'.encode():
         exit('[-] File is not compressed...')
 
     ver = c[3]
@@ -17,9 +18,9 @@ def main():
     nc = decompress(c[8:])
 
     with open(sys.argv[2], 'wb') as fh:
-        fh.write('FWS' + ver + c[4:8] + nc)
+        fh.write(('FWS' + ver + c[4:8] + nc).encode())
         print("[+] Done, check out %s..." % sys.argv[2])
 
-# -------------------------------------------------------------------------------
+# ------------------------------------------------------------------------
 if __name__ == '__main__':
     main()
