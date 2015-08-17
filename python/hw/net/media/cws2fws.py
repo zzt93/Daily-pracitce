@@ -9,7 +9,7 @@ FWS_PREFIX = b'FWS'
 
 def cws2fws(filepath):
     try:
-        fin = open(filepath, 'br')
+        fin = open(filepath, 'rb')
     except IOError:
         raise Exception('Error: Could not open source SWF file {}'.format(filepath))
 

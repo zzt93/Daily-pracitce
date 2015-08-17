@@ -1,4 +1,4 @@
-package Plagger::Plugin::Filter::Cws2Fws;
+ackage Plagger::Plugin::Filter::Cws2Fws;
 
 require 5.6.0;
 

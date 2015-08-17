@@ -15,10 +15,10 @@ def media():
         'movie': 'http://static.youku.com/v1.0.0555/v/swf/loader.swf'
     }
     response = requests.post(site, para)
-    response.encoding = 'utf-8'
+    response.encoding = 'gbk'
     outpath = os.path.join(os.getcwd(), 'video.mp4')
-    with open(outpath, 'w', encoding='utf-8') as videofile:
-        videofile.write(response.text)
+    with open(outpath, 'wb') as videofile:
+        videofile.write(response.text.encode('gbk'))
         videofile.close()
 
 
