@@ -1,13 +1,15 @@
 __author__ = 'zzt'
 
 
-class bitMap:
+class BitMap:
     USED = 1
     FREE = 0
+    BITS = 8
     '''
     bits is start from l[i], having size bits all
     l is a bytearray, ie each element has 8 bits
     '''
+
     def __init__(self, l, i, sz):
         self.l = l
         self.start = i
@@ -19,13 +21,21 @@ class bitMap:
                 return x
 
     def is_val(self, x, value):
-        pass
+        assert 0 <= x < self.size
+        index = x / BitMap.BITS
+        j = x % BitMap.BITS
+        res = self.l[index] >> j
+        return (res & 1) == value
 
     def set_val(self, x, value):
-        pass
+        assert 0 <= x < self.size
+        index = x / BitMap.BITS
+        j = x % BitMap.BITS
+        bit = value << j
+        assert (self.l[index] & (1 << j)) != bit
+        self.l[index] ^= ((-value ^ self.l[index]) & (1 << j))
 
     def apply_bit(self):
-        x = self.first_val(bitMap.FREE)
-        self.set_val(x, bitMap.USED)
+        x = self.first_val(BitMap.FREE)
+        self.set_val(x, BitMap.USED)
         return x
-
