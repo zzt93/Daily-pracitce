@@ -3,7 +3,6 @@ from learn_class.os.makeimg import DirEntry
 
 __author__ = 'zzt'
 
-
 if __name__ == '__main__':
     b = bytearray(sizeof(DirEntry))
     print(b)

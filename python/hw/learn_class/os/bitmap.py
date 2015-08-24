@@ -22,18 +22,18 @@ class BitMap:
 
     def is_val(self, x, value):
         assert 0 <= x < self.size
-        index = x / BitMap.BITS
+        index = x // BitMap.BITS
         j = x % BitMap.BITS
-        res = self.l[index] >> j
+        res = self.l[index + self.start] >> j
         return (res & 1) == value
 
     def set_val(self, x, value):
         assert 0 <= x < self.size
-        index = x / BitMap.BITS
+        index = x // BitMap.BITS
         j = x % BitMap.BITS
         bit = value << j
-        assert (self.l[index] & (1 << j)) != bit
-        self.l[index] ^= ((-value ^ self.l[index]) & (1 << j))
+        assert (self.l[index + self.start] & (1 << j)) != bit
+        self.l[index + self.start] ^= ((-value ^ self.l[index + self.start]) & (1 << j))
 
     def apply_bit(self):
         x = self.first_val(BitMap.FREE)

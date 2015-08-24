@@ -35,9 +35,12 @@ class MkImg:
         self.inode_num = ino
         self.block_num = bno
         self.bsize = bsize * 2 ** 10
+        # offset relative to the end of kernel
+        # last start is useless
         self.start = []
         # first size is super block
-        self.size = [MkImg.SECTOR, int(ino / BitMap.BITS), int(bno / BitMap.BITS), ino * MkImg.NODE_SZ, bno * bsize]
+        self.size = [MkImg.SECTOR, int(ino / BitMap.BITS), int(bno / BitMap.BITS), ino * MkImg.NODE_SZ,
+                     bno * self.bsize]
         self.buf = bytearray(sum(self.size))
 
     '''
@@ -68,7 +71,11 @@ class MkImg:
     def get_area(start, x, unit):
         return start + x * unit
 
-    def make_file(self, type):
+    '''
+    :return file's inode offset and block offset relative to the end of kernel
+    '''
+
+    def make_file(self, filetype, kernel_sz):
         # apply for inode, block
         map1 = BitMap(self.buf, self.start[0], self.size[1])
         x = map1.apply_bit()
@@ -80,22 +87,24 @@ class MkImg:
         node = Inode.from_buffer(self.buf, inode_off)
         # IDE driver
         node.dev_id = 6
-        node.index[0] = block_off
+        node.index[0] = block_off + kernel_sz
         node.link_count = 1
-        node.type = type
+        node.type = filetype.value
         return inode_off, block_off
 
-    def init_super(self, start):
+    def init_super(self, start, file_sz):
         # inode map start after a sector of super start,
         # last start is useless
+        every_start = start
         for x in self.size:
-            self.start.append(start + x)
+            self.start.append(every_start + x)
+            every_start += x
 
         def int_to_bytes_bigendian(i):
-            j = (2 ** BitMap.BITS - 1) << (MkImg.INT - BitMap.BITS)
+            j = (2 ** BitMap.BITS - 1)
             l = []
-            for xx in range(MkImg.INT / BitMap.BITS):
-                l.append(j & i)
+            for xx in range(MkImg.INT // BitMap.BITS - 1, -1, -1):
+                l.append(j & (i >> BitMap.BITS * xx))
                 j >>= BitMap.BITS
 
             return l
@@ -103,15 +112,15 @@ class MkImg:
         def int_to_bytes_little_endian(i):
             j = (2 ** BitMap.BITS - 1)
             l = []
-            for xx in range(MkImg.INT / BitMap.BITS):
+            for xx in range(MkImg.INT // BitMap.BITS):
                 l.append(j & i)
-                j <<= BitMap.BITS
+                i >>= BitMap.BITS
 
             return l
 
         for x in range(len(self.size) - 1):
             # TODO little endian?
-            for b in int_to_bytes_little_endian(self.start[x]):
+            for b in int_to_bytes_little_endian(self.start[x] + file_sz):
                 self.buf[start] = b
                 start += 1
             for b2 in int_to_bytes_little_endian(self.size[x + 1]):
@@ -121,31 +130,25 @@ class MkImg:
     def make_img(self):
         disk_sz = os.path.getsize(self.disk)
         # although it is append at end, for they are all zero, so it's same
-        super_start = self.fill_gap(disk_sz) + disk_sz
-        assert super_start % MkImg.SECTOR == 0
-        print(super_start)
-        self.init_super(super_start)
+        super_gap = self.fill_gap(disk_sz)
+        print(super_gap + disk_sz)
+        self.init_super(super_gap, disk_sz)
         # it is done in __init__
         # self.init_map()
         # self.init_inode_block()
         # init root directory
         # write '.' '..' in block, ie a dir
-        inode_o, block_o = self.make_file(FileType.DIR)
+        inode_o, block_o = self.make_file(FileType.DIR, disk_sz)
         current = DirEntry.from_buffer(self.buf, block_o)
         current.filename = b'.'
-        current.inode_off = inode_o
+        current.inode_off = inode_o + disk_sz
         father = DirEntry.from_buffer(self.buf, block_o + sizeof(current))
         father.filename = b'..'
-        father.inode_off = inode_o
+        father.inode_off = inode_o + disk_sz
         with open(os.path.join(self.dir, 'harddisk.img'), 'wb') as img:
             img.write(bytearray(self.buf))
 
 
 if __name__ == '__main__':
-    print(os.getcwd())
-    for x in os.listdir('.'):
-        print(x)
-    with open('./disk.img', 'rb') as test:
-        print()
-    a = MkImg('./disk.img', 2 ** 12, 2 ** 20, 1)
+    a = MkImg('./disk.img', 2 ** 12, 2 ** 10, 1)
     a.make_img()
