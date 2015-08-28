@@ -1,12 +1,1 @@
-from _ctypes import sizeof
-from learn_class.os.makeimg import DirEntry
-
-__author__ = 'zzt'
-
-if __name__ == '__main__':
-    b = bytearray(sizeof(DirEntry))
-    print(b)
-    entry = DirEntry.from_buffer(b)
-    entry.inode_off = 1
-    entry.filename = b'abc'
-    print(b)
+/media/zzt/01CEC27C454731B01/recent/os/ics/os/os-lab1/harddisk/test_from.py

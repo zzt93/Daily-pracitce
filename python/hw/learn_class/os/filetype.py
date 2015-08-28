@@ -1,9 +1,1 @@
-from enum import Enum
-
-__author__ = 'zzt'
-
-
-class FileType(Enum):
-    NO_BLOCK = 0
-    DIR = 1
-    FILE = 2
+/media/zzt/01CEC27C454731B01/recent/os/ics/os/os-lab1/harddisk/filetype.py
