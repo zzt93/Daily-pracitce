@@ -1,7 +1,9 @@
 __author__ = 'zzt'
 
+
 class Meta(type):
     pass
+
 
 class Cls(metaclass=Meta):
     pass

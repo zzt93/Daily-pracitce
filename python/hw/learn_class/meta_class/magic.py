@@ -10,4 +10,3 @@ class Fun:
 if __name__ == '__main__':
     f = Fun()
     f()
-
