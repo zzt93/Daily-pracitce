@@ -9,33 +9,71 @@
             color: black
         }
 
+        /*class selector*/
         p.warning {
             font-size: larger;
             color: red
         }
 
+        /*generic selector*/
         .reminder {
             font-family: serif;
             color: blue;
         }
 
+        /*id selector*/
         #h2 {
             font-size: larger;
             color: grey;
         }
+
+        input:hover {
+            background: pink;
+            color: red;
+        }
+
+        input:focus {
+            background: lightblue;
+            color: blue;
+        }
+
+        .form-control {
+            background: red;
+            color: black;
+            text-align: right;
+            text-indent: 0.5in;
+            font-weight: bold;
+        }
     </style>
 
-
+    <link rel="stylesheet" type="text/css" href="../css/a.css">
 </head>
 <body>
+<h1> a big heading</h1>
+<h1> another big heading</h1>
 <h2 id="h2"> This is a test for css</h2>
 
-<p class="normal"> this is normol test</p>
+<p class="normal"> this is normal test</p>
 
 <p class="warning"> this is a warning</p>
 
-<p class="reminder"> contact us by
+<p class="reminder">
+    contact us by
     <a href="../basic_html/basic_markup.html"> email</a>
 </p>
+
+<form action="">
+    <p>
+        <label>
+            address:
+            <input type="text" name="..">
+        </label>
+    </p>
+    <label for="...">asdf</label>
+    <input type="text" id="..." class="form-control">
+    <p class="major">
+        asdf
+    </p>
+</form>
 </body>
 </html>

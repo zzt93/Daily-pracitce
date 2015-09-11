@@ -1,0 +1,12 @@
+
+p.major {
+    background: black;
+    color: white;
+}
+
+h1 {
+    color: grey;
+    font-family: serif;
+    font-size: large;
+    border-style: dashed;
+}

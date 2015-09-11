@@ -1,0 +1,49 @@
+<!--When you open your sample document in your browser,
+the <strong> elements are bolder than the rest of the text.
+This comes from the browser's default style for HTML.
+
+The <strong> elements are red. This comes from your own sample stylesheet.
+
+The <strong> elements also inherit much of the <p> element's style,
+because they are its children.
+In the same way, the <p> element inherits much of the <body> element's style.-->
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/order.css">
+    <!--<style type="text/css">-->
+    <!--/*For styles in the cascade,-->
+    <!--author stylesheets have priority,-->
+    <!--then reader stylesheets,-->
+    <!--then the browser's defaults.-->
+
+    <!--For inherited styles,-->
+    <!--a child node's own style has priority over-->
+    <!--style inherited from its parent.*/-->
+    <!--strong {-->
+    <!--color: red;-->
+    <!--text-decoration: underline;-->
+    <!--}-->
+
+    <!--p {-->
+    <!--color: blue;-->
+    <!--}-->
+    <!--</style>-->
+</head>
+<body>
+<p id="first">
+    <strong class="carrot">C</strong>ascading
+    <strong class="spinach">S</strong>tyle
+    <strong class="blue">S</strong>heets
+</p>
+
+<p id="second">
+    <strong>C</strong>ascading
+    <strong>S</strong>tyle
+    <strong>S</strong>heets
+</p>
+<p> asdf</p>
+</body>
+</html>

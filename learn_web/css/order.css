@@ -1,0 +1,35 @@
+/*The ID selector #first has priority over the
+class selectors(strong.blue > .carrot) and
+tag selectors.(strong)
+
+#first > strong.blue > .carrot > strong
+
+*/
+#first {
+    font-style: italic;
+}
+
+#second {
+    color: blue;
+}
+
+strong.blue {
+    color: blue;
+}
+
+.carrot {
+    color: orange;
+}
+
+.spinach {
+    color: green;
+}
+
+strong {
+    color: red;
+    /*text-decoration: underline;*/
+}
+
+p {
+    font: italic 75%/125% "Comic Sans MS", cursive;
+}
