@@ -3,7 +3,7 @@
  * <p>
  * Description:
  */
-public class practice {
+public class practice_shortcut {
     public static void main(String[] args) {
         System.out.format("the turth is %s\n", "turth ");
         System.out.format("the turth is %s\n", "th is ");

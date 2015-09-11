@@ -4,6 +4,7 @@ package type;
  * Created by zzt on 7/14/15.
  * <p>
  * Description:
+ * learning instanceof
  */
 public class Instance {
     //    public class A { Inner class can't have static definition
