@@ -27,9 +27,19 @@ strong.blue {
 
 strong {
     color: red;
-    /*text-decoration: underline;*/
+    text-decoration: underline;
+    font-size: 2em;
+    background-color: grey;
 }
 
 p {
-    font: italic 75%/125% "Comic Sans MS", cursive;
+    font: italic 175%/225% "Comic Sans MS", cursive;
+}
+
+p:before {
+    content: url("../resource/yellow-pin.png");
+}
+
+body {
+    background: url("../resource/earth.jpg");
 }

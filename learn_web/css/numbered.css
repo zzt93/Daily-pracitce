@@ -1,0 +1,42 @@
+/* numbered paragraphs */
+
+h3 {
+    border-top: solid 1px gray;
+    text-align: center;
+    width: 30%;
+}
+
+body {
+    counter-reset: num;
+}
+
+h3:before {
+    content: '(' counter(num, upper-latin) ') ';
+    counter-increment: num;
+    font-weight: bold;
+}
+
+h3.numbered {
+    counter-reset: mynum;
+}
+
+p.numbered:before {
+    content: counter(mynum) ": ";
+    counter-increment: mynum;
+    font-weight: bold;
+}
+
+ul li {
+    list-style-type: upper-latin;
+    margin-bottom: 1em;
+}
+
+p.numbered {
+    text-indent: 1em;
+}
+
+ul, #numbered {
+    border: solid 1em cornflowerblue;
+    float: left;
+    clear: left;
+}
