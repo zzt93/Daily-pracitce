@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link type="text/css" href="../css/layout.css" rel="stylesheet">
+    <link type="text/css" href="../css/position.css" rel="stylesheet">
+    <style type="text/css">
+     .show_div   em {
+    font-style: italic;
+    color: #6b83d7;
+}
+    </style>
+</head>
+<body>
+<div class="code">
+
+    .container {
+        position: relative;
+    }
+
+    section {
+        margin-left: 25%;
+        width: 75%;
+    }
+
+    nav {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 25%;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 70px;
+      background-color: white;
+      width: 100%;
+    }
+    body {
+      margin-bottom: 120px;
+    }
+
+</div>
+<div class="show_div container">
+    <nav class="show_div">
+        <p> Navigation:</p>
+        <ul>
+            <li>Home</li>
+            <li>Menu</li>
+            <li>Draft list</li>
+            <li>Direction</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+    <section class="show_div">
+        The <em>margin-left</em> in <em>section</em> make sure Navigation
+        can stay
+    </section>
+    <section class="show_div">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        Phasellus imperdiet, nulla et dictum interdum, nisi lorem
+        egestas odio, vitae scelerisque enim ligula venenatis dolor.
+        Maecenas nisl est, ultrices nec congue eget, auctor vitae massa.
+        Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula,
+        facilisis sed ornare eu, lobortis in odio. Praesent convallis urna
+        a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi,
+        sed ullamcorper ipsum dignissim ac. In at libero sed nunc
+        venenatis imperdiet sed ornare turpis. Donec vitae dui eget
+        tellus gravida venenatis. Integer fringilla congue eros non fermentum.
+        Sed dapibus pulvinar nibh tempor porta. Cras ac leo purus. Mauris quis
+        diam velit.
+    </section>
+    <section class="show_div">
+        when resize the window of browser, something will happen
+    </section>
+</div>
+
+</body>
+<footer class="show_div">
+    <p>
+        如果你使用了一个固定定位的页眉或页脚，
+        确保有足够的空间来显示它们！我在 body 上面加了 margin-bottom 。
+    </p>
+</footer>
+</html>

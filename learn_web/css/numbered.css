@@ -37,6 +37,8 @@ p.numbered {
 
 ul, #numbered {
     border: solid 1em cornflowerblue;
+    /*left is a keyword indicating that the
+    element must float on the left side of its containing block.*/
     float: left;
     clear: left;
 }

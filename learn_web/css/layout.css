@@ -1,0 +1,35 @@
+
+.container {
+    position: relative;
+}
+
+section {
+    margin-left: 25%;
+    width: 75%;
+}
+
+nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25%;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 70px;
+    background-color: white;
+    width: 100%;
+    text-align: center;
+}
+
+body {
+    margin-bottom: 120px;
+}
+
+em {
+    font-style: italic;
+    color: #6b83d7;
+}

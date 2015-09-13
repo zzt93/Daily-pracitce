@@ -1,0 +1,8 @@
+
+.after-float {
+    clear: left;
+}
+
+.after-clear {
+    clear: right;
+}

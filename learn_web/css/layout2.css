@@ -1,0 +1,14 @@
+
+nav {
+    float: left;
+    width: 25%;
+}
+
+.container {
+    overflow: auto;
+}
+
+section {
+    margin-left: 25%;
+    width: 75%;
+}

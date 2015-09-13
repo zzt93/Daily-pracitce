@@ -1,0 +1,69 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.center, .code {
+    /*using the following two line make it center*/
+    width: 50%;
+    margin: 0.5em auto;
+}
+
+.code {
+    background-color: black;
+    border-radius: 5%;
+    color: white;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    white-space: pre;
+    border: 10px outset #5e5e5e;
+}
+
+.show_div {
+    border: 0.5em #717dd7 solid;
+}
+
+.left_corner {
+    background-color: #bababa;
+}
+
+.right-corner {
+    background-color: #bababa;
+    float: right;
+}
+
+.static {
+    position: static;
+}
+
+.relative1 {
+    position: relative;
+}
+
+.relative2 {
+    position: relative;
+    top: -20px;
+    left: 20px;
+    background-color: white;
+    max-width: 500px;
+}
+
+.fixed {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
+}
+
+.absolute {
+    position: absolute;
+    right: 0;
+    top: 120px;
+    width: 300px;
+    height: 200px;
+}
+
+.spliter {
+    margin-top: 10em;
+}
