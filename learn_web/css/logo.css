@@ -1,0 +1,13 @@
+
+.logo {
+    color: #ff776b;
+    font-weight: 700;
+    margin: 1.5em .5em;
+    float: left;
+}
+
+.action {
+    float: right;
+    color: #6b83d7;
+    margin: auto auto;
+}

@@ -42,3 +42,7 @@ ul, #numbered {
     float: left;
     clear: left;
 }
+
+#fixed-pin {
+    float: right;
+}

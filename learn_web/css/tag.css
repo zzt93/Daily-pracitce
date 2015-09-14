@@ -1,0 +1,13 @@
+.box {
+    display: inline-block;
+    width: 20%;
+    height: 20%;
+    margin: 1em;
+    border: solid 0.2em #89f5ff;
+}
+
+.main-container {
+    position: relative;
+    top: 15%;
+    left: 200px;
+}

@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 599px) {
-    nav section {
+    nav li {
         display: inline;
     }
 }

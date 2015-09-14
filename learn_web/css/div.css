@@ -9,7 +9,7 @@ div.square {
     width: 25%;
     height: 25%;
     max-width: 600px;
-    margin: 0 auto;
+    margin: 0.5em 2em;
     border: dashed .2em #6ac4ac;
     float: left;
 }
@@ -20,4 +20,8 @@ div.rect {
     margin: 0 auto;
     border: solid 0.5em #5a63b5;
     float: left;
+}
+
+div.container {
+    height: 600px;
 }
