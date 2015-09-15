@@ -8,18 +8,17 @@
 
 .main-container {
     position: relative;
-    top: 15%;
+    /*top: 15%;*/
     left: 200px;
-    margin: 7em 3em;
+    padding: 7em 3em;
     min-height: 400px;
-    max-width: 80%;
+    max-width: 85%;
 }
 
 body {
     min-height: 400px;
     /*max-width: 960px;*/
     /*width: 100%;*/
-    display: flex;
 }
 
 div.analysis {

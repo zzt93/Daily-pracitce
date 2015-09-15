@@ -22,6 +22,6 @@ div.rect {
     float: left;
 }
 
-div.container {
+div.flex-container {
     height: 600px;
 }

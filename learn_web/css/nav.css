@@ -66,6 +66,7 @@ a:visited {
 
 a:hover {
     text-decoration: underline;
+    content: '\1f50d';
 }
 
 a:active {

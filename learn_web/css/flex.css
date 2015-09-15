@@ -1,0 +1,32 @@
+.flex-container {
+    display: -webkit-flex;
+    display: flex;
+}
+
+.none {
+    -webkit-flex: none;
+    flex: none;
+    /*width: 200px;*/
+}
+
+.flex1 {
+    -webkit-flex: 1;
+    flex: 1;
+}
+
+.flex2 {
+    -webkit-flex: 2;
+    flex: 2;
+}
+
+.nav {
+    width: 100%;
+}
+
+.vertical-container {
+    /*height: 300px;*/
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}

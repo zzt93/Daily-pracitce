@@ -4,12 +4,14 @@
     font-weight: 700;
     margin-left: 1em;
     float: left;
-    min-width: 200px;
+    min-width: 150px;
 }
 
 .action {
     float: right;
     color: #6b83d7;
-    margin-left: 71%;
     min-width: 200px;
+    text-align: right;
+    margin-right: 1em;
+    font-family: FontAwesome sans-serif;
 }
