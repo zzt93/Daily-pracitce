@@ -60,3 +60,5 @@ python/hw/distribute/build/
 python/hw/hw_scrape/Scrape_data/
 *.txt
 java/**/out/
+
+*.img
