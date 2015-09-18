@@ -4,7 +4,7 @@ package maxOfSum;
 /**
  * author:zzt
  * date:2014.7.8
- * description: count the number of source file
+ * description: count the practice.round1A2008.number of source file
  * version:0.2 -- trimming algorithm-2 ---can only find the maximum but not the index.
  */
 import java.util.*;
@@ -53,10 +53,10 @@ public class maxOfSum2 {
 		ArrayList<Double> temp = new ArrayList<Double>();
 		double sum = 0;
 		double number = 0;
-		boolean sign = true; // means the number is positive
+		boolean sign = true; // means the practice.round1A2008.number is positive
 		for (i = 0; i < set.size(); ++i) {
 			number = set.get(i);
-            //enter the following two blocks when the sign of number is changed
+            //enter the following two blocks when the sign of practice.round1A2008.number is changed
 			if (number < 0 && sign) {
 				sign = false;
 				temp.add(sum);

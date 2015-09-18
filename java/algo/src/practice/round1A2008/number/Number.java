@@ -1,4 +1,4 @@
-package number;
+package practice.round1A2008.number;
 
 import utility.MyIn;
 import utility.MyOut;

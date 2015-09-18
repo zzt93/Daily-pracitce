@@ -1,4 +1,4 @@
-package milkshakes;
+package practice.Round1A2008.milkshakes;
 
 import utility.MyIn;
 

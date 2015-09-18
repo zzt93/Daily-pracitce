@@ -1,4 +1,4 @@
-package milkshakes;
+package practice.Round1A2008.milkshakes;
 
 import utility.MyIn;
 import utility.MyOut;
@@ -13,26 +13,26 @@ import java.util.List;
  * Created by zzt on 3/19/15.
  * <p/>
  * Description of problem:
- * You want to make N batches of milkshakes, so that:
+ * You want to make N batches of practice.Round1A2008.milkshakes, so that:
  * <p/>
  * There is exactly one batch for each flavor of milkshake, and it is either malted or unmalted.
  * For each customer, you make at least one milkshake type that they like.
- * The minimum possible number of batches are malted.
+ * The minimum possible practice.round1A2008.number of batches are malted.
  * <p/>
  * Find whether it is possible to satisfy all your customers given these constraints, and if it is, what milkshake types you should make.
  * <p/>
- * If it is possible to satisfy all your customers, there will be only one answer which minimizes the number of malted batches.
+ * If it is possible to satisfy all your customers, there will be only one answer which minimizes the practice.round1A2008.number of malted batches.
  * <p/>
  * Input
  * <p/>
- * One line containing an integer C, the number of test cases in the input file.
+ * One line containing an integer C, the practice.round1A2008.number of test cases in the input file.
  * <p/>
  * For each test case, there will be:
  * <p/>
- * One line containing the integer N, the number of milkshake flavors.
- * One line containing the integer M, the number of customers.
+ * One line containing the integer N, the practice.round1A2008.number of milkshake flavors.
+ * One line containing the integer M, the practice.round1A2008.number of customers.
  * M lines, one for each customer, each containing:
- * An integer T >= 1, the number of milkshake types the customer likes, followed by
+ * An integer T >= 1, the practice.round1A2008.number of milkshake types the customer likes, followed by
  * T pairs of integers "X Y", one for each type the customer likes, where X is the milkshake flavor between 1 and N inclusive, and Y is either 0 to indicate unmalted, or 1 to indicated malted. Note that:
  * No pair will occur more than once for a single customer.
  * Each customer will have at least one flavor that they like (T >= 1).
@@ -41,7 +41,7 @@ import java.util.List;
  * <p/>
  * Output
  * <p/>
- * C lines, one for each test case in the order they occur in the input file, each containing the string "Case #X: " where X is the number of the test case, starting from 1, followed by:
+ * C lines, one for each test case in the order they occur in the input file, each containing the string "Case #X: " where X is the practice.round1A2008.number of the test case, starting from 1, followed by:
  * The string "IMPOSSIBLE", if the customers' preferences cannot be satisfied; OR
  * N space-separated integers, one for each flavor from 1 to N, which are 0 if the corresponding flavor should be prepared unmalted, and 1 if it should be malted.
  */

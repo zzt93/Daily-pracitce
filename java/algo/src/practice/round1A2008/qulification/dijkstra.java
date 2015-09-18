@@ -1,4 +1,4 @@
-package qulification;
+package practice.round1A2008.qulification;
 
 import utility.MyIn;
 import utility.MyOut;

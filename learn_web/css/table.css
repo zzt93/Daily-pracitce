@@ -1,0 +1,75 @@
+#demo-table {
+    font: 100% sans-serif;
+    background-color: #efe;
+    border-collapse: separate;
+    empty-cells: show;
+    border: 1px solid #7a7;
+}
+
+#demo-table > caption {
+    caption-side: bottom;
+    text-align: right;
+    font-weight: bold;
+    font-size: 200%;
+    border-top: .2em solid #4ca;
+    margin-bottom: .5em;
+}
+
+/* basic shared rules */
+#demo-table th,
+#demo-table td {
+    text-align: right;
+    padding-right: .5em;
+}
+
+#demo-table th {
+    font-weight: bold;
+    padding-left: .5em;
+}
+
+/* header */
+#demo-table > thead > tr:first-child > th {
+    text-align: center;
+    color: blue;
+}
+
+#demo-table > thead > tr + tr > th {
+    font-style: italic;
+    color: gray;
+}
+
+/* fix size of superscript */
+#demo-table sup {
+    font-size: 75%;
+}
+
+/* body */
+#demo-table td {
+    background-color: #cef;
+    padding: .5em .5em .5em 3em;
+}
+
+#demo-table tbody th:after {
+    content: ":";
+}
+
+/* footer */
+#demo-table tfoot {
+    font-weight: bold;
+}
+
+#demo-table tfoot th {
+    color: blue;
+}
+
+#demo-table tfoot th:after {
+    content: ":";
+}
+
+#demo-table > tfoot td {
+    background-color: #cee;
+}
+
+#demo-table > tfoot > tr:first-child td {
+    border-top: .2em solid #7a7;
+}

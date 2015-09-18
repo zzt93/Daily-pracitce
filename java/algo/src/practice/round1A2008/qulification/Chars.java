@@ -1,4 +1,4 @@
-package qulification;
+package practice.round1A2008.qulification;
 
 /**
  * Created by zzt on 4/11/15.
