@@ -22,14 +22,18 @@ import java.util.Random;
  * Each test case starts with a positive integer M on a line by itself
  * -- the number of troublesome pairs of League members.
  * The next M lines each contain a pair of names, separated by a single space.
+ * <br>
  * Output
- * <p>
+ * <br>
  * For each test case, output one line containing "Case #x: y", where x is the case number (starting from 1) and y is
  * either "Yes" or "No", depending on whether the League members mentioned in the input can be split into two groups
  * with neither of the groups containing a troublesome pair.
  *
+ * <p></p>
+ * <strong>Better algo: coloring this graph</strong>
+ * This algorithm can work for small input, but takes too long for
+ * large input and may fail in large input.
  *
- * Better algo: coloring this graph
  */
 public class BadHorse {
 
@@ -221,7 +225,7 @@ public class BadHorse {
             } else {
                 res = 0;
             }
-            out.println("case #" + (i + 1) + ": " + (res == pairs ? "Yes" : "No"));
+            out.println("Case #" + (i + 1) + ": " + (res == pairs ? "Yes" : "No"));
         }
     }
 

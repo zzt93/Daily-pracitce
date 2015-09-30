@@ -27,7 +27,7 @@ public class codeJamTemp {
 
             res = 0;//TODO invoke some function
 
-            out.println("case #" + (i + 1) + ": " + res);
+            out.println("Case #" + (i + 1) + ": " + res);
         }
     }
 }
