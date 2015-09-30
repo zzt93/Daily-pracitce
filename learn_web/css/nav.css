@@ -12,7 +12,7 @@
     align-items: center;
 }
 
-header.nav, div.sidenav {
+header.nav, nav.sidenav {
     z-index: 1000;
 }
 
@@ -35,7 +35,7 @@ header.nav {
     color: black;
 }
 
-div.sidenav {
+nav.sidenav {
     position: fixed;
     top: 15%;
     left: 0;
@@ -49,13 +49,13 @@ div.sidenav {
     width: 200px;
 }
 
-div.sidenav ul {
+nav.sidenav ul {
     list-style: none;
     margin-top: 2em;
     margin-bottom: 2em;
 }
 
-div.sidenav ul li {
+nav.sidenav ul li {
     margin: .5em;
 }
 

@@ -8,7 +8,7 @@
 <h2 class="center"> static</h2>
 
 <div class="code">.static {
-        position: static;
+    position: static;
     }
 </div>
 <div class="static show_div">
@@ -27,15 +27,15 @@
 
 <div class="code">
     .relative1 {
-        position: relative;
+    position: relative;
     }
 
     .relative2 {
-        position: relative;
-        top: -20px;
-        left: 20px;
-        background-color: white;
-        max-width: 500px;
+    position: relative;
+    top: -20px;
+    left: 20px;
+    background-color: white;
+    max-width: 500px;
     }
 </div>
 
@@ -60,8 +60,9 @@
 <!--fixed-->
 
 <h2 class="center"> fixed</h2>
+
 <div class="center">
-     一个固定定位（position属性的值为fixed）元素会相对于视窗来定位，
+    一个固定定位（position属性的值为fixed）元素会相对于视窗来定位，
     这意味着即便页面滚动，它还是会停留在相同的位置。
     和 relative 一样， top 、 right 、 bottom 和 left 属性都可用。<br>
 
@@ -69,10 +70,10 @@
 </div>
 <div class="code">
     .static {
-        position: fixed;
-        bottom: 0;
-        right: 0;
-        background-color: white;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: white;
     }
 </div>
 <div class="fixed show_div">
@@ -87,6 +88,7 @@
 <!--absolute-->
 
 <h2 class="center"> absolute</h2>
+
 <div class="center">
     absolute 是最棘手的position值。
     absolute 与 fixed 的表现类似，
@@ -99,26 +101,28 @@
 </div>
 <div class="code">
     .relative2 {
-        position: relative;
-        top: -20px;
-        left: 20px;
-        background-color: white;
-        max-width: 500px;
+    position: relative;
+    top: -20px;
+    left: 20px;
+    background-color: white;
+    max-width: 500px;
     }
     .absolute {
-        position: absolute;
-        left: 0;
-        top: 120px;
-        width: 300px;
-        height: 200px;
+    position: absolute;
+    left: 0;
+    top: 120px;
+    width: 300px;
+    height: 200px;
     }
 </div>
 <div class="relative2 show_div">
     <span class="left_corner"> &it;div class="relative"&gt;</span>
+
     <p> 这个元素是相对定位的。
         如果它是 position: static; ，
         那么它的绝对定位子元素会跳过它直接相对于body元素定位。 </p>
     <span class="right-corner"> &it;/div&gt; </span>
+
     <div class="absolute show_div">
 
         <span class="left_corner"> &it;div class="absolute"&gt;</span><br>
@@ -132,6 +136,7 @@
 
 <div class="spliter">
     <h2 class="center"> differences between absolute&relative</h2>
+
     <div class="center">
         <ol>
             <li>absolute will not keep its old position, but relative
@@ -144,26 +149,28 @@
     </div>
     <div class="code">
         .relative2 {
-            position: relative;
-            top: -20px;
-            left: 20px;
-            background-color: white;
-            max-width: 500px;
+        position: relative;
+        top: -20px;
+        left: 20px;
+        background-color: white;
+        max-width: 500px;
         }
         .absolute {
-            position: absolute;
-            left: 0;
-            top: 120px;
-            width: 300px;
-            height: 200px;
+        position: absolute;
+        left: 0;
+        top: 120px;
+        width: 300px;
+        height: 200px;
         }
     </div>
     <div class="relative2 show_div">
         <span class="left_corner"> &it;div class="relative"&gt;</span>
+
         <p> 这个元素是相对定位的。
             如果它是 position: static; ，
             那么它的绝对定位子元素会跳过它直接相对于body元素定位。 </p>
         <span class="right-corner"> &it;/div&gt; </span>
+
         <div class="absolute show_div">
 
             <span class="left_corner"> &it;div class="absolute"&gt;</span><br>
@@ -173,6 +180,7 @@
         </div>
         <div class="relative2 show_div">
             <span class="left_corner"> &it;div class="relative"&gt;</span>
+
             <p> absolute will not keep its old position, but relative
                 will.</p>
             <span class="right-corner">&it;/div&gt;</span>

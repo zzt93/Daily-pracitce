@@ -11,7 +11,19 @@ def download(url, name='../resource/res'):
         f.write(bytes(r.text, 'utf-8'))
 
 
+class A:
+    pass
+
 if __name__ == '__main__':
+    # a = A()
+    # a.f = lambda x: x ** 2
+    # a.a = 1
+    # print(a.a)
+
+    # b = A()
+    # # AttributeError: 'A' object has no attribute 'a'
+    # print(b.a)
+
     if len(sys.argv) == 3:
         download(sys.argv[1], sys.argv[2])
     else:

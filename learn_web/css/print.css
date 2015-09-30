@@ -1,0 +1,49 @@
+/*@import 'print.css' print;*/
+
+/* defaults  for screen */
+#print-head,
+#print-foot {
+    display: none;
+}
+
+/* print only */
+@media print {
+
+    h1 {
+        page-break-before: always;
+        padding-top: 2em;
+    }
+
+    h1:first-child {
+        page-break-before: avoid;
+        counter-reset: page;
+    }
+
+    #print-head {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+
+        font-size: 200%;
+        text-align: center;
+    }
+
+    #print-foot {
+        display: block;
+        position: fixed;
+        bottom: 0;
+        right: 0;
+
+        font-size: 200%;
+    }
+
+    #print-foot:after {
+        content: counter(page);
+        counter-increment: page;
+    }
+
+}
+
+/* end print only */
