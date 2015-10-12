@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<pre>
+    <script type="text/javascript">
+
+        var hanoi = function (disk, from, to, aux) {
+            if (disk > 0) {
+                hanoi(disk - 1, from, aux, to);
+                document.writeln('move ' + disk + ' from #' + from
+                        + ' to #' + to);
+                hanoi(disk - 1, aux, to, from);
+            }
+        };
+
+        hanoi(5, 0, 2, 1);
+
+    </script>
+</pre>
+</body>
+</html>

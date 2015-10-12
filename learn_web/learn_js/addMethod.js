@@ -3,8 +3,14 @@
  */
 
 Function.prototype.method = function (name, func) {
-    this.prototype[name] = func;
-    return this;
+    if (!this.prototype[name]){
+        this.prototype[name] = func;
+        return this;
+    }
+    throw {
+        name: 'ConflictName',
+        des: 'already have this name'
+    }
 };
 
 Number.method('integer', function () {

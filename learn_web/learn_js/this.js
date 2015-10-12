@@ -1,5 +1,7 @@
 /**
  * Created by zzt on 9/25/15.
+ * example and explanation is from (here)
+ * [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this]
  */
 
 
@@ -80,3 +82,58 @@ o.b = {
     prop: 42
 };
 console.log(o.b.g()); // logs 42
+
+
+/**
+ The same notion holds true for methods defined
+ somewhere on the object's prototype chain.
+ If the method is on an object's prototype chain,
+ this refers to the object the method was called on,
+ as if the method was on the object.
+ */
+var o2 = {
+    f: function () {
+        return this.a + this.b;
+    }
+};
+var p = Object.create(o2);
+p.a = 1;
+p.b = 4;
+
+console.log(p.f()); // 5
+
+
+/*
+ * Constructors work like this:
+ *
+ * function MyConstructor(){
+ *   // Actual function body code goes here.
+ *   // Create properties on |this| as
+ *   // desired by assigning to them.  E.g.,
+ *   this.fum = "nom";
+ *   // et cetera...
+ *
+ *   // If the function has a return statement that
+ *   // returns an object, that object will be the
+ *   // result of the |new| expression.  Otherwise,
+ *   // the result of the expression is the object
+ *   // currently bound to |this|
+ *   // (i.e., the common case most usually seen).
+ * }
+ */
+
+function C() {
+    this.a = 37;
+}
+
+var o3 = new C();
+console.log(o3.a); // logs 37
+
+
+function C2() {
+    this.a = 37;
+    return {a: 38};
+}
+
+o = new C2();
+console.log(o.a); // logs 38

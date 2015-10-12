@@ -1,3 +1,6 @@
+/**
+ * Created by zzt on 10/9/15.
+ */
 
 var myelement = document.getElementById("intro");
 var x = document.getElementsByTagName("nav");
