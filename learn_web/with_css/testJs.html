@@ -3,22 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
+    <script type="javascript" src="../learn_js/recursion.js"></script>
 </head>
 <body>
+<form action="">
+    <button onclick="bluify(this)" name="button">asdf</button>
+</form>
+<button onclick="alert(this.tagName.toLowerCase());">
+    Show this
+</button>
 <pre>
     <script type="text/javascript">
 
-        var hanoi = function (disk, from, to, aux) {
-            if (disk > 0) {
-                hanoi(disk - 1, from, aux, to);
-                document.writeln('move ' + disk + ' from #' + from
-                        + ' to #' + to);
-                hanoi(disk - 1, aux, to, from);
+        var quo = function f(val) {
+            return {
+                get_val: function () {
+                    return val;
+                }
             }
         };
 
-        hanoi(5, 0, 2, 1);
+        var t = quo('closure');
+        document.write(t.get_val());
 
+        var fade = function (node) {
+            var level = 1;
+            var step = function () {
+                var hex = level.toString(16);
+                node.style.backgroundColor = '#FFFF' + hex + hex;
+                if (level < 15) {
+                    level += 1;
+                    setTimeout(step, 100);
+                }
+            };
+            setTimeout(step, 100);
+        };
+        fade(document.body);
     </script>
 </pre>
 </body>
