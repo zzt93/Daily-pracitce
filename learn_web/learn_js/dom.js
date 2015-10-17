@@ -9,3 +9,6 @@ var intro = document.getElementsByClassName("nav.sidenav");
 var herf = location.href;
 
 document.cookie = "username=Tom; expires=";
+
+this.confirm("...");
+var s = this.prompt("what is your name");
