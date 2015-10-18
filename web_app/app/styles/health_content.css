@@ -1,0 +1,13 @@
+#block {
+    padding: 0.8em;
+    color: white;
+    font-family: Roboto, helvetica, arial, sans-serif;
+    font-weight: 100;
+    background-image: url(../images/run.jpg);
+    background-size: cover;
+}
+
+.container {
+    margin: auto;
+    max-width: 800px;
+}
