@@ -2,37 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--<link href="styles/fonts.css" type="text/css" rel="stylesheet">-->
+    <link href="styles/head.css" type="text/css" rel="stylesheet">
+    <link href="styles/footer.css" type="text/css" rel="stylesheet">
+    <link href="styles/content.css" type="text/css" rel="stylesheet">
+
     <title></title>
 </head>
-<header id="header">
-    <section id="logo">
-
-    </section>
-    <section id="actions">
-
-    </section>
-</header>
 <body>
-<nav id="side_nav">
-    <ul>
-        <li>
-            <a href="#">健康管理</a>
-        </li>
-        <li>
-            <a href="#">活动管理</a>
-        </li>
-        <li>
-            <a href="#">建议管理</a>
-        </li>
-    </ul>
-</nav>
-</body>
-<footer id="footer">
-    <section id="contact">
 
-    </section>
-    <section id="mis">
+<div id="headline">
+    <div class="container">
 
-    </section>
+        <header>
+            <h1>Personal health app</h1>
+
+            <p>Try to manage every details of your health</p>
+        </header>
+        <div id="intro">
+            <p>So you've understand that your health is kind of a big deal,
+                and you're not sure how to manage you health.
+                So here is the right place
+                to start your management.
+            </p>
+
+            <p>This app is designed to teach you what
+                you need to know and what you should do
+                to manage your health.</p>
+
+            <ul>
+                <li>Health statistic tracker</li>
+                <li>Advice from professionals: doctor, fitness</li>
+                <li>Statistic analysis</li>
+                <li>Fitness campaign</li>
+                <li>More</li>
+            </ul>
+        </div>
+        <form method="post" id="register">
+            <h2>Register for the launch</h2>
+            <label for="name">Name</label>
+            <br>
+            <input type="text" name="name" id="name"
+                   placeholder="Zeng ZeTang" required>
+            <br>
+            <label for="email">Email address</label>
+            <br>
+            <input type="email" name="email" id="email"
+                   placeholder="xxx@example.com" required>
+            <br>
+            <label for="pw">Password</label>
+            <br>
+            <input type="password" name="pw" id="pw"
+                   placeholder="******" required>
+            <br>
+            <label for="pw">Password again</label>
+            <br>
+            <input type="password" name="pw" id="pw-again"
+                   placeholder="******" required>
+            <br>
+            <input type="submit" value="Sign up">
+            <br>
+        </form>
+        <!-- Elements after a floating element will flow around it.
+         To avoid this, use the clear property.
+        The clear property specifies on which sides of an element
+         floating elements are not allowed to float:-->
+        <br>
+    </div>
+</div>
+
+<div id="example">
+    <div class="container">
+        <h2>Our Users</h2>
+
+        <p>some comments and app screen shots</p>
+
+        <div class="avatar">
+            <img src="images/first.png" alt="Li is diving">
+
+            <p class="quote">
+                Lee:<br>
+                "I follow the advice of my fitness to dive,
+                and I feel so good now."
+            </p>
+        </div>
+        <div class="avatar">
+            <img src="images/first.png" alt="Li is diving">
+            <p class="quote">
+                Lee:<br>
+                "I follow the advice of my fitness to dive,
+                and I feel so good now."
+            </p>
+
+        </div>
+        <ul>
+            <li>Li's comment and health statistic</li>
+            <li>Hong's comment and statistic analysis</li>
+        </ul>
+    </div>
+</div>
+
+<footer>
+    <div class="container">
+        <section id="contact">
+            <p>Email us: zzt@health.com</p>
+
+            <p>Contact us: (xxx) xxxx xxxx</p>
+        </section>
+        <section id="mis">
+
+        </section>
+    </div>
 </footer>
+</body>
 </html>
