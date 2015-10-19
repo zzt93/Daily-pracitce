@@ -1,3 +1,14 @@
+@import "tables.css";
+@import "a.css";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
 #block {
     padding: 0.8em;
     color: white;
@@ -10,4 +21,64 @@
 .container {
     margin: auto;
     max-width: 800px;
+}
+
+.health_block {
+    margin: auto;
+}
+
+.health_block table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+}
+
+.health_block tbody {
+    color: black;
+}
+
+.health_block h4 {
+    width: 100%;
+    margin: 1em auto;
+}
+
+@media (min-width: 600px) {
+    #side_nav {
+        border-right: 2px solid grey;
+        max-width: 200px;
+        width: 20%;
+        display: inline-block;
+    }
+
+    #side_nav ul {
+        list-style: outside none none;
+        padding: 20px 40px;
+        margin: 0;
+    }
+
+    #side_nav ul li {
+        padding-top: .25em;
+        padding-bottom: .25em;
+    }
+
+    #block {
+        margin: 0 5% 20px;
+        display: inline-block;
+    }
+
+    .main br {
+        clear: both;
+    }
+
+    .health_block {
+        float: left;
+        width: 45%;
+        margin-left: 3%;
+        margin-right: 2%;
+    }
+
+    .container br {
+        clear: left;
+    }
+
 }

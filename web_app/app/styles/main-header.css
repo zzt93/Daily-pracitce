@@ -1,6 +1,31 @@
+@import "a.css";
+
+#main-header {
+    width: 100%;
+    border-bottom: 2px solid #c7c7c7;
+
+}
+
+#main-header p, #main-header img {
+    margin: 1% 2%;
+}
+
+#logo, #app-name {
+    float: left;
+}
+
+#app-name {
+    color: #00BCD4;
+}
+
+.action {
+    float: right;
+}
 
 
-
+#main-header br {
+    clear: both;
+}
 
 @media (min-width: 600px) {
 

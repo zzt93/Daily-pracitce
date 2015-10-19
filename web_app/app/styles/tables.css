@@ -1,0 +1,21 @@
+table thead {
+    background: #3372df;
+    color: #fff
+}
+
+table tbody {
+    background: #F0F0F0 none repeat scroll 0 0;
+}
+
+table tr {
+    border: 2px solid #FFFFFF;
+}
+table tbody th, table tbody td {
+    display: table-cell;
+    border: 2px solid #FFF;
+    font-weight: 400;
+}
+
+table caption {
+    padding: 1em;
+}
