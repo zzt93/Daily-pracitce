@@ -3,11 +3,15 @@
 #main-header {
     width: 100%;
     border-bottom: 2px solid #c7c7c7;
-
+    background-color: white;
 }
 
 #main-header p, #main-header img {
     margin: 1% 2%;
+}
+
+#main-header ul {
+    display: none;
 }
 
 #logo, #app-name {
@@ -15,7 +19,7 @@
 }
 
 #app-name {
-    color: #00BCD4;
+    color: #4c84d4;
 }
 
 .action {
