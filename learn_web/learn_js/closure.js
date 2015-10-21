@@ -36,7 +36,7 @@ fade(document.body);
  */
 var add_handler = function (nodes) {
     var i;
-    for(i = 0; i < nodes.length; i ++) {
+    for (i = 0; i < nodes.length; i++) {
         nodes[i].onclick = function (e) {
             alert(i);
         }
@@ -50,7 +50,7 @@ var add_handler = function (nodes) {
  */
 var n_add_handler = function (nodes) {
     var i;
-    for(i = 0; i < nodes.length; i ++) {
+    for (i = 0; i < nodes.length; i++) {
         nodes[i].onclick = function (i) {
             return function (e) {
                 return alert(i);
@@ -58,3 +58,26 @@ var n_add_handler = function (nodes) {
         }(i);
     }
 };
+
+// not the same closure
+var addChosenLisener = function () {
+    'use strict';
+    var n1 = nowSelected();
+    n1.changeTo(1);
+    console.log(n1.getNow());
+
+    var n2 = nowSelected();
+    console.log(n2.getNow());
+};
+function nowSelected() {
+    var now = 0;
+    return {
+        getNow: function () {
+            return now;
+        },
+        changeTo: function (i) {
+            now = i;
+        }
+    };
+}
+addChosenLisener();

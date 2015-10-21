@@ -15,30 +15,27 @@
 <pre>
     <script type="text/javascript">
 
-        var quo = function f(val) {
-            return {
-                get_val: function () {
-                    return val;
-                }
-            }
+        var addChosenLisener = function () {
+            'use strict';
+            var n1 = nowSelected;
+            n1.changeTo(1);
+            document.write(n1.getNow());
+
+            var n2 = nowSelected;
+            document.write(n2.getNow());
         };
-
-        var t = quo('closure');
-        document.write(t.get_val());
-
-        var fade = function (node) {
-            var level = 1;
-            var step = function () {
-                var hex = level.toString(16);
-                node.style.backgroundColor = '#FFFF' + hex + hex;
-                if (level < 15) {
-                    level += 1;
-                    setTimeout(step, 100);
+        var nowSelected = function () {
+            var now = 0;
+            return {
+                getNow: function () {
+                    return now;
+                },
+                changeTo: function (i) {
+                    now = i;
                 }
             };
-            setTimeout(step, 100);
-        };
-        fade(document.body);
+        }();
+        addChosenLisener();
     </script>
 </pre>
 </body>

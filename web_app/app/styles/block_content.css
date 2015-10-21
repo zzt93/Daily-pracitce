@@ -1,5 +1,5 @@
 @import "tables.css";
-@import "a.css";
+@import "anchor.css";
 
 *, *::after, *::before {
     box-sizing: border-box;
@@ -33,7 +33,7 @@ body {
     color: white;
 }
 
-#side_nav a:hover {
+#side_nav ul li a:hover {
     color: #48E7EB;
 }
 
@@ -66,15 +66,6 @@ body {
     clear: left;
 }
 
-#side_nav li a:active {
-    background-color: grey;
-    border: hidden;
-}
-
-#side_nav li a:visited {
-    border: hidden;
-}
-
 .container {
     margin: auto;
     max-width: 800px;
@@ -97,6 +88,19 @@ body {
 .health_block h4 {
     width: 100%;
     margin: 1em auto;
+}
+
+.tab-chosen {
+    background-color: white;
+}
+
+#side_nav ul .tab-chosen a {
+    color: #4c84d4;
+}
+
+.tab-chosen .float-num {
+    background-color: #4c84d4;
+    color: white;
 }
 
 @media (min-width: 600px) {
@@ -152,8 +156,6 @@ body {
     }
 
     .float-num {
-        color: #4c84d4;
-        background-color: white;
         border-radius: 40px;
         padding: .2em .8em;
         margin-left: 0;
