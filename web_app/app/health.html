@@ -35,20 +35,21 @@
 
 <div id="main-container" class="flex-container">
     <nav id="side_nav" class="none">
-        <ul>
-            <li>
-                <a href="#">健康管理</a>
+        <ul id="side_nav_list">
+            <li class="tab-chosen">
+                <a href="#health">健康管理</a>
             </li>
             <li>
-                <a href="#">活动管理</a>
+                <a href="#campaign">活动管理</a>
             </li>
             <li>
-                <a href="#">建议管理</a>
+                <a href="#advice">建议管理</a>
             </li>
         </ul>
     </nav>
-    <div id="content-block" class="flex1">
-        <div class="container">
+
+    <div id="tabbed-block" class="flex1">
+        <div class="container" id="health-container">
             <section class="health_block">
                 <table id="health">
                     <caption>今日健康概况</caption>
@@ -81,29 +82,7 @@
                     </tbody>
                 </table>
             </section>
-            <section class="health_block">
-                <table id="fit">
-                    <caption>今日运动数据</caption>
-                    <thead><tr>
-                        <th>Content</th>
-                        <th>Yours</th>
-                        <th>Aims</th>
-                    </tr></thead>
-                    <tbody><tr>
-                        <th>walk</th>
-                        <td>1000</td>
-                        <td>2000</td>
-                    </tr>
-                    <tr>
-                        <th>push-up</th>
-                        <td>20</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <th colspan="3"><a href="#">More</a></th>
-                    </tr></tbody>
-                </table>
-            </section>
+
             <section class="health_block">
                 <table id="plan">
                     <caption>健身饮食计划</caption>
@@ -134,10 +113,165 @@
                 </table>
             </section>
             <section class="health_block">
+                <table id="fit">
+                    <caption>今日运动数据</caption>
+                    <thead><tr>
+                        <th>Content</th>
+                        <th>Yours</th>
+                        <th>Aims</th>
+                    </tr></thead>
+                    <tbody><tr>
+                        <th>walk</th>
+                        <td>1000</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <th>push-up</th>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3"><a href="#">More</a></th>
+                    </tr></tbody>
+                </table>
+            </section>
+
+            <section class="health_block">
                 <h4>健康数据跟踪</h4>
                 <img src="images/logo.jpg" id="tracker">
             </section>
             <br>
+        </div>
+        <div class="container" id="campaign">
+            <section class="health_block">
+                <table>
+                    <caption>今日健康概况</caption>
+                    <colgroup>
+                        <col span="1">
+                        <col span="1">
+                        <col span="1">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                        <th>Content</th>
+                        <th>Yours</th>
+                        <th>Standard</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th>Weight</th>
+                        <td>..</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th>心率</th>
+                        <td>..</td>
+                        <td>...</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3"><a href="#">More</a></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="health_block">
+                <table>
+                    <caption>今日运动数据</caption>
+                    <thead><tr>
+                        <th>Content</th>
+                        <th>Yours</th>
+                        <th>Aims</th>
+                    </tr></thead>
+                    <tbody><tr>
+                        <th>walk</th>
+                        <td>1000</td>
+                        <td>2000</td>
+                    </tr>
+                    <tr>
+                        <th>push-up</th>
+                        <td>20</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3"><a href="#">More</a></th>
+                    </tr></tbody>
+                </table>
+            </section>
+            <section class="health_block">
+                <table>
+                    <caption>健身饮食计划</caption>
+                    <thead><tr>
+                        <th>Time</th>
+                        <th>Content</th>
+                    </tr></thead>
+                    <tbody><tr>
+                        <th>Breakfast</th>
+                        <td>.., ..</td>
+                    </tr>
+                    <tr>
+                        <th>Lunch</th>
+                        <td>.., ..</td>
+                    </tr>
+                    <tr>
+                        <th>Dinner</th>
+                        <td>.., ..</td>
+                    </tr>
+                    <tr>
+                        <th>21:00</th>
+                        <td>.., ..</td>
+                    </tr>
+                    <tr>
+                        <th colspan="3"><a href="#">Edit</a></th>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+            <section class="health_block">
+                <h4>健康数据跟踪</h4>
+            </section>
+            <br>
+        </div>
+        <div class="container" id="advice">
+
+            <section class="question_head flex-container">
+                <form class="flex1">
+                    <label class="fa fa-search">
+                        <input type="search" class="search-input" placeholder="advice">
+                    </label>
+                </form>
+
+                <ul id="question-tab" class="flex2">
+                    <li class="tab-chosen horizontal-li">
+                        <a href="#advice">Questions</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">Ask public</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">Ask private</a>
+                    </li>
+                    <br>
+                </ul>
+            </section>
+            <h3>Questions:</h3>
+            <section class="question_block">
+                <a class="question-title" href="#">How to keep fit</a>
+
+                <p>I am ...</p>
+            </section>
+            <section class="question_block">
+                <a class="question-title" href="#">How to keep fit</a>
+
+                <p>I am ...</p>
+            </section>
+            <section class="question_block">
+                <a class="question-title" href="#">How to keep fit</a>
+
+                <p>I am ...</p>
+            </section>
+
+
         </div>
     </div>
 </div>
@@ -145,5 +279,6 @@
 <footer>
     <!-- copy from index-->
 </footer>
+<script type="application/javascript" src="scripts/chosen.js"></script>
 
 </html>
