@@ -1,0 +1,9 @@
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+.horizontal-center {
+    margin: 0 auto;
+
+}
