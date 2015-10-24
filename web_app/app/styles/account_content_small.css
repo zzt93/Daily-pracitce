@@ -26,7 +26,7 @@ body {
 }
 
 /*----------------------------------------------------*/
-/*the following is for health ui*/
+/*the following is for analysis ui*/
 
 .analysis_block {
     margin: auto;
@@ -48,41 +48,17 @@ body {
     margin: 1em auto;
 }
 
-/*--------------------------------------------------------*/
-/*the following is for campaign ui*/
-.post {
-    width: 100%;
-    border-radius: 30px;
-    border: 3px solid #c0ffb4;
-    min-height: 300px;
-}
-
-.post .horizontal-center {
-    border-bottom: 1px solid #c0ffb4;
-}
-
-.notice {
-    width: 100%;
-    padding: 2% 5%;
-    border-bottom: 1px solid #c0ffb4;
-}
-
-.activity {
-    background-image: url("../images/leaf.bmp");
-    background-size: cover;
-}
-
-.activity h3 {
-    display: inline;
-    padding: 0 4%;
-}
-
-.activity-content {
-    padding: 4%;
-}
+/*----------------------------------------------------*/
+/*the following is for settings ui*/
 
 /*--------------------------------------------------------*/
 /*the following is for advice ui*/
+
+.user-list {
+    width: 100%;
+    margin: auto;
+}
+
 .question_block {
     margin: 0 auto;
     background-color: #c0ffb4;
@@ -93,7 +69,7 @@ body {
     margin: 0;
 }
 
-#question-tab {
+#advice-tab {
     padding: 0;
     margin-top: 2%;
 }
@@ -117,7 +93,7 @@ body {
     color: white;
 }
 
-#question-tab br {
+#advice-tab br {
     clear: left;
 }
 
@@ -141,4 +117,7 @@ body {
 .question-body {
     display: inline-block;
     padding-left: 16px;
+    white-space: nowrap;
+    overflow : hidden;
+    text-overflow : ellipsis;
 }
