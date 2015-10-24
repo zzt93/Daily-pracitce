@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>health</title>
+
+    <link rel="stylesheet" href="styles/health_content.css">
+    <link rel="stylesheet" href="styles/main-header.css">
+
+    <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+</head>
+<body>
+<header>
+    <section id="main-header">
+        <img src="images/yellow-pin.png" id="logo">
+
+        <p id="app-name">Fit</p>
+
+        <form><p class="action">log out
+            <a href="#" class="fa fa-user"></a>
+        </p>
+        </form>
+        <ul class="action">
+            <li>log in using js</li>
+            <li><a href="myIndex.html">sign up</a></li>
+        </ul>
+        <form><p class="action">search for some statistic
+            <a href="#" class="fa fa-search"></a></p>
+        </form>
+        <br>
+    </section>
+</header>
+
+<div id="main-container" class="flex-container">
+    <nav id="side_nav" class="none">
+        <ul id="side_nav_list">
+            <li class="tab-chosen">
+                <a href="health.html#health">健康管理</a>
+            </li>
+            <li>
+                <a href="health.html#campaign">活动管理</a>
+            </li>
+            <li>
+                <a href="health.html#advice">建议管理</a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="tabbed-block" class="flex1">
+        <div class="container" id="advice">
+
+            <section class="question_head flex-container">
+                <form class="flex1" id="advice-search">
+                    <label class="fa fa-search">
+                        <input type="search" class="search-input" placeholder="advice">
+                    </label>
+                </form>
+
+                <ul id="question-tab" class="flex2">
+                    <li class="tab-chosen horizontal-li">
+                        <a href="#advice">Tags</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">Ask public</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">Ask private</a>
+                    </li>
+                    <br>
+                </ul>
+            </section>
+            <h3>Questions:</h3>
+            <section class="question_block">
+                <div class="question-statistic">
+                    <h3>0</h3>
+
+                    <p>votes</p>
+                </div>
+                <div class="question-statistic">
+                    <h3>2</h3>
+
+                    <p>answers</p>
+                </div>
+                <div class="question-statistic">
+                    <h3>20</h3>
+
+                    <p>views</p>
+                </div>
+                <div class="question-body">
+                    <a class="question-title" href="#">How to keep fit</a>
+
+                    <p>I am ...</p>
+                </div>
+            </section>
+            <section class="question_block">
+                <div class="question-statistic">
+                    <h3>0</h3>
+
+                    <p>votes</p>
+                </div>
+                <div class="question-statistic">
+                    <h3>2</h3>
+
+                    <p>answers</p>
+                </div>
+                <div class="question-statistic">
+                    <h3>20</h3>
+
+                    <p>views</p>
+                </div>
+                <div class="question-body">
+                    <a class="question-title" href="#">How to keep fit</a>
+
+                    <p>I am ...</p>
+                </div>
+            </section>
+
+
+        </div>
+    </div>
+</div>
+</body>
+<footer>
+    <!-- copy from index-->
+</footer>
+<!--<script type="application/javascript" src="scripts/chosen.js"></script>-->
+
+</html>

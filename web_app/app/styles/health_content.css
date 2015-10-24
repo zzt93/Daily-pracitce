@@ -1,0 +1,131 @@
+@import "tables.css";
+@import "anchor.css";
+@import "ul.css";
+@import "input.css";
+@import "util.css";
+@import "health_content_small.css";
+@import "side_nav.css";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+
+    #main-container {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .flex-container {
+        display: -webkit-flex;
+        display: flex;
+    }
+
+    .none {
+        -webkit-flex: none;
+        flex: none;
+    }
+
+    .flex1 {
+        -webkit-flex: 1;
+        flex: 1;
+    }
+
+    .flex2 {
+        -webkit-flex: 2;
+        flex: 2;
+    }
+
+    /*----------------------------------------------------*/
+    /*the following is for side nav*/
+    #side_nav {
+        border-right: 2px solid grey;
+        max-width: 300px;
+        display: inline-block;
+        max-height: 500px;
+        min-height: 260px;
+        border-radius: 30px;
+    }
+
+    #side_nav ul {
+        list-style: outside none none;
+        padding: 20px;
+        margin: 0;
+    }
+
+    #side_nav ul li {
+        border-bottom: 1px solid white;
+    }
+
+    #side_nav ul li a {
+        font-size: 1.1em;
+        padding: .6em .8em 0.4em;
+        color: #FFFFFF;
+        display: block;
+    }
+
+    .float-num {
+        border-radius: 40px;
+        padding: .2em .8em;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #tabbed-block {
+        margin: 0;
+        display: inline-block;
+    }
+
+    .flex-container br {
+        clear: both;
+    }
+
+    /*----------------------------------------------------*/
+    /*the following is for health ui*/
+    .health_block {
+        float: left;
+        width: 45%;
+        margin: 1% 2% 1% 2%;
+    }
+
+    .container br {
+        clear: left;
+    }
+
+    /*----------------------------------------------------*/
+    /*the following is for campaign ui*/
+    .post, .activity {
+        float: left;
+        margin: 1% 2% 1% 2%;
+        width: 45%;
+        display: inline-block;
+    }
+
+    /*----------------------------------------------------*/
+    /*the following is for advice ui*/
+    .question_block {
+        width: 90%;
+        /*margin: 3% 2%;*/
+        padding: 12px 0 10px;
+    }
+
+    .question_head {
+        width: 90%;
+        margin: 3% 2%;
+    }
+
+    #question-tab {
+        padding-left: 4%;
+    }
+
+    .horizontal-li {
+        font-size: 1em;
+    }
+
+    .search-input {
+        padding: 2%;
+        width: 80%;
+    }
+
+}

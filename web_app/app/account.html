@@ -6,7 +6,7 @@
 
     <title>account</title>
 
-    <link rel="stylesheet" href="styles/block_content.css">
+    <link rel="stylesheet" href="styles/account_content.css">
     <link rel="stylesheet" href="styles/main-header.css">
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
@@ -33,7 +33,7 @@
 <div id="main-container" class="flex-container">
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
-            <li  class="tab-chosen">
+            <li class="tab-chosen">
                 <a href="#">个人信息 </a>
             </li>
             <li>
@@ -58,6 +58,7 @@
     </nav>
 
     <div id="tabbed-block" class="flex1">
+
         <div class="container" id="personal">
             <section class="health_block">
                 <table id="health">
@@ -98,38 +99,42 @@
             </section>
             <br>
         </div>
+
         <div class="container" id="analysis">
 
-            <section class="health_block">
-                <table id="fit">
-                    <caption>今日运动数据</caption>
-                    <thead><tr>
-                        <th>Content</th>
-                        <th>Yours</th>
-                        <th>Aims</th>
-                    </tr></thead>
-                    <tbody><tr>
-                        <th>walk</th>
-                        <td>1000</td>
-                        <td>2000</td>
-                    </tr>
-                    <tr>
-                        <th>push-up</th>
-                        <td>20</td>
-                        <td>20</td>
-                    </tr>
-                    <tr>
-                        <th colspan="3"><a href="#">More</a></th>
-                    </tr></tbody>
-                </table>
+            <section class="analysis_block">
+                <div class="horizontal-center">
+                    <h3>数据关联分析</h3>
+                </div>
+                <form action="post" class="horizontal-center">
+                    <label>
+                        因:
+                        <input type="text">
+                    </label>
+                </form>
+                <form action="post" class="horizontal-center">
+                    <br>
+                    <label>
+                        果:
+                        <input type="text">
+                    </label>
+                </form>
             </section>
 
-            <section class="health_block">
-                <h4>健康数据跟踪</h4>
-                <img src="images/logo.jpg">
+            <section class="analysis_block">
+                <div class="horizontal-center">
+                    <h3>历史数据对比</h3>
+                </div>
+                <form action="post" class="horizontal-center">
+                    <label>
+                        数据
+                        <input type="text">
+                    </label>
+                </form>
             </section>
             <br>
         </div>
+
         <div class="container" id="advice">
 
             <section class="health_block">
@@ -141,7 +146,8 @@
             </section>
             <br>
         </div>
-        <div class="container" id="div">
+
+        <div class="container" id="settings">
 
             <section class="health_block">
             </section>

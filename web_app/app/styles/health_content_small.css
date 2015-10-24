@@ -16,68 +16,8 @@ body {
     background-size: cover;
 }
 
-/*-----------------------------------------------------------------*/
-/*the following is side nav*/
-
-#side_nav {
-    background-color: #4c84d4;
-}
-
-#side_nav ul {
-    list-style: outside none none;
-    padding: 20px 40px;
-    margin: 0;
-}
-
-#side_nav a {
-    color: white;
-}
-
-#side_nav ul li a:hover {
-    color: #48E7EB;
-}
-
-.float-num {
-    color: #4c84d4;
-    background-color: white;
-    border-radius: 30px;
-    padding: .1em .8em;
-    /*margin-right: 40%;*/
-    float: left;
-    font-size: .5em;
-
-}
-
-#side_nav li {
-    border-radius: 20px;
-}
-
-#side_nav li a {
-    display: block;
-    padding: .2em;
-    border-radius: 20px;
-}
-
-#side_nav li a br {
-    clear: left;
-}
-
-.tab-chosen {
-    background-color: white;
-}
-
-#side_nav ul .tab-chosen a {
-    color: #4c84d4;
-}
-
-.tab-chosen .float-num {
-    background-color: #4c84d4;
-    color: white;
-}
-
 /*------------------------------------------------------------*/
-
-/*upper is side nav, following is main content*/
+/*the following is main content*/
 
 .container {
     margin: auto;
@@ -117,20 +57,28 @@ body {
     min-height: 300px;
 }
 
+.post .horizontal-center {
+    border-bottom: 1px solid #c0ffb4;
+}
+
 .notice {
     width: 100%;
     padding: 2% 5%;
-    border-bottom: 1px solid #b1b1b1;
+    border-bottom: 1px solid #c0ffb4;
 }
 
 .activity {
-    background-image: url("../images/run.jpg");
+    background-image: url("../images/leaf.bmp");
     background-size: cover;
 }
 
 .activity h3 {
     display: inline;
     padding: 0 4%;
+}
+
+.activity-content {
+    padding: 4%;
 }
 
 /*--------------------------------------------------------*/
@@ -162,7 +110,6 @@ body {
 
 #advice-search {
     margin: 5% 10px;
-    display: inline;
 }
 
 .horizontal-li a {
