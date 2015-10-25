@@ -1,0 +1,14 @@
+@import "advice-content-small.css";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+/*------------------------------------------------------------*/
+/*the following is main content*/
+
+.container {
+    margin: auto;
+    max-width: 800px;
+    display: none;
+}
