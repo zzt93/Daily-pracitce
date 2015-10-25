@@ -46,8 +46,13 @@ body {
     color: black;
 }
 
+.graph {
+    margin-top: 8%;
+}
+
 /*----------------------------------------------------*/
-/*the following is for settings ui*/
+/*the following is for personal ui*/
+
 #upload-file-container {
     background: url(../images/input-file.png) no-repeat;
     -webkit-background-size: cover;
@@ -83,4 +88,16 @@ body {
 .user-list {
     width: 100%;
     margin: auto;
+}
+
+/*--------------------------------------------------------*/
+/*the following is for setting ui*/
+
+.user-setting label, .personal-info label {
+    display: inline-block;
+    padding: 1% 2% 0;
+}
+
+#setting-search {
+    margin: 1% 3%;
 }

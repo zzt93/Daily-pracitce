@@ -3,8 +3,8 @@
 @import "ul.css";
 @import "input.css";
 @import "util.css";
-@import "account_content_small.css";
-@import "side_nav.css";
+@import "health-content-small.css";
+@import "side-nav-small.css";
 
 *, *::after, *::before {
     box-sizing: border-box;
@@ -12,8 +12,6 @@
 
 @media (min-width: 600px) {
 
-    /*----------------------------------------------------*/
-    /*the following is for overall layout */
     #main-container {
         max-width: 1000px;
         margin: 0 auto;
@@ -24,14 +22,28 @@
         display: flex;
     }
 
+    .none {
+        -webkit-flex: none;
+        flex: none;
+    }
+
+    .flex1 {
+        -webkit-flex: 1;
+        flex: 1;
+    }
+
+    .flex2 {
+        -webkit-flex: 2;
+        flex: 2;
+    }
+
     /*----------------------------------------------------*/
     /*the following is for side nav*/
     #side_nav {
         border-right: 2px solid grey;
         max-width: 300px;
         display: inline-block;
-        max-height: 500px;
-        min-height: 260px;
+        height: 300px;
         border-radius: 30px;
     }
 
@@ -69,8 +81,8 @@
     }
 
     /*----------------------------------------------------*/
-    /*the following is for analysis ui*/
-    .analysis_block, .user-list {
+    /*the following is for health ui*/
+    .health_block {
         float: left;
         width: 45%;
         margin: 1% 2% 1% 2%;
@@ -80,10 +92,22 @@
         clear: left;
     }
 
+    /*----------------------------------------------------*/
+    /*the following is for campaign ui*/
+    .activity {
+        float: left;
+        margin: 1% 2% 1% 2%;
+        width: 45%;
+        display: inline-block;
+    }
+
+    .post {
+        width: 90%;
+        margin: 5% 0 0 5%;
+    }
 
     /*----------------------------------------------------*/
     /*the following is for advice ui*/
-
     .question_block {
         width: 90%;
         /*margin: 3% 2%;*/

@@ -17,12 +17,12 @@ function indexOfChildren(childrens, target) {
 }
 
 
-var addListChosenListener = function (listId, contentsId) {
+var addListChosenListener = function (listId, contentsId, now) {
     'use strict';
 
     var side = document.getElementById(listId);
     var i = 0;
-    const className = 'tab-chosen';
+    const chosen = 'tab-chosen';
     var block = document.getElementById(contentsId);
 
 
@@ -41,8 +41,8 @@ var addListChosenListener = function (listId, contentsId) {
         nowSelected.changeTo(index);
 
         function setTab() {
-            target.classList.add(className);
-            side.children[nowSelected.getNow()].classList.remove(className);
+            target.classList.add(chosen);
+            side.children[nowSelected.getNow()].classList.remove(chosen);
         }
 
         function setContent(index) {
@@ -54,13 +54,16 @@ var addListChosenListener = function (listId, contentsId) {
 
     for (; i < side.childElementCount; i++) {
         side.children[i].addEventListener('click', setChosen);
-        //block.children[i].style.display = 'none';
     }
-    block.children[nowSelected.getNow()].style.display = 'block';
+
+    nowSelected.changeTo(now);
+    side.children[now].classList.add(chosen);
+    // set specific block content visible
+    block.children[now].style.display = 'block';
 };
 
 var nowSelected = function () {
-    var now = 0;
+    var now = 1;
 
     return {
         getNow: function () {
@@ -73,4 +76,4 @@ var nowSelected = function () {
     };
 }();
 
-addListChosenListener('side_nav_list', 'tabbed-block');
+addListChosenListener('side_nav_list', 'tabbed-block', 0);

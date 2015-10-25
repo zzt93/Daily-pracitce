@@ -7,7 +7,7 @@
     <title>health</title>
 
 
-    <link rel="stylesheet" href="styles/health_content.css">
+    <link rel="stylesheet" href="styles/health-content.css">
     <link rel="stylesheet" href="styles/main-header.css">
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
@@ -37,14 +37,14 @@
 <div id="main-container" class="flex-container-large">
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
-            <li class="tab-chosen">
-                <a href="#health">健康管理</a>
+            <li>
+                <a href="#">健康管理</a>
             </li>
             <li>
-                <a href="#campaign">活动管理</a>
+                <a href="#">活动管理</a>
             </li>
             <li>
-                <a href="#advice">建议管理</a>
+                <a href="#">建议管理</a>
             </li>
         </ul>
     </nav>
@@ -139,8 +139,10 @@
             </section>
 
             <section class="health_block">
-                <h4>健康数据跟踪</h4>
-                <img src="images/logo.jpg" id="tracker">
+                <div class="horizontal-center">
+                    <h4>健康数据跟踪</h4>
+                </div>
+                <canvas id="myChart"></canvas>
             </section>
             <br>
         </div>
@@ -256,5 +258,7 @@
     <!-- copy from index-->
 </footer>
 <script type="application/javascript" src="scripts/chosen.js"></script>
+<script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
+<script type="application/javascript" src="scripts/useBarChart.js"></script>
 
 </html>

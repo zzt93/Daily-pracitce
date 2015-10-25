@@ -6,7 +6,7 @@
 
     <title>account</title>
 
-    <link rel="stylesheet" href="styles/account_content.css">
+    <link rel="stylesheet" href="styles/account-content.css">
     <link rel="stylesheet" href="styles/main-header.css">
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
@@ -30,7 +30,7 @@
 <div id="main-container" class="flex-container-large">
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
-            <li class="tab-chosen">
+            <li>
                 <a href="#">个人信息 </a>
             </li>
             <li>
@@ -87,8 +87,8 @@
             <br>
 
             <h3>Your private information</h3>
-            <section class="personal-info flex-container-large" id="private-info">
-                <div class="flex3">
+            <section class="personal-info" id="private-info">
+                <div>
                     <label for="real-name">Real name
                         <br>
                         <input id="real-name" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
@@ -102,10 +102,16 @@
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <label>Gender
-                        <br>
-                        <input name="Location" data-default="Nanjing, China" maxlength="100"
-                               tabindex="3" data-site="Nanjing, China" type="text">
+                    <label>Gender</label>
+                    <br>
+                    <label>
+                        <input type="radio" name="gender">Male
+                    </label>
+                    <label>
+                        <input type="radio" name="gender">Female
+                    </label>
+                    <label>
+                        <input type="radio" name="gender">Prefer not to say
                     </label>
                 </div>
 
@@ -147,12 +153,15 @@
                     </table>
                     <table id="fit">
                         <caption>今日运动数据</caption>
-                        <thead><tr>
+                        <thead>
+                        <tr>
                             <th>Content</th>
                             <th>Yours</th>
                             <th>Aims</th>
-                        </tr></thead>
-                        <tbody><tr>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
                             <th>walk</th>
                             <td>1000</td>
                             <td>2000</td>
@@ -184,8 +193,8 @@
                         <input type="text">
                     </label>
                 </form>
-                <div>
-                    graph
+                <div class="graph">
+                    <canvas id="relation-line-chart"></canvas>
                 </div>
             </section>
 
@@ -199,8 +208,8 @@
                         <input type="text">
                     </label>
                 </form>
-                <div>
-                    graph
+                <div class="graph">
+                    <canvas id="cmp-line-chart"></canvas>
                 </div>
             </section>
             <br>
@@ -267,19 +276,21 @@
 
         <div class="container" id="settings">
             <h3>Your homepage settings</h3>
-            <section class="personal-info flex-container-large">
-                <div class="flex3">
-                    <label for="DisplayName">Display name
-                        <br>
-                        <input value="Tony" data-default="Tony" maxlength="30" tabindex="1"
-                               data-site="Tony" type="text">
+            <section class="user-setting">
+                <div class="">
+                    <h4>健康数据显示选项</h4>
+                    <label for="DisplayName">
+                        <input tabindex="1" type="checkbox">weight
                     </label>
-
-                    <br>
-                    <label>Location
-                        <br>
-                        <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
-                               tabindex="3" data-site="Nanjing, China" type="text">
+                    <label>
+                        <input tabindex="1" type="checkbox">heart-rate
+                    </label>
+                    <h4>运动数据显示选项</h4>
+                    <label>
+                        <input tabindex="1" type="checkbox">walk
+                    </label>
+                    <label>
+                        <input tabindex="1" type="checkbox">push-up
                     </label>
 
                 </div>
@@ -288,31 +299,21 @@
             <br>
 
             <h3>Your account settings</h3>
-            <section class="personal-info flex-container-large">
-                <div class="flex3">
-                    <label for="real-name">Real name
-                        <br>
-                        <input value="Tony" data-default="Tony" maxlength="30" tabindex="1"
-                               data-site="Tony" type="text">
-                    </label>
+            <div>
+                <label class="fa fa-search">
+                    <input type="search"  id="setting-search" placeholder="settings">
+                </label>
+            </div>
+            <section class="user-setting">
+                <label>
+                    <input tabindex="1" type="checkbox">Send you campaign notification by email
+                </label>
+                <br>
+                <label>
+                    <input tabindex="1" type="checkbox">Sync your data twice a day
+                </label>
+                <br>
 
-                    <br>
-                    <label>Email
-                        <br>
-                        <input name="email" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
-                               tabindex="3" data-site="Nanjing, China" type="text">
-                    </label>
-                    <br>
-                    <label>Gender
-                        <br>
-                        <input name="Location" data-default="Nanjing, China" maxlength="100"
-                               tabindex="3" data-site="Nanjing, China" type="text">
-                    </label>
-                </div>
-
-            </section>
-            <br>
-            <section class="user-settings">
             </section>
 
         </div>
@@ -324,5 +325,7 @@
     <!-- copy from index-->
 </footer>
 <script type="application/javascript" src="scripts/chosen.js"></script>
+<script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
+<script type="application/javascript" src="scripts/useLineChart.js"></script>
 
 </html>
