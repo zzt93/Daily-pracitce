@@ -19,24 +19,9 @@
         margin: 0 auto;
     }
 
-    .flex-container {
+    .flex-container-large {
         display: -webkit-flex;
         display: flex;
-    }
-
-    .none {
-        -webkit-flex: none;
-        flex: none;
-    }
-
-    .flex1 {
-        -webkit-flex: 1;
-        flex: 1;
-    }
-
-    .flex2 {
-        -webkit-flex: 2;
-        flex: 2;
     }
 
     /*----------------------------------------------------*/
@@ -79,7 +64,7 @@
         display: inline-block;
     }
 
-    .flex-container br {
+    .flex-container-large br {
         clear: both;
     }
 

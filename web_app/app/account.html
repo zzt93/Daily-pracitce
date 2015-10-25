@@ -27,7 +27,7 @@
     </section>
 </header>
 
-<div id="main-container" class="flex-container">
+<div id="main-container" class="flex-container-large">
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li class="tab-chosen">
@@ -57,15 +57,115 @@
     <div id="tabbed-block" class="flex1">
 
         <div class="container" id="personal">
-            <section class="health_block">
-            </section>
+            <h3>Your public information</h3>
+            <section class="personal-info flex-container-large" id="public-info">
+                <div class="avatar-wrapper flex1">
+                    <img class="resize" src="images/user.png" alt="a user">
 
-            <section class="health_block">
+                    <div id="upload-file-container">
+                        <input type="file" name="photo"/>
+                    </div>
+                </div>
+                <div id="change-picture-progress">&nbsp;</div>
+                <div class="flex3">
+                    <label for="DisplayName">Display name
+                        <br>
+                        <input id="DisplayName" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                               data-site="Tony" type="text">
+                    </label>
+
+                    <br>
+                    <label>Location
+                        <br>
+                        <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+
+                </div>
+
+            </section>
+            <br>
+
+            <h3>Your private information</h3>
+            <section class="personal-info flex-container-large" id="private-info">
+                <div class="flex3">
+                    <label for="real-name">Real name
+                        <br>
+                        <input id="real-name" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                               data-site="Tony" type="text">
+                    </label>
+
+                    <br>
+                    <label>Email
+                        <br>
+                        <input name="email" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+                    <br>
+                    <label>Gender
+                        <br>
+                        <input name="Location" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+                </div>
+
             </section>
             <br>
         </div>
 
         <div class="container" id="analysis">
+            <section>
+                <div class="horizontal-center">
+                    <h3>今日数据详情</h3></div>
+                <div class="all-health-data">
+                    <table id="health">
+                        <caption>今日健康数据</caption>
+                        <colgroup>
+                            <col span="1">
+                            <col span="1">
+                            <col span="1">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                            <th>Content</th>
+                            <th>Yours</th>
+                            <th>Standard</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>Weight</th>
+                            <td>..</td>
+                            <td>...</td>
+                        </tr>
+                        <tr>
+                            <th>心率</th>
+                            <td>..</td>
+                            <td>...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table id="fit">
+                        <caption>今日运动数据</caption>
+                        <thead><tr>
+                            <th>Content</th>
+                            <th>Yours</th>
+                            <th>Aims</th>
+                        </tr></thead>
+                        <tbody><tr>
+                            <th>walk</th>
+                            <td>1000</td>
+                            <td>2000</td>
+                        </tr>
+                        <tr>
+                            <th>push-up</th>
+                            <td>20</td>
+                            <td>20</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
             <section class="analysis_block">
                 <div class="horizontal-center">
@@ -107,7 +207,7 @@
         </div>
 
         <div class="container" id="advice">
-            <section class="advice_head flex-container">
+            <section class="advice_head flex-container-large">
                 <form class="flex1 horizontal-center" id="advice-search">
                     <label class="fa fa-search">
                         <input type="search" class="search-input" placeholder="advice">
@@ -139,8 +239,9 @@
                     <div class="question-body">
                         <a class="question-title" href="#">How to keep fit</a>
 
-                        <p>I am ...</p>
+                        <p class="q-content">I am ...</p>
                     </div>
+                    <br>
                 </section>
 
             </section>
@@ -156,15 +257,61 @@
                     <div class="question-body">
                         <a class="question-title" href="#">How to keep fit</a>
 
-                        <p>I am ...asdfasdffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
+                        <p class="q-content">I am ...asdfasdffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
                     </div>
+                    <br>
                 </section>
             </section>
             <br>
         </div>
 
         <div class="container" id="settings">
+            <h3>Your homepage settings</h3>
+            <section class="personal-info flex-container-large">
+                <div class="flex3">
+                    <label for="DisplayName">Display name
+                        <br>
+                        <input value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                               data-site="Tony" type="text">
+                    </label>
 
+                    <br>
+                    <label>Location
+                        <br>
+                        <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+
+                </div>
+
+            </section>
+            <br>
+
+            <h3>Your account settings</h3>
+            <section class="personal-info flex-container-large">
+                <div class="flex3">
+                    <label for="real-name">Real name
+                        <br>
+                        <input value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                               data-site="Tony" type="text">
+                    </label>
+
+                    <br>
+                    <label>Email
+                        <br>
+                        <input name="email" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+                    <br>
+                    <label>Gender
+                        <br>
+                        <input name="Location" data-default="Nanjing, China" maxlength="100"
+                               tabindex="3" data-site="Nanjing, China" type="text">
+                    </label>
+                </div>
+
+            </section>
+            <br>
             <section class="user-settings">
             </section>
 

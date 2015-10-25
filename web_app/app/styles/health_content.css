@@ -17,7 +17,7 @@
         margin: 0 auto;
     }
 
-    .flex-container {
+    .flex-container-large {
         display: -webkit-flex;
         display: flex;
     }
@@ -77,7 +77,7 @@
         display: inline-block;
     }
 
-    .flex-container br {
+    .flex-container-large br {
         clear: both;
     }
 
