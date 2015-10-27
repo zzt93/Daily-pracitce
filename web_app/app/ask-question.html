@@ -18,60 +18,111 @@
 
         <p id="app-name">Fit</p>
 
-        <form><p class="action">log out
-            <a href="#" class="fa fa-user"></a>
+        <form><p class="action">
+            <a href="#" class="fa fa-user"> log out</a>
         </p>
         </form>
         <ul class="action">
             <li>log in using js</li>
             <li><a href="myIndex.html">sign up</a></li>
         </ul>
-        <form><p class="action">search for some statistic
-            <a href="#" class="fa fa-search"></a></p>
-        </form>
+
         <br>
     </section>
 </header>
 
 <div id="main-container" class="flex-container-large">
+
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li class="tab-chosen">
-                <a href="health.html#health">健康管理</a>
+                <a href="health.html">健康管理</a>
             </li>
             <li>
-                <a href="health.html#campaign">活动管理</a>
+                <a href="health.html">活动管理</a>
             </li>
             <li>
-                <a href="health.html#advice">建议管理</a>
+                <a href="health.html">建议管理</a>
             </li>
         </ul>
     </nav>
 
     <div class="flex1">
-        <div class="container" id="advice">
 
+        <div class="container">
             <section class="advice_head flex-container-large">
-                <form class="flex1" id="advice-search">
-                    <label class="fa fa-search">
-                        <input type="search" class="search-input" placeholder="advice">
-                    </label>
-                </form>
+            <form class="flex1" id="advice-search">
+                <label class="fa fa-search">
+                    <input type="search" class="search-input" placeholder="advice">
+                </label>
+            </form>
 
-                <ul id="advice-tab" class="flex2">
-                    <li class="horizontal-li">
-                        <a href="#advice">Tags</a>
-                    </li>
-                    <li class="horizontal-li">
-                        <a href="#">Ask public</a>
-                    </li>
-                    <li class="horizontal-li">
-                        <a href="#">Ask private</a>
-                    </li>
+            <ul id="advice-tab" class="flex2">
+                <li class="horizontal-li">
+                    <a href="#">Tags</a>
+                </li>
+                <li class="horizontal-li">
+                    <a href="#">Ask public</a>
+                </li>
+                <li class="horizontal-li">
+                    <a href="#">Ask private</a>
+                </li>
+                <br>
+            </ul>
+        </section></div>
+
+        <div class="container" id="tab-ask">
+            <section class="public-advice-body">
+                <h3>Ask in public:</h3>
+                <div class="advice-title">
+                    <label for="pub-question-title">Title:</label>
                     <br>
-                </ul>
-            </section>
+                    <input type="text" id="pub-question-title">
+                </div>
+                <div class="advice-detail">
+                    <label for="pub-question-detail">Details( be specific):</label>
+                    <br>
+                <textarea name="question-detail" id="pub-question-detail" cols="30" rows="10">
 
+                </textarea>
+                </div>
+                <div class="advice-title">
+                    <label for="pub-question-tag">Tags:</label>
+                    <br>
+                    <input type="text" id="pub-question-tag">
+                </div>
+                <form action="post">
+                    <input type="submit">
+                </form>
+            </section>
+            <section class="public-advice-body">
+                <h3>Ask in private:</h3>
+                <div class="advice-title">
+                    <label for="pri-question-target">To who:</label>
+                    <br>
+                    <input type="text" id="pri-question-target">
+                </div>
+                <div class="advice-title">
+                    <label for="pri-question-title">Title:</label>
+                    <br>
+                    <input type="text" id="pri-question-title">
+                </div>
+                <div class="advice-detail">
+                    <label for="pri-question-detail">Details( be specific):</label>
+                    <br>
+                <textarea name="question-detail" id="pri-question-detail" cols="30" rows="10">
+
+                </textarea>
+                </div>
+                <div class="advice-title">
+                    <label for="pri-question-tag">Tags:</label>
+                    <br>
+                    <input type="text" id="pri-question-tag">
+                </div>
+                <form action="post">
+                    <input type="submit">
+                </form>
+            </section>
         </div>
     </div>
 </div>
@@ -79,5 +130,7 @@
 <footer>
     <!-- copy from myindex.html -->
 </footer>
+<script type="application/javascript" src="scripts/chosen.js"></script>
+
 
 </html>

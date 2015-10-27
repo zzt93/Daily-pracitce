@@ -8,7 +8,36 @@
 /*the following is main content*/
 
 .container {
+    color: #4c84d4;
+    font-family: Roboto, helvetica, arial, sans-serif;
     margin: auto;
     max-width: 800px;
-    display: none;
+}
+
+/*------------------------------------------------------------*/
+/*the following is advice content*/
+
+
+.advice_head, .public-advice-body {
+    width: 100%;
+    padding: 4% 6%;
+}
+
+.advice-title, .advice-detail {
+    margin: 0 auto 3%;
+
+}
+
+.public-advice-body input, .public-advice-body textarea {
+    padding: 5px;
+    width: 86%;
+}
+
+.public-advice-body label {
+    display: inline-block;
+    padding-bottom: 2%;
+}
+
+.public-advice-body label {
+    font-weight: 600;
 }

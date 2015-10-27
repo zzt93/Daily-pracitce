@@ -1,0 +1,57 @@
+#light-box {
+    display: none;
+    position: absolute;
+    background: white;
+    color: #42d2d6;
+    height: 280px;
+    width: 280px;
+    z-index: 100;
+    padding: 15px 0 0 45px;
+}
+
+.dimmer {
+    background: #000;
+    position: absolute;
+    opacity: .5;
+    top: 0;
+    z-index: 99;
+}
+
+#light-box input {
+    outline: none;
+    padding: 3px 0 3px 3px;
+    margin: 5px 1px 3px 0;
+    border: 1px solid #DDDDDD;
+}
+
+input:focus, textarea:focus {
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0 3px 3px;
+    border: 1px solid rgba(81, 203, 238, 1);
+    outline: none;
+}
+
+#light-box label {
+    display: inline-block;
+    margin-bottom: 2%;
+    font-family: Roboto, helvetica, arial, sans-serif;
+    font-weight: 500;
+}
+
+#light-box input {
+    width: 80%;
+    height: 150%;
+    display: inline-block;
+    margin-bottom: 5%;
+}
+
+#light-box input[type='submit'] {
+    background-color: #4c84d4;
+    color: white;
+}
+
+#light-box h3 {
+    margin-bottom: 10px;
+}
+
+

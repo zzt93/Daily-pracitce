@@ -1,11 +1,11 @@
 
-.question_block {
+.question-block {
     margin: 0 auto;
     background-color: #c0ffb4;
     border-bottom: 1px solid #b1b1b1;
 }
 
-.question_block p, .question_block h3 {
+.question-block p, .question-block h3 {
     margin: 0;
 }
 
@@ -56,7 +56,7 @@
     float: left;
 }
 
-.question_block br {
+.question-block br {
     clear: left;
 }
 

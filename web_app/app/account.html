@@ -8,11 +8,13 @@
 
     <link rel="stylesheet" href="styles/account-content.css">
     <link rel="stylesheet" href="styles/main-header.css">
+    <link rel="stylesheet" href="styles/lightBox.css">
+
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
-<body>
+<body onload="addLightBox('apply-link')">
 <header>
     <section id="main-header">
         <img src="images/yellow-pin.png" id="logo">
@@ -67,7 +69,7 @@
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>
-                <div class="flex3">
+                <div class="flex3 ">
                     <label for="DisplayName">Display name
                         <br>
                         <input id="DisplayName" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
@@ -80,7 +82,38 @@
                         <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
+                    <br>
+                    <label> Your role
+                    </label>
+                    <ul>
+                        <li>- 儿科医生</li>
+                        <li>- user</li>
+                    </ul>
 
+                    <div class="apply-container" id="apply-container">
+                        <!-- TODO trouble #-->
+                        <a href="#" id="apply-link"> Apply for more role ?
+                        </a>
+                    </div>
+                    <div id="light-box">
+                        <h3>Apply for:</h3>
+
+                        <form method="post" id="register">
+                            <label for="email">Email address</label>
+                            <br>
+                            <input type="email" name="email" id="email"
+                                   placeholder="xxx@example.com" required>
+                            <br>
+                            <label for="pw">Password</label>
+                            <br>
+                            <input type="password" name="pw" id="pw"
+                                   placeholder="******" required>
+                            <br>
+                            <input type="submit" value="Log in">
+                            <br>
+                        </form>
+
+                    </div>
                 </div>
 
             </section>
@@ -98,7 +131,7 @@
                     <br>
                     <label>Email
                         <br>
-                        <input name="email" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                        <input name="email" value="xxx@gmail.com" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
@@ -239,7 +272,7 @@
 
             <section id="user-question-list" class="user-list">
                 <h3>Questions</h3>
-                <section class="question_block">
+                <section class="question-block">
                     <div class="question-statistic">
                         <h3>2</h3>
 
@@ -257,7 +290,7 @@
 
             <section id="user-answer-list" class="user-list">
                 <h3>Answers</h3>
-                <section class="question_block">
+                <section class="question-block">
                     <div class="question-statistic">
                         <h3>2</h3>
 
@@ -299,9 +332,10 @@
             <br>
 
             <h3>Your account settings</h3>
+
             <div>
                 <label class="fa fa-search">
-                    <input type="search"  id="setting-search" placeholder="settings">
+                    <input type="search" id="setting-search" placeholder="settings">
                 </label>
             </div>
             <section class="user-setting">
@@ -325,6 +359,7 @@
     <!-- copy from index-->
 </footer>
 <script type="application/javascript" src="scripts/chosen.js"></script>
+<script type="application/javascript" src="scripts/lightBox.js"></script>
 <script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="scripts/useLineChart.js"></script>
 

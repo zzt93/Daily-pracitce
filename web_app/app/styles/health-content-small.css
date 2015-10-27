@@ -1,6 +1,5 @@
 @import "advice-content-small.css";
 
-
 *, *::after, *::before {
     box-sizing: border-box;
 }
@@ -85,3 +84,10 @@ body {
     padding: 4%;
 }
 
+.activity-join input {
+    margin: 0;
+    padding: 5% 20%;
+    background-color: white;
+    color: #42d2d6;
+    font-size: 1.5em;
+}

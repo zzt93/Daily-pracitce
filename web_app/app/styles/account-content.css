@@ -30,8 +30,7 @@
         border-right: 2px solid grey;
         max-width: 300px;
         display: inline-block;
-        max-height: 500px;
-        min-height: 260px;
+        height: 300px;
         border-radius: 30px;
     }
 
@@ -84,7 +83,7 @@
     /*----------------------------------------------------*/
     /*the following is for advice ui*/
 
-    .question_block {
+    .question-block {
         width: 90%;
         /*margin: 3% 2%;*/
         padding: 12px 0 10px;
