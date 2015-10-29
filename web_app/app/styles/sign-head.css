@@ -24,6 +24,11 @@
     margin: 0;
 }
 
+#headline #register label{
+    display: inline-block;
+    margin: 8px 0 0;
+}
+
 #headline #register input {
     width: 100%;
     height: 150%;
@@ -38,6 +43,10 @@
     border: none;
     box-sizing: border-box;
     font-size: 18px;
+}
+
+#to-login {
+    color: #42d2d6;
 }
 
 @media (min-width: 600px) {

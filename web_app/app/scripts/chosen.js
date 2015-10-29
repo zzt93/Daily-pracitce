@@ -63,7 +63,7 @@ var addListChosenListener = function (listId, contentsId, now) {
 };
 
 var nowSelected = function () {
-    var now = 1;
+    var now = 0;
 
     return {
         getNow: function () {
@@ -76,4 +76,3 @@ var nowSelected = function () {
     };
 }();
 
-addListChosenListener('side_nav_list', 'tabbed-block', 0);

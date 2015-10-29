@@ -8,8 +8,9 @@
     <link href="styles/sign-head.css" type="text/css" rel="stylesheet">
     <link href="styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="styles/sign-content.css" type="text/css" rel="stylesheet">
+    <link href="styles/anchor.css" type="text/css" rel="stylesheet">
 
-    <title>Sign up or log in</title>
+    <title>Sign up</title>
 </head>
 <body>
 
@@ -41,7 +42,9 @@
             </ul>
         </div>
         <form method="post" id="register">
-            <h2>Register for the launch</h2>
+            <h2>Register for the launch or <a href="login.html" id="to-login">log in</a></h2>
+
+            <br>
             <label for="name">Name</label>
             <br>
             <input type="text" name="name" id="name"
@@ -106,13 +109,15 @@
 
 <footer>
     <div class="container">
+        <section id="link">
+            <a href="health.html">More: Health </a>
+        </section>
         <section id="contact">
             <p>Email us: zzt@health.com</p>
 
             <p>Contact us: (xxx) xxxx xxxx</p>
         </section>
         <section id="mis">
-
         </section>
     </div>
 </footer>

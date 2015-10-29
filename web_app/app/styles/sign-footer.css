@@ -1,9 +1,13 @@
 footer {
     font-family: Roboto, sans-serif;
-    font-weight: 300;
+    font-weight: 400;
     text-align: center;
     background-color: hsl(8, 70%, 54%);
     color: white;
     padding-bottom: 20px;
     padding-top: 20px;
+}
+
+footer a {
+    color: white;
 }

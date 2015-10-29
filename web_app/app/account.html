@@ -14,15 +14,35 @@
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
-<body onload="addLightBox('apply-link')">
+<body onload="addLightBox('apply-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
+<div id="light-box">
+    <h3>Apply for:</h3>
+
+    <form method="post" id="register">
+        <label for="type">Role type</label>
+        <br>
+        <input type="text" id="type"
+               placeholder="doctor" required>
+        <br>
+        <label for="proof">Proof</label>
+        <br>
+        <input type="file" id="proof"
+               required>
+        <br>
+        <input type="submit" value="Apply">
+        <br>
+    </form>
+
+</div>
+
 <header>
     <section id="main-header">
         <img src="images/yellow-pin.png" id="logo">
 
         <p id="app-name">Fit</p>
 
-        <form><p class="action">log out
-            <a href="#" class="fa fa-user"></a>
+        <form><p class="action">
+            <a href="health.html" class="fa fa-user"> log out</a>
         </p>
         </form>
         <br>
@@ -61,15 +81,15 @@
         <div class="container" id="personal">
             <h3>Your public information</h3>
             <section class="personal-info flex-container-large" id="public-info">
-                <div class="avatar-wrapper flex1">
+                <div class="avatar-wrapper none">
                     <img class="resize" src="images/user.png" alt="a user">
 
                     <div id="upload-file-container">
-                        <input type="file" name="photo"/>
+                        <input type="file" name="photo" title="choose a picture"/>
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>
-                <div class="flex3 ">
+                <div class="flex1 info-part">
                     <label for="DisplayName">Display name
                         <br>
                         <input id="DisplayName" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
@@ -83,36 +103,21 @@
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <label> Your role
-                    </label>
+                    <input type="submit" value="Submit changes">
+                    <br>
+                </div>
+
+                <div class="flex1 info-part">
+                    <h4> Your role
+                    </h4>
                     <ul>
-                        <li>- 儿科医生</li>
-                        <li>- user</li>
+                        <li>儿科医生</li>
+                        <li>user</li>
                     </ul>
 
                     <div class="apply-container" id="apply-container">
-                        <!-- TODO trouble #-->
                         <a href="#" id="apply-link"> Apply for more role ?
                         </a>
-                    </div>
-                    <div id="light-box">
-                        <h3>Apply for:</h3>
-
-                        <form method="post" id="register">
-                            <label for="email">Email address</label>
-                            <br>
-                            <input type="email" name="email" id="email"
-                                   placeholder="xxx@example.com" required>
-                            <br>
-                            <label for="pw">Password</label>
-                            <br>
-                            <input type="password" name="pw" id="pw"
-                                   placeholder="******" required>
-                            <br>
-                            <input type="submit" value="Log in">
-                            <br>
-                        </form>
-
                     </div>
                 </div>
 
@@ -144,8 +149,11 @@
                         <input type="radio" name="gender">Female
                     </label>
                     <label>
-                        <input type="radio" name="gender">Prefer not to say
+                        <input type="radio" name="gender" checked="checked">Prefer not to say
                     </label>
+                    <br>
+                    <input type="submit" value="Submit changes">
+
                 </div>
 
             </section>
@@ -250,7 +258,7 @@
 
         <div class="container" id="advice">
             <section class="advice_head flex-container-large">
-                <form class="flex1 horizontal-center" id="advice-search">
+                <form class="flex1 horizontal-center inner-search" id="advice-search">
                     <label class="fa fa-search">
                         <input type="search" class="search-input" placeholder="advice">
                     </label>
@@ -261,10 +269,10 @@
                         <a href="#advice">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="#">Ask public</a>
+                        <a href="ask-question.html">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="#">Ask private</a>
+                        <a href="ask-question.html">Ask private</a>
                     </li>
                     <br>
                 </ul>

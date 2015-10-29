@@ -1,0 +1,18 @@
+
+@media (min-width: 600px) {
+    .user-statistic {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .user-statistic p, .user-statistic h3 {
+        text-align: center;
+        font-size: 1.5em;
+    }
+
+    .first-info {
+        padding-left: 20px;
+        margin-left: 15px;
+        border-left: 2px solid white;
+    }
+}

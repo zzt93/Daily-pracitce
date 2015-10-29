@@ -41,3 +41,45 @@
 .public-advice-body label {
     font-weight: 600;
 }
+
+
+/*------------------------------------------------------------*/
+/*the following is question content*/
+
+.ask-question-block {
+    width: 100%;
+    padding: 0 3%;
+}
+
+.ask-question-block h4 {
+    margin: 0;
+    display: inline-block;
+}
+.asked-question {
+    width: 85%;
+    color: black;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    border-bottom: 1px solid #b1b1b1;
+    border-top: 1px solid #b1b1b1;
+}
+
+.advice-tags {
+    padding-top: 10px;
+}
+
+.vote {
+    /*width: 20px;*/
+    padding-right: 20px;
+
+}
+
+.vote-count {
+    font-size: 2em;
+}
+.tags {
+    background-color: #b1b1b1;
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+}

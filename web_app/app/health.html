@@ -13,7 +13,7 @@
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body onload="addLightBox('login-link')">
+<body onload="addLightBox('login-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
 <header>
     <section id="main-header">
         <img src="images/yellow-pin.png" id="logo">
@@ -26,7 +26,8 @@
         </form>
         <ul class="action">
             <li><a href="#" id="login-link">log in</a></li>
-            <li><a href="myIndex.html">sign up</a></li>
+            <li><a href="account.html" >My account</a></li>
+            <li><a href="Index.html">sign up</a></li>
         </ul>
 
         <br>
@@ -59,10 +60,10 @@
                 <a href="#">健康管理</a>
             </li>
             <li>
-                <a href="#">活动管理</a>
+                <a href="#">健身活动</a>
             </li>
             <li>
-                <a href="#">建议管理</a>
+                <a href="#">健康建议</a>
             </li>
         </ul>
     </nav>
@@ -97,7 +98,7 @@
                         <td>...</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="#">More</a></th>
+                        <th colspan="3"><a href="account.html">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -157,7 +158,7 @@
                         <td>20</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="#">More</a></th>
+                        <th colspan="3"><a href="account.html">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -182,28 +183,14 @@
             <section class="activity">
                 <div class="horizontal-center"><p>Running Man</p></div>
                 <div class="activity-content">
-                    <p>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as small
+                    <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as small
                         as possible
                         proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
                         connected. Now, we have x (x>=n) edges, n vertices,
                         but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
-                        so it's a tree.</p>
-                </div>
-                <div class="activity-join horizontal-center">
-                    <form action="post">
-                        <input type="submit" value="join">
-                    </form>
-                </div>
-            </section>
-            <section class="activity">
-                <div class="horizontal-center"><p>Running Man</p></div>
-                <div class="activity-content">
-                    <p>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as small
-                        as possible
-                        proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
-                        connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
-                        so it's a tree.</p>
+                        so it's a tree.</article>
+                    <a href="#" class="right-float">More</a>
+                    <br class="clear-right">
                 </div>
                 <div class="activity-join horizontal-center">
                     <form action="post">
@@ -217,7 +204,7 @@
         <div class="container" id="advice">
 
             <section class="advice_head flex-container-large">
-                <form class="flex1 horizontal-center" id="advice-search">
+                <form class="flex1 horizontal-center inner-search" id="advice-search">
                     <label class="fa fa-search">
                         <input type="search" class="search-input" placeholder="advice">
                     </label>
@@ -228,10 +215,10 @@
                         <a href="#advice">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="#">Ask public</a>
+                        <a href="ask-question.html">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="#">Ask private</a>
+                        <a href="ask-question.html">Ask private</a>
                     </li>
                     <br>
                 </ul>
@@ -254,7 +241,7 @@
                     <p>views</p>
                 </div>
                 <div class="question-body">
-                    <a class="question-title" href="#">How to keep fit</a>
+                    <a class="question-title" href="question.html">How to keep fit</a>
 
                     <p class="q-content">I am ...</p>
                 </div>
@@ -277,7 +264,7 @@
                     <p>views</p>
                 </div>
                 <div class="question-body">
-                    <a class="question-title" href="#">How to keep fit</a>
+                    <a class="question-title" href="question.html">How to keep fit</a>
 
                     <p class="q-content">I am ...</p>
                 </div>

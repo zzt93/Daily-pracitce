@@ -40,3 +40,15 @@
     flex: 3;
 }
 
+
+.clear-left {
+    clear: left;
+}
+
+.clear-right {
+    clear: right;
+}
+
+.right-float {
+    float: right;
+}

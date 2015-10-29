@@ -57,7 +57,7 @@ body {
     background: url(../images/input-file.png) no-repeat;
     -webkit-background-size: cover;
     background-size: cover;
-    max-width: 160px;
+    max-width: 169px;
 }
 
 #upload-file-container input {
@@ -72,9 +72,10 @@ body {
 }
 
 .avatar-wrapper input[type=file] {
-    max-width: 160px;
+    width: 100%;
     padding: 0;
     margin: 0;
+    cursor: pointer;
 }
 
 .resize {
@@ -86,12 +87,35 @@ body {
 .apply-container {
     margin: 1% 2%;
     padding: 1% 2%;
-    background-color: #DDDDDD;
-    display: inline-block;
 }
 
 .apply-container a {
     font-weight: 600;
+}
+
+.personal-info input[type='submit'] {
+    display: inline-block;
+    margin: 20px 2% 0;
+    padding: 5px;
+    background-color: #DB4D37;
+    color: white;
+    cursor: pointer;
+}
+
+.info-part {
+    padding: 3%;
+}
+
+.info-part li {
+    background-color: #b1b1b1;
+    color: white;
+    display: inline-block;
+    padding: 5px;
+}
+
+.info-part h4 {
+    margin-bottom: 10px;
+    margin-top: 0;
 }
 
 /*--------------------------------------------------------*/
@@ -107,7 +131,7 @@ body {
 
 .user-setting label, .personal-info label {
     display: inline-block;
-    padding: 1% 2% 0;
+    margin: 1% 2% 0;
 }
 
 .personal-info {
