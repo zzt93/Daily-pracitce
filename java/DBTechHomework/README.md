@@ -13,3 +13,4 @@
 
 ##Requirement:
 - java 8
+- mongodb server version should not smaller than 2.6

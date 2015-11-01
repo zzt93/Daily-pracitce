@@ -74,7 +74,7 @@ public class Homework1 {
         mysqlConnection.close();
     }
 
-    private void createTable(Connection mysqlConnection, String createCate) throws SQLException {
+    public static void createTable(Connection mysqlConnection, String createCate) throws SQLException {
         Statement preparedStatement = null;
         try {
             preparedStatement = mysqlConnection.createStatement();
@@ -188,13 +188,16 @@ public class Homework1 {
         Connection mysqlConnection = getMysqlConnection();
         Statement statement = mysqlConnection.createStatement();
         int supId = getCidByName(statement, "自动化技术、计算机技术");
-        String inserts = "insert into " + dbName + ".Category (c_name, sup_cid) " +
-                "values('自动化基础理论', " + supId + "), " +
-                "('自动化技术及设备', " + supId + "), " +
-                "('计算技术、计算机技术', " + supId + "), " +
-                "('射流技术(流控技术)', " + supId + "), " +
-                "('远动技术', " + supId + "), " +
-                "('遥感技术', " + supId + ")";
+        String inserts = new StringBuilder()
+                .append("insert into ")
+                .append(dbName).append(".Category (c_name, sup_cid) ")
+                .append("values('自动化基础理论', ").append(supId).append("), ")
+                .append("('自动化技术及设备', ").append(supId).append("), ")
+                .append("('计算技术、计算机技术', ").append(supId).append("), ")
+                .append("('射流技术(流控技术)', ").append(supId).append("), ")
+                .append("('远动技术', ").append(supId).append("), ")
+                .append("('遥感技术', ").append(supId).append(")")
+                .toString();
         statement.execute(inserts);
         mysqlConnection.close();
     }
@@ -319,9 +322,6 @@ public class Homework1 {
      * @throws ClassNotFoundException
      */
     public Connection getMysqlConnection() throws SQLException, IOException, ClassNotFoundException {
-        initFromProperty();
-
-
         // load class driver
         /**
          In previous versions of JDBC, to obtain a connection,
@@ -350,11 +350,11 @@ public class Homework1 {
         Homework1 homework1;
         try {
             homework1 = new Homework1();
-//                        homework1.createTables();
+            //                        homework1.createTables();
             //            homework1.initCategoryData();
             //            homework1.insertNewCategoryData();
-                        homework1.initBookAndBorrowInfoData();
-//            homework1.getBorrowData();
+            homework1.initBookAndBorrowInfoData();
+            //            homework1.getBorrowData();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (SQLException e) {
