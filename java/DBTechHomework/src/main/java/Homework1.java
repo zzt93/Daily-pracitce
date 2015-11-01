@@ -1,60 +1,77 @@
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 public class Homework1 {
 
+    public static final int LINE_MAX_CHAR = 100;
     private String dbName;
+    private String url;
+
+    public Homework1() throws IOException {
+        initFromProperty();
+    }
+
+    private void initFromProperty() throws IOException {
+        // get items from resources/config.properties
+        Properties properties = new Properties();
+        String path = Thread.currentThread().getContextClassLoader()
+                .getResource("config.properties").getPath();
+        properties.load(new FileInputStream(new File(path)));
+
+        String mysqlIP = properties.getProperty("mysql.server.ip");
+        String mysqlPort = properties.getProperty("mysql.server.port");
+        dbName = properties.getProperty("mysql.db.ex1");
+        String loginName = properties.getProperty("mysql.login.name");
+        String password = properties.getProperty("mysql.login.password");
+        url = "jdbc:mysql://" + mysqlIP + ":" + mysqlPort + "/" + dbName
+                + "?" + "user=" + loginName + "&password=" + password
+                + "&useUnicode=true&characterEncoding=UTF8&rewriteBatchedStatements=true";
+    }
 
     /**
+     * http://stackoverflow.com/questions/935098/database-structure-for-tree-data-structure
+     * <p>
      * ex1.1
      */
-    public Connection createTables() throws SQLException, IOException, ClassNotFoundException {
+    public void createTables() throws SQLException, IOException, ClassNotFoundException {
         Connection mysqlConnection = getMysqlConnection();
+
         String createCate = "create table if not exists " + dbName +
                 ".Category " +
                 "(cid integer NOT NULL AUTO_INCREMENT, " +
                 "c_name varchar(40) NOT NULL, " +
-                "PRIMARY KEY (cid))";
+                "sup_cid integer, " +
+                "PRIMARY KEY (cid))" +
+                "CHARACTER SET utf8 COLLATE utf8_unicode_ci";
         createTable(mysqlConnection, createCate);
-
-        String createSubCate = "create table if not exists " + dbName +
-                ".SubCate " +
-                "(cid integer NOT NULL, " +
-                "sub_cid integer, " +
-                "PRIMARY KEY (cid, sub_cid), " +
-                "FOREIGN KEY (cid) REFERENCES " +
-                dbName + ".Category (cid))";
-        createTable(mysqlConnection, createSubCate);
 
         String createBook = "create table if not exists " + dbName +
                 ".Book " +
                 "(bid integer NOT NULL, " +
-                "title varchar(40) NOT NULL, " +
-                "author varchar(40) NOT NULL, " +
-                "info varchar(40) NOT NULL, " +
+                "title varchar(160) NOT NULL, " +
+                "author varchar(160) NOT NULL, " +
+                "info varchar(160) NOT NULL, " +
                 "cid integer NOT NULL, " +
                 "PRIMARY KEY (bid), " +
                 "FOREIGN KEY (cid) REFERENCES " +
-                dbName + ".Category (cid))";
+                dbName + ".Category (cid))" +
+                "CHARACTER SET utf8 COLLATE utf8_unicode_ci";
         createTable(mysqlConnection, createBook);
 
         String createBorrow = "create table if not exists " + dbName +
                 ".Borrow " +
-                "(sid integer NOT NULL, " +
+                "(boid integer NOT NULL AUTO_INCREMENT, " +
+                "sid integer NOT NULL, " +
                 "bid integer NOT NULL, " +
                 "b_t date NOT NULL, " +
                 "r_t date , " +
-                "PRIMARY KEY (bid, b_t), " +
+                "PRIMARY KEY (boid), " +
                 "FOREIGN KEY (bid) REFERENCES " +
                 dbName + ".Book (bid))";
         createTable(mysqlConnection, createBorrow);
 
-        //TODO release the connection after create?
-        return mysqlConnection;
+        mysqlConnection.close();
     }
 
     private void createTable(Connection mysqlConnection, String createCate) throws SQLException {
@@ -73,11 +90,9 @@ public class Homework1 {
 
     /**
      * ex1.2
-     *
-     * @param con The target connection
      */
-    public void initCategoryData(Connection con) throws SQLException, IOException {
-        Statement stmt = null;
+    public void initCategoryData() throws SQLException, IOException {
+        PreparedStatement stmt = null;
         BufferedReader bufferedReader;
         try {
             bufferedReader = FileUtility.bufferedReader("./data/ex1/category.txt");
@@ -85,48 +100,211 @@ public class Homework1 {
             e.printStackTrace();
             return;
         }
-        String str;
 
+        int sup_id = -1;
+        String next;
+        Connection con = null;
         try {
-            stmt = con.createStatement();
-            while ((str = bufferedReader.readLine()) != null) {
-                System.out.println(str);
-                stmt.executeUpdate(
-                        "insert into " + dbName +
-                                ".Category " +
-                                "values('" + str +
-                                "')"
-                );
+            con = getMysqlConnection();
+            stmt = con.prepareStatement("insert into " + dbName + ".Category (c_name, sup_cid) " +
+                    "values(?, ?)");
+
+            while ((next = bufferedReader.readLine()) != null) {
+                System.out.println(next);
+                recursiveAdd(next, sup_id, stmt, bufferedReader);
             }
 
         } catch (SQLException e) {
             DBUtility.printSQLException(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         } finally {
             if (stmt != null) {
                 stmt.close();
             }
             bufferedReader.close();
+            if (con != null) {
+                con.close();
+            }
         }
+    }
+
+    private void recursiveAdd(String now, int supId,
+                              PreparedStatement stmt, BufferedReader bufferedReader) throws IOException, SQLException {
+        // set it visited
+        stmt.setString(1, cateStrHandle(now));
+        if (supId == -1) {
+            stmt.setNull(2, Types.INTEGER);
+        } else {
+            stmt.setInt(2, supId);
+        }
+        stmt.executeUpdate();
+
+        bufferedReader.mark(LINE_MAX_CHAR);
+        // check whether it has a subcategory
+        String next = bufferedReader.readLine();
+        if (next == null) {
+            return;
+        }
+        if (isSub(next, now)) {
+            do {
+                recursiveAdd(next, getCidByName(stmt, now), stmt, bufferedReader);
+                next = bufferedReader.readLine();
+            } while (isSub(next, now));
+        } else {
+            bufferedReader.reset();
+        }
+    }
+
+    private String cateStrHandle(String now) {
+        return now.replaceAll("\\s|:", "");
+    }
+
+
+    private int getCidByName(Statement stmt, String str) throws SQLException {
+        String query = "SELECT Category.cid " +
+                "from " + dbName + ".Category " +
+                "where Category.c_name = '" + cateStrHandle(str) + "'";
+        ResultSet rs = stmt.executeQuery(query);
+        assert rs.getFetchSize() == 1;
+        if (rs.next()) {
+            return rs.getInt("Category.cid");
+        }
+        throw new RuntimeException("not find this category");
+    }
+
+    private boolean isSub(String sub, String sup) {
+        return countTab(sub) > countTab(sup);
+    }
+
+    private int countTab(String s) {
+        return s.length() - s.replace("\t", "").length();
     }
 
     /**
      * ex1.3
      */
-    public void insertNewCategoryData() {
-
+    public void insertNewCategoryData() throws SQLException, IOException, ClassNotFoundException {
+        Connection mysqlConnection = getMysqlConnection();
+        Statement statement = mysqlConnection.createStatement();
+        int supId = getCidByName(statement, "自动化技术、计算机技术");
+        String inserts = "insert into " + dbName + ".Category (c_name, sup_cid) " +
+                "values('自动化基础理论', " + supId + "), " +
+                "('自动化技术及设备', " + supId + "), " +
+                "('计算技术、计算机技术', " + supId + "), " +
+                "('射流技术(流控技术)', " + supId + "), " +
+                "('远动技术', " + supId + "), " +
+                "('遥感技术', " + supId + ")";
+        statement.execute(inserts);
+        mysqlConnection.close();
     }
 
     /**
      * ex1.4
      */
-    public void initBookAndBorrowInfoData() {
+    public void initBookAndBorrowInfoData() throws IOException, SQLException {
+        PreparedStatement stmt = null;
+        BufferedReader bufferedReader = null;
 
+
+        String next;
+        Connection con = null;
+        try {
+            long start = System.currentTimeMillis();
+            // prepare connection
+            con = getMysqlConnection();
+            con.setAutoCommit(false);
+
+            // init book data
+            try {
+                bufferedReader = FileUtility.bufferedReader("./data/ex1/books.txt");
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return;
+            }
+            //skip the first line
+            bufferedReader.readLine();
+            stmt = con.prepareStatement("insert into " + dbName + ".Book " +
+                    "values(?, ?, ?, ?, ?)");
+
+            while ((next = bufferedReader.readLine()) != null) {
+                //                System.out.println(next);
+                String[] split = next.split("\t");
+                stmt.setInt(1, Integer.parseInt(split[0]));
+                stmt.setString(2, split[1].trim());
+                stmt.setString(3, split[2].trim());
+                stmt.setString(4, split[3].trim());
+                // can use this stmt? -- work properly
+                stmt.setInt(5, getCidByName(stmt, cateStrHandle(split[4])));
+                stmt.addBatch();
+            }
+            // will batch be too large? -- work properly
+            stmt.executeBatch();
+            con.commit();
+
+            // init borrow data
+            try {
+                bufferedReader = FileUtility.bufferedReader("./data/ex1/borrow.txt");
+            } catch (FileNotFoundException | UnsupportedEncodingException e) {
+                e.printStackTrace();
+                return;
+            }
+            bufferedReader.readLine();
+            stmt = con.prepareStatement("insert into " + dbName + ".Borrow (sid, bid, b_t, r_t)" +
+                    "values(?, ?, ?, ?)");
+
+            while ((next = bufferedReader.readLine()) != null) {
+                //                System.out.println(next);
+                String[] split = next.split("\t");
+                stmt.setInt(1, Integer.parseInt(split[0]));
+                stmt.setInt(2, Integer.parseInt(split[1]));
+                stmt.setDate(3, Date.valueOf(split[2]));
+                stmt.setDate(4, Date.valueOf(split[3]));
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            con.commit();
+
+            System.out.println(System.currentTimeMillis() - start);
+
+        } catch (SQLException e) {
+            DBUtility.printSQLException(e);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            bufferedReader.close();
+            if (con != null) {
+                con.close();
+            }
+        }
     }
 
     /**
      * ex1.5
      */
     public void getBorrowData() {
+        try {
+            Connection mysqlConnection = getMysqlConnection();
+            long start = System.currentTimeMillis();
+            PreparedStatement preparedStatement =
+                    mysqlConnection.prepareStatement(
+                            "SELECT b.b_t, b.r_t " +
+                                    "FROM Borrow b " +
+                                    "WHERE b.sid = '131250072' " +
+                                    "and bid in (SELECT b2.bid " +
+                                    "FROM Book b2 " +
+                                    "WHERE b2.cid in (" +
+                                    "select Category.cid from Category WHERE Category.sup_cid = " +
+                                    getCidByName(mysqlConnection.createStatement(), "自动化技术、计算机技术") + "));"
+                    );
+            preparedStatement.executeQuery();
+            System.out.println((System.currentTimeMillis() - start));
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -140,21 +318,9 @@ public class Homework1 {
      * @throws IOException
      * @throws ClassNotFoundException
      */
-    private Connection getMysqlConnection() throws SQLException, IOException, ClassNotFoundException {
-        // get items from resources/config.properties
-        Properties properties = new Properties();
-        String path = Thread.currentThread().getContextClassLoader()
-                .getResource("config.properties").getPath();
-        properties.load(new FileInputStream(new File(path)));
+    public Connection getMysqlConnection() throws SQLException, IOException, ClassNotFoundException {
+        initFromProperty();
 
-        String mysqlIP = properties.getProperty("mysql.server.ip");
-        String mysqlPort = properties.getProperty("mysql.server.port");
-        dbName = properties.getProperty("mysql.db.ex1");
-        String loginName = properties.getProperty("mysql.login.name");
-        String password = properties.getProperty("mysql.login.password");
-        String url = "jdbc:mysql://" + mysqlIP + ":" + mysqlPort + "/" + dbName
-                + "?" + "user=" + loginName + "&password=" + password
-                + "&useUnicode=true&characterEncoding=UTF8";
 
         // load class driver
         /**
@@ -179,16 +345,19 @@ public class Homework1 {
         return DriverManager.getConnection(url);
     }
 
+
     public static void main(String[] args) {
-        Homework1 homework1 = new Homework1();
+        Homework1 homework1;
         try {
-            Connection con = homework1.createTables();
-            homework1.initCategoryData(con);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            homework1 = new Homework1();
+//                        homework1.createTables();
+            //            homework1.initCategoryData();
+            //            homework1.insertNewCategoryData();
+                        homework1.initBookAndBorrowInfoData();
+//            homework1.getBorrowData();
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
