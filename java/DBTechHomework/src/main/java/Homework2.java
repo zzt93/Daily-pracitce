@@ -1,5 +1,6 @@
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.BulkWriteOptions;
 import com.mongodb.client.model.InsertOneModel;
@@ -15,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.function.BiConsumer;
+
+import static com.mongodb.client.model.Filters.*;
+import static com.mongodb.client.model.Projections.*;
 
 
 public class Homework2 {
@@ -48,17 +52,17 @@ public class Homework2 {
         url = "jdbc:mysql://" + mysqlIP + ":" + mysqlPort + "/" + dbName + "?"
                 + "user=" + loginName + "&password=" + password + "&useUnicode=true&characterEncoding=UTF8&rewriteBatchedStatements=true";
 
-        if (mongoClient == null) {
-            String mongoIP = properties.getProperty("mongo.server.ip");
-            int mongoPort = Integer.parseInt(properties.getProperty("mongo.server.port"));
-            //The database doesn’t have to exist -if it doesn’t, MongoDB will create it for you.
-            mogoDbName = properties.getProperty("mongo.db.ex2");
-
-            //The MongoClient class is designed to be thread safe and shared among threads.
-            // Typically you create only 1 instance for a given database cluster
-            // and use it across your application.
-            mongoClient = new MongoClient(mongoIP, mongoPort);
-        }
+//        if (mongoClient == null) {
+//            String mongoIP = properties.getProperty("mongo.server.ip");
+//            int mongoPort = Integer.parseInt(properties.getProperty("mongo.server.port"));
+//            //The database doesn’t have to exist -if it doesn’t, MongoDB will create it for you.
+//            mogoDbName = properties.getProperty("mongo.db.ex2");
+//
+//            //The MongoClient class is designed to be thread safe and shared among threads.
+//            // Typically you create only 1 instance for a given database cluster
+//            // and use it across your application.
+//            mongoClient = new MongoClient(mongoIP, mongoPort);
+//        }
     }
 
 
@@ -79,6 +83,7 @@ public class Homework2 {
         // LOAD DATA INFILE queries can be very complex
         // and achieve very good data mapping without ever having to run any other code,
         // as long as the imported data is going into a single table.
+        // TODO it seems that I can't load data by 'local'?
         String importStr = "LOAD DATA LOCAL INFILE '" + inputFile +
                 "' INTO TABLE hw2." + table +
                 " IGNORE 1 LINES";
@@ -229,11 +234,12 @@ public class Homework2 {
 
 
     public void mysqlQuery() throws Exception {
+        long start = System.currentTimeMillis();
         Connection mysqlConnection = getMysqlConnection();
         Statement stmt = mysqlConnection.createStatement();
         String query = "SELECT Score.sid, Score.grade " +
                 "from " + dbName + ".Score " +
-                "where Score.sid = '131250072'" +
+                "where Score.sid = 131250072 " +
                 "and Score.cid in ( " +
                 "  SELECT cid " +
                 "  FROM Course " +
@@ -246,6 +252,9 @@ public class Homework2 {
         while (rs.next()) {
             stringBuilder.append(rs.getInt(0)).append(" ").append(rs.getInt(1)).append("\n");
         }
+
+        System.out.println(System.currentTimeMillis() - start);
+
         System.out.println(stringBuilder.toString());
 
         mysqlConnection.close();
@@ -254,47 +263,52 @@ public class Homework2 {
     public void mongoCreateAndInsert() throws Exception {
         //        mongoTest();
 
+        long start = System.currentTimeMillis();
         // init student data
         mongoBulkInsert("Student", "./data/ex2/student.txt",
-                (list, split) -> {
-                    list.add(new InsertOneModel<>(
-                            new Document("sid", split[0])
-                                    .append("name", split[1])
-                                    .append("region", split[3])
-                    ));
-                }
+                (list, split) ->
+                        list.add(new InsertOneModel<>(
+                                new Document("sid", Integer.parseInt(split[0]))
+                                        .append("name", split[1])
+                                        .append("region", split[3])
+                        ))
         );
+        System.out.println(System.currentTimeMillis() - start);
+
         // init teacher data
         mongoBulkInsert("Teacher", "./data/ex2/teacher.txt",
-                (list, split) -> {
-                    list.add(new InsertOneModel<>(
-                            new Document("tid", split[0])
-                                    .append("tname", split[1])
-                                    .append("dep", split[2])
-                    ));
-                }
+                (list, split) ->
+                        list.add(new InsertOneModel<>(
+                                new Document("tid", Integer.parseInt(split[0]))
+                                        .append("tname", split[1])
+                                        .append("dep", split[2])
+                        ))
         );
+        System.out.println(System.currentTimeMillis() - start);
+
         // init course data
         mongoBulkInsert("Course", "./data/ex2/course.txt",
-                (list, split) -> {
-                    list.add(new InsertOneModel<>(
-                            new Document("cid", split[0])
-                                    .append("title", split[1])
-                                    .append("tid", split[2])
-                                    .append("semester", split[3])
-                    ));
-                }
+                (list, split) ->
+                        list.add(new InsertOneModel<>(
+                                new Document("cid", Integer.parseInt(split[0]))
+                                        .append("title", split[1])
+                                        .append("tid", Integer.parseInt(split[2]))
+                                        .append("semester", split[3])
+                        ))
         );
+        System.out.println(System.currentTimeMillis() - start);
+
         // init score data
-        mongoBulkInsert("Student", "./data/ex2/score.txt",
-                (list, split) -> {
-                    list.add(new InsertOneModel<>(
-                            new Document("sid", split[0])
-                                    .append("cid", split[1])
-                                    .append("grade", split[2])
-                    ));
-                }
+        mongoBulkInsert("Score", "./data/ex2/score.txt",
+                (list, split) ->
+                        list.add(new InsertOneModel<>(
+                                new Document("sid", Integer.parseInt(split[0]))
+                                        .append("cid", Integer.parseInt(split[1]))
+                                        .append("grade", Integer.parseInt(split[2]))
+                        ))
         );
+
+        System.out.println(System.currentTimeMillis() - start);
     }
 
     //    private void mongoTest() throws Exception {
@@ -335,12 +349,39 @@ public class Homework2 {
             }
         }
         // will batch be too large -- will out of memory for large data...
-        collection.bulkWrite(list, new BulkWriteOptions().ordered(false));
+        if (!list.isEmpty()) {
+            collection.bulkWrite(list, new BulkWriteOptions().ordered(false));
+        }
 
     }
 
-    public void mongoQuery() {
+    public void mongoQuery() throws Exception {
+        MongoDatabase mongoDB = getMongoDB();
 
+        long start = System.currentTimeMillis();
+
+        MongoCollection<Document> collection = mongoDB.getCollection("Teacher");
+        Document teacher = collection.find(eq("tname", "刘嘉")).first();
+        int tid = (int) teacher.get("tid");
+        MongoCollection<Document> course = mongoDB.getCollection("Course");
+        ArrayList<Integer> cidList = new ArrayList<>();
+        try (MongoCursor<Document> cids = course.find(eq("tid", tid)).iterator()) {
+            while (cids.hasNext()) {
+                //                System.out.println();
+                cidList.add((Integer) cids.next().get("cid"));
+            }
+        }
+        MongoCollection<Document> score = mongoDB.getCollection("Score");
+        MongoCursor<Document> res =
+                score.find(and(eq("sid", 131250072), in("cid", cidList)))
+                        .projection(fields(include("sid", "grade"), excludeId()))
+                        .iterator();
+        StringBuilder stringBuilder = new StringBuilder();
+        res.forEachRemaining(doc -> stringBuilder.append(doc.get("sid")).append("\t").append(doc.get("grade")).append("\n"));
+
+        System.out.println(System.currentTimeMillis() - start);
+
+        System.out.println(stringBuilder.toString());
     }
 
     /**
@@ -363,7 +404,9 @@ public class Homework2 {
         try {
             Homework2 homework2 = new Homework2();
             homework2.mysqlCreateAndInsert();
-            //            homework2.mongoCreateAndInsert();
+//            homework2.mysqlQuery();
+//            homework2.mongoCreateAndInsert();
+//            homework2.mongoQuery();
         } catch (Exception e) {
             e.printStackTrace();
         }
