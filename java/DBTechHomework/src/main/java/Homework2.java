@@ -221,12 +221,12 @@ public class Homework2 {
                 ".Score " +
                 "(sid integer NOT NULL, " +
                 "cid integer NOT NULL, " +
-                "grade integer NOT NULL, " +
-                "PRIMARY KEY (sid, cid), " +
-                "FOREIGN KEY (sid) REFERENCES " +
-                dbName + ".Student (sid), " +
-                "FOREIGN KEY (cid) REFERENCES " +
-                dbName + ".Course (cid))";
+                "grade integer NOT NULL) ";
+//                "PRIMARY KEY (sid, cid)) " +
+//                "FOREIGN KEY (sid) REFERENCES " +
+//                dbName + ".Student (sid), " +
+//                "FOREIGN KEY (cid) REFERENCES " +
+//                dbName + ".Course (cid))";
         Homework1.createTable(connection, createScore);
 
         connection.close();
@@ -250,7 +250,8 @@ public class Homework2 {
         ResultSet rs = stmt.executeQuery(query);
         StringBuilder stringBuilder = new StringBuilder();
         while (rs.next()) {
-            stringBuilder.append(rs.getInt(0)).append(" ").append(rs.getInt(1)).append("\n");
+            // don't forget this is 1-based
+            stringBuilder.append(rs.getInt(1)).append(" ").append(rs.getInt(2)).append("\n");
         }
 
         System.out.println(System.currentTimeMillis() - start);
@@ -403,8 +404,8 @@ public class Homework2 {
     public static void main(String[] args) {
         try {
             Homework2 homework2 = new Homework2();
-            homework2.mysqlCreateAndInsert();
-//            homework2.mysqlQuery();
+//            homework2.mysqlCreateAndInsert();
+            homework2.mysqlQuery();
 //            homework2.mongoCreateAndInsert();
 //            homework2.mongoQuery();
         } catch (Exception e) {

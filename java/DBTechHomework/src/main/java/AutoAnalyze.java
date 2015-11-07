@@ -63,6 +63,10 @@ public class AutoAnalyze implements Job {
                 "CHARACTER SET utf8 COLLATE utf8_unicode_ci";
         Homework1.createTable(connection, create);
 
+        String index = "alter table Score index(sid);";
+        String index2 = "alter table Score index(cid);";
+
+
         updateSemesters();
 
         connection.close();
@@ -77,7 +81,7 @@ public class AutoAnalyze implements Job {
         ResultSet resultSet = statement.executeQuery(query);
         ArrayList<String> allSeme = new ArrayList<>();
         while (resultSet.next()) {
-            allSeme.add(resultSet.getString(0));
+            allSeme.add(resultSet.getString(1));
         }
         allSeme.forEach(this::analyzeASemester);
 
@@ -95,7 +99,6 @@ public class AutoAnalyze implements Job {
             return;
         }
 
-        // TODO test
         String query = "INSERT INTO Analysis (SELECT " +
                 "                        t.tid, " +
                 "                        s.cid, " +
@@ -106,7 +109,8 @@ public class AutoAnalyze implements Job {
                 "                        JOIN Student s2 ON s2.sid = s.sid " +
                 "                        JOIN Course c ON s.cid = c.cid " +
                 "                        JOIN Teacher t ON t.tid = c.tid " +
-                "                      WHERE t.dep = '软件学院' AND c.semester = '2015-2016学年第1学期' " +
+                "                      WHERE t.dep = '软件学院' AND c.semester = '" + semester +
+                "' " +
                 "                      GROUP BY t.tid, s.cid, s2.region, s2.sid DIV 10000000); ";
 
         System.out.println(System.currentTimeMillis() - start);

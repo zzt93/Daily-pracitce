@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<h4>Tizag Art Supply Order Form</h4>
+
+
+<form action="process.php" method="post">
+    <label>
+        <select name="item">
+            <option>Paint</option>
+            <option>Brushes</option>
+            <option>Erasers</option>
+        </select>
+    </label>
+    Quantity:
+    <label>
+        <input name="quantity" type="text"/>
+    </label>
+    <input type="submit"/>
+</form>
+
+<h3>file upload</h3>
+
+<form enctype="multipart/form-data" action="uploader.php" method="POST">
+    <input type="hidden" name="MAX_FILE_SIZE" value="100000" />
+    Choose a file to upload: <input name="uploadedfile" type="file" /><br />
+    <input type="submit" value="Upload File" />
+</form>
+
+</body>
+</html>

@@ -16,6 +16,14 @@
 - mongodb server version should not smaller than 2.6
 
 
+##Opt:
+- Are the tables structured properly?
+ In particular, do the columns have the right data types,
+ and does each table have the appropriate columns for the type of work?
+ For example, applications that perform frequent updates often
+ have many tables with few columns, while applications that
+ analyze large amounts of data often have few tables with many columns.
+
 
 ##Question:
 1.比较mysql和mongodb,说说他们各自的特点
