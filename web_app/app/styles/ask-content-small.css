@@ -18,7 +18,7 @@
 /*the following is advice content*/
 
 
-.advice_head, .public-advice-body {
+.advice_head, .advices-body {
     width: 100%;
     padding: 4% 6%;
 }
@@ -28,17 +28,17 @@
 
 }
 
-.public-advice-body input, .public-advice-body textarea {
+.advices-body input, .advices-body textarea {
     padding: 5px;
     width: 86%;
 }
 
-.public-advice-body label {
+.advices-body label {
     display: inline-block;
     padding-bottom: 2%;
 }
 
-.public-advice-body label {
+.advices-body label {
     font-weight: 600;
 }
 
