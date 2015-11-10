@@ -112,4 +112,18 @@
     #personal, #settings {
         padding-left: 20px;
     }
+
+    /*----------------------------------------------------*/
+    /*the following is for campaign ui*/
+    .activity {
+        float: left;
+        margin: 1% 2% 1% 2%;
+        width: 45%;
+        display: inline-block;
+    }
+
+    .post {
+        width: 90%;
+        margin: 5% 0 0 5%;
+    }
 }

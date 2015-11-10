@@ -139,5 +139,52 @@ body {
 }
 
 #setting-search {
-    /*margin: 1% 3%;*/
+}
+
+/*--------------------------------------------------------*/
+/*the following is for campaign ui*/
+.post {
+    width: 100%;
+    border-radius: 30px;
+    border: 3px solid #c0ffb4;
+    min-height: 300px;
+    max-height: 500px;
+}
+
+.post .horizontal-center {
+    border-bottom: 1px solid #c0ffb4;
+}
+
+.notice {
+    width: 100%;
+    padding: 2% 5%;
+    border-bottom: 1px solid #c0ffb4;
+}
+
+.activity {
+    background-color: #c0ffb4;
+    /*background-image: url("../images/leaf.bmp");*/
+    /*background-size: cover;*/
+}
+
+.activity h3 {
+    display: inline;
+    padding: 0 4%;
+}
+
+.activity-content {
+    padding: 4% 8%;
+}
+
+.activity-join input {
+    margin: 0;
+    padding: 5% 20%;
+    background-color: white;
+    color: #42d2d6;
+    font-size: 1.5em;
+}
+
+
+.activity-join input:focus {
+    padding: 5% 20%;
 }
