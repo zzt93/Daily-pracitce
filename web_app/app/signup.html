@@ -9,10 +9,11 @@
     <link href="styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="styles/sign-content.css" type="text/css" rel="stylesheet">
     <link href="styles/anchor.css" type="text/css" rel="stylesheet">
+    <link href="styles/tooltip.css" type="text/css" rel="stylesheet">
 
     <title>Sign up</title>
 </head>
-<body>
+<body onload="useToolTip('#register')">
 
 <div id="headline">
     <div class="container">
@@ -42,27 +43,32 @@
             </ul>
         </div>
         <form method="post" id="register">
-            <h2>Register for the launch or <a href="login.html" id="to-login">log in</a></h2>
+            <h2 class="inline-h2">Register for the launch</h2>
 
+            <h2 class="smaller-font inline-h2">or <a href="login.html" class="on-logpanel">log in</a></h2>
             <br>
-            <label for="name">Name</label>
+            <label for="name">User Name</label>
             <br>
             <input type="text" name="name" id="name"
+                   title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
             <label for="email">Email address</label>
             <br>
             <input type="email" name="email" id="email"
+                   title="We won't leak your email address"
                    placeholder="xxx@example.com" required>
             <br>
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw"
+            <input type="password" name="pw" id="pw" onchange="validatePassword(this)"
+                   title="Must be at least 6 characters"
                    placeholder="******" required>
             <br>
             <label for="pw">Confirm password</label>
             <br>
-            <input type="password" name="pw" id="pw-again"
+            <input type="password" name="pw" id="pw-again" onchange="samePassword(this)"
+                   title="Please confirm your password"
                    placeholder="******" required>
             <br>
             <input type="submit" value="Sign up">
@@ -93,6 +99,7 @@
         </div>
         <div class="avatar">
             <img src="images/user.png" alt="Li is diving">
+
             <p class="quote">
                 Lee:<br>
                 "I follow the advice of my fitness to dive,
@@ -121,6 +128,10 @@
         </section>
     </div>
 </footer>
+
+<script type="application/javascript" src="scripts/jquery/jquery.tools.min.js"></script>
+<script type="application/javascript" src="scripts/formToolTip.js"></script>
+<script type="application/javascript" src="scripts/signUpCheck.js"></script>
 
 </body>
 </html>

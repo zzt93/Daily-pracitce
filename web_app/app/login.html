@@ -9,6 +9,7 @@
     <link href="styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="styles/sign-content.css" type="text/css" rel="stylesheet">
     <link href="styles/anchor.css" type="text/css" rel="stylesheet">
+    <link href="styles/tooltip.css" type="text/css" rel="stylesheet">
 
     <title>Log in</title>
 </head>
@@ -42,11 +43,14 @@
             </ul>
         </div>
         <form method="post" id="register">
-            <h2>Log in</h2>
-            <label for="name">Name</label>
+            <h2 class="inline-h2">Log in </h2>
+            <h2 class="smaller-font inline-h2"> ? try <a href="signup.html" class="on-logpanel">sign up</a></h2>
+
+            <br>
+            <label for="name">User Name</label>
             <br>
             <input type="text" name="name" id="name"
-                   placeholder="Zeng ZeTang">
+                   placeholder="Zeng ZeTang" required>
             <br>
             <h3>Or</h3>
             <label for="email">Email</label>
@@ -116,6 +120,10 @@
         </section>
     </div>
 </footer>
+
+
+<script type="application/javascript" src="scripts/jquery/jquery.tools.min.js"></script>
+<script type="application/javascript" src="scripts/formToolTip.js"></script>
 
 </body>
 </html>

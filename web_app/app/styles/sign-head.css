@@ -45,8 +45,20 @@
     font-size: 18px;
 }
 
-#to-login {
+.smaller-font {
+    font-size: 90%;
+}
+
+.on-logpanel {
     color: #42d2d6;
+}
+
+.on-logpanel:hover {
+    border-bottom: 1px dashed white;
+}
+
+.inline-h2 {
+    display: inline-block;
 }
 
 @media (min-width: 600px) {

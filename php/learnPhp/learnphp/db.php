@@ -15,7 +15,7 @@
 
 $name_bad = "' OR 1'";
 
-$name_bad = mysql_real_escape_string($name_bad);
+//$name_bad = mysql_real_escape_string($name_bad);
 
 $query_bad = "SELECT * FROM customers WHERE username = '$name_bad'";
 echo "Escaped Bad Injection: <br />" . $query_bad . "<br />";
@@ -23,7 +23,7 @@ echo "Escaped Bad Injection: <br />" . $query_bad . "<br />";
 
 $name_evil = "'; DELETE FROM customers WHERE 1 or username = '";
 
-$name_evil = mysql_real_escape_string($name_evil);
+//$name_evil = mysql_real_escape_string($name_evil);
 
 $query_evil = "SELECT * FROM customers WHERE username = '$name_evil'";
 echo "Escaped Evil Injection: <br />" . $query_evil;
