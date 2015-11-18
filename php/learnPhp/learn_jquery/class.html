@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="test.css">
+</head>
+<body>
+
+
+<div id="divTestArea1">
+    <span>Test 1</span><br />
+    <div>Test 2</div>
+    <section>Test 3</section><br />
+</div>
+<script type="text/javascript">
+    $(function()
+    {
+        $("#divTestArea1 span, #divTestArea1 section").addClass("blue");
+        $("#divTestArea1").find("div").addClass("bold blue");
+    });
+</script>
+</body>
+</html>

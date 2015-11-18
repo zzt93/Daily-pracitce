@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script language="javascript">function Test() {
+        var str = "";
+        str += "Hello,";
+        str += "This is a Test!<br />";
+        str += "I Love you;<br />";
+        str += "I Love you,too!";
+        p.innerHTML = str + "<br /><br />" + Math.random();
+        setTimeout('Test();', 1000);
+    }
+    </script>
+</head>
+<body onload="Test()">
+<span id="p"></span>
+</body>
+</html>

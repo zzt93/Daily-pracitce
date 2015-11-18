@@ -3,8 +3,8 @@
  */
 
 function useToolTip(formId) {
-    // select all desired input fields and attach tooltips to them
-    $(formId).find(":input").tooltip({
+    // select all desired input fields and attach tooltips to every input of them
+    $(formId).find("input").tooltip({
         // place tooltip on the right edge
         position: "center right",
         // a little tweaking of the position

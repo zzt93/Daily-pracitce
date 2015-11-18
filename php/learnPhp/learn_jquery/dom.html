@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+    <link rel="stylesheet" href="test.css">
+</head>
+
+<body>
+<div id="divTest">
+    <b>Test</b>
+    <input type="text" id="txtTest" name="txtTest" value="Input field"/>
+</div>
+
+<script type="text/javascript">
+    $(function () {
+        var $divTest = $("#divTest");
+        console.log("Text: " + $divTest.text());
+        console.log("HTML: " + $divTest.html());
+        console.log("Value: " + $divTest.val());
+
+        var $txtTest = $("#txtTest");
+        console.log("Text: " + $txtTest.text());
+        console.log("HTML: " + $txtTest.html());
+        console.log("Value: " + $txtTest.val());
+    });
+</script>
+
+<p>Paragraph 1</p>
+
+<p>Paragraph 2</p>
+
+<p>Paragraph 3</p>
+
+<span></span>
+
+<script type="text/javascript">
+    $(function () {
+        var tmp = '';
+        $("p").text(function (index, oldText) {
+            tmp += "Existing text: " + oldText + ". New text: A dynamically set text (#" + index + ")";
+        });
+        $("span").text(tmp);
+    });
+</script>
+
+<br>
+<a href="http://www.google.com" id="aGoogle3">Google Link</a>
+
+<script type="text/javascript">
+    $(function () {
+        $("#aGoogle3").attr(
+                {
+                    "href": "http://www.google.co.uk",
+                    "title": "Google.co.uk"
+                });
+    });
+</script>
+
+<a href="javascript:void(0);" onclick="ToggleClass(this);">Toggle class</a>
+
+<script type="text/javascript">
+    function ToggleClass(sender) {
+
+        if ($(sender).hasClass("bold"))
+            $(sender).removeClass("bold");
+        else
+            $(sender).addClass("bold");
+    }
+</script>
+
+
+
+</body>
+</html>

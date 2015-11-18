@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+</head>
+<body>
+<a href="javascript:void(0);" onclick="$('#olTestList1').append('<li>Appended item</li>');">Append</a>
+<a href="javascript:void(0);" onclick="$('#olTestList1').prepend('<li>Prepended item</li>');">Prepend</a>
+
+<ol id="olTestList1">
+    <li>Existing item</li>
+    <li>Existing item</li>
+</ol>
+
+<a href="javascript:void(0);" onclick="PrependItemsToList();">Prepend items</a>
+<ol id="olTestList3"></ol>
+
+<script type="text/javascript">
+    function PrependItemsToList() {
+        $("#olTestList3").prepend($("<li></li>").text("prepend() item"));
+        $("<li></li>").text("prependTo() item").prependTo("#olTestList3");
+    }
+</script>
+
+<a href="javascript:void(0);" onclick="$('input.test1').before('<i>Before</i>');">Before</a>
+<a href="javascript:void(0);" onclick="$('input.test1').after('<b>After</b>');">After</a>
+
+<br/><br/>
+
+<input type="text" class="test1" value="Input 1" name="txtInput1"/><br/>
+<input type="text" class="test1" value="Input 2" name="txtInput2"/><br/>
+
+
+<a href="javascript:void(0);" onclick="$('#divTestArea1').empty();">empty() div</a>
+<a href="javascript:void(0);" onclick="$('#divTestArea1').remove();">remove() div</a>
+<div id="divTestArea1" style="height: 100px; width: 300px; padding: 20px; border: 1px solid silver; background-color: #eee;">
+    <b>Bold text</b>
+    <i>Italic text</i>
+</div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Div Test</title>
+</head>
+<script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+<body>
+
+<div id="divTest1"></div>
+<div id="divTest2"></div>
+<div id="divTest3"></div>
+
+<script type="text/javascript">
+    function div2Ready() {
+        $('#divTest2').text('hello again')
+                .css('color', 'blue');
+    }
+    $(document).ready(div2Ready);
+    $(function () {
+        //    $('#divTest1').innerHTML = 'Hello, world!';
+        $('#divTest1').text('hello world');
+        $('#divTest3').text('Hello, ...!');
+    });
+
+</script>
+
+<ul>
+    <li class="bold">Test 1</li>
+    <li>Test 2</li>
+    <li class="bold">Test 3</li>
+</ul>
+
+<script type="text/javascript">
+    $(function () {
+        $("li.bold").css("font-weight", "bold");
+    });
+</script>
+
+<span title="Title 1">Test 1</span><br/>
+<span>Test 2</span><br/>
+<span title="Title 3">Test 3</span><br/>
+
+<script type="text/javascript">
+    $(function () {
+        $("[title]").css("text-decoration", "underline");
+    });
+</script>
+
+
+
+<a href="http://www.google.com" target="_blank">Link 1</a><br/>
+<a href="http://www.google.com" target="_self">Link 2</a><br/>
+<a href="http://www.google.com" target="_blank">Link 3</a><br/>
+
+<label>
+    input start with txt
+    <input type="text" name="txt..">
+</label>
+<br>
+<label>
+    input end with letter
+    <input type="text" name="..letter">
+</label>
+<br>
+<label>
+    input contain txt
+    <input type="text" name="..txt..">
+</label>
+
+<script type="text/javascript">
+    $(function () {
+        $("a[target='_blank']").append(" [new window]");
+        $("a[target!='_blank']").append(" [same window]");
+        $("input[name^='txt']").css("color", "blue");
+        $("input[name$='letter']").css("color", "red");
+        $("input[name*='txt']").css("color", "blue");
+    });
+</script>
+
+
+
+</body>
+
+</html>

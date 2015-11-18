@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+<body>
+<div id="divTestArea1" style="padding: 50px; background-color: #89BC38; text-align: center; display: none;">
+    <b>Hello, world!</b>
+</div>
+<a href="javascript:void(0);" onclick="ShowBox1();">Show box</a>
+<script type="text/javascript">
+    function ShowBox1()
+    {
+        $("#divTestArea1").fadeIn();
+    }
+</script>
+
+<div id="divTestArea21" style="width: 50px; height: 50px; display: none; background-color: #89BC38;"></div>
+<div id="divTestArea22" style="width: 50px; height: 50px; display: none; background-color: #C3D1DF;"></div>
+<div id="divTestArea23" style="width: 50px; height: 50px; display: none; background-color: #9966FF;"></div>
+<a href="javascript:void(0);" onclick="ShowBoxes();">Show boxes</a>
+<script type="text/javascript">
+    function ShowBoxes()
+    {
+        $("#divTestArea21").fadeIn("fast", function () {
+            $('#divTestArea21').fadeOut('slow');
+        });
+        $("#divTestArea22").fadeIn("slow");
+        $("#divTestArea23").fadeIn(2000);
+    }
+</script>
+
+<div id="divTestArea3" style="padding: 50px; background-color: #89BC38; text-align: center; display: none;">
+    <b>Hello, world!</b>
+</div>
+<a href="javascript:void(0);" onclick="ShowBox();">Show box</a>
+<script type="text/javascript">
+    function ShowBox()
+    {
+        $("#divTestArea3").slideDown();
+    }
+</script>
+</body>
+</html>
