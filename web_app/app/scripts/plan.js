@@ -31,7 +31,6 @@ function addPlan(link) {
         .attr('id', id.substr(0, id.length - 1) + idCount.incrementAndGet());
     table.after(nTable[0].outerHTML);
     // update caption of following table
-    //var next = nTable.next('table[id^="plan"]');
     var captionNum = parseInt(table.find('caption').text().replace(/\D/g, ''));
     var i = captionNum + 1;
     var next = table;
@@ -44,13 +43,21 @@ function addPlan(link) {
 function enableEdit(link) {
     'use strict';
     var table = $(link).parents('table');
-    table.find('td').attr('contenteditable', 'true');
+    var tds = table.find('td');
+    tds.attr('contenteditable', 'true').toggleClass('editable');
+    tds[0].focus();
+    $(link).hide();
+    $(link).next().show();
 }
 
-function updatePlan(link) {
+function submitUpdate(link) {
     'use strict';
     var table = $(link).parents('table');
-    table.addEventListener('change', function () {
+    // make it can't edit
+    var tds = table.find('td');
+    tds.attr('contenteditable', 'false').removeClass('editable');
+    // TODO submit changes to server
 
-    });
+    $(link).hide();
+    $(link).prev().show();
 }

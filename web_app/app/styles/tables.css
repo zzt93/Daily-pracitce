@@ -19,3 +19,11 @@ table tbody th, table tbody td {
 table caption {
     padding: 1em;
 }
+
+table td.editable {
+    color: #4c84d4;
+}
+
+table th.fixed {
+    max-width: 200px;
+}
