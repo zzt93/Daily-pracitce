@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        $.get("toLoad.html", function (data, textStatus) {
+            alert("Done, with the following status: " + textStatus + ". Here is the response: " + data);
+        });
+    });
+</script>
+</body>
+</html>

@@ -32,13 +32,13 @@
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li>
-                <a href="health.html">健康管理</a>
+                <a href="health.php">健康管理</a>
             </li>
             <li>
-                <a href="health.html">活动管理</a>
+                <a href="health.php">活动管理</a>
             </li>
             <li class="tab-chosen">
-                <a href="health.html">建议管理</a>
+                <a href="health.php">建议管理</a>
             </li>
         </ul>
     </nav>
@@ -87,7 +87,7 @@
                         <p>views</p>
                     </div>
                     <div class="question-body">
-                        <a class="question-title" href="question.html">How to keep fit</a>
+                        <a class="question-title" href="question.php">How to keep fit</a>
 
                         <p class="q-content">I am ...</p>
                     </div>
@@ -110,7 +110,7 @@
                         <p>views</p>
                     </div>
                     <div class="question-body">
-                        <a class="question-title" href="question.html">How to keep fit</a>
+                        <a class="question-title" href="question.php">How to keep fit</a>
 
                         <p class="q-content">I am ...</p>
                     </div>
@@ -171,6 +171,10 @@
         </div>
     </div>
 </div>
+
+<?php require("footer.php"); ?>
+
+
 </body>
 <footer>
     <!-- copy from myindex.html -->

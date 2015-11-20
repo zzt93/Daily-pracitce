@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        $.post("test_post.php",
+                {
+                    name: "John Doe",
+                    age: "42"
+                },
+                function (data, textStatus) {
+                    alert("status is: " + textStatus + " Response from server: " + data);
+                });
+    });
+</script>
+</body>
+</html>

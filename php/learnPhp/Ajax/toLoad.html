@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="divContent">
+    <span>This is external content</span>
+</div>
+</body>
+
+
+<script type="text/javascript">
+    $(function () {
+        $.post("test_post.php",
+                {
+                    name: "John Doe",
+                    age: "42"
+                },
+                function (data, textStatus) {
+                    alert("Response from server: " + data);
+                });
+    });
+</script>
+
+</html>

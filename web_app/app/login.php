@@ -11,9 +11,9 @@
     <link href="styles/anchor.css" type="text/css" rel="stylesheet">
     <link href="styles/tooltip.css" type="text/css" rel="stylesheet">
 
-    <title>Sign up</title>
+    <title>Log in</title>
 </head>
-<body onload="useToolTip('#register')">
+<body>
 
 <div id="headline">
     <div class="container">
@@ -43,35 +43,28 @@
             </ul>
         </div>
         <form method="post" id="register">
-            <h2 class="inline-h2">Register for the launch</h2>
+            <h2 class="inline-h2">Log in </h2>
+            <h2 class="smaller-font inline-h2"> ? try <a href="signup.php" class="on-logpanel">sign up</a></h2>
 
-            <h2 class="smaller-font inline-h2">or <a href="login.html" class="on-logpanel">log in</a></h2>
             <br>
             <label for="name">User Name</label>
             <br>
             <input type="text" name="name" id="name"
-                   title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
-            <label for="email">Email address</label>
+            <h3>Or</h3>
+            <label for="email">Email</label>
             <br>
             <input type="email" name="email" id="email"
-                   title="We won't leak your email address"
                    placeholder="xxx@example.com" required>
             <br>
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw" onchange="validatePassword(this)"
-                   title="Must be at least 6 characters"
+            <input type="password" name="pw" id="pw"
                    placeholder="******" required>
             <br>
-            <label for="pw">Confirm password</label>
             <br>
-            <input type="password" name="pw" id="pw-again" onchange="samePassword(this)"
-                   title="Please confirm your password"
-                   placeholder="******" required>
-            <br>
-            <input type="submit" value="Sign up">
+            <input type="submit" value="Log in">
             <br>
         </form>
         <!-- Elements after a floating element will flow around it.
@@ -99,7 +92,6 @@
         </div>
         <div class="avatar">
             <img src="images/user.png" alt="Li is diving">
-
             <p class="quote">
                 Lee:<br>
                 "I follow the advice of my fitness to dive,
@@ -113,25 +105,12 @@
         </ul>
     </div>
 </div>
+e
+<?php require("footer.php"); ?>
 
-<footer>
-    <div class="container">
-        <section id="link">
-            <a href="health.html">More: Health </a>
-        </section>
-        <section id="contact">
-            <p>Email us: zzt@health.com</p>
-
-            <p>Contact us: (xxx) xxxx xxxx</p>
-        </section>
-        <section id="mis">
-        </section>
-    </div>
-</footer>
 
 <script type="application/javascript" src="scripts/jquery/jquery.tools.min.js"></script>
 <script type="application/javascript" src="scripts/formToolTip.js"></script>
-<script type="application/javascript" src="scripts/signUpCheck.js"></script>
 
 </body>
 </html>

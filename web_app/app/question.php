@@ -32,13 +32,13 @@
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li>
-                <a href="health.html" onclick="nowSelected.changeTo(0)">健康管理</a>
+                <a href="health.php" onclick="nowSelected.changeTo(0)">健康管理</a>
             </li>
             <li>
-                <a href="health.html" onclick="nowSelected.changeTo(1)">健身活动</a>
+                <a href="health.php" onclick="nowSelected.changeTo(1)">健身活动</a>
             </li>
             <li class="tab-chosen">
-                <a href="health.html" onclick="nowSelected.changeTo(2)">健康建议</a>
+                <a href="health.php" onclick="nowSelected.changeTo(2)">健康建议</a>
             </li>
         </ul>
     </nav>
@@ -58,10 +58,10 @@
                         <a href="#">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask public</a>
+                        <a href="ask-question.php">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask private</a>
+                        <a href="ask-question.php">Ask private</a>
                     </li>
                     <br>
                 </ul>
@@ -167,9 +167,9 @@
     </div>
 </div>
 </body>
-<footer>
-    <!-- copy from myindex.html -->
-</footer>
+
+<?php require("footer.php"); ?>
+
 <script type="application/javascript" src="scripts/chosen.js"></script>
 
 

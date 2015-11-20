@@ -11,13 +11,14 @@
 
 
 <div id="divTestArea1">
-    <span>Test 1</span><br />
+    <span>Test 1</span><br/>
+
     <div>Test 2</div>
-    <section>Test 3</section><br />
+    <section>Test 3</section>
+    <br/>
 </div>
 <script type="text/javascript">
-    $(function()
-    {
+    $(function () {
         $("#divTestArea1 span, #divTestArea1 section").addClass("blue");
         $("#divTestArea1").find("div").addClass("bold blue");
     });

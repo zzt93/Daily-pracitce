@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+</head>
+<body>
+<div id="divTestArea1"></div>
+<script type="text/javascript">
+    $(function () {
+        $("#divTestArea1").load("toLoad.html #divContent");
+    });
+</script>
+
+
+<div id="divTestArea3"></div>
+<script type="text/javascript">
+    $(function () {
+        $("#divTestArea3").load("no-content.html", function (responseText, statusText, xhr) {
+            if (statusText == "success")
+                alert("Successfully loaded the content!");
+            if (statusText == "error")
+                alert("An error occurred: " + xhr.status + " - " + xhr.statusText);
+        });
+    });
+</script>
+
+</body>
+</html>

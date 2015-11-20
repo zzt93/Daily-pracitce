@@ -39,11 +39,15 @@
     <section id="main-header">
         <img src="images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="health.html">Fit</a></p>
+        <p id="app-name"><a href="health.php">Fit</a></p>
 
-        <form><p class="action">
-            <a href="health.html" class="fa fa-user"> log out</a>
-        </p>
+        <form>
+            <p class="action">
+                <a href="login.php" class="fa fa-user"> log out</a>
+            </p>
+            <p class="action">
+                <a href="health.php" class="fa fa-home"> home</a>
+            </p>
         </form>
         <br>
     </section>
@@ -334,10 +338,10 @@
                         <a href="#advice">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask public</a>
+                        <a href="ask-question.php">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask private</a>
+                        <a href="ask-question.php">Ask private</a>
                     </li>
                     <br>
                 </ul>
@@ -464,9 +468,9 @@
     </div>
 </div>
 </body>
-<footer>
-    <!-- copy from index-->
-</footer>
+
+<?php require("footer.php"); ?>
+
 <script type="application/javascript" src="scripts/chosen.js"></script>
 <script type="application/javascript" src="scripts/lightBox.js"></script>
 <script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>

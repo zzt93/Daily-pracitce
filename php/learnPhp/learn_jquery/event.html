@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="application/javascript" src="../jquery/jquery.min.js"></script>
+
+</head>
+<body>
+
+<h2>jQuery bind() with this </h2>
+
+<a href="javascript:void(0);">jquery will assign this to each element</a><br>
+<a href="javascript:void(0);">so they show different result for same bind function</a>
+<script type="text/javascript">
+    $(function () {
+        var data = function () {
+            alert($(this).text());
+        };
+        $("a").bind("click", data);
+    });
+</script>
+
+<h2>jQuery bind() with event parameter </h2>
+
+<div id="divArea" style="background-color: silver; width: 100px; height: 100px;">
+</div>
+<script type="text/javascript">
+    $("#divArea").bind("mousemove", function (event) {
+        $(this).text(event.pageX + "," + event.pageY);
+    });
+</script>
+
+
+<h2>jQuery bind() method also allows you to pass in data of your own
+    and access it from the event object</h2>
+
+<a href="javascript:void(0);">Test 1</a>
+<a href="javascript:void(0);">Test 2</a>
+<script type="text/javascript">
+
+    var msg = "Hello, world!";
+    $(function () {
+        $("a").bind("click", {message: msg}, function (event) {
+            msg = "Changed msg";
+            alert(event.data.message);
+        });
+    });
+</script>
+</body>
+</html>

@@ -11,6 +11,6 @@ $start = time();
 echo 'waiting';
 
 while (time() - $start < 10) {
-    echo '.';
+//    echo '.';
 }
-session_destroy();
+//session_destroy();

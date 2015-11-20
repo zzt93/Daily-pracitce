@@ -6,3 +6,7 @@
  * Time: 6:15 PM
  */
 
+function signUp () {
+    // check whether the uer name is unique by insert result
+
+}

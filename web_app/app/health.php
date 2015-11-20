@@ -9,48 +9,49 @@
 
     <link rel="stylesheet" href="styles/health-content.css">
     <link rel="stylesheet" href="styles/main-header.css">
-    <link rel="stylesheet" href="styles/lightBox.css">
+    <!--<link rel="stylesheet" href="styles/lightBox.css">-->
 
     <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body onload="addLightBox('login-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
+<body onload="addListChosenListener('side_nav_list', 'tabbed-block', 0);">
 <header>
     <section id="main-header">
         <img src="images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="health.html">Fit</a></p>
+        <p id="app-name"><a href="health.php">Fit</a></p>
 
-        <form><p class="action">
-            <a href="#" class="fa fa-user"> log out</a>
-        </p>
+        <form>
+            <p class="action">
+                <a href="login.php" class="fa fa-sign-out"> log out</a>
+            </p>
+            <p class="action">
+                <a href="account.php" class="fa fa-user"> account</a>
+            </p>
         </form>
-        <ul class="action">
-            <li><a href="#" id="login-link">log in</a></li>
-            <li><a href="account.html">My account</a></li>
-            <li><a href="signup.html">sign up</a></li>
-        </ul>
 
         <br>
     </section>
-    <div id="light-box">
-        <h3>Log in</h3>
 
-        <form method="post" id="register">
-            <label for="email">Email address</label>
-            <br>
-            <input type="email" name="email" id="email"
-                   placeholder="xxx@example.com" required>
-            <br>
-            <label for="pw">Password</label>
-            <br>
-            <input type="password" name="pw" id="pw"
-                   placeholder="******" required>
-            <br>
-            <input type="submit" value="Log in">
-            <br>
-        </form>
+    <!--<div id="light-box">-->
+        <!--<h3>Log in</h3>-->
 
-    </div>
+        <!--<form method="post" id="register">-->
+            <!--<label for="email">Email address</label>-->
+            <!--<br>-->
+            <!--<input type="email" name="email" id="email"-->
+                   <!--placeholder="xxx@example.com" required>-->
+            <!--<br>-->
+            <!--<label for="pw">Password</label>-->
+            <!--<br>-->
+            <!--<input type="password" name="pw" id="pw"-->
+                   <!--placeholder="******" required>-->
+            <!--<br>-->
+            <!--<input type="submit" value="Log in">-->
+            <!--<br>-->
+        <!--</form>-->
+
+    <!--</div>-->
+
 </header>
 
 <div id="main-container" class="flex-container-large">
@@ -98,7 +99,7 @@
                         <td>...</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="account.html">More</a></th>
+                        <th colspan="3"><a href="account.php">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -169,7 +170,7 @@
                         <td>20</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="account.html">More</a></th>
+                        <th colspan="3"><a href="account.php">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -177,7 +178,7 @@
 
             <section class="health_block">
                 <div class="horizontal-center">
-                    <h4>xx数据跟踪 <a href="account.html">Choose other</a></h4>
+                    <h4>xx数据跟踪 <a href="account.php">Choose other</a></h4>
                 </div>
                 <canvas id="myChart"></canvas>
             </section>
@@ -228,10 +229,10 @@
                         <a href="#advice">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask public</a>
+                        <a href="ask-question.php">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.html">Ask private</a>
+                        <a href="ask-question.php">Ask private</a>
                     </li>
                     <br>
                 </ul>
@@ -254,7 +255,7 @@
                     <p>views</p>
                 </div>
                 <div class="question-body">
-                    <a class="question-title" href="question.html">How to keep fit</a>
+                    <a class="question-title" href="question.php">How to keep fit</a>
 
                     <p class="q-content">I am ...</p>
                 </div>
@@ -277,24 +278,22 @@
                     <p>views</p>
                 </div>
                 <div class="question-body">
-                    <a class="question-title" href="question.html">How to keep fit</a>
+                    <a class="question-title" href="question.php">How to keep fit</a>
 
                     <p class="q-content">I am ...</p>
                 </div>
                 <br>
             </section>
 
-
         </div>
     </div>
 </div>
 </body>
-<footer>
 
-    <!-- copy from index-->
-</footer>
+<?php require("footer.php"); ?>
+
 <script type="application/javascript" src="scripts/chosen.js"></script>
-<script type="application/javascript" src="scripts/lightBox.js"></script>
+<!--<script type="application/javascript" src="scripts/lightBox.js"></script>-->
 <script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="scripts/useBarChart.js"></script>
 <script type="application/javascript" src="scripts/jquery/dist/jquery.min.js"></script>
