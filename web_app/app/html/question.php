@@ -6,15 +6,15 @@
 
     <title>Question</title>
 
-    <link rel="stylesheet" href="styles/ask-content.css">
-    <link rel="stylesheet" href="styles/main-header.css">
+    <link rel="stylesheet" href="../styles/ask-content.css">
+    <link rel="stylesheet" href="../styles/main-header.css">
 
-    <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
 <body>
 <header>
     <section id="main-header">
-        <img src="images/yellow-pin.png" id="logo">
+        <img src="../images/yellow-pin.png" id="logo">
 
         <p id="app-name">Fit</p>
 
@@ -170,7 +170,7 @@
 
 <?php require("footer.php"); ?>
 
-<script type="application/javascript" src="scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/chosen.js"></script>
 
 
 </html>

@@ -8,7 +8,12 @@
 
 define('FILENAME', '../../sql/app.sqlite');
 
-function & initDB() {
-    $db = new SQLite3(FILENAME) or die('Unable to open database');
+$db;
+function & initDB()
+{
+    if (!isset($db)) {
+        $db = new SQLite3(FILENAME) or die('Unable to open database');
+    }
+
     return $db;
 }

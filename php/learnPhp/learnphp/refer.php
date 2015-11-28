@@ -24,6 +24,24 @@ echo "Original Value is $orignum<br />";
 
 addSix($orignum);
 echo "Original Value is $orignum<br />";
+
+class Test {
+    public $i = 0;
+}
+
+function addFour(Test $t) {
+    $t->i += 4;
+}
+
+function addThree(Test &$t) {
+    $t->i += 3;
+}
+
+$t = new Test();
+addFour($t);
+echo "Original value is $t->i<br/>";
+addThree($t);
+echo "Original value is $t->i<br/>";
 ?>
 
 </body>

@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!--<link href="styles/fonts.css" type="text/css" rel="stylesheet">-->
-    <link href="styles/sign-head.css" type="text/css" rel="stylesheet">
-    <link href="styles/sign-footer.css" type="text/css" rel="stylesheet">
-    <link href="styles/sign-content.css" type="text/css" rel="stylesheet">
-    <link href="styles/anchor.css" type="text/css" rel="stylesheet">
-    <link href="styles/tooltip.css" type="text/css" rel="stylesheet">
+    <link href="../styles/sign-head.css" type="text/css" rel="stylesheet">
+    <link href="../styles/sign-footer.css" type="text/css" rel="stylesheet">
+    <link href="../styles/sign-content.css" type="text/css" rel="stylesheet">
+    <link href="../styles/anchor.css" type="text/css" rel="stylesheet">
+    <link href="../styles/tooltip.css" type="text/css" rel="stylesheet">
 
-    <title>Log in</title>
+    <title>Sign up</title>
 </head>
-<body>
+<body onload="useToolTip('#register')">
 
 <div id="headline">
     <div class="container">
@@ -42,29 +42,36 @@
                 <li>More ...</li>
             </ul>
         </div>
-        <form method="post" id="register">
-            <h2 class="inline-h2">Log in </h2>
-            <h2 class="smaller-font inline-h2"> ? try <a href="signup.php" class="on-logpanel">sign up</a></h2>
+        <form action="../php/sign_up.php" method="post" id="register" onsubmit="return checkInput()">
+            <h2 class="inline-h2">Register for the launch</h2>
 
+            <h2 class="smaller-font inline-h2">or <a href="login.php" class="on-logpanel">log in</a></h2>
             <br>
             <label for="name">User Name</label>
             <br>
             <input type="text" name="name" id="name"
+                   title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
-            <h3>Or</h3>
-            <label for="email">Email</label>
+            <label for="email">Email address</label>
             <br>
             <input type="email" name="email" id="email"
+                   title="We won't leak your email address"
                    placeholder="xxx@example.com" required>
             <br>
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw"
+            <input type="password" name="pw" id="pw" onchange="validatePassword(this)"
+                   title="Must be at least 6 characters"
                    placeholder="******" required>
             <br>
+            <label for="pw">Confirm password</label>
             <br>
-            <input type="submit" value="Log in">
+            <input type="password" name="pw" id="pw-again" onchange="samePassword(this)"
+                   title="Please confirm your password"
+                   placeholder="******" required>
+            <br>
+            <input type="submit" value="Sign up">
             <br>
         </form>
         <!-- Elements after a floating element will flow around it.
@@ -82,7 +89,7 @@
         <p>some comments and app screen shots</p>
 
         <div class="avatar">
-            <img src="images/user.png" alt="Li is diving">
+            <img src="../images/user.png" alt="Li is diving">
 
             <p class="quote">
                 Lee:<br>
@@ -91,7 +98,8 @@
             </p>
         </div>
         <div class="avatar">
-            <img src="images/user.png" alt="Li is diving">
+            <img src="../images/user.png" alt="Li is diving">
+
             <p class="quote">
                 Lee:<br>
                 "I follow the advice of my fitness to dive,
@@ -105,12 +113,13 @@
         </ul>
     </div>
 </div>
-e
+
 <?php require("footer.php"); ?>
 
 
-<script type="application/javascript" src="scripts/jquery/jquery.tools.min.js"></script>
-<script type="application/javascript" src="scripts/formToolTip.js"></script>
+<script type="application/javascript" src="../scripts/jquery/jquery.tools.min.js"></script>
+<script type="application/javascript" src="../scripts/formToolTip.js"></script>
+<script type="application/javascript" src="../scripts/signUpCheck.js"></script>
 
 </body>
 </html>

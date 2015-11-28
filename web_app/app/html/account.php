@@ -6,12 +6,12 @@
 
     <title>account</title>
 
-    <link rel="stylesheet" href="styles/account-content.css">
-    <link rel="stylesheet" href="styles/main-header.css">
-    <link rel="stylesheet" href="styles/lightBox.css">
+    <link rel="stylesheet" href="../styles/account-content.css">
+    <link rel="stylesheet" href="../styles/main-header.css">
+    <link rel="stylesheet" href="../styles/lightBox.css">
 
 
-    <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
 <body onload="addLightBox('apply-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
@@ -37,7 +37,7 @@
 
 <header>
     <section id="main-header">
-        <img src="images/yellow-pin.png" id="logo">
+        <img src="../images/yellow-pin.png" id="logo">
 
         <p id="app-name"><a href="health.php">Fit</a></p>
 
@@ -92,7 +92,7 @@
             <h3>Your public information</h3>
             <section class="personal-info flex-container-large" id="public-info">
                 <div class="avatar-wrapper none">
-                    <img class="resize" src="images/user.png" alt="a user">
+                    <img class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
                         <input type="file" name="photo" title="choose a picture"/>
@@ -471,11 +471,11 @@
 
 <?php require("footer.php"); ?>
 
-<script type="application/javascript" src="scripts/chosen.js"></script>
-<script type="application/javascript" src="scripts/lightBox.js"></script>
-<script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="scripts/useLineChart.js"></script>
-<script type="application/javascript" src="scripts/jquery/dist/jquery.min.js"></script>
-<script type="application/javascript" src="scripts/plan.js"></script>
+<script type="application/javascript" src="../scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/lightBox.js"></script>
+<script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
+<script type="application/javascript" src="../scripts/useLineChart.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="../scripts/plan.js"></script>
 
 </html>

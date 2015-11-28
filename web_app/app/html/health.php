@@ -7,16 +7,16 @@
     <title>health</title>
 
 
-    <link rel="stylesheet" href="styles/health-content.css">
-    <link rel="stylesheet" href="styles/main-header.css">
+    <link rel="stylesheet" href="../styles/health-content.css">
+    <link rel="stylesheet" href="../styles/main-header.css">
     <!--<link rel="stylesheet" href="styles/lightBox.css">-->
 
-    <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
 <body onload="addListChosenListener('side_nav_list', 'tabbed-block', 0);">
 <header>
     <section id="main-header">
-        <img src="images/yellow-pin.png" id="logo">
+        <img src="../images/yellow-pin.png" id="logo">
 
         <p id="app-name"><a href="health.php">Fit</a></p>
 
@@ -292,11 +292,11 @@
 
 <?php require("footer.php"); ?>
 
-<script type="application/javascript" src="scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/chosen.js"></script>
 <!--<script type="application/javascript" src="scripts/lightBox.js"></script>-->
-<script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="scripts/useBarChart.js"></script>
-<script type="application/javascript" src="scripts/jquery/dist/jquery.min.js"></script>
-<script type="application/javascript" src="scripts/plan.js"></script>
+<script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
+<script type="application/javascript" src="../scripts/useBarChart.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="../scripts/plan.js"></script>
 
 </html>
