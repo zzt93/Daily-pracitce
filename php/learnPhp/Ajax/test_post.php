@@ -16,4 +16,19 @@ function test_post()
     echo "$name is $age";
 }
 
-test_post();
+//test_post();
+function send()
+{
+    var_dump($_POST);
+    $name = $_POST['funcName'];
+    echo $name;
+    if (isset($name)) {
+        echo 'asdf';
+    }
+    if (is_string($name)) {
+        echo 'asdf';
+        $name();
+    }
+}
+
+send();

@@ -42,14 +42,15 @@
                 <li>More ...</li>
             </ul>
         </div>
-        <form action="../php/sign_up.php" method="post" id="register" onsubmit="return checkInput()">
+        <form action="../php/Controller/SignController.class.php"
+              method="post" id="register" onsubmit="return checkInput()">
             <h2 class="inline-h2">Register for the launch</h2>
 
             <h2 class="smaller-font inline-h2">or <a href="login.php" class="on-logpanel">log in</a></h2>
             <br>
             <label for="name">User Name</label>
             <br>
-            <input type="text" name="name" id="name"
+            <input type="text" name="uname" id="name"
                    title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
@@ -61,17 +62,19 @@
             <br>
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw" onchange="validatePassword(this)"
+            <input type="password" name="password" id="pw" onchange="validatePassword(this)"
                    title="Must be at least 6 characters"
                    placeholder="******" required>
             <br>
             <label for="pw">Confirm password</label>
             <br>
-            <input type="password" name="pw" id="pw-again" onchange="samePassword(this)"
+            <input type="password" id="pw-again" onchange="samePassword(this)"
                    title="Please confirm your password"
                    placeholder="******" required>
             <br>
             <input type="submit" value="Sign up">
+
+            <input type="hidden" name="funcName" value="signUp">
             <br>
         </form>
         <!-- Elements after a floating element will flow around it.
