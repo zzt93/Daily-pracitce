@@ -45,6 +45,7 @@
             <p class="action">
                 <a href="login.php" class="fa fa-user"> log out</a>
             </p>
+
             <p class="action">
                 <a href="health.php" class="fa fa-home"> home</a>
             </p>
@@ -102,14 +103,30 @@
                 <div class="flex1 info-part">
                     <label for="DisplayName">Display name
                         <br>
-                        <input id="DisplayName" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                        <input id="DisplayName" value="<?php
+                        $user = $_GET['user'];
+                        if (!isset($user)) {
+                            echo "to be determined\"";
+                        } else {
+                            $user = json_decode($user, true);
+                            echo $user['uname'];
+                        }
+                        ?>" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Location
                         <br>
-                        <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                        <input name="Location" value="<?php
+                        $user = $_GET['user'];
+                        if (!isset($user)) {
+                            echo "to be determined\"";
+                        } else {
+                            $user = json_decode($user, true);
+                            echo $user['location'];
+                        }
+                        ?>" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
@@ -120,7 +137,18 @@
                 <div class="flex1 info-part">
                     <h4> Your role
                     </h4>
-                    <ul>
+                    <ul><?php
+                        $user = $_GET['user'];
+                        if (!isset($user)) {
+                            echo "to be determined\"";
+                        } else {
+                            $user = json_decode($user, true);
+                            $roles = explode(";", $user['role']);
+                            foreach ($roles as $role) {
+                                echo "<li>" . $role . "</li>";
+                            }
+                        }
+                        ?>
                         <li>儿科医生</li>
                         <li>user</li>
                     </ul>

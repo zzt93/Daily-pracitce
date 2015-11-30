@@ -13,7 +13,7 @@
 
     <title>Log in</title>
 </head>
-<body>
+<body onload="useToolTip('#register')">
 
 <div id="headline">
     <div class="container">
@@ -42,29 +42,30 @@
                 <li>More ...</li>
             </ul>
         </div>
-        <form method="post" id="register">
+        <form action="../php/Controller/SignController.class.php"
+            method="post" id="register" onsubmit="return checkLogIn()">
             <h2 class="inline-h2">Log in </h2>
-            <h2 class="smaller-font inline-h2"> ? try <a href="signup.php" class="on-logpanel">sign up</a></h2>
+            <h2 class="smaller-font inline-h2" id="failAuth"> ? try <a href="signup.php" class="on-logpanel">sign up</a></h2>
 
             <br>
             <label for="name">User Name</label>
             <br>
-            <input type="text" name="name" id="name"
+            <input type="text" name="name" id="name" onchange="checkUser()"
+                   title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
-            <h3>Or</h3>
-            <label for="email">Email</label>
-            <br>
-            <input type="email" name="email" id="email"
-                   placeholder="xxx@example.com" required>
-            <br>
+
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw"
+            <input type="password" name="pw" id="pw" onchange="checkUser()"
+                   title="your password"
                    placeholder="******" required>
             <br>
             <br>
             <input type="submit" value="Log in">
+
+            <input type="hidden" name="funcName" value="logIn">
+
             <br>
         </form>
         <!-- Elements after a floating element will flow around it.
@@ -110,7 +111,10 @@ e
 
 
 <script type="application/javascript" src="../scripts/jquery/jquery.tools.min.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 <script type="application/javascript" src="../scripts/formToolTip.js"></script>
+<script type="application/javascript" src="../scripts/logInCheck.js"></script>
+
 
 </body>
 </html>

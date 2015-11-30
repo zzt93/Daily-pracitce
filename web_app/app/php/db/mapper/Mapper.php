@@ -21,13 +21,13 @@ abstract class Mapper
     }
 
     /**
-     * @param $id
-     * @return $object The user account object
+     * @param $key -- The primary key or unique key
+     * @return $object -- The user account object
      */
-    function find($id)
+    function find($key)
     {
         $stmt = $this->selectStmt();
-        $stmt->bindValue(1, $id, $this->getType($id));
+        $stmt->bindValue(1, $key, $this->getType($key));
 
         $res = $stmt->execute();
         $array = $res->fetchArray();
@@ -71,7 +71,9 @@ abstract class Mapper
     function isSuccess($sqliteResult, $query) {
         if (!$sqliteResult) {
             // the query failed and debugging is enabled
-            echo "<p>There was an error in query: $query</p>";
+            echo "<p>There was an error in query:";
+            print_r($query);
+            echo "</p>";
             echo self::$db_handler->lastErrorMsg();
             return false;
         }

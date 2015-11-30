@@ -8,16 +8,16 @@
  */
 abstract class DomainObject
 {
-    private $id;
+    private $key;
 
-    function __construct($id = null)
+    function __construct($key = null)
     {
-        $this->id = $id;
+        $this->key = $key;
     }
 
-    function getId()
+    function getKey()
     {
-        return $this->id;
+        return $this->key;
     }
 
     abstract function getData();

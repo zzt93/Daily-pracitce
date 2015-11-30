@@ -8,7 +8,8 @@
 
 require_once('includes.php');
 
-class AccountController implements  Controller {
+class AccountController extends Controller {
+
 
     public function distribute()
     {

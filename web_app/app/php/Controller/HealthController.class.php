@@ -6,7 +6,7 @@
  * Time: 11:24 AM
  */
 
-class HealthController implements  Controller {
+class HealthController extends Controller {
 
     public function distribute()
     {

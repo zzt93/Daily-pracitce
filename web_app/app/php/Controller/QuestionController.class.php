@@ -6,7 +6,7 @@
  * Time: 11:24 AM
  */
 
-class QuestionController implements  Controller {
+class QuestionController extends Controller {
 
     public function distribute()
     {

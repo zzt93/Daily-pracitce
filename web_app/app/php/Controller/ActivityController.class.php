@@ -5,7 +5,7 @@
  * Date: 11/29/15
  * Time: 11:24 AM
  */
-class ActivityController implements  Controller {
+class ActivityController extends Controller {
 
     public function distribute()
     {

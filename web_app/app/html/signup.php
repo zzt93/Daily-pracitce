@@ -43,14 +43,14 @@
             </ul>
         </div>
         <form action="../php/Controller/SignController.class.php"
-              method="post" id="register" onsubmit="return checkInput()">
+              method="post" id="register" onsubmit="return checkSign()">
             <h2 class="inline-h2">Register for the launch</h2>
 
             <h2 class="smaller-font inline-h2">or <a href="login.php" class="on-logpanel">log in</a></h2>
             <br>
             <label for="name">User Name</label>
             <br>
-            <input type="text" name="uname" id="name"
+            <input type="text" name="uname" id="name" onchange="checkUserName(this)"
                    title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>

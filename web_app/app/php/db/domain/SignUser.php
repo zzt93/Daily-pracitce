@@ -6,11 +6,16 @@
  * Date: 11/29/15
  * Time: 8:32 PM
  */
+
+/**
+ * Class SignUser: used to insert sign up user info
+ */
 class SignUser extends DomainObject
 {
     private $name;
     private $email;
     private $password;
+    const ITERATOIN = 1000;
 
     /**
      * SignUser constructor.
@@ -23,7 +28,12 @@ class SignUser extends DomainObject
         parent::__construct($uid);
         $this->name = $name;
         $this->email = $email;
-        $this->password = $password;
+        $this->password = $this->hash($password);
+    }
+
+    public static function hash($pass)
+    {
+        return password_hash($pass, PASSWORD_DEFAULT);
     }
 
     /**

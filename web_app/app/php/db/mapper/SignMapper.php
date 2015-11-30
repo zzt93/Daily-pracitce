@@ -6,14 +6,14 @@
  * Date: 11/29/15
  * Time: 6:52 PM
  */
-class UserMapper extends Mapper
+class SignMapper extends Mapper
 {
 
     function __construct()
     {
         parent::__construct();
         $this->selectStmt = self::$db_handler->prepare(
-            "SELECT * FROM user WHERE uid=?");
+            "SELECT * FROM user WHERE uname=?");
         $this->updateStmt = self::$db_handler->prepare(
             "UPDATE user SET uname=?, uid=? WHERE uid=?");
         $this->insertStmt = self::$db_handler->prepare(
@@ -32,12 +32,32 @@ class UserMapper extends Mapper
         $stmt->execute();
     }
 
+    /**
+     * return full info of user
+     * @param array $array
+     * @return User
+     */
     protected function doCreateObject(array $array)
     {
-        $obj = new SignUser($array['uid'], $array['uname'], $array['email'], $array['password']);
+        $obj = new User(
+            $array['uid'],
+            $array['password'],
+            $array['uname'],
+            $array['role'],
+            $array['gender'],
+            $array['email'],
+            $array['age'],
+            $array['icon_url'],
+            $array['location']
+        );
         return $obj;
     }
 
+    /**
+     * insert part of user info
+     * @param DomainObject $object
+     * @return mixed
+     */
     protected function doInsert(DomainObject $object)
     {
         print "inserting\n";
@@ -55,4 +75,6 @@ class UserMapper extends Mapper
     {
         return $this->selectStmt;
     }
+
+
 }

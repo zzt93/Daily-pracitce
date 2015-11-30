@@ -18,6 +18,6 @@ require_once('../db/domain/DomainObject.php');
 require_once('../db/domain/SignUser.php');
 
 require_once('../db/mapper/Mapper.php');
-require_once('../db/mapper/UserMapper.php');
+require_once('../db/mapper/SignMapper.php');
 
 
