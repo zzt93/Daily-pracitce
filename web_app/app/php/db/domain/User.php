@@ -21,7 +21,7 @@ class User extends DomainObject
      * User constructor.
      * @param $uid
      * @param $password
-     * @param $uname
+     * @param $userName
      * @param $role
      * @param $gender
      * @param $email
@@ -29,11 +29,11 @@ class User extends DomainObject
      * @param $icon_url
      * @param $location
      */
-    public function __construct($uid, $password, $uname, $role, $gender, $email, $age, $icon_url, $location)
+    public function __construct($uid, $password, $userName, $role, $gender, $email, $age, $icon_url, $location)
     {
         $this->uid = $uid;
         $this->password = $password;
-        parent::__construct($uname);
+        parent::__construct($userName);
         $this->role = $role;
         $this->gender = $gender;
         $this->email = $email;
@@ -54,6 +54,20 @@ class User extends DomainObject
             $this->age,
             $this->icon_url,
             $this->location);
+    }
+
+    function __toString()
+    {
+        return "{" .
+        '"uid"' . ":" . $this->uid .
+        '",uerName"' . ":" . $this->getKey() .
+        '",roles"' . ":" . $this->role .
+        '",gender"' . ":" . $this->gender .
+        '",email"' . ":" . $this->email .
+        '",age"' . ":" . $this->age .
+        '",icon_url"' . ":" . $this->icon_url .
+        '",location"' . ":" . $this->location .
+        "}";
     }
 
     /**

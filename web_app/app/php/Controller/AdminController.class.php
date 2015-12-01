@@ -8,6 +8,16 @@
 
 class AdminController extends Controller {
 
+
+    /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+    }
+
     public function distribute()
     {
         // TODO: Implement distribute() method.

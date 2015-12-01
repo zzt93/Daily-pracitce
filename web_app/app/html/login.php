@@ -45,19 +45,19 @@
         <form action="../php/Controller/SignController.class.php"
             method="post" id="register" onsubmit="return checkLogIn()">
             <h2 class="inline-h2">Log in </h2>
-            <h2 class="smaller-font inline-h2" id="failAuth"> ? try <a href="signup.php" class="on-logpanel">sign up</a></h2>
+            <h2 class="smaller-font inline-h2" id="failAuth"> | try <a href="signup.php" class="on-logpanel">sign up</a></h2>
 
             <br>
             <label for="name">User Name</label>
             <br>
-            <input type="text" name="name" id="name" onchange="checkUser()"
+            <input type="text" name="uname" id="name" onchange="checkUser()"
                    title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
 
             <label for="pw">Password</label>
             <br>
-            <input type="password" name="pw" id="pw" onchange="checkUser()"
+            <input type="password" name="password" id="pw" onchange="checkUser()"
                    title="your password"
                    placeholder="******" required>
             <br>
@@ -110,8 +110,8 @@ e
 <?php require("footer.php"); ?>
 
 
-<script type="application/javascript" src="../scripts/jquery/jquery.tools.min.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="../scripts/jquery/jquery.tools.min.js"></script>
 <script type="application/javascript" src="../scripts/formToolTip.js"></script>
 <script type="application/javascript" src="../scripts/logInCheck.js"></script>
 

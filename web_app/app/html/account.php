@@ -93,7 +93,7 @@
             <h3>Your public information</h3>
             <section class="personal-info flex-container-large" id="public-info">
                 <div class="avatar-wrapper none">
-                    <img class="resize" src="../images/user.png" alt="a user">
+                    <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
                         <input type="file" name="photo" title="choose a picture"/>
@@ -103,30 +103,14 @@
                 <div class="flex1 info-part">
                     <label for="DisplayName">Display name
                         <br>
-                        <input id="DisplayName" value="<?php
-                        $user = $_GET['user'];
-                        if (!isset($user)) {
-                            echo "to be determined\"";
-                        } else {
-                            $user = json_decode($user, true);
-                            echo $user['uname'];
-                        }
-                        ?>" maxlength="30" tabindex="1"
+                        <input id="DisplayName" value="" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Location
                         <br>
-                        <input name="Location" value="<?php
-                        $user = $_GET['user'];
-                        if (!isset($user)) {
-                            echo "to be determined\"";
-                        } else {
-                            $user = json_decode($user, true);
-                            echo $user['location'];
-                        }
-                        ?>" maxlength="100"
+                        <input id="Location" value="" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
@@ -137,20 +121,8 @@
                 <div class="flex1 info-part">
                     <h4> Your role
                     </h4>
-                    <ul><?php
-                        $user = $_GET['user'];
-                        if (!isset($user)) {
-                            echo "to be determined\"";
-                        } else {
-                            $user = json_decode($user, true);
-                            $roles = explode(";", $user['role']);
-                            foreach ($roles as $role) {
-                                echo "<li>" . $role . "</li>";
-                            }
-                        }
-                        ?>
+                    <ul id="roles">
                         <li>儿科医生</li>
-                        <li>user</li>
                     </ul>
 
                     <div class="apply-container" id="apply-container">
@@ -167,18 +139,19 @@
                 <div>
                     <label for="age">Age
                         <br>
-                        <input id="age" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                        <input id="age" value="" data-default="Tony" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Email
                         <br>
-                        <input name="email" value="xxx@gmail.com" maxlength="100"
+                        <input name="email" value="" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <label>Gender</label>
+                    <label id="gender">Gender</label>
+
                     <br>
                     <label>
                         <input type="radio" name="gender">Male
@@ -187,7 +160,7 @@
                         <input type="radio" name="gender">Female
                     </label>
                     <label>
-                        <input type="radio" name="gender" checked="checked">Prefer not to say
+                        <input type="radio" name="gender">Prefer not to say
                     </label>
                     <br>
                     <input type="submit" value="Submit changes">
@@ -318,13 +291,13 @@
                 <div class="horizontal-center">
                     <h3>数据关联分析</h3>
                 </div>
-                <form action="post" class="horizontal-center">
+                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
                     <label>
                         因:
                         <input type="text">
                     </label>
                 </form>
-                <form action="post" class="horizontal-center">
+                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
                     <br>
                     <label>
                         果:
@@ -340,7 +313,7 @@
                 <div class="horizontal-center">
                     <h3>历史数据对比</h3>
                 </div>
-                <form action="post" class="horizontal-center">
+                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
                     <label>
                         数据
                         <input type="text">
@@ -504,6 +477,12 @@
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+
 <script type="application/javascript" src="../scripts/plan.js"></script>
+<script type="application/javascript" src="../scripts/getUserData.js"></script>
+
+<script type="text/javascript">
+    $(getUserAccountInfo);
+</script>
 
 </html>

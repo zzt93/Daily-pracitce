@@ -7,7 +7,12 @@
  *
  */
 
-require_once('includes.php');
+// place this at the top of the file
+if (count(get_included_files()) == 1) {
+    define('TEST_SUITE', __FILE__);
+}
+
+require_once 'includes.php';
 
 /**
  * Class SignController
@@ -19,7 +24,6 @@ class SignController extends Controller
 {
 
 
-    const USER_NAME = "uname";
     const EMAIL = "email";
     const PASS = "password";
 
@@ -32,13 +36,14 @@ class SignController extends Controller
     {
         // not to start session when sign up or log in
         // parent::__construct();
-        $this->userMapper = new SignMapper();
+        debug_backtrace();
+        $this->userMapper = new UserMapper();
     }
 
 
     public function signUp()
     {
-        $userName = $_POST[self::USER_NAME];
+        $userName = $_POST[Controller::USER_NAME];
         $userEmail = $_POST[self::EMAIL];
         $password = $_POST[self::PASS];
         // check whether the uer name is unique by insert result
@@ -46,9 +51,7 @@ class SignController extends Controller
         $suc = $this->userMapper->isSuccess($res, $this->userMapper->insertStmt);
         if ($suc) {
             $this->makeSession($userName);
-            $user = $this->userMapper->find($userName);
-            print_r(json_encode($user));
-            header("Location: ../../html/account.php?user=" . json_encode($user));
+            header("Location: ../../html/account.php?");
         } else {
             header("Location: ../../html/signup.php");
         }
@@ -60,20 +63,21 @@ class SignController extends Controller
      */
     public function logIn()
     {
-        $userName = $_GET[self::USER_NAME];
-        assert($this->hasUser());
-        $this->makeSession($userName);
+        $userName = $_POST[Controller::USER_NAME];
+//        echo $userName;
         $user = $this->userMapper->find($userName);
-        if (is_null($user)) {
-            throw new Exception("no such user");
-        }
-        header('Location: ../../html/account.php?user=' . json_encode($user));
+//        print_r($user);
+        $arr = (array)$user;
+//        print_r($arr);
+        $this->makeSession($userName);
+        header('Location: ../../html/account.php');
     }
+
 
     public function hasUserName()
     {
         debug_backtrace();
-        $userName = $_GET[self::USER_NAME];
+        $userName = $_GET[Controller::USER_NAME];
         $user = $this->userMapper->find($userName);
         $has = !is_null($user);
         echo $has ? 'true' : 'false';
@@ -82,34 +86,39 @@ class SignController extends Controller
 
     public function hasUser()
     {
-        print_r($_GET);
-        $userName = $_GET[self::USER_NAME];
+        // print_r($_GET);
+        $userName = $_GET[Controller::USER_NAME];
         $user = $this->userMapper->find($userName);
         if (is_null($user)) {
-            echo 'false' . $userName;
+            echo 'false';
             return false;
         } else {
             $password = $_GET[self::PASS];
-            $pass = $user->getPassword();
-            if ($pass == SignUser::hash($password)) {
+            $hash = $user->getPassword();
+            if (password_verify($password, $hash)) {
                 echo 'true';
                 return true;
             }
-            echo 'false asd';
+            echo 'false';
             return false;
         }
     }
 
-    public function distribute()
+    function distribute()
     {
-//        print_r($_POST);
-        $f = $_POST[Controller::FUNC_NAME];
-        if (!isset($f)) {
+        //        print_r($_POST);
+        if (isset($_POST[Controller::FUNC_NAME])) {
+            $f = $_POST[Controller::FUNC_NAME];
+        } else {
             $f = $_GET[Controller::FUNC_NAME];
         }
         $this->$f();
     }
 }
 
-$sign = new SignController();
-$sign->distribute();
+
+if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {
+    // run test suite here
+    $sign = new SignController();
+    $sign->distribute();
+}

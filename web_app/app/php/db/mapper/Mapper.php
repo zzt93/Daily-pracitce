@@ -7,6 +7,8 @@
  * Time: 6:11 PM
  */
 
+
+
 require dirname(__FILE__) . '/../sqliteInit.php';
 
 abstract class Mapper
@@ -26,15 +28,19 @@ abstract class Mapper
      */
     function find($key)
     {
+//        $res = self::$db_handler->query("SELECT * FROM user WHERE uname=$key");
+//        print_r($res->fetchArray());
+//        echo "...";
+//        return $res;
         $stmt = $this->selectStmt();
-        $stmt->bindValue(1, $key, $this->getType($key));
+        $type = $this->getType($key);
+//        echo $type;
+        $stmt->bindValue(1, $key, $type);
 
         $res = $stmt->execute();
         $array = $res->fetchArray();
+//        print_r($array);
         if (!is_array($array)) {
-            return null;
-        }
-        if (!isset($array['id'])) {
             return null;
         }
         $object = $this->createObject($array);

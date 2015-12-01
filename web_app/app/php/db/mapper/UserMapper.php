@@ -6,18 +6,21 @@
  * Date: 11/29/15
  * Time: 6:52 PM
  */
-class SignMapper extends Mapper
+
+
+
+class UserMapper extends Mapper
 {
 
     function __construct()
     {
         parent::__construct();
         $this->selectStmt = self::$db_handler->prepare(
-            "SELECT * FROM user WHERE uname=?");
+            'SELECT * FROM user WHERE uname=?');
         $this->updateStmt = self::$db_handler->prepare(
-            "UPDATE user SET uname=?, uid=? WHERE uid=?");
+            'UPDATE user SET uname=?, uid=? WHERE uid=?');
         $this->insertStmt = self::$db_handler->prepare(
-            "INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )");
+            'INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )');
     }
 
     function update(DomainObject $object)

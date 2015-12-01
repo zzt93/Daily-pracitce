@@ -24,7 +24,7 @@ function select($table, $col, $condition)
 INS;
 
     $db_handle->exec($query) or die("Unable to add user $user");
-    $result = $db_handle->query('SELECT * FROM users') or die('Query failed');
+    $result = $db_handle->query('SELECT * FROM user') or die('Query failed');
     while ($row = $result->fetchArray()) {
         echo "User: {$row['username']}\nPasswd: {$row['password']}\n";
     }

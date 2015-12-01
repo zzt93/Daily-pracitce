@@ -7,6 +7,15 @@
  */
 class ActivityController extends Controller {
 
+
+    /**
+     * ActivityController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
     public function distribute()
     {
         // TODO: Implement distribute() method.
