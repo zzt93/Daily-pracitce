@@ -33,10 +33,11 @@ function checkUserName(input) {
         '../php/Controller/SignController.class.php',
         {
             funcName: "hasUserName",
-            name: value
+            uname: value
         },
         function (data, textStatus) {
-            alert("status is: " + textStatus + " Response from server: " + data);
+            //alert("status is: " + textStatus + " Response from server: " + data);
+            console.log("status is: " + textStatus + " Response from server: " + data);
             signState.setUser(data === "true");
         }
     );

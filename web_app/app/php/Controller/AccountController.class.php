@@ -36,7 +36,7 @@ class AccountController extends Controller
 //        echo $userName;
         $user = $this->userMapper->find($userName);
         assert(isset($user));
-        echo $user;
+        $this->ajaxReturn((array)$user);
     }
 
     function distribute()

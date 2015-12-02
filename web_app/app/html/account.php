@@ -122,7 +122,6 @@
                     <h4> Your role
                     </h4>
                     <ul id="roles">
-                        <li>儿科医生</li>
                     </ul>
 
                     <div class="apply-container" id="apply-container">
@@ -146,21 +145,22 @@
                     <br>
                     <label>Email
                         <br>
-                        <input name="email" value="" maxlength="100"
+                        <input name="email" id="email" value="" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <label id="gender">Gender</label>
+                    <label id="gender">Gender
 
-                    <br>
-                    <label>
-                        <input type="radio" name="gender">Male
-                    </label>
-                    <label>
-                        <input type="radio" name="gender">Female
-                    </label>
-                    <label>
-                        <input type="radio" name="gender">Prefer not to say
+                        <br>
+                        <label>
+                            <input type="radio" name="gender">Prefer not to say
+                        </label>
+                        <label>
+                            <input type="radio" name="gender">Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender">Male
+                        </label>
                     </label>
                     <br>
                     <input type="submit" value="Submit changes">

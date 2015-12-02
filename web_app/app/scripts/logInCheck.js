@@ -32,7 +32,7 @@ function checkUser() {
             password: pw.val()
         },
         function (data, textStatus) {
-            alert("status is: " + textStatus + " Response from server: " + data);
+            console.log("status is: " + textStatus + " Response from server: " + data);
             logState.setUser(data === 'true');
         }
     );

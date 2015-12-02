@@ -40,12 +40,12 @@ abstract class Controller
         }
         switch (strtoupper($type)) {
             case 'JSON' :
-//                $data = json_encode((array)$data, $json_option);
+                $data = str_replace('\\u0000', "", json_encode($data));
                 break;
             case 'EVAL' :
                 break;
         }
-//        echo($data);
+        echo($data);
     }
 
 
