@@ -24,14 +24,14 @@ abstract class Mapper
 
     /**
      * @param $key -- The primary key or unique key
-     * @return $object -- The user account object
+     * @return array|null
      */
     function find($key)
     {
 //        $res = self::$db_handler->query("SELECT * FROM user WHERE uname=$key");
 //        print_r($res->fetchArray());
-//        echo "...";
 //        return $res;
+
         $stmt = $this->selectStmt();
         $type = $this->getType($key);
 //        echo $type;
@@ -39,23 +39,21 @@ abstract class Mapper
 
         $res = $stmt->execute();
         $array = $res->fetchArray();
-//        print_r($array);
         if (!is_array($array)) {
             return null;
         }
-        $object = $this->createObject($array);
-        return $object;
+        return $array;
     }
 
-    function createObject($array)
-    {
-        $obj = $this->doCreateObject($array);
-        return $obj;
-    }
+//    function createObject($array)
+//    {
+//        $obj = $this->doCreateObject($array);
+//        return $obj;
+//    }
 
-    function insert(DomainObject $obj)
+    function insert(array $arr)
     {
-        return $this->doInsert($obj);
+        return $this->doInsert($arr);
     }
 
     static function getType($id)
@@ -63,16 +61,45 @@ abstract class Mapper
         return getSqliteType($id);
     }
 
-    abstract function update(DomainObject $object);
+//    abstract function update(DomainObject $object);
 
-    protected abstract function doCreateObject(array $array);
+    function update(DomainObject $object)
+    {
+        print "updating\n";
+        $stmt = $this->updateStmt();
+        $data = $object->getData();
+        $i = 1;
+        foreach ($data as $value) {
+            $stmt->bindValue($i++, $value, Mapper::getType($value));
+        }
+        $stmt->bindValue($i, $object->getKey(), Mapper::getType($object->getKey()));
+        $stmt->execute();
+    }
 
-    protected abstract function doInsert(DomainObject $object);
+//    protected abstract function doCreateObject(array $array);
+
+    /**
+     * @param array $data
+     * @return mixed -- execution result
+     * @internal param DomainObject $object -- This object is for insert, so may be part
+     * of full info
+     */
+    protected function doInsert(array $data) {
+//        print "inserting\n";
+//        debug_print_backtrace();
+        $stmt = $this->insertStmt();
+        $i = 1;
+        foreach ($data as $value) {
+            $stmt->bindValue($i++, $value, Mapper::getType($value));
+        }
+        return $stmt->execute();
+    }
 
     /**
      * @return SQLite3Stmt
      */
     protected abstract function selectStmt();
+    protected abstract function insertStmt();
 
     function isSuccess($sqliteResult, $query) {
         if (!$sqliteResult) {
@@ -85,4 +112,6 @@ abstract class Mapper
         }
         return true;
     }
+
+    abstract function updateStmt();
 }

@@ -8,9 +8,9 @@
  */
 
 /**
- * Class SignUser: used to insert sign up user info
+ * Class UserInsert: used to insert sign up user info
  */
-class SignUser extends DomainObject
+class UserInsert extends DomainObject
 {
     private $name;
     private $email;

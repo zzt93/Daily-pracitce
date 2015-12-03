@@ -53,7 +53,7 @@ class Conf
             $this->lastmatch[0] = $value;
             return;
         }
-        $conf = $this->xml->conf;
+//        $conf = $this->xml->conf;
         $this->xml->addChild('item', $value)->addAttribute('name', $key);
     }
 }

@@ -32,24 +32,21 @@ class AccountController extends Controller
     function getUserData()
     {
 //        print_r($_GET);
+        if (!isset($_SESSION[Controller::USER_NAME])) {
+            return;
+        }
         $userName = $_SESSION[Controller::USER_NAME];
 //        echo $userName;
         $user = $this->userMapper->find($userName);
-        assert(isset($user));
-        $this->ajaxReturn((array)$user);
+        if (isset($user)) {
+            $this->ajaxReturn($user);
+        }
     }
 
-    function distribute()
-    {
-        //        print_r($_POST);
-//        print_r(debug_backtrace());
-        if (isset($_POST[Controller::FUNC_NAME])) {
-            $f = $_POST[Controller::FUNC_NAME];
-        } else {
-            $f = $_GET[Controller::FUNC_NAME];
-        }
-        $this->$f();
-    }
+//    function distribute()
+//    {
+//
+//    }
 }
 
 if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {

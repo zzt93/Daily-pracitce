@@ -11,6 +11,9 @@ abstract class Controller
     const FUNC_NAME = "funcName";
     const USER_NAME = "uname";
     const DEFAULT_AJAX_RETURN = 'JSON';
+    const LOGGEDIN = 'loggedin';
+    const UID = 'uid';
+    const SEPARATOR = "\n";
 
     /**
      * Controller constructor.
@@ -18,23 +21,31 @@ abstract class Controller
     public function __construct()
     {
         session_start();
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+        if (isset($_SESSION[self::LOGGEDIN]) && $_SESSION[self::LOGGEDIN] == true) {
 //            echo "Welcome to the member's area, " . $_SESSION[self::USER_NAME] . "!";
         } else {
 //            echo "Please log in first to see this page.";
-            header('../../html/login.php');
+            echo "../html/login.php";
+//            http_response_code(302);
         }
     }
 
-    public function makeSession($userName)
+    public function makeSession(array $user)
     {
         session_start();
-        $_SESSION['loggedin'] = true;
-        $_SESSION[self::USER_NAME] = $userName;
+        $_SESSION[self::LOGGEDIN] = true;
+        $_SESSION[self::USER_NAME] = $user['uname'];
+        $_SESSION[self::UID] = $user['uid'];
     }
 
     public function ajaxReturn($data, $type = '', $json_option = 0)
     {
+        if (is_null($data)) {
+            return;
+        }
+        if (is_object($data)) {
+            $data = (array)$data;
+        }
         if (empty($type)) {
             $type = self::DEFAULT_AJAX_RETURN;
         }
@@ -49,6 +60,15 @@ abstract class Controller
     }
 
 
-    abstract function distribute();
+    function distribute() {
+        // print_r($_POST);
+        // print_r(debug_backtrace());
+        if (isset($_POST[Controller::FUNC_NAME])) {
+            $f = $_POST[Controller::FUNC_NAME];
+        } else {
+            $f = $_GET[Controller::FUNC_NAME];
+        }
+        $this->$f();
+    }
 
 }

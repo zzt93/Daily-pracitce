@@ -48,7 +48,7 @@
 
             <h2 class="smaller-font inline-h2">or <a href="login.php" class="on-logpanel">log in</a></h2>
             <br>
-            <label for="name">User Name</label>
+            <label for="uname">User Name</label>
             <br>
             <input type="text" name="uname" id="name" onchange="checkUserName(this)"
                    title="how to name you in our website?"

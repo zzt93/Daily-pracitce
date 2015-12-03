@@ -79,7 +79,7 @@ function checkSign() {
         text = 'how to name you in our website?';
         color = 'black';
     }
-    var $name = $('name');
+    var $name = $('uname');
     $name.data('tooltip').getTip().text(text);
     $name.css('color', color);
     return signState.isSucc();

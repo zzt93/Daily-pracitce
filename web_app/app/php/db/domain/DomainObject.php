@@ -23,5 +23,13 @@ abstract class DomainObject
         return $this->key;
     }
 
+    /**
+     * @return array
+     * if the object is for insert: the method must correspond to
+     * the insert statement which is always part of object
+     *
+     * if the object is for update: the method will return all
+     * data except key
+     */
     abstract function getData();
 }

@@ -61,7 +61,7 @@
                 <a href="#">个人信息 </a>
             </li>
             <li>
-                <a href="#">数据分析
+                <a href="#" onclick="getHealthInfo()">数据分析
                     <span class="float-num">5</span>
                     <br>
                 </a>
@@ -177,7 +177,12 @@
                     <h3>今日数据详情</h3></div>
                 <div class="all-health-data">
                     <table id="health">
-                        <caption>今日健康数据</caption>
+                        <caption>今日健康数据 <br>
+                            <a href="javascript:void(0);"
+                               onclick="readTodayData(this)" class="fa fa-refresh"></a>
+                            <a href="javascript:void(0);"
+                               onclick="readTodayData(this)">更新今日数据</a>
+                        </caption>
                         <colgroup>
                             <col span="1">
                             <col span="1">
@@ -191,16 +196,16 @@
                         </thead>
                         <tbody>
                         <tr>
-                            <th>Weight</th>
-                            <td>.. kg</td>
+                            <th>Weight（kg）</th>
+                            <td id="sta_weight"></td>
                         </tr>
                         <tr>
-                            <th>心率</th>
-                            <td>.. /min</td>
+                            <th>心率（次/min）</th>
+                            <td id="sta_heart-rate"></td>
                         </tr>
                         <tr>
-                            <th>睡眠时间</th>
-                            <td>.. min</td>
+                            <th>睡眠时间（min）</th>
+                            <td id="sta_slumber"></td>
                         </tr>
                         </tbody>
                     </table>
@@ -216,30 +221,29 @@
                             <tbody>
                             <tr>
                                 <th class="fixed">Breakfast</th>
-                                <td>.., ..</td>
+                                <td id="breakfast"></td>
                             </tr>
                             <tr>
                                 <th class="fixed">Lunch</th>
-                                <td>.., ..</td>
+                                <td id="lunch"></td>
                             </tr>
                             <tr>
                                 <th class="fixed">Dinner</th>
-                                <td>.., ..</td>
+                                <td id="dinner"></td>
                             </tr>
                             <tr>
                                 <th class="fixed">Exercise</th>
-                                <td>21：00, ..；
-                                    21：30， ..;
+                                <td id="exercise">
                                 </td>
                             </tr>
                             <tr>
                                 <th colspan="3">
                                     <a href="javascript:void(0);"
-                                       onclick="enableEdit(this)">
+                                       onclick="enableTDEdit(this)">
                                         Edit
                                     </a>
                                     <a href="javascript:void(0);"
-                                       onclick="submitUpdate(this)"
+                                       onclick="submitUpdate(this, 'editPlan')"
                                        style="display: none"
                                     >
                                         Submit
@@ -269,18 +273,33 @@
                         <tbody>
                         <tr>
                             <th>步数</th>
-                            <td>1000</td>
-                            <td>2000</td>
+                            <td id="sta_walk"></td>
+                            <td id="goal_walk"></td>
                         </tr>
                         <tr>
-                            <th>上肢锻炼时间</th>
-                            <td>20</td>
-                            <td>20</td>
+                            <th>上肢锻炼时间（min）</th>
+                            <td id="sta_upper"></td>
+                            <td id="goal_upper"></td>
                         </tr>
                         <tr>
-                            <th>下肢锻炼时间</th>
-                            <td>20</td>
-                            <td>20</td>
+                            <th>下肢锻炼时间（min）</th>
+                            <td id="sta_lower"></td>
+                            <td id="goal_lower"></td>
+                        </tr>
+                        <tr>
+                            <th colspan="3">
+                                <a href="javascript:void(0);"
+                                   onclick="enableTDEdit(this)">
+                                    Edit
+                                </a>
+                                <a href="javascript:void(0);"
+                                   onclick="submitUpdate(this, 'editAim')"
+                                   style="display: none"
+                                >
+                                    Submit
+                                </a>
+
+                            </th>
                         </tr>
                         </tbody>
                     </table>
@@ -291,13 +310,13 @@
                 <div class="horizontal-center">
                     <h3>数据关联分析</h3>
                 </div>
-                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
+                <form action="" class="horizontal-center">
                     <label>
                         因:
                         <input type="text">
                     </label>
                 </form>
-                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
+                <form action="" class="horizontal-center">
                     <br>
                     <label>
                         果:
@@ -313,7 +332,7 @@
                 <div class="horizontal-center">
                     <h3>历史数据对比</h3>
                 </div>
-                <form action="../php/Controller/HealthController.class.php" class="horizontal-center">
+                <form action="" class="horizontal-center">
                     <label>
                         数据
                         <input type="text">
@@ -478,7 +497,7 @@
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 
-<script type="application/javascript" src="../scripts/plan.js"></script>
+<script type="application/javascript" src="../scripts/personal.js"></script>
 <script type="application/javascript" src="../scripts/getUserData.js"></script>
 
 <script type="text/javascript">

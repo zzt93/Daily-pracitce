@@ -1,0 +1,14 @@
+<data>
+
+    <user>
+        <uid>1</uid>
+        <date>2015-12-02</date>
+        <weight>60</weight>
+        <heart_rate>100</heart_rate>
+        <slumber>420</slumber>
+        <walk>5000</walk>
+        <upper_limb>20</upper_limb>
+        <lower_limb>30</lower_limb>
+    </user>
+
+</data>

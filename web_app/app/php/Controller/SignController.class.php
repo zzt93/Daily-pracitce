@@ -46,12 +46,13 @@ class SignController extends Controller
         $userName = $_POST[Controller::USER_NAME];
         $userEmail = $_POST[self::EMAIL];
         $password = $_POST[self::PASS];
+//        print_r($_POST);
         // check whether the uer name is unique by insert result
-        $res = $this->userMapper->insert(new SignUser(null, $userName, $userEmail, $password));
+        $res = $this->userMapper->insert(array($userName, $userEmail, password_hash($password, PASSWORD_DEFAULT)));
         $suc = $this->userMapper->isSuccess($res, $this->userMapper->insertStmt);
         if ($suc) {
-            $this->makeSession($userName);
-            header("Location: ../../html/account.php?");
+            $this->makeSession($this->userMapper->find($userName));
+            header("Location: ../../html/account.php");
         } else {
             header("Location: ../../html/signup.php");
         }
@@ -67,9 +68,7 @@ class SignController extends Controller
 //        echo $userName;
         $user = $this->userMapper->find($userName);
 //        print_r($user);
-        $arr = (array)$user;
-//        print_r($arr);
-        $this->makeSession($userName);
+        $this->makeSession($user);
         header('Location: ../../html/account.php');
     }
 
@@ -94,7 +93,7 @@ class SignController extends Controller
             return false;
         } else {
             $password = $_GET[self::PASS];
-            $hash = $user->getPassword();
+            $hash = $user['password'];
             if (password_verify($password, $hash)) {
                 echo 'true';
                 return true;
@@ -104,16 +103,16 @@ class SignController extends Controller
         }
     }
 
-    function distribute()
-    {
-        //        print_r($_POST);
-        if (isset($_POST[Controller::FUNC_NAME])) {
-            $f = $_POST[Controller::FUNC_NAME];
-        } else {
-            $f = $_GET[Controller::FUNC_NAME];
-        }
-        $this->$f();
-    }
+//    function distribute()
+//    {
+//        //        print_r($_POST);
+//        if (isset($_POST[Controller::FUNC_NAME])) {
+//            $f = $_POST[Controller::FUNC_NAME];
+//        } else {
+//            $f = $_GET[Controller::FUNC_NAME];
+//        }
+//        $this->$f();
+//    }
 }
 
 

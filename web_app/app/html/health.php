@@ -134,7 +134,7 @@
                     <tr>
                         <th colspan="3">
                             <a href="javascript:void(0);"
-                               onclick="enableEdit(this)">
+                               onclick="enableTDEdit(this)">
                                 Edit
                             </a>
                             <a href="javascript:void(0);"
@@ -297,6 +297,6 @@
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="../scripts/useBarChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
-<script type="application/javascript" src="../scripts/plan.js"></script>
+<script type="application/javascript" src="../scripts/personal.js"></script>
 
 </html>
