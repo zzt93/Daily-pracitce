@@ -84,7 +84,7 @@ function getHealthInfo() {
                 return;
             }
             var infos = data.split(SEPARATOR);
-            console.log(infos.length);
+            //console.log(infos.length);
             try {
                 var statistic = $.parseJSON(infos[1]);
 
@@ -131,8 +131,18 @@ function getAdviceInfo() {
         },
         function (data) {
             //console.log("status is: " + textStatus + " Response from server: " + eval(data));
-            var infos = data.split();
+            var infos = data.split(SEPARATOR);
             console.log(infos.length);
+            try {
+                var question = $.parseJSON(infos[0]);
+            } catch (e) {
+                console.error(e);
+            }
+            try {
+                var advice = $.parseJSON(infos[1]);
+            } catch (e) {
+                console.error(e);
+            }
 
 
             $('#DisplayName').val(data['DomainObjectkey']);

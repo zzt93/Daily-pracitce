@@ -28,6 +28,6 @@ function getSqliteType($arg)
         case 'string':
             return SQLITE3_TEXT;
         default:
-            throw new \InvalidArgumentException('Argument is of invalid type ' . gettype($arg));
+            throw new InvalidArgumentException('Argument is of invalid type ' . gettype($arg));
     }
 }

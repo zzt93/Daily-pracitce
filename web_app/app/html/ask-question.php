@@ -11,7 +11,7 @@
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body>
+<body onload="addListChosenListener('advice-tab', 'tab-ask', 0);">
 <header>
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
@@ -19,8 +19,8 @@
         <p id="app-name">Fit</p>
 
         <form><p class="action">
-            <a href="#" class="fa fa-user"> log out</a>
-        </p>
+                <a href="#" class="fa fa-user"> log out</a>
+            </p>
         </form>
 
         <br>
@@ -47,139 +47,97 @@
 
         <div class="container">
             <section class="advice_head flex-container-large">
-            <form class="flex1 inner-search" id="advice-search">
-                <label class="fa fa-search">
-                    <input type="search" class="search-input" placeholder="advice">
-                </label>
-            </form>
+                <form class="flex1 inner-search" id="advice-search">
+                    <label class="fa fa-search">
+                        <input type="search" class="search-input" placeholder="advice">
+                    </label>
+                </form>
 
-            <ul id="advice-tab" class="flex2">
-                <li class="horizontal-li">
-                    <a href="#">Tags</a>
-                </li>
-                <li class="horizontal-li">
-                    <a href="#">Ask public</a>
-                </li>
-                <li class="horizontal-li">
-                    <a href="#">Ask private</a>
-                </li>
-                <br>
-            </ul>
-        </section></div>
+                <ul id="advice-tab" class="flex2">
+                    <li class="horizontal-li">
+                        <a href="#">Ask public</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">Ask private</a>
+                    </li>
+                    <br>
+                </ul>
+            </section>
+        </div>
 
         <div class="container" id="tab-ask">
-            <section>
-                <h3 class="advices-body">Tags:</h3>
-                <section class="question-block">
-                    <div class="question-statistic">
-                        <h3>0</h3>
 
-                        <p>votes</p>
-                    </div>
-                    <div class="question-statistic">
-                        <h3>2</h3>
-
-                        <p>answers</p>
-                    </div>
-                    <div class="question-statistic">
-                        <h3>20</h3>
-
-                        <p>views</p>
-                    </div>
-                    <div class="question-body">
-                        <a class="question-title" href="question.php">How to keep fit</a>
-
-                        <p class="q-content">I am ...</p>
-                    </div>
-                    <br>
-                </section>
-                <section class="question-block">
-                    <div class="question-statistic">
-                        <h3>0</h3>
-
-                        <p>votes</p>
-                    </div>
-                    <div class="question-statistic">
-                        <h3>2</h3>
-
-                        <p>answers</p>
-                    </div>
-                    <div class="question-statistic">
-                        <h3>20</h3>
-
-                        <p>views</p>
-                    </div>
-                    <div class="question-body">
-                        <a class="question-title" href="question.php">How to keep fit</a>
-
-                        <p class="q-content">I am ...</p>
-                    </div>
-                    <br>
-                </section>
-            </section>
             <section class="advices-body">
                 <h3>Ask in public:</h3>
+
                 <div class="advice-title">
                     <label for="pub-question-title">Title:</label>
                     <br>
-                    <input type="text" id="pub-question-title">
+                    <input form="ask-public" name="title" type="text" id="pub-question-title" required>
                 </div>
                 <div class="advice-detail">
                     <label for="pub-question-detail">Details( be specific):</label>
                     <br>
-                <textarea name="question-detail" id="pub-question-detail" cols="30" rows="10">
-
-                </textarea>
+                    <textarea form="ask-public" name="content" id="pub-question-detail" cols="30" rows="10"
+                              required></textarea>
                 </div>
                 <div class="advice-title">
                     <label for="pub-question-tag">Tags:</label>
+
+                    <span class="tags">Fit</span>
+                    <span class="tags">Plan</span>
                     <br>
-                    <input type="text" id="pub-question-tag">
+                    <input form="ask-public" name="tag" type="text" id="pub-question-tag" required>
                 </div>
-                <form action="post">
+                <form id="ask-public" action="../php/Controller/QuestionController.class.php" method="post">
+                    <input type="hidden" name="funcName" value="askQuestion">
+                    <input type="hidden" name="type" value="0">
                     <input type="submit">
                 </form>
             </section>
+
             <section class="advices-body">
                 <h3>Ask in private:</h3>
+
                 <div class="advice-title">
                     <label for="pri-question-target">To who:</label>
                     <br>
-                    <input type="text" id="pri-question-target">
+                    <input form="ask-private" name="to_user" type="text" id="pri-question-target" required>
                 </div>
                 <div class="advice-title">
                     <label for="pri-question-title">Title:</label>
                     <br>
-                    <input type="text" id="pri-question-title">
+                    <input form="ask-private" name="title" type="text" id="pri-question-title" required>
                 </div>
                 <div class="advice-detail">
                     <label for="pri-question-detail">Details( be specific):</label>
                     <br>
-                <textarea name="question-detail" id="pri-question-detail" cols="30" rows="10">
-
-                </textarea>
+                    <textarea form="ask-private" name="content" id="pri-question-detail" cols="30" rows="10"
+                              required></textarea>
                 </div>
                 <div class="advice-title">
                     <label for="pri-question-tag">Tags:</label>
+
+                    <span class="tags">Fit</span>
+                    <span class="tags">Plan</span>
                     <br>
-                    <input type="text" id="pri-question-tag">
+                    <input form="ask-private" name="tag" type="text" id="pri-question-tag" required>
                 </div>
-                <form action="post">
+                <form id="ask-private" action="../php/Controller/QuestionController.class.php" method="post">
+                    <input type="hidden" name="funcName" value="askQuestion">
+                    <input type="hidden" name="type" value="1">
                     <input type="submit">
                 </form>
             </section>
+
         </div>
     </div>
 </div>
 
-<?php require("footer.php"); ?>
-
 
 </body>
-<footer>
-    <!-- copy from myindex.html -->
-</footer>
-<!--<script type="application/javascript" src="scripts/chosen.js"></script>-->
+<?php require("footer.php"); ?>
+<script type="application/javascript" src="../scripts/chosen.js"></script>
 
 
 </html>

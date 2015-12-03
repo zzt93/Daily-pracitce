@@ -6,10 +6,40 @@
  * Time: 6:51 PM
  */
 
-namespace app\db\mapper;
 
 
-class ActivityMapper
+class ActivityMapper extends Mapper
 {
+    /**
+     * ActivityMapper constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->selectStmt = self::$db_handler->prepare(
+            'SELECT * FROM activity WHERE acid=?');
+        $this->updateStmt = self::$db_handler->prepare(
+            'UPDATE activity SET title=?, content=?, a_img_url=?, enter_amount=?, end_time=? WHERE acid=?');
+        $this->insertStmt = self::$db_handler->prepare(
+            'INSERT INTO activity ( title, content, a_img_url, enter_amount, post_time, end_time ) VALUES( ?, ?, ?, ?, ?, ? )');
+    }
 
+
+    /**
+     * @return SQLite3Stmt
+     */
+    protected function selectStmt()
+    {
+        return $this->selectStmt;
+    }
+
+    protected function insertStmt()
+    {
+        return $this->insertStmt;
+    }
+
+    function updateStmt()
+    {
+        return $this->updateStmt;
+    }
 }

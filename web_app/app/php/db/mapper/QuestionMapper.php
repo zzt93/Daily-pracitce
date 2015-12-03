@@ -15,29 +15,37 @@ class QuestionMapper extends Mapper
     {
         parent::__construct();
         $this->selectStmt = self::$db_handler->prepare(
-            'SELECT * FROM user WHERE uname=?');
+            'SELECT * FROM question WHERE uid=?');
         $this->updateStmt = self::$db_handler->prepare(
-            'UPDATE user SET password=?, uname=?, role=?, gender=?, email=?, age=?, icon_url=?, location=? WHERE uid=?');
+            'UPDATE question SET title=?, content=?, vote=? WHERE qid=?');
         $this->insertStmt = self::$db_handler->prepare(
-            'INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )');
+            'INSERT INTO question ( uid, type, to_user, title, content, time) VALUES( ?, ?, ?, ?, ?, ? )');
+
+        $this->selectAll = self::$db_handler->prepare(
+            'SELECT * FROM question'
+        );
     }
 
+    function findAll()
+    {
+        return $this->selectAll;
+    }
 
     /**
      * @return SQLite3Stmt
      */
     protected function selectStmt()
     {
-        // TODO: Implement selectStmt() method.
+        return $this->selectStmt;
     }
 
     protected function insertStmt()
     {
-        // TODO: Implement insertStmt() method.
+        return $this->insertStmt;
     }
 
     function updateStmt()
     {
-        // TODO: Implement updateStmt() method.
+        return $this->updateStmt;
     }
 }

@@ -33,6 +33,10 @@ abstract class Mapper
 //        return $res;
 
         $stmt = $this->selectStmt();
+        return $this->findMore($key, $stmt);
+    }
+
+    function findMore($key, $stmt) {
         $type = $this->getType($key);
 //        echo $type;
         $stmt->bindValue(1, $key, $type);
@@ -44,6 +48,17 @@ abstract class Mapper
         }
         return $array;
     }
+
+    function findAll() {
+        $stmt = $this->selectAll();
+        $res = $stmt->execute();
+        $array = $res->fetchArray();
+        if (!is_array($array)) {
+            return null;
+        }
+        return $array;
+    }
+
 
 //    function createObject($array)
 //    {
@@ -99,6 +114,9 @@ abstract class Mapper
      * @return SQLite3Stmt
      */
     protected abstract function selectStmt();
+    protected function selectAll() {
+        return null;
+    }
     protected abstract function insertStmt();
 
     function isSuccess($sqliteResult, $query) {

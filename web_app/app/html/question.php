@@ -19,8 +19,8 @@
         <p id="app-name">Fit</p>
 
         <form><p class="action">
-            <a href="#" class="fa fa-user"> log out</a>
-        </p>
+                <a href="#" class="fa fa-user"> log out</a>
+            </p>
         </form>
 
         <br>
@@ -109,7 +109,8 @@
 
                 <div class="asked-question flex-container">
                     <div class="vote none">
-                        <a class="fa fa-2x fa-caret-up" title="This question shows research effort; it is useful and clear">
+                        <a class="fa fa-2x fa-caret-up"
+                           title="This question shows research effort; it is useful and clear">
                         </a>
                         <br>
                         <span class="vote-count">4</span>
@@ -154,12 +155,11 @@
                 <h3>Your answer:</h3>
 
                 <div class="advice-detail">
-                    <label for="pri-question-detail"></label><textarea name="question-detail" id="pri-question-detail"
-                                                                       cols="30" rows="10">
-
-                </textarea>
+                    <label for="pri-question-detail"></label>
+                    <textarea name="question-detail" id="pri-question-detail"
+                              cols="30" rows="10"></textarea>
                 </div>
-                <form action="post">
+                <form action="../php/Controller/QuestionController.class.php" method="post">
                     <input type="submit" value="Submit your answer">
                 </form>
             </section>

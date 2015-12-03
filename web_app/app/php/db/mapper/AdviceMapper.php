@@ -16,30 +16,37 @@ class AdviceMapper extends Mapper
     public function __construct()
     {
         parent::__construct();
+        $this->selectUser = self::$db_handler->prepare(
+            'SELECT * FROM advice WHERE ans_user=?');
+
         $this->selectStmt = self::$db_handler->prepare(
-            'SELECT * FROM user WHERE uname=?');
+            'SELECT * FROM advice WHERE qid=?');
         $this->updateStmt = self::$db_handler->prepare(
-            'UPDATE user SET password=?, uname=?, role=?, gender=?, email=?, age=?, icon_url=?, location=? WHERE uid=?');
+            'UPDATE advice SET content=? WHERE qid=?');
         $this->insertStmt = self::$db_handler->prepare(
-            'INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )');
+            'INSERT INTO advice ( qid, content, ans_user, time ) VALUES( ?, ?, ?, ? )');
     }
 
+    public function findByUser() {
+        $uid = $_SESSION[Controller::UID];
+        return $this->findMore($uid, $this->selectUser);
+    }
 
     /**
      * @return SQLite3Stmt
      */
     protected function selectStmt()
     {
-        // TODO: Implement selectStmt() method.
+        return $this->selectStmt;
     }
 
     protected function insertStmt()
     {
-        // TODO: Implement insertStmt() method.
+        return $this->insertStmt;
     }
 
     function updateStmt()
     {
-        // TODO: Implement updateStmt() method.
+        return $this->updateStmt;
     }
 }

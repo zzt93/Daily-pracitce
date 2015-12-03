@@ -6,7 +6,6 @@
 
     <!--<link href="styles/fonts.css" type="text/css" rel="stylesheet">-->
     <link href="../styles/sign-head.css" type="text/css" rel="stylesheet">
-    <link href="../styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="../styles/sign-content.css" type="text/css" rel="stylesheet">
     <link href="../styles/anchor.css" type="text/css" rel="stylesheet">
     <link href="../styles/tooltip.css" type="text/css" rel="stylesheet">
