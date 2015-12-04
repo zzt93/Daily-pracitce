@@ -1,3 +1,8 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::testLogIn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +16,7 @@
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body>
+<body onload="getAdviceInfo()">
 <header>
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
@@ -69,10 +74,11 @@
         </div>
 
         <div class="container" id="tab-ask">
-            <section class="ask-question-block">
+
+            <section class="ask-question-block" id="question">
                 <h3>How to make a plan for fit?</h3>
 
-                <div class="asked-question flex-container">
+                <div class="asked-question flex-container template">
                     <div class="vote none">
                         <a class="fa fa-2x fa-caret-up"
                            title="This question shows research effort; it is useful and clear"></a>
@@ -83,31 +89,38 @@
                            title="This question does not show any research effort; it is unclear or not useful"></a>
                     </div>
                     <div class="flex1">
-                        graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as
-                        small
-                        as possible
-                        proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
-                        connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
-                        so it's a tree.
+                        <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as
+                            small
+                            as possible
+                            proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
+                            connected. Now, we have x (x>=n) edges, n vertices,
+                            but without a circle and it is impossible. So the n-1 edges is connected and without a
+                            circle,
+                            so it's a tree.
+                        </article>
+
                         <div class="advice-tags">
                             <h4>Tags: </h4>
                             <span class="tags">Fit</span>
                             <span class="tags">Plan</span>
                         </div>
-                        <div>
-                            user 123
-                            asked: 2015-11-11 00:00:00
-                        </div>
+                        <section>
+                            <span class="question-info">user ze</span><br>
+                            asked:
+                            <span class="question-info">
+                             2015-11-11 00:00:00
+                            </span>
+                        </section>
                     </div>
                 </div>
 
             </section>
-            <section class="ask-question-block">
+
+            <section class="ask-question-block" id="advice">
 
                 <h3>Answers:</h3>
 
-                <div class="asked-question flex-container">
+                <div class="asked-question flex-container template">
                     <div class="vote none">
                         <a class="fa fa-2x fa-caret-up"
                            title="This question shows research effort; it is useful and clear">
@@ -119,39 +132,31 @@
                            title="This question does not show any research effort; it is unclear or not useful">
                         </a>
                     </div>
-                    <div class="flex1"> graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1
-                        edges is as
-                        small
-                        as possible
-                        proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
-                        connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
-                        so it's a tree.
-                    </div>
-                </div>
-                <div class="asked-question flex-container">
-                    <div class="vote none">
-                        <a class="fa fa-2x fa-caret-up"
-                           title="This question shows research effort; it is useful and clear"></a>
+                    <div class="flex1">
+                        <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1
+                            edges is as
+                            small
+                            as possible
+                            proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
+                            connected. Now, we have x (x>=n) edges, n vertices,
+                            but without a circle and it is impossible. So the n-1 edges is connected and without a
+                            circle,
+                            so it's a tree.
+                        </article>
                         <br>
-                        <span class="vote-count">4</span>
-                        <br>
-                        <a class="fa fa-2x fa-caret-down"
-                           title="This question does not show any research effort; it is unclear or not useful"></a>
-                    </div>
-                    <div class="flex1"> graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1
-                        edges is as
-                        small
-                        as possible
-                        proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
-                        connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
-                        so it's a tree.
+                        <section>
+                            <span class="question-info">user ze</span><br>
+                            answered:
+                            <span class="question-info">
+                             2015-11-11 00:00:00
+                            </span>
+                        </section>
                     </div>
                 </div>
 
             </section>
-            <section class="advices-body">
+
+            <section class="advices-body" id="answer">
                 <h3>Your answer:</h3>
 
                 <div class="advice-detail">
@@ -171,6 +176,8 @@
 <?php require("footer.php"); ?>
 
 <script type="application/javascript" src="../scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="../scripts/question.js"></script>
 
 
 </html>

@@ -52,3 +52,7 @@
 .right-float {
     float: right;
 }
+
+.template {
+    display: none;
+}

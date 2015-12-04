@@ -26,27 +26,59 @@ class AccountController extends Controller
     {
         parent::__construct();
         $this->userMapper = new UserMapper();
+        $this->setting = new SettingMapper();
     }
 
 
     function getUserData()
     {
 //        print_r($_GET);
-        if (!isset($_SESSION[Controller::USER_NAME])) {
-            return;
-        }
+//        if (!isset($_SESSION[Controller::USER_NAME])) {
+//            return;
+//        }
         $userName = $_SESSION[Controller::USER_NAME];
 //        echo $userName;
-        $user = $this->userMapper->find($userName);
+        $user = $this->userMapper->findByKey($userName);
         if (isset($user)) {
             $this->ajaxReturn($user);
         }
     }
 
-//    function distribute()
-//    {
-//
-//    }
+    function getSetting()
+    {
+        $uid = $_SESSION[Controller::UID];
+//        echo $uid;
+        $user = $this->setting->findByKey($uid);
+        if (isset($user)) {
+            $this->ajaxReturn($user);
+        } else {
+            $this->setting->insert(array($uid));
+            $this->ajaxReturn($this->setting->findByKey($uid));
+        }
+    }
+
+    function updateSetting()
+    {
+//        print_r($_POST);
+        $this->setting->update(
+            array(
+                $this->checkBox(isset($_POST['weight'])),
+                $this->checkBox(isset($_POST['heart_rate'])),
+                $this->checkBox(isset($_POST['slumber'])),
+                $this->checkBox(isset($_POST['walk'])),
+                $this->checkBox(isset($_POST['upper_limb'])),
+                $this->checkBox(isset($_POST['lower_limb'])),
+                $this->checkBox(isset($_POST['send'])),
+                $_POST['sync']),
+            $_SESSION[Controller::UID]
+        );
+        self::refreshRedirect("../../html/account.php");
+    }
+
+    private function checkBox($c)
+    {
+        return $c ? 1 : 0;
+    }
 }
 
 if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {

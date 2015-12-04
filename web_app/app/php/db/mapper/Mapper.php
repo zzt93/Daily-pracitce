@@ -8,7 +8,6 @@
  */
 
 
-
 require dirname(__FILE__) . '/../sqliteInit.php';
 
 abstract class Mapper
@@ -26,7 +25,7 @@ abstract class Mapper
      * @param $key -- The primary key or unique key
      * @return array|null
      */
-    function find($key)
+    function findByKey($key)
     {
 //        $res = self::$db_handler->query("SELECT * FROM user WHERE uname=$key");
 //        print_r($res->fetchArray());
@@ -36,27 +35,41 @@ abstract class Mapper
         return $this->findMore($key, $stmt);
     }
 
-    function findMore($key, $stmt) {
+    protected function findMore($key, $stmt)
+    {
         $type = $this->getType($key);
 //        echo $type;
         $stmt->bindValue(1, $key, $type);
 
-        $res = $stmt->execute();
-        $array = $res->fetchArray();
-        if (!is_array($array)) {
-            return null;
+        $cursor = $stmt->execute();
+        $res = array();
+        while (is_array($array = $cursor->fetchArray())) {
+            $res[] = $array;
         }
-        return $array;
+        switch (count($res)) {
+            case 0:
+                return null;
+            case 1:
+                return $res[0];
+        }
+        return $res;
     }
 
-    function findAll() {
+    function findAll()
+    {
         $stmt = $this->selectAll();
-        $res = $stmt->execute();
-        $array = $res->fetchArray();
-        if (!is_array($array)) {
-            return null;
+        $cursor = $stmt->execute();
+        $res = array();
+        while (is_array($array = $cursor->fetchArray())) {
+            $res[] = $array;
         }
-        return $array;
+        switch (count($res)) {
+            case 0:
+                return null;
+            case 1:
+                return $res[0];
+        }
+        return $res;
     }
 
 
@@ -78,16 +91,14 @@ abstract class Mapper
 
 //    abstract function update(DomainObject $object);
 
-    function update(DomainObject $object)
+    function update(array $data, $key)
     {
-        print "updating\n";
         $stmt = $this->updateStmt();
-        $data = $object->getData();
         $i = 1;
         foreach ($data as $value) {
             $stmt->bindValue($i++, $value, Mapper::getType($value));
         }
-        $stmt->bindValue($i, $object->getKey(), Mapper::getType($object->getKey()));
+        $stmt->bindValue($i, $key, Mapper::getType($key));
         $stmt->execute();
     }
 
@@ -99,7 +110,8 @@ abstract class Mapper
      * @internal param DomainObject $object -- This object is for insert, so may be part
      * of full info
      */
-    protected function doInsert(array $data) {
+    protected function doInsert(array $data)
+    {
 //        print "inserting\n";
 //        debug_print_backtrace();
         $stmt = $this->insertStmt();
@@ -114,12 +126,16 @@ abstract class Mapper
      * @return SQLite3Stmt
      */
     protected abstract function selectStmt();
-    protected function selectAll() {
+
+    protected function selectAll()
+    {
         return null;
     }
+
     protected abstract function insertStmt();
 
-    function isSuccess($sqliteResult, $query) {
+    function isSuccess($sqliteResult, $query)
+    {
         if (!$sqliteResult) {
             // the query failed and debugging is enabled
             echo "<p>There was an error in query:";

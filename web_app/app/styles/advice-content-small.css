@@ -1,5 +1,6 @@
 
 .question-block {
+    display: none;
     margin: 0 auto;
     background-color: #c0ffb4;
     border-bottom: 1px solid #b1b1b1;

@@ -1,6 +1,7 @@
+<section class="fixed-size"></section>
 <footer>
     <link href="../styles/sign-footer.css" type="text/css" rel="stylesheet">
-    <div >
+    <div>
         <section id="link">
             <a href="health.php">More: Health </a>
         </section>

@@ -71,10 +71,17 @@
     /*the following is for advice ui*/
 
     .advice_head, .advices-body {
-        display: none;
         width: 90%;
         margin: 4% 2%;
         padding: 0;
+    }
+
+    .advices-body {
+        display: none;
+    }
+
+    #answer {
+        display: block;
     }
 
     #advice-tab {

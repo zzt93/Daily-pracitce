@@ -29,5 +29,6 @@ require_once('../db/mapper/HSMapper.php');
 require_once('../db/mapper/PlanMapper.php');
 require_once('../db/mapper/PostMapper.php');
 require_once('../db/mapper/QuestionMapper.php');
+require_once('../db/mapper/SettingMapper.php');
 
 

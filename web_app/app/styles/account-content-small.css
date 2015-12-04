@@ -93,7 +93,7 @@ body {
     font-weight: 600;
 }
 
-.personal-info input[type='submit'] {
+.personal-info input[type='submit'], #settings input[type='submit']{
     display: inline-block;
     margin: 20px 2% 0;
     padding: 5px;
@@ -156,6 +156,7 @@ body {
 }
 
 .notice {
+    display: none;
     width: 100%;
     padding: 2% 5%;
     border-bottom: 1px solid #c0ffb4;

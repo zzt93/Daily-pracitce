@@ -33,11 +33,17 @@ class ActivityController extends Controller {
     public function getAllActivities() {
         $this->ajaxReturn($this->activity->findAll());
     }
+
+    public function getAllAP() {
+        $this->getAllPost();
+        echo Controller::SEPARATOR;
+        $this->getAllActivities();
+    }
 }
 
 
 if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {
     // run test suite here
-    $analysis = new AnalysisController();
+    $analysis = new ActivityController();
     $analysis->distribute();
 }

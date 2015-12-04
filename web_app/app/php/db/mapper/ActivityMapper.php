@@ -16,6 +16,10 @@ class ActivityMapper extends Mapper
     public function __construct()
     {
         parent::__construct();
+
+        $this->selectAll = self::$db_handler->prepare(
+            'SELECT title, content FROM activity');
+
         $this->selectStmt = self::$db_handler->prepare(
             'SELECT * FROM activity WHERE acid=?');
         $this->updateStmt = self::$db_handler->prepare(
@@ -41,5 +45,10 @@ class ActivityMapper extends Mapper
     function updateStmt()
     {
         return $this->updateStmt;
+    }
+
+    function selectAll()
+    {
+        return $this->selectAll;
     }
 }

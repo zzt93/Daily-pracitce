@@ -1,3 +1,8 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::testLogIn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

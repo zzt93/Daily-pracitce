@@ -34,9 +34,9 @@ class AnalysisController extends Controller
     public function getAnalysisData() {
         $uid = $_SESSION[Controller::UID];
 //        echo $uid;
-        $healthGoal = $this->HGMapper->find($uid);
-        $healthStatistic = $this->HSMapper->find($uid);
-        $plan = $this->planMapper->find($uid);
+        $healthGoal = $this->HGMapper->findByKey($uid);
+        $healthStatistic = $this->HSMapper->findByKey($uid);
+        $plan = $this->planMapper->findByKey($uid);
         $this->ajaxReturn($healthGoal);
         echo Controller::SEPARATOR;
         $this->ajaxReturn($healthStatistic);

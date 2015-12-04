@@ -14,6 +14,9 @@ abstract class Controller
     const LOGGEDIN = 'loggedin';
     const UID = 'uid';
     const SEPARATOR = "\n";
+    const AJAX_LOGIN = "../html/login.php";
+    const TIME = 'Y-m-d H:i:s';
+    const DATE = 'Y-m-d';
 
     /**
      * Controller constructor.
@@ -24,8 +27,8 @@ abstract class Controller
         if (isset($_SESSION[self::LOGGEDIN]) && $_SESSION[self::LOGGEDIN] == true) {
 //            echo "Welcome to the member's area, " . $_SESSION[self::USER_NAME] . "!";
         } else {
-//            echo "Please log in first to see this page.";
-            echo "../html/login.php";
+            // default is invoked by ajax, so not redirect, just return where to go
+            echo self::AJAX_LOGIN;
 //            http_response_code(302);
         }
     }
@@ -60,7 +63,8 @@ abstract class Controller
     }
 
 
-    function distribute() {
+    function distribute()
+    {
         // print_r($_POST);
         // print_r(debug_backtrace());
         if (isset($_POST[Controller::FUNC_NAME])) {
@@ -69,6 +73,19 @@ abstract class Controller
             $f = $_GET[Controller::FUNC_NAME];
         }
         $this->$f();
+    }
+
+    static function refreshRedirect($loc = '../../html/login.php')
+    {
+        header('Location: ' . $loc);
+    }
+
+    static function testLogIn() {
+        session_start();
+        if (isset($_SESSION[self::LOGGEDIN]) && $_SESSION[self::LOGGEDIN] == true) {
+        } else {
+            self::refreshRedirect();
+        }
     }
 
 }

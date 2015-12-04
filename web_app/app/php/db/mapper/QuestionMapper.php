@@ -14,8 +14,12 @@ class QuestionMapper extends Mapper
     public function __construct()
     {
         parent::__construct();
+        $this->selectUser = self::$db_handler->prepare(
+            'SELECT title, content, vote, qid FROM question WHERE uid=?');
+
         $this->selectStmt = self::$db_handler->prepare(
-            'SELECT * FROM question WHERE uid=?');
+            'SELECT u.uname, q.type, q.to_user, q.title, q.content, q.time, q.vote
+            FROM question q JOIN user u ON q.uid = u.uid WHERE qid=?');
         $this->updateStmt = self::$db_handler->prepare(
             'UPDATE question SET title=?, content=?, vote=? WHERE qid=?');
         $this->insertStmt = self::$db_handler->prepare(
@@ -26,7 +30,12 @@ class QuestionMapper extends Mapper
         );
     }
 
-    function findAll()
+    public function findByUser() {
+        $uid = $_SESSION[Controller::UID];
+        return $this->findMore($uid, $this->selectUser);
+    }
+
+    function selectAll()
     {
         return $this->selectAll;
     }

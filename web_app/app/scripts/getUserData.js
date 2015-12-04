@@ -68,57 +68,7 @@ function getUserAccountInfo() {
 /**
  * related to HSMapper, HGMapper, PlanMapper
  */
-function getHealthInfo() {
-    if (!count.healthFirst()) {
-        return;
-    }
-    $.get(
-        '../php/Controller/AnalysisController.class.php',
-        {
-            funcName: "getAnalysisData"
-        },
-        function (data) {
-            //console.log("status is: " + textStatus + " Response from server: " + eval(data));
-            if (data.replace(/\s/g, '').length === 0) {
-                // mean data is empty
-                return;
-            }
-            var infos = data.split(SEPARATOR);
-            //console.log(infos.length);
-            try {
-                var statistic = $.parseJSON(infos[1]);
-
-                $('#sta_weight').html(statistic['weight']);
-                $('#sta_heart-rate').html(statistic['heart_rate']);
-                $('#sta_slumber').html(statistic['slumber']);
-                $('#sta_walk').html(statistic['walk']);
-                $('#sta_upper').html(statistic['upper_limb']);
-                $('#sta_lower').html(statistic['lower_limb']);
-
-            } catch (e) {
-                console.error(e);
-                window.location.replace(data);
-                return;
-            }
-            try {
-                var goal = $.parseJSON(infos[0]);
-                var plan = $.parseJSON(infos[2]);
-
-                $('#goal_walk').html(goal['walk']);
-                $('#goal_upper').html(goal['upper_limb']);
-                $('#goal_lower').html(goal['lower_limb']);
-
-                $('#breakfast').html(plan['breakfast']);
-                $('#lunch').html(plan['lunch']);
-                $('#dinner').html(plan['dinner']);
-                $('#exercise').html(plan['exercise']);
-            } catch (e) {
-                console.log(e);
-            }
-
-        }
-    );
-}
+$.getScript("healthData.js");
 
 function getAdviceInfo() {
     if (!count.adviceFirst()) {
@@ -127,26 +77,107 @@ function getAdviceInfo() {
     $.get(
         '../php/Controller/QuestionController.class.php',
         {
-            funcName: "getAdviceData"
+            funcName: "getUserAQ"
         },
         function (data) {
             //console.log("status is: " + textStatus + " Response from server: " + eval(data));
+            console.log(data);
             var infos = data.split(SEPARATOR);
             console.log(infos.length);
+
+            function makeAQblock(id, data) {
+                var block = $(id).find('.question-block');
+                data.forEach(function (a) {
+                    var tmp = block.clone().show();
+                    tmp.find('h3').text(a['vote']);
+                    tmp.find('a').text(a['title']).attr('href', 'question.php?qid=' + a['qid']);
+                    tmp.find('p').text(a['content']);
+                    block.after(tmp[0].outerHTML);
+                });
+            }
+
             try {
                 var question = $.parseJSON(infos[0]);
+                makeAQblock('#user-question-list', question);
             } catch (e) {
                 console.error(e);
             }
+
             try {
                 var advice = $.parseJSON(infos[1]);
+                makeAQblock('#user-answer-list', advice);
             } catch (e) {
                 console.error(e);
             }
-
-
-            $('#DisplayName').val(data['DomainObjectkey']);
 
         }
     );
+}
+
+
+function getActivity() {
+    if (!count.activityFirst()) {
+        return;
+    }
+    $.get(
+        '../php/Controller/ActivityController.class.php',
+        {
+            funcName: "getAllAP"
+        },
+        function (data) {
+            console.log(data);
+            var infos = data.split(SEPARATOR);
+            console.log(infos.length);
+
+            try {
+                var post = $.parseJSON(infos[0]);
+                post.forEach(
+                    function (p) {
+                        var notice = $('#post').find('div.notice').clone().show();
+                        notice.find('span');
+                    }
+                );
+            } catch (e) {
+                console.error(e);
+            }
+
+            try {
+                var act = $.parseJSON(infos[1]);
+                post.forEach(
+                    function (p) {
+                    }
+                );
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    )
+}
+
+function getSetting() {
+    if (!count.settingFirst()) {
+        return;
+    }
+    $.get(
+        '../php/Controller/AccountController.class.php',
+        {
+            funcName: "getSetting"
+        },
+        function (data) {
+            console.log(data);
+
+            try {
+                var post = $.parseJSON(data);
+                var $settings = $('#settings');
+                var input = $settings.find('input[type="checkbox"]');
+                var i;
+                for (i = 0; i < input.length; i++) {
+                    $(input[i]).attr('checked', (post[i + 1] === 1));
+                }
+                $settings.find('input[type="number"]').val(post[i]);
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    )
 }

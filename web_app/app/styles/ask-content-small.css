@@ -46,6 +46,8 @@
 /*------------------------------------------------------------*/
 /*the following is question content*/
 
+
+
 .ask-question-block {
     width: 100%;
     padding: 0 3%;
@@ -77,9 +79,18 @@
 .vote-count {
     font-size: 2em;
 }
+
 .tags {
     background-color: #b1b1b1;
     color: white;
     display: inline-block;
     padding: 5px 10px;
+}
+
+.question-info {
+    background-color: #b1b1b1;
+    color: white;
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 10px 0 0;
 }

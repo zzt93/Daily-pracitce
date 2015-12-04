@@ -11,3 +11,7 @@ footer {
 footer a {
     color: white;
 }
+
+.fixed-size {
+    height: 100px;
+}

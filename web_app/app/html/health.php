@@ -1,3 +1,8 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::testLogIn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +18,12 @@
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body onload="addListChosenListener('side_nav_list', 'tabbed-block', 0);">
+<body onload="
+addListChosenListener('side_nav_list', 'tabbed-block', 0);
+getQuestion();
+getActivity();
+getHealth();
+">
 <header>
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
@@ -84,19 +94,16 @@
                     <tr>
                         <th>Content</th>
                         <th>Yours</th>
-                        <th>Standard</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
                         <th>Weight</th>
-                        <td>..</td>
-                        <td>...</td>
+                        <td id="sta_weight"></td>
                     </tr>
                     <tr>
                         <th>心率</th>
-                        <td>..</td>
-                        <td>...</td>
+                        <td id="sta_heart-rate">..</td>
                     </tr>
                     <tr>
                         <th colspan="3"><a href="account.php">More</a></th>
@@ -117,19 +124,19 @@
                     <tbody>
                     <tr>
                         <th class="fixed">Breakfast</th>
-                        <td>.., ..</td>
+                        <td id="breakfast"></td>
                     </tr>
                     <tr>
                         <th class="fixed">Lunch</th>
-                        <td>.., ..</td>
+                        <td id="lunch"></td>
                     </tr>
                     <tr>
                         <th class="fixed">Dinner</th>
-                        <td>.., ..</td>
+                        <td id="dinner"></td>
                     </tr>
                     <tr>
                         <th class="fixed">Exercise</th>
-                        <td>.., ..</td>
+                        <td id="exercies"></td>
                     </tr>
                     <tr>
                         <th colspan="3">
@@ -148,6 +155,7 @@
                     </tbody>
                 </table>
             </section>
+
             <section class="health_block">
                 <table id="fit">
                     <caption>今日运动数据</caption>
@@ -161,13 +169,13 @@
                     <tbody>
                     <tr>
                         <th>步数</th>
-                        <td>1000</td>
-                        <td>2000</td>
+                        <td id="sta_walk">1000</td>
+                        <td id="goal_walk">2000</td>
                     </tr>
                     <tr>
                         <th>上肢锻炼时间</th>
-                        <td>20</td>
-                        <td>20</td>
+                        <td id="sta_upper">20</td>
+                        <td id="goal_upper">20</td>
                     </tr>
                     <tr>
                         <th colspan="3"><a href="account.php">More</a></th>
@@ -240,30 +248,7 @@
             <h3>Questions:</h3>
             <section class="question-block">
                 <div class="question-statistic">
-                    <h3>0</h3>
-
-                    <p>votes</p>
-                </div>
-                <div class="question-statistic">
-                    <h3>2</h3>
-
-                    <p>answers</p>
-                </div>
-                <div class="question-statistic">
-                    <h3>20</h3>
-
-                    <p>views</p>
-                </div>
-                <div class="question-body">
-                    <a class="question-title" href="question.php">How to keep fit</a>
-
-                    <p class="q-content">I am ...</p>
-                </div>
-                <br>
-            </section>
-            <section class="question-block">
-                <div class="question-statistic">
-                    <h3>0</h3>
+                    <h3 class="vote">0</h3>
 
                     <p>votes</p>
                 </div>
@@ -298,5 +283,6 @@
 <script type="application/javascript" src="../scripts/useBarChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 <script type="application/javascript" src="../scripts/personal.js"></script>
+<script type="application/javascript" src="../scripts/health.js"></script>
 
 </html>

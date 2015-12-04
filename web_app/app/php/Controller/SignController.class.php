@@ -51,7 +51,7 @@ class SignController extends Controller
         $res = $this->userMapper->insert(array($userName, $userEmail, password_hash($password, PASSWORD_DEFAULT)));
         $suc = $this->userMapper->isSuccess($res, $this->userMapper->insertStmt);
         if ($suc) {
-            $this->makeSession($this->userMapper->find($userName));
+            $this->makeSession($this->userMapper->findByKey($userName));
             header("Location: ../../html/account.php");
         } else {
             header("Location: ../../html/signup.php");
@@ -66,7 +66,7 @@ class SignController extends Controller
     {
         $userName = $_POST[Controller::USER_NAME];
 //        echo $userName;
-        $user = $this->userMapper->find($userName);
+        $user = $this->userMapper->findByKey($userName);
 //        print_r($user);
         $this->makeSession($user);
         header('Location: ../../html/account.php');
@@ -77,7 +77,7 @@ class SignController extends Controller
     {
         debug_backtrace();
         $userName = $_GET[Controller::USER_NAME];
-        $user = $this->userMapper->find($userName);
+        $user = $this->userMapper->findByKey($userName);
         $has = !is_null($user);
         echo $has ? 'true' : 'false';
         return $has;
@@ -87,7 +87,7 @@ class SignController extends Controller
     {
         // print_r($_GET);
         $userName = $_GET[Controller::USER_NAME];
-        $user = $this->userMapper->find($userName);
+        $user = $this->userMapper->findByKey($userName);
         if (is_null($user)) {
             echo 'false';
             return false;

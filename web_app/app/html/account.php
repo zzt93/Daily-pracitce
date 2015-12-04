@@ -1,3 +1,8 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::testLogIn();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +19,14 @@
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
-<body onload="addLightBox('apply-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
+<body onload="
+addLightBox('apply-link');
+addListChosenListener('side_nav_list', 'tabbed-block', 0);
+getHealthInfo();
+getAdviceInfo();
+getActivity();
+getSetting();
+">
 <div id="light-box">
     <h3>Apply for:</h3>
 
@@ -61,7 +73,7 @@
                 <a href="#">个人信息 </a>
             </li>
             <li>
-                <a href="#" onclick="getHealthInfo()">数据分析
+                <a href="#">数据分析
                     <span class="float-num">5</span>
                     <br>
                 </a>
@@ -373,10 +385,10 @@
                     <div class="question-statistic">
                         <h3>2</h3>
 
-                        <p>answers</p>
+                        <p>votes</p>
                     </div>
                     <div class="question-body">
-                        <a class="question-title" href="#">How to keep fit</a>
+                        <a class="question-title" href="">How to keep fit</a>
 
                         <p class="q-content">I am ...</p>
                     </div>
@@ -394,7 +406,7 @@
                         <p>votes</p>
                     </div>
                     <div class="question-body">
-                        <a class="question-title" href="#">How to keep fit</a>
+                        <a class="question-title" href="">How to keep fit</a>
 
                         <p class="q-content">I am ...asdfasdffffffffffffffffffffffffffffffffffffffffffffffffffff</p>
                     </div>
@@ -405,10 +417,10 @@
         </div>
 
         <div class="container" id="campaign">
-            <div class="post">
+            <div class="post" id="post">
                 <div class="horizontal-center"><h3>Posts</h3></div>
                 <div class="notice">
-                    10/23/2015--This is a notice: ...
+                    <span>10/23/2015</span>--<span>This is a notice: ...</span>
                 </div>
             </div>
             <section class="activity">
@@ -440,23 +452,35 @@
                 <div class="">
                     <h4>健康数据显示选项</h4>
                     <label>
-                        <input tabindex="1" type="checkbox" checked="checked">weight
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="weight"
+                        >weight
                     </label>
                     <label>
-                        <input tabindex="1" type="checkbox" checked="checked">heart-rate
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="heart_rate"
+                        >heart-rate
                     </label>
                     <label>
-                        <input tabindex="1" type="checkbox">slumber
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="slumber"
+                        >slumber
                     </label>
                     <h4>运动数据显示选项</h4>
                     <label>
-                        <input tabindex="1" type="checkbox" checked="checked">walk
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="walk"
+                        >walk
                     </label>
                     <label>
-                        <input tabindex="1" type="checkbox" checked="checked">上肢锻炼
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="upper_limb"
+                        >上肢锻炼
                     </label>
                     <label>
-                        <input tabindex="1" type="checkbox">下肢锻炼
+                        <input tabindex="1" type="checkbox" form="setting-sub"
+                               name="lower_limb"
+                        >下肢锻炼
                     </label>
 
                 </div>
@@ -473,16 +497,25 @@
             </div>
             <section class="user-setting">
                 <label>
-                    <input tabindex="1" type="checkbox">Send you campaign notification by email
+                    <input tabindex="1" type="checkbox" form="setting-sub"
+                           name="send"
+                    >Send you campaign notification by email
                 </label>
                 <br>
                 <label>
-                    <input tabindex="1" type="checkbox">Sync your data twice a day
+                    Times to sync your data everyday:
+                    <input tabindex="1" type="number" min="1" form="setting-sub"
+                           name="sync"
+                    >
                 </label>
                 <br>
 
             </section>
 
+            <form action="../php/Controller/AccountController.class.php" method="post" id="setting-sub">
+                <input type="submit" value="Submit changes">
+                <input type="hidden" name="funcName" value="updateSetting">
+            </form>
         </div>
 
     </div>
