@@ -37,10 +37,25 @@ class AccountController extends Controller
 //            return;
 //        }
         $userName = $_SESSION[Controller::USER_NAME];
-//        echo $userName;
         $user = $this->userMapper->findByKey($userName);
         if (isset($user)) {
             $this->ajaxReturn($user);
+        }
+    }
+
+    function setUserData()
+    {
+//        print_r($_POST);
+        $uid = $_SESSION[Controller::UID];
+        $res = $this->userMapper->update(array(
+            $_POST[Controller::USER_NAME], $_POST['gender'],
+            $_POST['email'], $_POST['age'], $_POST['location']
+        ), $uid);
+        if (isset($res)) {
+            $_SESSION[Controller::USER_NAME] = $_POST[Controller::USER_NAME];
+            echo 'true';
+        } else {
+            echo 'false';
         }
     }
 
@@ -61,25 +76,39 @@ class AccountController extends Controller
     function updateSetting()
     {
 //        print_r($_POST);
-        $this->setting->update(
+        $res = $this->setting->update(
             array(
-                $this->checkBox(isset($_POST['weight'])),
-                $this->checkBox(isset($_POST['heart_rate'])),
-                $this->checkBox(isset($_POST['slumber'])),
-                $this->checkBox(isset($_POST['walk'])),
-                $this->checkBox(isset($_POST['upper_limb'])),
-                $this->checkBox(isset($_POST['lower_limb'])),
-                $this->checkBox(isset($_POST['send'])),
+                $this->checkBox(($_POST['weight'])),
+                $this->checkBox(($_POST['heart_rate'])),
+                $this->checkBox(($_POST['slumber'])),
+                $this->checkBox(($_POST['walk'])),
+                $this->checkBox(($_POST['upper_limb'])),
+                $this->checkBox(($_POST['lower_limb'])),
+                $this->checkBox(($_POST['send'])),
                 $_POST['sync']),
             $_SESSION[Controller::UID]
         );
-        self::refreshRedirect("../../html/account.php");
+//        print_r($res);
+        if (!$res) {
+            echo 'false';
+        } else {
+            echo 'true';
+        }
     }
 
     private function checkBox($c)
     {
-        return $c ? 1 : 0;
+        if (is_null($c)) {
+            return 0;
+        }
+        $i = $c == 'true' ? 1 : 0;
+        return $i;
     }
+
+    function updateAvatar() {
+
+    }
+
 }
 
 if (defined('TEST_SUITE') && TEST_SUITE == __FILE__) {

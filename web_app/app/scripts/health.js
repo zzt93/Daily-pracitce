@@ -74,6 +74,9 @@ function getQuestion() {
 
             function makeAQblock(id, data) {
                 var block = $(id).find('.question-block');
+                if (!Array.isArray(data)) {
+                    data = [data];
+                }
                 data.forEach(function (a) {
                     var tmp = block.clone().show();
                     tmp.find('h3.vote').text(a['vote']);

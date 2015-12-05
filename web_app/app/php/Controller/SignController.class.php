@@ -82,6 +82,10 @@ class SignController extends Controller
         header('Location: ../../html/account.php');
     }
 
+    public function logOut() {
+        parent::releaseSession();
+    }
+
 
     public function hasUserName()
     {

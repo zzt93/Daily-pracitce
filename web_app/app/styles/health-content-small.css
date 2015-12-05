@@ -72,9 +72,8 @@ body {
 }
 
 .activity {
-    background-color: #c0ffb4;
-    /*background-image: url("../images/leaf.bmp");*/
-    /*background-size: cover;*/
+    margin-top: 5px;
+    border: 1px solid #c0ffb4;
 }
 
 .activity h3 {

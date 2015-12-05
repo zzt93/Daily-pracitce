@@ -43,8 +43,7 @@ function getUserAccountInfo() {
             try {
                 data = $.parseJSON(data);
             } catch (e) {
-                window.location.replace(data);
-                return;
+                console.log(e);
             }
             //console.log(data);
             $('#DisplayName').val(data['uname']);
@@ -61,6 +60,50 @@ function getUserAccountInfo() {
             radios[data['gender']].checked = true;
             $("#avatar").attr("src", data['icon_url']);
 
+        }
+    );
+}
+
+function setUserAccountInfo(submit) {
+    var $gender = $('#gender').find(':checked');
+    var account = {
+        funcName: "setUserData",
+        uname: $('#DisplayName').val(),
+        location: $('#Location').val(),
+        age: $('#age').val(),
+        email: $('#email').val(),
+        gender: $('input[name="gender"]').index($gender)
+    };
+    updateAccount(account, submit);
+}
+
+function setUserSetting(submit) {
+    var data = {};
+    var $settings = $('#settings');
+    var input = $settings.find('input[type="checkbox"]');
+    var i;
+    for (i = 0; i < input.length; i++) {
+        data[input[i].name] = input[i].checked;
+    }
+    var num = $settings.find('input[type="number"]');
+    data[num.attr('name')] = num.val();
+    var hid = $settings.find('input[type="hidden"]');
+    data[hid.attr('name')] = hid.val();
+    updateAccount(data, submit);
+}
+
+function updateAccount(data, submit) {
+    var original = $(submit).css('background-color');
+    $(submit).css('background-color', 'blue');
+
+    $.post(
+        '../php/Controller/AccountController.class.php',
+        data,
+        function (res, textStatus) {
+            //console.log("status is: " + textStatus + " Response from server: " + res);
+            if (res === 'true') {
+                $(submit).css('background-color', original);
+            }
         }
     );
 }
@@ -153,6 +196,9 @@ function getAdviceInfo() {
 
             function makeAQblock(id, data) {
                 var block = $(id).find('.question-block');
+                if (!Array.isArray(data)) {
+                    data = [data];
+                }
                 data.forEach(function (a) {
                     var tmp = block.clone().show();
                     tmp.find('h3').text(a['vote']);
@@ -255,10 +301,55 @@ function getSetting() {
                 for (i = 0; i < input.length; i++) {
                     $(input[i]).attr('checked', (post[i + 1] === 1));
                 }
-                $settings.find('input[type="number"]').val(post[i]);
+                // plus one for skip uid
+                $settings.find('input[type="number"]').val(post[i + 1]);
             } catch (e) {
                 console.error(e);
             }
         }
     )
+}
+
+
+var fileState = function () {
+    var state = false;
+    return {
+        fileFine: function() {
+            return state;
+        },
+        setState: function(s) {
+            state = s;
+        }
+    }
+}();
+
+function checkFile(change) {
+    var file = change.files[0];
+    var size = file.size;
+    var type = file.type;
+    if (size > 100 * 1024) {
+        alert('file too large');
+        fileState.setState(false);
+        return;
+    }
+    if (!type.contains('image')) {
+        alert('file type not permitted');
+        fileState.setState(false);
+    }
+    fileState.setState(true);
+}
+
+function uploadFile(file) {
+    $.post(
+        '../php/Controller/AccountController.class.php',
+        {
+            funcName: 'updateAvatar'
+        },
+        function (res, textStatus) {
+            //console.log("status is: " + textStatus + " Response from server: " + res);
+            if (res === 'true') {
+                $(submit).css('background-color', res);
+            }
+        }
+    );
 }

@@ -1,3 +1,9 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::releaseSession();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -106,7 +112,7 @@
         </ul>
     </div>
 </div>
-e
+
 <?php require("footer.php"); ?>
 
 

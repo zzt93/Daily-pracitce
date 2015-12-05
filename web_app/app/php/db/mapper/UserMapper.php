@@ -15,7 +15,7 @@ class UserMapper extends Mapper
         $this->selectStmt = self::$db_handler->prepare(
             'SELECT * FROM user WHERE uname=?');
         $this->updateStmt = self::$db_handler->prepare(
-            'UPDATE user SET password=?, uname=?, role=?, gender=?, email=?, age=?, icon_url=?, location=? WHERE uid=?');
+            'UPDATE user SET uname=?, gender=?, email=?, age=?, location=? WHERE uid=?');
         $this->insertStmt = self::$db_handler->prepare(
             'INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )');
     }

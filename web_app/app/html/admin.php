@@ -15,7 +15,6 @@ Controller::testLogIn();
     <link rel="stylesheet" href="../styles/account-content.css">
     <link rel="stylesheet" href="../styles/admin-content-small.css">
     <link rel="stylesheet" href="../styles/admin-content.css">
-    <link rel="stylesheet" href="../styles/health-content.css">
     <link rel="stylesheet" href="../styles/main-header.css">
     <link rel="stylesheet" href="../styles/lightBox.css">
     <link rel="stylesheet" href="../styles/ask-content-small.css">
@@ -27,9 +26,9 @@ Controller::testLogIn();
 </head>
 <body onload="
 addLightBox('apply-link');
- addListChosenListener('side_nav_list', 'tabbed-block');
- getUserAccountInfo();
- getActivity();
+addListChosenListener('side_nav_list', 'tabbed-block');
+getUserAccountInfo();
+getActivity();
  ">
 <div id="light-box">
     <h3>Apply for:</h3>
@@ -58,7 +57,7 @@ addLightBox('apply-link');
         <p id="app-name">Fit</p>
 
         <form><p class="action">
-                <a href="health.php" class="fa fa-user"> log out</a>
+                <a href="login.php" class="fa fa-user"> log out</a>
             </p>
         </form>
         <br>
@@ -102,7 +101,7 @@ addLightBox('apply-link');
                     <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
-                        <input type="file" name="photo" title="choose a picture"/>
+                        <input type="file" name="photo" title="choose a picture" onchange="checkFile(this)">
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>
@@ -120,7 +119,7 @@ addLightBox('apply-link');
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <input type="submit" value="Submit changes">
+                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
                 </div>
 
@@ -169,7 +168,7 @@ addLightBox('apply-link');
                         </label>
                     </label>
                     <br>
-                    <input type="submit" value="Submit changes">
+                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
 
                 </div>
 
@@ -254,7 +253,8 @@ addLightBox('apply-link');
                     <div class="user-choose">
                         <label>
                             <input type="checkbox" name="users">
-                        </label></div>
+                        </label>
+                    </div>
                 </div>
                 <div class="user-statistic">
                     <h3><img src="../images/yellow-pin.png" alt=""></h3>
@@ -309,22 +309,14 @@ addLightBox('apply-link');
                 <div class="horizontal-center"><h3>Posts</h3></div>
                 <div class="notice">
                     <span>10/23/2015</span> -- <span>This is a notice: ...</span>
-                    <a href="#" class="right-float">Edit</a>
+                    <a href="#" class="right-float" onclick="editPost()">Edit</a>
+                    <br class="clear-right">
                 </div>
             </div>
             <section class="activity" style="display: none;">
                 <div class="horizontal-center"><p>Running Man</p></div>
                 <div class="activity-content">
-                    <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1
-                        edges
-                        is as
-                        small
-                        as possible
-                        proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
-                        connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a
-                        circle,
-                        so it's a tree.
+                    <article>
                     </article>
                     <a href="#" class="right-float">More</a>
                     <br class="clear-right">
@@ -334,6 +326,7 @@ addLightBox('apply-link');
                         <input type="submit" value="edit">
                     </form>
                 </div>
+                <br class="clear-right">
             </section>
 
             <br>
@@ -352,6 +345,7 @@ addLightBox('apply-link');
                     <input type="submit" value="Add">
                 </form>
             </section>
+            <hr>
             <section class="advices-body" style="display: block">
                 <h3>Add activity:</h3>
 

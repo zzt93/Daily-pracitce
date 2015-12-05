@@ -108,7 +108,7 @@ getSetting();
                     <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
-                        <input type="file" name="photo" title="choose a picture"/>
+                        <input type="file" name="photo" title="choose a picture" onchange="checkFile(this)" ">
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>
@@ -126,7 +126,7 @@ getSetting();
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <input type="submit" value="Submit changes">
+                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
                 </div>
 
@@ -175,7 +175,7 @@ getSetting();
                         </label>
                     </label>
                     <br>
-                    <input type="submit" value="Submit changes">
+                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
 
                 </div>
 
@@ -512,10 +512,8 @@ getSetting();
 
             </section>
 
-            <form action="../php/Controller/AccountController.class.php" method="post" id="setting-sub">
-                <input type="submit" value="Submit changes">
-                <input type="hidden" name="funcName" value="updateSetting">
-            </form>
+            <input type="submit" value="Submit changes" onclick="setUserSetting(this)">
+            <input type="hidden" name="funcName" value="updateSetting">
         </div>
 
     </div>

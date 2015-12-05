@@ -161,5 +161,9 @@ abstract class Mapper
         return true;
     }
 
+    function lastError() {
+        return self::$db_handler->lastErrorMsg();
+    }
+
     abstract function updateStmt();
 }

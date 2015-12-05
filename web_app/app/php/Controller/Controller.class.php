@@ -41,6 +41,15 @@ abstract class Controller
         $_SESSION[self::UID] = $user['uid'];
     }
 
+
+    public static function releaseSession()
+    {
+        session_start();
+        unset($_SESSION[self::LOGGEDIN]);
+        unset($_SESSION[self::USER_NAME]);
+        unset($_SESSION[self::UID]);
+    }
+
     public function ajaxReturn($data, $type = '', $json_option = 0)
     {
         if (is_null($data)) {
@@ -87,5 +96,6 @@ abstract class Controller
             self::refreshRedirect();
         }
     }
+
 
 }
