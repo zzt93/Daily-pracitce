@@ -17,6 +17,9 @@
 /*------------------------------------------------------------*/
 /*the following is advice content*/
 
+.advices-body {
+    display: none;
+}
 
 .advice_head, .advices-body {
     width: 100%;

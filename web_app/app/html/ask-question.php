@@ -16,7 +16,7 @@ Controller::testLogIn();
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
-<body onload="addListChosenListener('advice-tab', 'tab-ask', 0);">
+<body onload="addListChosenListener('advice-tab', 'tab-ask');">
 <header>
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
@@ -37,13 +37,13 @@ Controller::testLogIn();
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li>
-                <a href="health.php">健康管理</a>
+                <a href="health.php?now=0">健康管理</a>
             </li>
             <li>
-                <a href="health.php">活动管理</a>
+                <a href="health.php?now=1">活动管理</a>
             </li>
             <li class="tab-chosen">
-                <a href="health.php">建议管理</a>
+                <a href="health.php?now=2">建议管理</a>
             </li>
         </ul>
     </nav>

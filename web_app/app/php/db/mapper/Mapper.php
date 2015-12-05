@@ -35,6 +35,14 @@ abstract class Mapper
         return $this->findMore($key, $stmt);
     }
 
+    /**
+     * Invoke when
+     *  - only one key is needed to bind
+     *  - result is has multiple rows, i.e. return the the array of array
+     * @param $key
+     * @param $stmt
+     * @return array|null
+     */
     protected function findMore($key, $stmt)
     {
         $type = $this->getType($key);
@@ -98,8 +106,14 @@ abstract class Mapper
         foreach ($data as $value) {
             $stmt->bindValue($i++, $value, Mapper::getType($value));
         }
-        $stmt->bindValue($i, $key, Mapper::getType($key));
-        $stmt->execute();
+        if (is_array($key)) {
+            foreach ($key as $k) {
+                $stmt->bindValue($i++, $k, Mapper::getType($k));
+            }
+        } else {
+            $stmt->bindValue($i, $key, Mapper::getType($key));
+        }
+        return $stmt->execute();
     }
 
 //    protected abstract function doCreateObject(array $array);

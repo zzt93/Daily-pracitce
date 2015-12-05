@@ -25,7 +25,7 @@ class ActivityMapper extends Mapper
         $this->updateStmt = self::$db_handler->prepare(
             'UPDATE activity SET title=?, content=?, a_img_url=?, enter_amount=?, end_time=? WHERE acid=?');
         $this->insertStmt = self::$db_handler->prepare(
-            'INSERT INTO activity ( title, content, a_img_url, enter_amount, post_time, end_time ) VALUES( ?, ?, ?, ?, ?, ? )');
+            'INSERT INTO activity ( title, content, post_time, end_time ) VALUES( ?, ?, ?, ? )');
     }
 
 

@@ -17,7 +17,7 @@ class PostMapper extends Mapper
     {
         parent::__construct();
         $this->selectAll = self::$db_handler->prepare(
-            'SELECT * FROM post');
+            'SELECT * FROM post ORDER BY post_id');
 
         $this->selectStmt = self::$db_handler->prepare(
             'SELECT * FROM post WHERE post_id=?');
@@ -46,7 +46,7 @@ class PostMapper extends Mapper
         return $this->updateStmt;
     }
 
-    function findAll()
+    function selectAll()
     {
         return $this->selectAll;
     }

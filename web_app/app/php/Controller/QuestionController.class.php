@@ -66,7 +66,8 @@ class QuestionController extends Controller
             $this->question->insert(array(
                 $uid, $type, $to_user, $title, $content, $time
             ));
-            header("Location: ../../html/health.php");
+            $qid = $this->question->lastInsertQid();
+            header("Location: ../../html/question.php?qid=\" . $qid");
         } catch (Exception $e) {
             print_r($e);
         }
@@ -82,21 +83,22 @@ class QuestionController extends Controller
             $this->advice->insert(array(
                 $qid, $content, $ans_user, $time
             ));
-            // TODO see askQuestion
-            header("Location: ../../html/health.php");
+            header("Location: ../../html/question.php?qid=" . $qid);
         } catch (Exception $e) {
             print_r($e);
         }
     }
 
-    public function getQuestionAndAdvice() {
+    public function getQuestionAndAdvice()
+    {
         $qid = $_GET[self::QID];
         $this->ajaxReturn($this->question->findByKey($qid));
         echo Controller::SEPARATOR;
         $this->ajaxReturn($this->advice->findByKey($qid));
     }
 
-    public function getAll() {
+    public function getAll()
+    {
         $questions = $this->question->findAll();
         $this->ajaxReturn($questions);
     }

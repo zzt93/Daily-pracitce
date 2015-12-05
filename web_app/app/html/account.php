@@ -21,7 +21,7 @@ Controller::testLogIn();
 </head>
 <body onload="
 addLightBox('apply-link');
-addListChosenListener('side_nav_list', 'tabbed-block', 0);
+addListChosenListener('side_nav_list', 'tabbed-block');
 getHealthInfo();
 getAdviceInfo();
 getActivity();
@@ -423,7 +423,7 @@ getSetting();
                     <span>10/23/2015</span>--<span>This is a notice: ...</span>
                 </div>
             </div>
-            <section class="activity">
+            <section class="activity" style="display: none;">
                 <div class="horizontal-center"><p>Running Man</p></div>
                 <div class="activity-content">
                     <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as

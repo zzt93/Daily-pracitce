@@ -1,3 +1,9 @@
+<?php
+require_once '../php/Controller/Controller.class.php';
+Controller::testLogIn();
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,12 +18,19 @@
     <link rel="stylesheet" href="../styles/health-content.css">
     <link rel="stylesheet" href="../styles/main-header.css">
     <link rel="stylesheet" href="../styles/lightBox.css">
+    <link rel="stylesheet" href="../styles/ask-content-small.css">
+    <link rel="stylesheet" href="../styles/ask-content.css">
 
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
-<body onload="addLightBox('apply-link'); addListChosenListener('side_nav_list', 'tabbed-block', 0);">
+<body onload="
+addLightBox('apply-link');
+ addListChosenListener('side_nav_list', 'tabbed-block');
+ getUserAccountInfo();
+ getActivity();
+ ">
 <div id="light-box">
     <h3>Apply for:</h3>
 
@@ -45,8 +58,8 @@
         <p id="app-name">Fit</p>
 
         <form><p class="action">
-            <a href="health.php" class="fa fa-user"> log out</a>
-        </p>
+                <a href="health.php" class="fa fa-user"> log out</a>
+            </p>
         </form>
         <br>
     </section>
@@ -81,11 +94,12 @@
 
     <div id="tabbed-block" class="flex1">
 
+
         <div class="container" id="personal">
             <h3>Your public information</h3>
             <section class="personal-info flex-container-large" id="public-info">
                 <div class="avatar-wrapper none">
-                    <img class="resize" src="../images/user.png" alt="a user">
+                    <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
                         <input type="file" name="photo" title="choose a picture"/>
@@ -95,14 +109,14 @@
                 <div class="flex1 info-part">
                     <label for="DisplayName">Display name
                         <br>
-                        <input id="DisplayName" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                        <input id="DisplayName" value="" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Location
                         <br>
-                        <input name="Location" value="Nanjing, China" data-default="Nanjing, China" maxlength="100"
+                        <input id="Location" value="" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
@@ -113,9 +127,7 @@
                 <div class="flex1 info-part">
                     <h4> Your role
                     </h4>
-                    <ul>
-                        <li>admin</li>
-                        <li>user</li>
+                    <ul id="roles">
                     </ul>
 
                     <div class="apply-container" id="apply-container">
@@ -130,29 +142,31 @@
             <h3>Your private information</h3>
             <section class="personal-info" id="private-info">
                 <div>
-                    <label for="real-name">Real name
+                    <label for="age">Age
                         <br>
-                        <input id="real-name" value="Tony" data-default="Tony" maxlength="30" tabindex="1"
+                        <input id="age" value="" data-default="Tony" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Email
                         <br>
-                        <input name="email" value="xxx@gmail.com" maxlength="100"
+                        <input name="email" id="email" value="" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
-                    <label>Gender</label>
-                    <br>
-                    <label>
-                        <input type="radio" name="gender">Male
-                    </label>
-                    <label>
-                        <input type="radio" name="gender">Female
-                    </label>
-                    <label>
-                        <input type="radio" name="gender" checked="checked">Prefer not to say
+                    <label id="gender">Gender
+
+                        <br>
+                        <label>
+                            <input type="radio" name="gender">Prefer not to say
+                        </label>
+                        <label>
+                            <input type="radio" name="gender">Female
+                        </label>
+                        <label>
+                            <input type="radio" name="gender">Male
+                        </label>
                     </label>
                     <br>
                     <input type="submit" value="Submit changes">
@@ -235,12 +249,12 @@
                 <div class="user-statistic first-info">
                     <div class="user-choose">
                         <label>
-                        <input type="radio" name="users">
-                    </label></div>
+                            <input type="radio" name="users">
+                        </label></div>
                     <div class="user-choose">
                         <label>
-                        <input type="checkbox" name="users">
-                    </label></div>
+                            <input type="checkbox" name="users">
+                        </label></div>
                 </div>
                 <div class="user-statistic">
                     <h3><img src="../images/yellow-pin.png" alt=""></h3>
@@ -273,45 +287,107 @@
         </div>
 
         <div class="container" id="campaign">
-            <div class="post">
+            <section class="advice_head flex-container-large">
+                <form class="flex1 inner-search" id="advice-search">
+                    <label class="fa fa-search">
+                        <input type="search" class="search-input" placeholder="advice">
+                    </label>
+                </form>
+
+                <ul id="advice-tab" class="flex2">
+                    <li class="horizontal-li">
+                        <a href="#">View</a>
+                    </li>
+                    <li class="horizontal-li">
+                        <a href="#">New</a>
+                    </li>
+                    <br>
+                </ul>
+            </section>
+
+            <div class="post" id="post">
                 <div class="horizontal-center"><h3>Posts</h3></div>
                 <div class="notice">
-                    10/23/2015--This is a notice: ...
+                    <span>10/23/2015</span> -- <span>This is a notice: ...</span>
                     <a href="#" class="right-float">Edit</a>
                 </div>
             </div>
-            <section class="activity">
+            <section class="activity" style="display: none;">
                 <div class="horizontal-center"><p>Running Man</p></div>
                 <div class="activity-content">
-                    <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as
+                    <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1
+                        edges
+                        is as
                         small
                         as possible
                         proof: suppose the n-1 edges is not a connected graph, then we add some edges to make it
                         connected. Now, we have x (x>=n) edges, n vertices,
-                        but without a circle and it is impossible. So the n-1 edges is connected and without a circle,
+                        but without a circle and it is impossible. So the n-1 edges is connected and without a
+                        circle,
                         so it's a tree.
                     </article>
                     <a href="#" class="right-float">More</a>
                     <br class="clear-right">
                 </div>
                 <div class="activity-join right-float">
-                    <form action="post">
+                    <form action="../php/Controller/AdminController.class.php" method="post">
                         <input type="submit" value="edit">
                     </form>
                 </div>
             </section>
+
             <br>
+            <hr>
+            <section class="advices-body" style="display: block">
+                <h3>Add post:</h3>
+
+                <div class="advice-detail">
+                    <label for="post-detail">Details:</label>
+                    <br>
+                    <textarea form="addpost" name="content" id="post-detail" cols="30" rows="10"
+                              required></textarea>
+                </div>
+                <form id="addpost" action="../php/Controller/AdminController.class.php" method="post">
+                    <input type="hidden" name="funcName" value="addPost">
+                    <input type="submit" value="Add">
+                </form>
+            </section>
+            <section class="advices-body" style="display: block">
+                <h3>Add activity:</h3>
+
+                <div class="advice-title">
+                    <label for="activity-title">Title:</label>
+                    <br>
+                    <input form="activity" name="title" type="text" id="activity-title" required>
+                    <br>
+                    <label for="end">End time:</label>
+                    <br>
+                    <input form="activity" name="end" type="date" id="end" required>
+                </div>
+                <div class="advice-detail">
+                    <label for="activity-detail">Details:</label>
+                    <br>
+                    <textarea form="activity" name="content" id="activity-detail" cols="30" rows="10"
+                              required></textarea>
+                </div>
+                <form id="activity" action="../php/Controller/AdminController.class.php" method="post">
+                    <input type="hidden" name="funcName" value="addActivity">
+                    <input type="submit" value="Add">
+                </form>
+            </section>
+
         </div>
 
 
     </div>
 </div>
 </body>
-<footer>
-    <!-- copy from index-->
-</footer>
-log<script type="application/javascript" src="../scripts/lightBox.js"></script>
-<script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="../scripts/useLineChart.js"></script>
+<?php require("footer.php"); ?>
+<script type="application/javascript" src="../scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+
+<script type="application/javascript" src="../scripts/getUserData.js"></script>
+
+<script type="application/javascript" src="../scripts/lightBox.js"></script>
 
 </html>

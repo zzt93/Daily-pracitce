@@ -52,8 +52,9 @@ class AccountController extends Controller
         if (isset($user)) {
             $this->ajaxReturn($user);
         } else {
-            $this->setting->insert(array($uid));
-            $this->ajaxReturn($this->setting->findByKey($uid));
+            debug_backtrace();
+//            $this->setting->insert(array($uid));
+//            $this->ajaxReturn($this->setting->findByKey($uid));
         }
     }
 

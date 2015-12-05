@@ -19,7 +19,7 @@ class AdviceMapper extends Mapper
               FROM advice a JOIN question q ON a.qid = q.qid WHERE ans_user=?');
 
         $this->selectStmt = self::$db_handler->prepare(
-            'SELECT * FROM advice WHERE qid=?');
+            'SELECT a.*, u.uname FROM advice a JOIN user u on a.ans_user = u.uid WHERE qid=?');
         $this->updateStmt = self::$db_handler->prepare(
             'UPDATE advice SET content=? WHERE qid=?');
         $this->insertStmt = self::$db_handler->prepare(

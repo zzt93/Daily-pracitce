@@ -19,10 +19,11 @@ Controller::testLogIn();
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 </head>
 <body onload="
-addListChosenListener('side_nav_list', 'tabbed-block', 0);
+
+addListChosenListener('side_nav_list', 'tabbed-block');
 getQuestion();
 getActivity();
-getHealth();
+getHealthInfo();
 ">
 <header>
     <section id="main-header">
@@ -106,7 +107,7 @@ getHealth();
                         <td id="sta_heart-rate">..</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="account.php">More</a></th>
+                        <th colspan="3"><a href="account.php?now=1">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -136,7 +137,7 @@ getHealth();
                     </tr>
                     <tr>
                         <th class="fixed">Exercise</th>
-                        <td id="exercies"></td>
+                        <td id="exercise"></td>
                     </tr>
                     <tr>
                         <th colspan="3">
@@ -145,7 +146,7 @@ getHealth();
                                 Edit
                             </a>
                             <a href="javascript:void(0);"
-                               onclick="submitUpdate(this)"
+                               onclick="submitUpdate(this, 'editPlan')"
                                style="display: none"
                             >
                                 Submit
@@ -178,7 +179,7 @@ getHealth();
                         <td id="goal_upper">20</td>
                     </tr>
                     <tr>
-                        <th colspan="3"><a href="account.php">More</a></th>
+                        <th colspan="3"><a href="account.php?now=1">More</a></th>
                     </tr>
                     </tbody>
                 </table>
@@ -194,13 +195,13 @@ getHealth();
         </div>
 
         <div class="container" id="campaign">
-            <div class="post">
+            <div class="post" id="post">
                 <div class="horizontal-center"><h3>Posts</h3></div>
                 <div class="notice">
-                    10/23/2015--This is a notice: ...
+                    <span>10/23/2015</span> -- <span>This is a notice: ...</span>
                 </div>
             </div>
-            <section class="activity">
+            <section class="activity" style="display: none;">
                 <div class="horizontal-center"><p>Running Man</p></div>
                 <div class="activity-content">
                     <article>graph of n vertices without a circle and has a n-1 edges is a tree, and the n-1 edges is as
@@ -237,10 +238,10 @@ getHealth();
                         <a href="#advice">Tags</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.php">Ask public</a>
+                        <a href="ask-question.php?now=0">Ask public</a>
                     </li>
                     <li class="horizontal-li">
-                        <a href="ask-question.php">Ask private</a>
+                        <a href="ask-question.php?now=1">Ask private</a>
                     </li>
                     <br>
                 </ul>

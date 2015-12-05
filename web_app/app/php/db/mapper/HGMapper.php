@@ -10,6 +10,7 @@
 
 class HGMapper extends Mapper
 {
+
     function __construct()
     {
         parent::__construct();

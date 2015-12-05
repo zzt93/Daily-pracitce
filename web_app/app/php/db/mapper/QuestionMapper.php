@@ -40,6 +40,10 @@ class QuestionMapper extends Mapper
         return $this->selectAll;
     }
 
+    public function lastInsertQid() {
+        return self::$db_handler->lastInsertRowID();
+    }
+
     /**
      * @return SQLite3Stmt
      */

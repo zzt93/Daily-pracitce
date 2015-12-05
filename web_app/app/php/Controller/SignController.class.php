@@ -28,6 +28,7 @@ class SignController extends Controller
     const PASS = "password";
 
     private $userMapper;
+    private $setting;
 
     /**
      * SignController constructor.
@@ -38,6 +39,9 @@ class SignController extends Controller
         // parent::__construct();
         debug_backtrace();
         $this->userMapper = new UserMapper();
+        $this->plan = new PlanMapper();
+        $this->goal = new HGMapper();
+        $this->setting = new SettingMapper();
     }
 
 
@@ -52,6 +56,12 @@ class SignController extends Controller
         $suc = $this->userMapper->isSuccess($res, $this->userMapper->insertStmt);
         if ($suc) {
             $this->makeSession($this->userMapper->findByKey($userName));
+            // make a default setting for signed user
+            $uid = $_SESSION[Controller::UID];
+            $res = $this->plan->insert(array(1, $uid));
+            $res = $this->goal->insert(array($uid));
+            $this->setting->insert(array($uid));
+
             header("Location: ../../html/account.php");
         } else {
             header("Location: ../../html/signup.php");

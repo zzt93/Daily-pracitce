@@ -37,13 +37,13 @@ Controller::testLogIn();
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li>
-                <a href="health.php" onclick="nowSelected.changeTo(0)">健康管理</a>
+                <a href="health.php?now=0" onclick="nowSelected.changeTo(0)">健康管理</a>
             </li>
             <li>
-                <a href="health.php" onclick="nowSelected.changeTo(1)">健身活动</a>
+                <a href="health.php?now=1" onclick="nowSelected.changeTo(1)">健身活动</a>
             </li>
             <li class="tab-chosen">
-                <a href="health.php" onclick="nowSelected.changeTo(2)">健康建议</a>
+                <a href="health.php?now=2" onclick="nowSelected.changeTo(2)">健康建议</a>
             </li>
         </ul>
     </nav>
@@ -161,11 +161,13 @@ Controller::testLogIn();
 
                 <div class="advice-detail">
                     <label for="pri-question-detail"></label>
-                    <textarea name="question-detail" id="pri-question-detail"
+                    <textarea form="sub_answer" name="content" id="pri-question-detail"
                               cols="30" rows="10"></textarea>
                 </div>
-                <form action="../php/Controller/QuestionController.class.php" method="post">
+                <form action="../php/Controller/QuestionController.class.php" method="post" id="sub_answer" onsubmit="setQid()">
                     <input type="submit" value="Submit your answer">
+                    <input type="hidden" name="funcName" value="answerQuestion">
+                    <input type="hidden" name="qid" value="">
                 </form>
             </section>
         </div>

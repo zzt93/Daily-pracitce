@@ -75,7 +75,7 @@ abstract class Controller
         $this->$f();
     }
 
-    static function refreshRedirect($loc = '../../html/login.php')
+    static function refreshRedirect($loc = '../html/login.php')
     {
         header('Location: ' . $loc);
     }

@@ -59,13 +59,13 @@ function submitUpdate(link, funcName) {
     // make it can't edit
     var tds = table.find('td');
     tds.attr('contenteditable', 'false').removeClass('editable');
-    var tdsval = tds.val();
+    var data = {funcName: funcName};
+    tds.each(function() {
+        data[this.id] = this.innerHTML;
+    });
     $.post(
         '../php/Controller/AnalysisController.class.php',
-        {
-            funcName: funcName,
-            data: tdsval
-        },
+        data,
         function (data) {
             console.log(data);
             if (data === 'true') {

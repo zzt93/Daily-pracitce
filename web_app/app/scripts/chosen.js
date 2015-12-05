@@ -3,6 +3,15 @@
  *
  * Use to emulate the behaviour of tabs
  */
+function readGet() {
+    var parts = window.location.search.substr(1).split("&");
+    var $_GET = {};
+    for (var i = 0; i < parts.length; i++) {
+        var temp = parts[i].split("=");
+        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+    }
+    return $_GET;
+}
 
 
 function indexOfChildren(childrens, target) {
@@ -16,8 +25,17 @@ function indexOfChildren(childrens, target) {
     }
 }
 
+const NOW = 'now';
 
 var addListChosenListener = function (listId, contentsId, now) {
+    var $_GET = readGet();
+    if (typeof now === 'undefined') {
+        if (NOW in $_GET) {
+            now = $_GET[NOW];
+        } else {
+            now = 0;
+        }
+    }
     'use strict';
 
     var side = document.getElementById(listId);

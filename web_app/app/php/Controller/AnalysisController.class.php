@@ -31,7 +31,8 @@ class AnalysisController extends Controller
         $this->planMapper = new PlanMapper();
     }
 
-    public function getAnalysisData() {
+    public function getAnalysisData()
+    {
         $uid = $_SESSION[Controller::UID];
 //        echo $uid;
         $healthGoal = $this->HGMapper->findByKey($uid);
@@ -44,18 +45,66 @@ class AnalysisController extends Controller
         $this->ajaxReturn($plan);
     }
 
-    public function editPlan() {
-
+    public function editPlan()
+    {
+        $countPlan = $this->planMapper->countPlan()[PlanMapper::COUNT];
+//        print_r($_POST);
+        $pid = date('w') % $countPlan;
+//        echo $countPlan;
+        $res = $this->planMapper->update(
+            array(
+                $_POST['breakfast'], $_POST['lunch'],
+                $_POST['dinner'], $_POST['exercise']
+            ),
+            array(
+                $_SESSION[Controller::UID],
+                $pid
+            )
+        );
+        if ($this->planMapper->isSuccess($res, $this->planMapper->updateStmt())) {
+            echo 'true';
+        } else {
+            echo 'false';
+        }
     }
 
-    public function editAim() {
+    public function addPlan()
+    {
+        $countPlan = $this->planMapper->countPlan()[PlanMapper::COUNT];
+        $res = $this->planMapper->insert(
+            array(
+                $_SESSION[Controller::UID],
+                $countPlan + 1
+            )
+        );
+        $res = $this->planMapper->update(
+            array(
+                $_POST['breakfast'], $_POST['lunch'],
+                $_POST['dinner'], $_POST['exercise']
+            ),
+            array(
+                $_SESSION[Controller::UID],
+                $countPlan + 1
+            )
+        );
+        if ($this->planMapper->isSuccess($res, $this->planMapper->updateStmt())) {
+            echo 'true';
+        }
+        echo 'false';
+    }
 
+    public function editAim()
+    {
+        $this->HGMapper->update(array(
+            $_POST['walk'], $_POST['upper_limb'], $_POST['lower_limb']
+        ), $_SESSION[Controller::UID]);
     }
 
     /**
      * read data from xml file and insert HSMapper
      */
-    public function readTodayData() {
+    public function readTodayData()
+    {
         $xml = new xmlDataReader("../../data/2015-12-02");
         $data = $xml->getAllUnderUser();
 //        print_r((array)$data);

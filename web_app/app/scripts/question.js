@@ -14,8 +14,10 @@ function readGet() {
     return $_GET;
 }
 
+var qid;
+
 function getAdviceInfo() {
-    var qid = readGet()['qid'];
+    qid = readGet()['qid'];
     $.get(
         '../php/Controller/QuestionController.class.php',
         {
@@ -61,11 +63,19 @@ function getAdviceInfo() {
 
             try {
                 var advice = $.parseJSON(infos[1]);
-                makeAQblock('#advice', advice);
+                if (!Array.isArray(advice)) {
+                    makeAQblock('#advice', [advice]);
+                } else {
+                    makeAQblock('#advice', advice);
+                }
             } catch (e) {
                 console.error(e);
             }
 
         }
     );
+}
+
+function setQid() {
+    $('#sub_answer').find('input[name="qid"]').val(qid);
 }
