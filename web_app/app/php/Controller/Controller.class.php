@@ -74,7 +74,7 @@ abstract class Controller
 
     function distribute()
     {
-        // print_r($_POST);
+//         print_r($_POST);
         // print_r(debug_backtrace());
         if (isset($_POST[Controller::FUNC_NAME])) {
             $f = $_POST[Controller::FUNC_NAME];

@@ -314,42 +314,46 @@ function getSetting() {
 var fileState = function () {
     var state = false;
     return {
-        fileFine: function() {
+        fileFine: function () {
             return state;
         },
-        setState: function(s) {
+        setState: function (s) {
             state = s;
         }
     }
 }();
 
-function checkFile(change) {
+function checkFileAndUpload(change) {
     var file = change.files[0];
     var size = file.size;
     var type = file.type;
     if (size > 100 * 1024) {
         alert('file too large');
-        fileState.setState(false);
         return;
     }
     if (!type.contains('image')) {
         alert('file type not permitted');
-        fileState.setState(false);
+        return;
     }
-    fileState.setState(true);
+    var $avatar = $('#avatar-form');
+    var postData = new FormData($avatar[0]);
+    postData.append("funcName", "updateAvatar");
+    $.ajax({
+        url: '../php/Controller/AccountController.class.php',
+        type: "POST",
+        data: postData,
+        processData: false,
+        contentType: false,
+        success: function (data, textStatus, jqXHR) {
+            if (data === 'true') {
+                $("#avatar").fadeIn("fast").attr("src", URL.createObjectURL(file));
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+        }
+    });
 }
 
 function uploadFile(file) {
-    $.post(
-        '../php/Controller/AccountController.class.php',
-        {
-            funcName: 'updateAvatar'
-        },
-        function (res, textStatus) {
-            //console.log("status is: " + textStatus + " Response from server: " + res);
-            if (res === 'true') {
-                $(submit).css('background-color', res);
-            }
-        }
-    );
+
 }

@@ -1,0 +1,52 @@
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#example {
+    background-color: #e9e9e9;
+    font-family: Roboto, sans-serif;
+    font-weight: 100;
+    font-size: 18px;
+    padding: 20px;
+}
+
+.container {
+    margin: auto;
+    max-width: 800px;
+}
+
+div.avatar {
+    width: 100%;
+    display: inline-block;
+}
+
+div.avatar img {
+    width: 100%;
+    border-radius: 50% 50%;
+    box-shadow: black 0 0 5px;
+}
+
+p.quote {
+    font-size: 16px;
+    font-style: italic;
+}
+
+@media (min-width: 600px) {
+
+    div.avatar img {
+        width: 30%;
+        margin: 1%;
+        box-sizing: border-box;
+        float: left;
+    }
+
+    p.quote {
+        display: inline-block;
+        margin: 5em 0 5em 2em;
+        font-size: 16px;
+        font-style: italic;
+        max-width: 60%;
+    }
+}

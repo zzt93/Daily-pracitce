@@ -106,7 +106,21 @@ class AccountController extends Controller
     }
 
     function updateAvatar() {
+        $dir = '../../images/';
+        $destination = $dir . $_SESSION[Controller::UID];
 
+        echo '<pre>';
+        if (move_uploaded_file($_FILES['photo']['tmp_name'], $destination)) {
+            echo "File is valid, and was successfully uploaded.\n";
+            $this->userMapper->updateAvatar(substr($destination, 3));
+        } else {
+            echo "Possible file upload attack!\n";
+        }
+
+        echo 'Here is some more debugging info:';
+        print_r($_FILES);
+
+        print "</pre>";
     }
 
 }

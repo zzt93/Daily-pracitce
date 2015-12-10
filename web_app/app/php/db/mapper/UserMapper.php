@@ -20,6 +20,17 @@ class UserMapper extends Mapper
             'INSERT INTO user ( uname, email, password ) VALUES( ?, ?, ? )');
     }
 
+    public function updateAvatar($destination)
+    {
+        $stmt = self::$db_handler->prepare(
+            'UPDATE user SET icon_url=? WHERE uid=?');
+        $i = 1;
+        $stmt->bindValue($i++, $destination, Mapper::getType($destination));
+        $uid = $_SESSION[Controller::UID];
+        $stmt->bindValue($i, $uid, Mapper::getType($uid));
+        $stmt->execute();
+    }
+
 //    function update(DomainObject $object)
 //    {
 //        print "updating\n";

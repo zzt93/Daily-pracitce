@@ -101,7 +101,7 @@ getActivity();
                     <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
-                        <input type="file" name="photo" title="choose a picture" onchange="checkFile(this)">
+                        <input type="file" name="photo" title="choose a picture" onchange="checkFileAndUpload(this)">
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>

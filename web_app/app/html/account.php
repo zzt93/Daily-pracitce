@@ -108,7 +108,10 @@ getSetting();
                     <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
-                        <input type="file" name="photo" title="choose a picture" onchange="checkFile(this)" ">
+                        <form enctype="multipart/form-data" id="avatar-form">
+                            <input type="file" name="photo" title="choose a picture" onchange="checkFileAndUpload(this)">
+                            <input type="hidden" name="funcName" value="updateAvatar">
+                        </form>
                     </div>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>

@@ -1,0 +1,11 @@
+
+a {
+    color: #4c84d4;
+    text-decoration: none;
+    outline: none;
+}
+
+a:hover {
+    color: #42d2d6;
+}
+
