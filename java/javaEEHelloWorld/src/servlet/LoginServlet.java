@@ -1,7 +1,7 @@
 package servlet;
 
 
-import javax.servlet.RequestDispatcher;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +9,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by zzt on 12/9/15.
@@ -44,17 +49,62 @@ public class LoginServlet extends HttpServlet {
         String idStr = request.getParameter("sid");
         int sid = Integer.valueOf(idStr);
         String pw = request.getParameter("password");
-        boolean canlog = false;
 
-        HttpSession session = request.getSession(true);
-
-
-        // use the relative path of this servlet
-        RequestDispatcher view = request.getRequestDispatcher("course");
-        if (view == null) {
-            throw new RuntimeException("no course servlet");
+        Connection connection;
+        try {
+            connection = MyDataSource.getConnection();
+        } catch (NamingException | SQLException e) {
+            InternalError.forward(request, response, InternalError.INTERNAL_ERROR);
+            e.printStackTrace();
+            return;
         }
-        //        view.include(request, response);
-        view.forward(request, response);
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery("SELECT password FROM student WHERE sid = " + sid);
+            if (resultSet.next()) {
+                String dbPW = resultSet.getString("password");
+                if (!dbPW.equals(pw)) {
+                    goToLogIn(request, response);
+                    return;
+                }
+            } else {
+                goToLogIn(request, response);
+                return;
+            }
+        } catch (SQLException e) {
+            InternalError.forward(request, response, InternalError.INTERNAL_ERROR);
+            e.printStackTrace();
+            return;
+        }
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return;
+        }
+        HttpSession session = request.getSession(true);
+        session.setAttribute("sid", sid);
+
+        // use the path relative to this servlet
+        InternalError.forward(request, response, CourseServlet.COURSE);
     }
+
+    /**
+     * The difference between redirect and forward
+     * 1. redirect is client redirect, while forward is server side redirect
+     * 2. so, redirect will show the of url of target location,
+     * while forward show the url of original page with the new resources
+     * 3. so redirect is slow and forward is fast
+     * @param resp the response send back to client
+     * @throws ServletException
+     * @throws IOException
+     */
+    private void goToLogIn(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.setContentType("text/html");
+        PrintWriter out = resp.getWriter();
+        out.println("<head><title>" + "No such user or wrong password</title></head><body>");
+        out.println("Click <a href=" + req.getContextPath() + resp.encodeURL("/html/login.html") + ">here</a>");
+        out.println(" to retry log in. ");
+    }
+
 }
