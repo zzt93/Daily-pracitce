@@ -13,16 +13,20 @@ import java.io.IOException;
  * Usage:
  */
 public class LoggedServlet extends HttpServlet{
+    public static final String SID = "sid";
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         checkLogin(req, resp);
     }
 
-    public static void checkLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+    public static boolean checkLogin(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         HttpSession session = req.getSession(false);
         if (session == null) {
             resp.sendRedirect("html/login.html");
+            return false;
         }
+        return true;
     }
 
     @Override

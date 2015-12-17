@@ -83,7 +83,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         HttpSession session = request.getSession(true);
-        session.setAttribute("sid", sid);
+        session.setAttribute(LoggedServlet.SID, sid);
 
         // use the path relative to this servlet
         InternalError.forward(request, response, CourseServlet.COURSE);
@@ -103,6 +103,7 @@ public class LoginServlet extends HttpServlet {
         resp.setContentType("text/html");
         PrintWriter out = resp.getWriter();
         out.println("<head><title>" + "No such user or wrong password</title></head><body>");
+        out.println("<h2>" + "No such user or wrong password</h2></body>");
         out.println("Click <a href=" + req.getContextPath() + resp.encodeURL("/html/login.html") + ">here</a>");
         out.println(" to retry log in. ");
     }

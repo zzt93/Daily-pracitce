@@ -1,10 +1,14 @@
 package servlet;
 
+import filter.LogInFilter;
+
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,8 +22,8 @@ import java.sql.Statement;
  * Usage:
  */
 
-@WebServlet("/" + CourseServlet.COURSE)
-public class CourseServlet extends LoggedServlet {
+@WebServlet(CourseServlet.COURSE)
+public class CourseServlet extends HttpServlet {
 
     public static final String HEAD = "<!DOCTYPE html>\n" +
             "<html lang=\"en\">\n" +
@@ -29,33 +33,39 @@ public class CourseServlet extends LoggedServlet {
             "</head>\n" +
             "<body>\n" +
             "<table>\n" +
-            "    <caption>Your score</caption>\n" +
+            "    <caption>Your homework status</caption>\n" +
             "    <tbody>\n" +
             "    <tr>\n" +
             "        <th>sid</th>\n" +
             "        <th>cid</th>\n" +
-            "        <th>score</th>\n" +
+            "        <th>submit status</th>\n" +
             "    </tr>";
     private static final String END = "</tbody>\n" +
             "</table>\n" +
             "</body>\n" +
             "</html>";
-    public static final String COURSE = "course";
+
+    public static final String COURSE = LogInFilter.LOGGED_DIR + "course";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
         showCourse(req, resp);
     }
 
     private void showCourse(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String idStr = req.getParameter("sid");
-        int sid = Integer.valueOf(idStr);
+        int sid;
+        if (idStr == null) {
+            HttpSession session = req.getSession(false);
+            sid = (int) session.getAttribute(LoggedServlet.SID);
+        } else {
+            sid = Integer.valueOf(idStr);
+        }
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf8");
         PrintWriter out = resp.getWriter();
         out.print(HEAD);
-        Connection connection = null;
+        Connection connection;
         try {
             connection = MyDataSource.getConnection();
         } catch (NamingException | SQLException e) {
@@ -71,11 +81,11 @@ public class CourseServlet extends LoggedServlet {
                 out.print(resultSet.getInt(1) + "</th>\n" +
                         "        <th>");
                 out.print(resultSet.getInt(2) + "</th>\n");
-                int score = resultSet.getInt(3);
-                if (score < 60) {
-                    out.print("<th  style=\"color: red;\">" + score + "不及格");
+                boolean submit = resultSet.getBoolean(3);
+                if (!submit) {
+                    out.print("<th  style=\"color: red;\">未提交");
                 } else {
-                    out.print("<th>" + score);
+                    out.print("<th>已提交");
                 }
                 out.print("</th>\n" +
                         "</tr>");
@@ -97,7 +107,6 @@ public class CourseServlet extends LoggedServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
         showCourse(req, resp);
     }
 }

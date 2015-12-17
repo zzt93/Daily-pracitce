@@ -22,6 +22,9 @@ public class InternalError extends HttpServlet{
     public static final String INTERNAL_ERROR = "internalError";
 
     public static void forward(HttpServletRequest request, HttpServletResponse response, String servlet) {
+        /*
+        If the path begins with a "/" it is interpreted as relative to the current context root.
+         */
         RequestDispatcher dispatcher = request.getRequestDispatcher(servlet);
         if (dispatcher == null) {
             throw new RuntimeException("no such servlet: " + servlet);
