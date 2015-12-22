@@ -12,11 +12,18 @@ import java.io.IOException;
  * <p>
  * Usage:
  */
+
+/**
+ * @deprecated not to extends this class to test log in
+ * it is finished by filter
+ */
 public class LoggedServlet extends HttpServlet{
     public static final String SID = "sid";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        // never call super, it will sendError to client
+//        super.doGet(req, resp);
         checkLogin(req, resp);
     }
 

@@ -3,6 +3,7 @@ package servlet;
 import filter.LogInFilter;
 
 import javax.naming.NamingException;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +16,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by zzt on 12/10/15.
@@ -46,6 +48,17 @@ public class CourseServlet extends HttpServlet {
             "</html>";
 
     public static final String COURSE = LogInFilter.LOGGED_DIR + "course";
+    private static final AtomicInteger countOfInit = new AtomicInteger(0);
+
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        // it seems that only one instance will be created for a deployed app
+        // so the instance field is not thread safe, for all request ask for a
+        // single instance for response
+        countOfInit.getAndIncrement();
+        System.out.println(countOfInit);
+    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Created by zzt on 12/17/15.
  * <p>
- * Usage:
+ * Usage: Check the log in state before request reach the servlet
  */
 @WebFilter(
         urlPatterns = LogInFilter.LOGGED

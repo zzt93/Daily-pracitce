@@ -1,38 +1,35 @@
 package listener;
 
-import javax.servlet.ServletContextAttributeEvent;
-import javax.servlet.ServletContextAttributeListener;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpSessionEvent;
+import javax.servlet.http.HttpSessionListener;
 
 /**
  * Created by zzt on 12/16/15.
  * <p>
  * Usage:
  */
-public class LoginCounter implements ServletContextListener, ServletContextAttributeListener{
-    @Override
-    public void attributeAdded(ServletContextAttributeEvent scae) {
+@WebListener
+public class LoginCounter implements HttpSessionListener {
+    public static final String LOGGED_NUM = "LoggedNum";
+    private static int loggedCount = 0;
 
+    @Override
+    public synchronized void sessionCreated(HttpSessionEvent se) {
+        loggedCount++;
+        setLoggedNum(se);
     }
 
     @Override
-    public void attributeRemoved(ServletContextAttributeEvent scae) {
-
+    public synchronized void sessionDestroyed(HttpSessionEvent se) {
+        loggedCount--;
+        setLoggedNum(se);
     }
 
-    @Override
-    public void attributeReplaced(ServletContextAttributeEvent scae) {
-
-    }
-
-    @Override
-    public void contextInitialized(ServletContextEvent sce) {
-
-    }
-
-    @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-
+    public void setLoggedNum(HttpSessionEvent se) {
+        HttpSession session = se.getSession();
+        // send count info by global variable
+        session.setAttribute(LOGGED_NUM, loggedCount);
     }
 }

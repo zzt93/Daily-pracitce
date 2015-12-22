@@ -2,6 +2,7 @@ package servlet;
 
 
 import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,6 +33,7 @@ import java.sql.Statement;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -89,13 +91,15 @@ public class LoginServlet extends HttpServlet {
         InternalError.forward(request, response, CourseServlet.COURSE);
     }
 
+
+
     /**
-     * The difference between redirect and forward
-     * 1. redirect is client redirect, while forward is server side redirect
-     * 2. so, redirect will show the of url of target location,
-     * while forward show the url of original page with the new resources
-     * 3. so redirect is slow and forward is fast
+     * The difference between redirect and forward 1. redirect is client redirect, while forward is server side redirect
+     * 2. so, redirect will show the of url of target location, while forward show the url of original page with the new
+     * resources 3. so redirect is slow and forward is fast
+     *
      * @param resp the response send back to client
+     *
      * @throws ServletException
      * @throws IOException
      */

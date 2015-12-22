@@ -29,25 +29,37 @@ public class EncodingFilter implements Filter {
         replToken = fConfig.getInitParameter("token.name");
         replValue = fConfig.getInitParameter("token.value");
         if (null == replToken) {
-            throw new ServletException("TokenReplacementFilter named " + fConfig.getFilterName() +" missing token.name init parameter.");
+            throw new ServletException("TokenReplacementFilter named " + fConfig.getFilterName() + " missing token.name init parameter.");
         }
         if (null == replValue) {
-            throw new ServletException("TokenReplacementFilter named " + fConfig.getFilterName() +" missing token.value init parameter.");
+            throw new ServletException("TokenReplacementFilter named " + fConfig.getFilterName() + " missing token.value init parameter.");
         }
     }
 
+    /**
+     * When will this method be invoked? - ask for a resource; not invoked when returning resource to client
+     *
+     * @param request  User request
+     * @param response Real response or a stand-in response
+     * @param chain    Filters use the FilterChain to invoke the next filter in the chain, or if the calling filter is
+     *                 the last filter in the chain, to invoke the resource at the end of the chain.
+     *
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
-//        request.setCharacterEncoding("utf-8");
+        request.setCharacterEncoding("utf-8");
         /*
          * This method has no effect if it is called after getWriter has been called or after the response has been committed.
          * Note that the character encoding cannot be communicated via HTTP headers if the servlet does not specify a content
          * type; however, it is still used to encode text written via the servlet response's writer
          */
-//        response.setCharacterEncoding("utf-8");
+        response.setContentType("text/html;charset=utf-8");
 
-        // have to call this !!!
+        // have to call this to make request go to servlet
+        // so if it is return from this method, response is already set
         chain.doFilter(request, response);
     }
 
