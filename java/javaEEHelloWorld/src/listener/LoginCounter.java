@@ -1,5 +1,6 @@
 package listener;
 
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpSessionListener;
  * <p>
  * Usage:
  */
-@WebListener
+@WebListener()
 public class LoginCounter implements HttpSessionListener {
     public static final String LOGGED_NUM = "LoggedNum";
     private static int loggedCount = 0;
@@ -29,7 +30,8 @@ public class LoginCounter implements HttpSessionListener {
 
     public void setLoggedNum(HttpSessionEvent se) {
         HttpSession session = se.getSession();
+        ServletContext servletContext = session.getServletContext();
         // send count info by global variable
-        session.setAttribute(LOGGED_NUM, loggedCount);
+        servletContext.setAttribute(LOGGED_NUM, loggedCount);
     }
 }

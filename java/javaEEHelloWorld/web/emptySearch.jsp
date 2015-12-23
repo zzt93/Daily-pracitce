@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="keywords" class="javaBean.SearchBean" scope="page">
+<%--<jsp:useBean id="keywords" class="javaBean.SearchBean" scope="session">
+session will be created and keyword will always be the first search result
+--%>
     <jsp:setProperty name="keywords" property="keywords"/>
     <%--<jsp:setProperty name="keywords" property="keywords" param="keywords"/>--%>
 </jsp:useBean>

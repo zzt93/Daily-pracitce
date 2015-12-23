@@ -18,7 +18,6 @@ import java.io.IOException;
  * it is finished by filter
  */
 public class LoggedServlet extends HttpServlet{
-    public static final String SID = "sid";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

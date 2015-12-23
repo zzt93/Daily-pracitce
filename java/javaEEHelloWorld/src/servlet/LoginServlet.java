@@ -2,7 +2,6 @@ package servlet;
 
 
 import javax.naming.NamingException;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -34,6 +33,8 @@ import java.sql.Statement;
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 
+
+    public static final String SID = "sid";
 
     /**
      * @see HttpServlet#HttpServlet()
@@ -85,7 +86,7 @@ public class LoginServlet extends HttpServlet {
             return;
         }
         HttpSession session = request.getSession(true);
-        session.setAttribute(LoggedServlet.SID, sid);
+        session.setAttribute(SID, sid);
 
         // use the path relative to this servlet
         InternalError.forward(request, response, CourseServlet.COURSE);

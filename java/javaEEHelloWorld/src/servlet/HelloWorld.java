@@ -15,6 +15,7 @@ import java.io.PrintWriter;
  * Usage:
  */
 
+//@WebServlet("/") cause can't visit html file
 @WebServlet("/helloWorld")
 public class HelloWorld extends HttpServlet {
     @Override

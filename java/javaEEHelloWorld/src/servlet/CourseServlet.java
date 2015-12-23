@@ -1,9 +1,12 @@
 package servlet;
 
 import filter.LogInFilter;
+import filter.VisitCounter;
+import listener.LoginCounter;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,12 +46,11 @@ public class CourseServlet extends HttpServlet {
             "        <th>submit status</th>\n" +
             "    </tr>";
     private static final String END = "</tbody>\n" +
-            "</table>\n" +
-            "</body>\n" +
-            "</html>";
+            "</table>\n";
 
     public static final String COURSE = LogInFilter.LOGGED_DIR + "course";
     private static final AtomicInteger countOfInit = new AtomicInteger(0);
+    public static final String COURSE_ID = "cid";
 
     @Override
     public void init(ServletConfig config) throws ServletException {
@@ -70,13 +72,15 @@ public class CourseServlet extends HttpServlet {
         int sid;
         if (idStr == null) {
             HttpSession session = req.getSession(false);
-            sid = (int) session.getAttribute(LoggedServlet.SID);
+            sid = (int) session.getAttribute(LoginServlet.SID);
         } else {
             sid = Integer.valueOf(idStr);
         }
         resp.setContentType("text/html");
         resp.setCharacterEncoding("utf8");
         PrintWriter out = resp.getWriter();
+
+        // starting writing
         out.print(HEAD);
         Connection connection;
         try {
@@ -116,6 +120,17 @@ public class CourseServlet extends HttpServlet {
             return;
         }
         out.print(END);
+
+        // add count information
+        ServletContext servletContext = req.getServletContext();
+        Integer visited = (Integer) servletContext.getAttribute(VisitCounter.VISITED);
+        if (visited == null) {
+            visited = 0;
+        }
+        int logged = (int) servletContext.getAttribute(LoginCounter.LOGGED_NUM);
+        out.print("<h3>All online:" + (logged + visited) + "</h3>");
+        out.print("<h3>User:" + (logged) + "</h3>");
+        out.print("<h3>Visitor:" + (visited) + "</h3>");
     }
 
     @Override
