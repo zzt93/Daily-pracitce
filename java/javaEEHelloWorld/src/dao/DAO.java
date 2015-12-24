@@ -1,5 +1,6 @@
 package dao;
 
+import javaBean.Bean;
 import servlet.MyDataSource;
 
 import javax.naming.NamingException;
@@ -16,27 +17,48 @@ import java.util.ArrayList;
  */
 public abstract class DAO {
 
-    private Connection connection;
+    protected Connection connection;
+
     public DAO() throws SQLException, NamingException {
         connection = MyDataSource.getConnection();
     }
 
     /**
+     * @param t The key
      *
      * @return The sql statement which is a select statement using a unique/foreign key
      */
-    public abstract String getKeySelect();
-    public abstract <T, E> ArrayList<E> setKey(T t);
+    public abstract <T> PreparedStatement getKeySelect(T t) throws SQLException;
+
+
     public abstract String getUpdate();
+
     public abstract String getInsert();
 
-    public <E> ArrayList<E> keySelect() throws SQLException {
+    /**
+     * set key and select from table
+     *
+     * @param t   key
+     * @param <T> key type
+     * @param <E> result java bean
+     *
+     * @return java bean list
+     */
+    public <T, E extends Bean> ArrayList<E> keySelect(T t) throws SQLException {
         ArrayList<E> res = new ArrayList<>();
-        PreparedStatement preparedStatement = connection.prepareStatement(getKeySelect());
+        PreparedStatement preparedStatement = getKeySelect(t);
         ResultSet resultSet = preparedStatement.executeQuery();
         while (resultSet.next()) {
-//            res.add(resultSet.get);
+            selectRes(resultSet, res);
         }
         return res;
     }
+
+    public void close() throws SQLException {
+        connection.close();
+    }
+
+    protected abstract <E extends Bean> void selectRes(ResultSet resultSet, ArrayList<E> res) throws SQLException;
+
+
 }
