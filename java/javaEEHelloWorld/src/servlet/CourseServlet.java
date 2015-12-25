@@ -1,7 +1,9 @@
 package servlet;
 
+import dao.CourseDAO;
 import filter.LogInFilter;
 import filter.VisitCounter;
+import javaBean.CourseBean;
 import listener.LoginCounter;
 
 import javax.naming.NamingException;
@@ -19,6 +21,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -43,6 +46,7 @@ public class CourseServlet extends HttpServlet {
             "    <tr>\n" +
             "        <th>sid</th>\n" +
             "        <th>cid</th>\n" +
+            "        <th>course name</th>\n" +
             "        <th>submit status</th>\n" +
             "    </tr>";
     private static final String END = "</tbody>\n" +
@@ -97,10 +101,14 @@ public class CourseServlet extends HttpServlet {
                 out.print("<tr><th>");
                 out.print(resultSet.getInt(1) + "</th>\n" +
                         "        <th>");
-                out.print(resultSet.getInt(2) + "</th>\n");
+                out.print(resultSet.getInt(2) + "</th>\n" +
+                        "        <th>");
+                ArrayList<CourseBean> keySelect = new CourseDAO(connection).keySelect(resultSet.getInt(2));
+                assert keySelect.size() == 1;
+                out.print(keySelect.get(0).getCname() + "</th>\n");
                 boolean submit = resultSet.getBoolean(3);
                 if (!submit) {
-                    out.print("<th  style=\"color: red;\">未提交");
+                    out.print("<th style=\"color: red;\">未提交");
                 } else {
                     out.print("<th>已提交");
                 }

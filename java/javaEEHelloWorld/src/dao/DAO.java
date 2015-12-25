@@ -1,6 +1,5 @@
 package dao;
 
-import javaBean.Bean;
 import servlet.MyDataSource;
 
 import javax.naming.NamingException;
@@ -21,6 +20,10 @@ public abstract class DAO {
 
     public DAO() throws SQLException, NamingException {
         connection = MyDataSource.getConnection();
+    }
+
+    public DAO(Connection con) {
+        connection = con;
     }
 
     /**
@@ -44,7 +47,7 @@ public abstract class DAO {
      *
      * @return java bean list
      */
-    public <T, E extends Bean> ArrayList<E> keySelect(T t) throws SQLException {
+    public <T, E> ArrayList<E> keySelect(T t) throws SQLException {
         ArrayList<E> res = new ArrayList<>();
         PreparedStatement preparedStatement = getKeySelect(t);
         ResultSet resultSet = preparedStatement.executeQuery();
@@ -58,7 +61,7 @@ public abstract class DAO {
         connection.close();
     }
 
-    protected abstract <E extends Bean> void selectRes(ResultSet resultSet, ArrayList<E> res) throws SQLException;
+    protected abstract void selectRes(ResultSet resultSet, ArrayList res) throws SQLException;
 
 
 }

@@ -1,9 +1,9 @@
 package dao;
 
-import javaBean.Bean;
 import javaBean.CourseBean;
 
 import javax.naming.NamingException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,11 +16,20 @@ import java.util.ArrayList;
  */
 public class CourseDAO extends DAO{
 
-    private final PreparedStatement select;
+    private PreparedStatement select;
 
     public CourseDAO() throws SQLException, NamingException {
         super();
+        initStatement();
+    }
+
+    private void initStatement() throws SQLException {
         this.select = connection.prepareStatement("select * from course where cid = ?");
+    }
+
+    public CourseDAO(Connection connection) throws SQLException {
+        super(connection);
+        initStatement();
     }
 
     @Override
@@ -41,9 +50,14 @@ public class CourseDAO extends DAO{
     }
 
     @Override
-    protected <E extends Bean> void selectRes(ResultSet resultSet, ArrayList<E> res) throws SQLException {
+    protected void selectRes(ResultSet resultSet, ArrayList res) throws SQLException {
         int cid = resultSet.getInt(1);
         String cname = resultSet.getString(2);
         res.add(new CourseBean(cid, cname));
+    }
+
+    public static void main(String[] args) throws SQLException, NamingException {
+        ArrayList<CourseBean> keySelect = new CourseDAO().keySelect(2);
+        System.out.println(keySelect);
     }
 }

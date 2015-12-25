@@ -18,6 +18,12 @@ public class SocketConnection {
     private final PrintWriter out;
     private final BufferedReader in;
 
+    /**
+     *
+     * @param hostName server hostname
+     * @param portNumber This is a remote port number—the number of a port on the server computer
+     * @throws IOException
+     */
     public SocketConnection(String hostName, int portNumber) throws IOException {
         Socket echoSocket = new Socket(hostName, portNumber);
         out = new PrintWriter(echoSocket.getOutputStream(), true);

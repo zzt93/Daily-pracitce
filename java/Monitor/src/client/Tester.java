@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
  * Usage:
  */
 public class Tester {
-    ExecutorService executor = Executors.newFixedThreadPool(2);
+    ExecutorService executor = Executors.newCachedThreadPool();
 
     public Tester() {
         executor.execute(new Ping());
