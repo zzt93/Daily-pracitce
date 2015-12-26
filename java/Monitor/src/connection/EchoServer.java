@@ -1,11 +1,10 @@
-package server;
+package connection;
+
+import socketWay.server.SocketServer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -14,35 +13,30 @@ import java.util.concurrent.Executors;
  * <p>
  * Usage:
  */
-public class Echo implements Runnable {
+public class EchoServer implements Runnable {
 
-    private ServerSocket serverSocket;
-    public static final int LISTEN_PORT = 10000;
+    private WebConnection serverSocket;
 
-    public Echo() throws IOException {
+    public EchoServer() throws IOException {
         // listen on this port
-        serverSocket = new ServerSocket(LISTEN_PORT);
+//        serverSocket = ConnectionFactory.getSocketServer();
+        serverSocket = ConnectionFactory.getServerDatagram();
     }
 
     @Override
     public void run() {
         try {
-            Socket clientSocket = serverSocket.accept();
-            System.out.println("connected");
-            PrintWriter out =
-                    new PrintWriter(clientSocket.getOutputStream(), true);
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(clientSocket.getInputStream()));
+            PrintWriter out = serverSocket.getOut();
+            BufferedReader in = serverSocket.getIn();
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 out.println(inputLine);
                 System.out.println(inputLine);
             }
-            // Closing this socket will also close the socket's InputStream and OutputStream.
-            clientSocket.close();
+            serverSocket.close();
         } catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
-                    + LISTEN_PORT + " or listening for a connection");
+                    + SocketServer.LISTEN_PORT + " or listening for a connection");
             System.out.println(e.getMessage());
         }
 
@@ -51,7 +45,7 @@ public class Echo implements Runnable {
     public static void main(String[] args) {
         ExecutorService executor = Executors.newCachedThreadPool();
         try {
-            executor.execute(new Echo());
+            executor.execute(new EchoServer());
         } catch (IOException e) {
             e.printStackTrace();
         }

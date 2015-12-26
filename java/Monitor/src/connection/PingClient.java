@@ -1,26 +1,30 @@
-package client;
+package connection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by zzt on 12/24/15.
  * <p>
  * Usage:
  */
-public class Ping implements Runnable {
+public class PingClient implements Runnable {
 
     public static final String PING = "ping";
     public static final int WAIT = 1000;
-    public static final int DEFAULT_PORT = 10000;
     private PrintWriter out;
     private BufferedReader in;
 
-    public Ping() {
-        SocketConnection localhost;
+    public PingClient() {
+        WebConnection localhost;
         try {
-            localhost = new SocketConnection(SocketConnection.LOCALHOST, DEFAULT_PORT);
+            // change it here when use different connection method
+//            localhost = ConnectionFactory.getSocketClientConnection();
+//            localhost = ConnectionFactory.getServerUrl();
+            localhost = ConnectionFactory.getClientDatagram();
         } catch (IOException e) {
             e.printStackTrace();
             return;
@@ -50,12 +54,17 @@ public class Ping implements Runnable {
                 if (!equals) {
                     throw new RuntimeException("fail to receive return message");
                 } else {
-                    System.out.println("success");
+                    System.out.println("Client: ping success");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
+    }
+
+    public static void main(String[] args) {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(new PingClient());
     }
 }

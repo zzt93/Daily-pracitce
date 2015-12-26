@@ -1,4 +1,6 @@
-package client;
+package socketWay.client;
+
+import connection.WebConnection;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,12 +13,11 @@ import java.net.Socket;
  * <p>
  * Usage:
  */
-public class SocketConnection {
-
-    public static final String LOCALHOST = "localhost";
+public class SocketClientConnection implements WebConnection{
 
     private final PrintWriter out;
     private final BufferedReader in;
+    private final Socket client;
 
     /**
      *
@@ -24,18 +25,25 @@ public class SocketConnection {
      * @param portNumber This is a remote port number—the number of a port on the server computer
      * @throws IOException
      */
-    public SocketConnection(String hostName, int portNumber) throws IOException {
-        Socket echoSocket = new Socket(hostName, portNumber);
-        out = new PrintWriter(echoSocket.getOutputStream(), true);
+    public SocketClientConnection(String hostName, int portNumber) throws IOException {
+        client = new Socket(hostName, portNumber);
+        out = new PrintWriter(client.getOutputStream(), true);
         in = new BufferedReader(
-               new InputStreamReader(echoSocket.getInputStream()));
+               new InputStreamReader(client.getInputStream()));
     }
 
+    @Override
     public PrintWriter getOut() {
         return out;
     }
 
+    @Override
     public BufferedReader getIn() {
         return in;
+    }
+
+    @Override
+    public void close() throws IOException {
+        client.close();
     }
 }
