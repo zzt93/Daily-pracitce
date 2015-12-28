@@ -31,6 +31,7 @@ public class EchoServer implements Runnable {
             String inputLine;
             while ((inputLine = in.readLine()) != null) {
                 out.println(inputLine);
+                out.flush();
                 System.out.println(inputLine);
             }
             serverSocket.close();

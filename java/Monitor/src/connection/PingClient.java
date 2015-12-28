@@ -37,6 +37,8 @@ public class PingClient implements Runnable {
     public void run() {
         while (true) {
             out.println(PING);
+            // no need to add this, println will auto flush
+            // out.flush();
             try {
                 Thread.sleep(WAIT);
             } catch (InterruptedException e) {
@@ -52,7 +54,7 @@ public class PingClient implements Runnable {
                 }
                 boolean equals = s.equals(PING);
                 if (!equals) {
-                    throw new RuntimeException("fail to receive return message");
+                    throw new RuntimeException("fail to receive right message: " + s);
                 } else {
                     System.out.println("Client: ping success");
                 }
