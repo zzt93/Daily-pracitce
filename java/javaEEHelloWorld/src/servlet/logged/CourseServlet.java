@@ -1,10 +1,13 @@
-package servlet;
+package servlet.logged;
 
 import dao.CourseDAO;
 import filter.LogInFilter;
 import filter.VisitCounter;
 import javaBean.CourseBean;
 import listener.LoginCounter;
+import servlet.InternalError;
+import servlet.LoginServlet;
+import servlet.MyDataSource;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletConfig;
@@ -75,9 +78,11 @@ public class CourseServlet extends HttpServlet {
         String idStr = req.getParameter("sid");
         int sid;
         if (idStr == null) {
+            // direct browse this page
             HttpSession session = req.getSession(false);
             sid = (int) session.getAttribute(LoginServlet.SID);
         } else {
+            // redirected by log in page
             sid = Integer.valueOf(idStr);
         }
         resp.setContentType("text/html");
@@ -95,6 +100,7 @@ public class CourseServlet extends HttpServlet {
             return;
         }
         try {
+            CourseDAO courseDAO = new CourseDAO(connection);
             Statement stmt = connection.createStatement();
             ResultSet resultSet = stmt.executeQuery("SELECT * FROM score WHERE sid = " + sid);
             while (resultSet.next()) {
@@ -103,7 +109,7 @@ public class CourseServlet extends HttpServlet {
                         "        <th>");
                 out.print(resultSet.getInt(2) + "</th>\n" +
                         "        <th>");
-                ArrayList<CourseBean> keySelect = new CourseDAO(connection).keySelect(resultSet.getInt(2));
+                ArrayList<CourseBean> keySelect = courseDAO.selectByKey(resultSet.getInt(2));
                 assert keySelect.size() == 1;
                 out.print(keySelect.get(0).getCname() + "</th>\n");
                 boolean submit = resultSet.getBoolean(3);

@@ -1,13 +1,14 @@
 package servlet;
 
 
+import servlet.logged.CourseServlet;
+
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -85,13 +86,11 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             return;
         }
-        HttpSession session = request.getSession(true);
-        session.setAttribute(SID, sid);
+        SessionManagement.setSession(request, sid);
 
         // use the path relative to this servlet
         InternalError.forward(request, response, CourseServlet.COURSE);
     }
-
 
 
     /**

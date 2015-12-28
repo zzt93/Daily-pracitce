@@ -6,18 +6,14 @@
         version="2.1">
 
     <tlib-version>1.0</tlib-version>
-    <short-name>myshortname</short-name>
+    <short-name>util</short-name>
     <uri>http://mycompany.com</uri>
 
     <!-- Invoke 'Generate' action to add tags or functions -->
     <tag>
-        <name>course-name</name>
-        <tag-class>tag.CourseNameHandler</tag-class>
+        <name>logCheck</name>
+        <tag-class>tag.LogCheckHandler</tag-class>
         <body-content>empty</body-content>
-        <attribute>
-            <name>courseId</name>
-            <required>true</required>
-        </attribute>
     </tag>
 
 </taglib>

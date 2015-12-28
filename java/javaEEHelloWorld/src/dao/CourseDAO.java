@@ -57,7 +57,7 @@ public class CourseDAO extends DAO{
     }
 
     public static void main(String[] args) throws SQLException, NamingException {
-        ArrayList<CourseBean> keySelect = new CourseDAO().keySelect(2);
+        ArrayList<CourseBean> keySelect = new CourseDAO().selectByKey(2);
         System.out.println(keySelect);
     }
 }

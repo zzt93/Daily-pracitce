@@ -39,7 +39,7 @@ public abstract class DAO {
     public abstract String getInsert();
 
     /**
-     * set key and select from table
+     * set key(primary, unique, foreign) and select from table
      *
      * @param t   key
      * @param <T> key type
@@ -47,7 +47,7 @@ public abstract class DAO {
      *
      * @return java bean list
      */
-    public <T, E> ArrayList<E> keySelect(T t) throws SQLException {
+    public <T, E> ArrayList<E> selectByKey(T t) throws SQLException {
         ArrayList<E> res = new ArrayList<>();
         PreparedStatement preparedStatement = getKeySelect(t);
         ResultSet resultSet = preparedStatement.executeQuery();

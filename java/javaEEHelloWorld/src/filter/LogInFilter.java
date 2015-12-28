@@ -1,10 +1,9 @@
 package filter;
 
+import servlet.SessionManagement;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
@@ -26,16 +25,10 @@ public class LogInFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-            if (request instanceof HttpServletRequest
-                && response instanceof HttpServletResponse) {
-            HttpServletRequest req = (HttpServletRequest) request;
-            HttpServletResponse resp = (HttpServletResponse) response;
-            HttpSession session = req.getSession(false);
-            if (session == null) {
-                resp.sendRedirect(req.getContextPath() + "/html/login.html");
-                return;
-            }
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+            throws IOException, ServletException {
+        if (!SessionManagement.checkSession(request, response)) {
+            return;
         }
 
         chain.doFilter(request, response);
