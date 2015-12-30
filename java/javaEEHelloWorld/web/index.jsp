@@ -5,6 +5,8 @@
   Time: 2:37 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="util" uri="http://zzt.learning.com" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--default is create session when there is no session available--%>
 <%@page session="false" %>
@@ -27,17 +29,27 @@ hello
     }
 
 --%>
+<h3>
+    Parameters
+</h3>
 
-<br>
-<hr>
-
+<form action="index.jsp" method="post">
+    <label>Your name
+        <input type="text" name="name" value="${param.name}">
+    </label>
+    <label>Your birth year
+        <input type="number" name="birth_year" value="${param.birth_year}">
+    </label>
+    <input type="submit">
+</form>
+<p>your name is ${param.name}</p>
+<p>your age is ${util:computeAge(param.birth_year)}</p>
 <%--
     for (String parameter : parameters) {
         out.print(parameter + "->" + Arrays.toString(parameterMap.get(parameter)));
     }
 --%>
-<h3>
-</h3>
+
 
 <%--static include--%>
 <%@include file="html/footer.html" %>

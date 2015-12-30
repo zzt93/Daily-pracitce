@@ -24,6 +24,9 @@ public class TestRedirect extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.sendRedirect(req.getContextPath() + "/html/login.html");
+        // After using this method, the response should be considered to be committed
+        // and should not be written to.
+        // Writing to it produce no effect
         PrintWriter writer = resp.getWriter();
         writer.print("<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +

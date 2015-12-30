@@ -16,7 +16,10 @@ import java.io.PrintWriter;
  */
 
 //@WebServlet("/") cause can't visit html file
-@WebServlet("/helloWorld")
+@WebServlet(
+        urlPatterns = "/helloWorld",
+        smallIcon = "./logo.jpg"
+)
 public class HelloWorld extends HttpServlet {
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

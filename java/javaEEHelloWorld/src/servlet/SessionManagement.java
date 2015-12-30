@@ -22,8 +22,8 @@ public class SessionManagement {
     /**
      * if this method return false, the response should be considered to be committed and should not be written to.
      *
-     * @param request
-     * @param response
+     * @param request Assume httpServletRequest
+     * @param response Assume httpServletResponse
      *
      * @return whether there is a user login created session
      *

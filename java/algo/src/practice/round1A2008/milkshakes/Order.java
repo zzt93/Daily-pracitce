@@ -1,4 +1,4 @@
-package practice.Round1A2008.milkshakes;
+package practice.round1A2008.milkshakes;
 
 /**
  * Created by zzt on 3/30/15.

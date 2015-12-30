@@ -1,4 +1,4 @@
-package servlet;
+package servlet.test;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import java.io.PrintWriter;
  * Usage:
  */
 
-@WebServlet("/SessionServlet")
+@WebServlet(TestRedirect.TEST_DIR + "SessionServlet")
 public class SessionServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

@@ -1,4 +1,4 @@
-package practice.Round1A2008.milkshakes;
+package practice.round1A2008.milkshakes;
 
 import utility.MyIn;
 import utility.MyOut;
@@ -13,7 +13,7 @@ import java.util.List;
  * Created by zzt on 3/19/15.
  * <p/>
  * Description of problem:
- * You want to make N batches of practice.Round1A2008.milkshakes, so that:
+ * You want to make N batches of practice.round1A2008.milkshakes, so that:
  * <p/>
  * There is exactly one batch for each flavor of milkshake, and it is either malted or unmalted.
  * For each customer, you make at least one milkshake type that they like.
