@@ -1,6 +1,7 @@
-package remote;
+package hello;
 
 import javax.ejb.Remote;
+import javax.ejb.Remove;
 
 /**
  * Created by zzt on 12/30/15.
@@ -10,4 +11,7 @@ import javax.ejb.Remote;
 @Remote
 public interface Hello {
     String sayHello(String name);
+
+    @Remove
+    void remove();
 }

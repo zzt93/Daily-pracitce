@@ -9,7 +9,7 @@ import remote.Hello;
  */
 public class HelloClient {
     public static void main(String[] args) {
-        Hello hello = (Hello) EJBFactory.getEJB("ejb:/learnEJB//HelloBean!remote.Hello");
+        Hello hello = (Hello) JNDIFactory.getResource("ejb:/learnEJB_ejb//HelloEJB!remote.Hello");
         System.out.println(hello.sayHello("tom"));
     }
 }

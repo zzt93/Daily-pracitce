@@ -1,0 +1,91 @@
+* {
+    box-sizing: border-box;
+}
+
+#headline {
+    padding: 0.8em;
+    color: white;
+    font-family: Roboto, helvetica, arial, sans-serif;
+    font-weight: 100;
+    background-image: url(../images/hero.jpg);
+    background-size: cover;
+}
+
+#register {
+    background-color: rgba(57, 177, 164, 0.7);
+}
+
+#headline #register {
+    padding: 1em;
+}
+
+#headline #register h2 {
+    font-weight: 100;
+    margin: 0;
+}
+
+#headline #register label{
+    display: inline-block;
+    margin: 8px 0 0;
+}
+
+#headline #register input {
+    width: 100%;
+    height: 150%;
+    padding: 10px;
+}
+
+#headline #register input[type=submit] {
+    background-color: hsl(8, 70%, 54%);
+    color: white;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+.smaller-font {
+    font-size: 90%;
+}
+
+.on-logpanel {
+    color: #42d2d6;
+}
+
+.on-logpanel:hover {
+    border-bottom: 1px dashed white;
+}
+
+.inline-h2 {
+    display: inline-block;
+}
+
+@media (min-width: 600px) {
+    #headline {
+        padding: 20px 5%;
+    }
+
+    #headline #intro {
+        float: left;
+        font-weight: 200;
+        width: 50%;
+        font-size: 18px;
+        box-sizing: border-box;
+        padding-right: 10px;
+    }
+
+    #headline #register {
+        float: right;
+        padding: 20px;
+        width: 50%;
+        box-sizing: border-box;
+        font-weight: 300;
+    }
+
+    #headline br {
+        clear: both;
+    }
+
+}
+
