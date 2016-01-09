@@ -1,5 +1,6 @@
 package service.bean;
 
+import entity.Score;
 import entity.Student;
 import service.StudentManageService;
 

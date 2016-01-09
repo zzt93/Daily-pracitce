@@ -31,7 +31,7 @@ public class CourseBean implements CourseService{
 
     @Override
     public ArrayList<Course> allCourses() {
-        Query query = entityManager.createQuery("select c from course c");
+        Query query = entityManager.createQuery("SELECT c FROM Course c");
         return (ArrayList<Course>) query.getResultList();
     }
 

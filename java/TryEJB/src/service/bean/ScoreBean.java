@@ -1,6 +1,5 @@
 package service.bean;
 
-import entity.Course;
 import entity.Score;
 import service.ScoreService;
 
@@ -24,9 +23,20 @@ public class ScoreBean implements ScoreService {
 
     @Override
     public ArrayList<Score> studentCourses(int sid) {
-        Query query = entityManager.createQuery("from score c where c.sid = " + sid);
-        List list =query.getResultList();
-        entityManager.clear();//在处理大量实体的时候，如果不把已经处理过的实体从EntityManager中分离出来，将会消耗大量的内存；此方法分离内存中受管理的实体Bean，让VM进行垃圾回收
+        /**
+         * Though it looks like sql, your executing JPA Query Language;
+         * so you're selecting from Entities, not from tables.
+         */
+        Query query = entityManager.createNamedQuery(Score.FIND_STUDENT_S_SCORES);
+        query.setParameter(1, sid);
+//        Query query = entityManager.createQuery("select s from Score s where s.student.sid = 1");
+        List list = query.getResultList();
+        /*
+        Clear the persistence context, causing all managed entities to become detached. -- make
+        some entities can be garbage collected
+        Changes made to entities that have not been flushed to the database will not be persisted.
+         */
+        entityManager.clear();
         return (ArrayList<Score>) list;
     }
 }

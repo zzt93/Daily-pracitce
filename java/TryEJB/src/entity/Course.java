@@ -14,6 +14,8 @@ import java.util.Set;
 @Table(name = "course")
 public class Course implements Serializable {
 
+    public static final long serialVersionUID = 42L;
+
     int cid;
     String cname;
 
@@ -45,15 +47,18 @@ public class Course implements Serializable {
     Used in the mapping of associations. It is specified on the owning side of an association.
     table `course` join table `score` using a column cid which is named courseId, so that to
     get the students choose the some specific course(which is a course entity)
-    i.e. specify the courseId as foreign key to join score's primary key
-    i.e. specify the studentId as the foreign key to join score's primary key
+    i.e. specify the courseId as foreign key of score to join with this table's primary key
+    i.e. specify the studentId as the foreign key of score to join with this table's primary key
+
+    name: the foreign key name in the score
+    referencedColumnName: the name in the course/student
      */
     @JoinTable(
             name = "score",
             joinColumns =
-            @JoinColumn(name = "courseId", referencedColumnName = "cid"),
+            @JoinColumn(name = "cid", referencedColumnName = "cid"),
             inverseJoinColumns =
-            @JoinColumn(name = "studentId", referencedColumnName = "sid")
+            @JoinColumn(name = "sid", referencedColumnName = "sid")
     )
     public Set<Student> getStudents() {
         return students;

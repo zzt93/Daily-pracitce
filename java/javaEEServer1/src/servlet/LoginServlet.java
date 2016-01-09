@@ -1,9 +1,10 @@
 package servlet;
 
 
+import remote.JNDIFactory;
+import service.StudentManageService;
 import servlet.logged.CourseServlet;
 
-import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
  * Created by zzt on 12/9/15.
@@ -54,42 +51,20 @@ public class LoginServlet extends HttpServlet {
         int sid = Integer.valueOf(idStr);
         String pw = request.getParameter("password");
 
-        Connection connection;
-        try {
-            connection = MyDataSource.getConnection();
-        } catch (NamingException | SQLException e) {
-            InternalError.forward(request, response, InternalError.INTERNAL_ERROR);
-            e.printStackTrace();
+        StudentManageService studentManageService
+                = (StudentManageService) JNDIFactory.getResource("ejb:/TryEJB//StudentManageEJB!service.StudentManageService");
+        if (studentManageService == null) {
+            InternalRedirect.forward(request, response, InternalRedirect.INTERNAL_ERROR);
             return;
         }
-        try {
-            Statement stmt = connection.createStatement();
-            ResultSet resultSet = stmt.executeQuery("SELECT password FROM student WHERE sid = " + sid);
-            if (resultSet.next()) {
-                String dbPW = resultSet.getString("password");
-                if (!dbPW.equals(pw)) {
-                    goToLogIn(request, response);
-                    return;
-                }
-            } else {
-                goToLogIn(request, response);
-                return;
-            }
-        } catch (SQLException e) {
-            InternalError.forward(request, response, InternalError.INTERNAL_ERROR);
-            e.printStackTrace();
-            return;
-        }
-        try {
-            connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        if (!studentManageService.loginStudent(sid, pw)) {
+            goToLogIn(request, response);
             return;
         }
         SessionManagement.setSession(request, sid);
 
         // use the path relative to this servlet
-        InternalError.forward(request, response, CourseServlet.COURSE);
+        InternalRedirect.forward(request, response, CourseServlet.COURSE);
     }
 
 

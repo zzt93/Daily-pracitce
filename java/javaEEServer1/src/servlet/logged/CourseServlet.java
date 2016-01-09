@@ -8,7 +8,7 @@ import listener.LoginCounter;
 import remote.JNDIFactory;
 import service.CourseService;
 import service.ScoreService;
-import servlet.InternalError;
+import servlet.InternalRedirect;
 import servlet.LoginServlet;
 
 import javax.servlet.ServletConfig;
@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -91,11 +90,11 @@ public class CourseServlet extends HttpServlet {
         out.print(HEAD);
 
         CourseService courseService
-                = (CourseService) JNDIFactory.getResource("java:/TryEJB//CourseEJB!service.CourseService");
+                = (CourseService) JNDIFactory.getResource("ejb:/TryEJB//CourseEJB!service.CourseService");
         ScoreService scoreService
-                = (ScoreService) JNDIFactory.getResource("java;/TryEJB//ScoreEJB!service.ScoreService");
+                = (ScoreService) JNDIFactory.getResource("ejb:/TryEJB//ScoreEJB!service.ScoreService");
         if (courseService == null || scoreService == null) {
-            InternalError.forward(req, resp, InternalError.INTERNAL_ERROR);
+            InternalRedirect.forward(req, resp, InternalRedirect.INTERNAL_ERROR);
             return;
         }
         ArrayList<Score> scores = scoreService.studentCourses(sid);

@@ -10,14 +10,24 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "score")
-public class Score implements Serializable{
+@NamedQuery(query = "Select s from Score s where s.student.sid = ?1", name = Score.FIND_STUDENT_S_SCORES)
+public class Score implements Serializable {
+
+    public static final long serialVersionUID = 42L;
 
 
+
+    public static final String FIND_STUDENT_S_SCORES = "find student's scores";
     int subid;
     boolean submit;
 
     private Student student;
     private Course course;
+    /*
+    foreign key is not listed, but referenced!!!
+    private int sid;
+    private int cid;
+    */
 
     public Score() {
     }
@@ -39,14 +49,15 @@ public class Score implements Serializable{
     @ManyToOne(cascade = CascadeType.ALL)
     /*
     JoinColumn is somewhat like specify the foreign key of this table
+    **the name have to be the same with table**
      */
-    @JoinColumn(name = "studentId")
+    @JoinColumn(name = "sid")
     public Student getStudent() {
         return student;
     }
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "courseId")
+    @JoinColumn(name = "cid")
     public Course getCourse() {
         return course;
     }

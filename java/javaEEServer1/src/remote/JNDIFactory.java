@@ -23,6 +23,12 @@ public class JNDIFactory {
          prefix.schemeId.schemeIdURLContextFactory
          * Note: 1. A schema specifies the types of objects that a directory may contain.
          *       2. other properties are stored in the jboss-ejb-client-properties
+         *
+         * This is necessary because we should let the JNDI API know
+         * what handles the ejb: namespace that we use in our JNDI names for lookup.
+         * The "org.jboss.ejb.client.naming" has a URLContextFactory implementation
+         * which will be used by the JNDI APIs to parse and return an object
+         * for ejb: namespace lookups.
          */
         properties.put(Context.URL_PKG_PREFIXES, "org.jboss.ejb.client.naming");
         try {

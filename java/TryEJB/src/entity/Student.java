@@ -22,6 +22,11 @@ import java.util.Set;
 @Entity
 @Table(name = "student")
 public class Student implements Serializable {
+
+    public static final long serialVersionUID = 42L;
+
+
+
     public Student() {
     }
 
