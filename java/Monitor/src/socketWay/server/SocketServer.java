@@ -2,10 +2,7 @@ package socketWay.server;
 
 import connection.WebConnection;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -27,9 +24,9 @@ public class SocketServer implements WebConnection {
         ServerSocket serverSocket = new ServerSocket(listenPort);
         accept = serverSocket.accept();
         System.out.println("connected");
-        out = new PrintWriter(accept.getOutputStream(), true);
+        out = new PrintWriter(new OutputStreamWriter(accept.getOutputStream(), "utf8"), true);
         in = new BufferedReader(
-                new InputStreamReader(accept.getInputStream()));
+                new InputStreamReader(accept.getInputStream(), "utf8"));
     }
 
     @Override

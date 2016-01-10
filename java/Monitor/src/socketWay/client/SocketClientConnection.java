@@ -2,10 +2,7 @@ package socketWay.client;
 
 import connection.WebConnection;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 
 /**
@@ -13,23 +10,23 @@ import java.net.Socket;
  * <p>
  * Usage:
  */
-public class SocketClientConnection implements WebConnection{
+public class SocketClientConnection implements WebConnection {
 
     private final PrintWriter out;
     private final BufferedReader in;
     private final Socket client;
 
     /**
-     *
-     * @param hostName server hostname
+     * @param hostName   server hostname
      * @param portNumber This is a remote port number—the number of a port on the server computer
+     *
      * @throws IOException
      */
     public SocketClientConnection(String hostName, int portNumber) throws IOException {
         client = new Socket(hostName, portNumber);
-        out = new PrintWriter(client.getOutputStream(), true);
+        out = new PrintWriter(new OutputStreamWriter(client.getOutputStream(), "utf8"), true);
         in = new BufferedReader(
-               new InputStreamReader(client.getInputStream()));
+                new InputStreamReader(client.getInputStream(), "utf8"));
     }
 
     @Override

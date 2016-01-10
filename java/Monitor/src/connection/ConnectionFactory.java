@@ -6,6 +6,7 @@ import socketWay.server.SocketServer;
 import urlWay.UrlConnection;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -28,11 +29,11 @@ public class ConnectionFactory {
         return new UrlConnection("http://" + WebConnection.LOCALHOST + ":" + WebConnection.SERVER_LISTENED_PORT);
     }
 
-    public static P2PDatagram getClientDatagram() throws SocketException, UnknownHostException {
+    public static P2PDatagram getClientDatagram() throws SocketException, UnknownHostException, UnsupportedEncodingException {
         return new P2PDatagram(WebConnection.CLIENT_PORT, WebConnection.LOCALHOST, WebConnection.SERVER_LISTENED_PORT);
     }
 
-    public static P2PDatagram getServerDatagram() throws SocketException, UnknownHostException {
+    public static P2PDatagram getServerDatagram() throws SocketException, UnknownHostException, UnsupportedEncodingException {
         return new P2PDatagram(WebConnection.SERVER_LISTENED_PORT, WebConnection.LOCALHOST, WebConnection.CLIENT_PORT);
     }
 

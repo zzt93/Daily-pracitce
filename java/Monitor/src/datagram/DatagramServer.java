@@ -10,6 +10,7 @@ import java.io.PrintWriter;
  * Created by zzt on 12/26/15.
  * <p>
  * Usage:
+ * @implNote this is not implemented now, aim to broadcast to registered client
  */
 public class DatagramServer implements WebConnection {
 
