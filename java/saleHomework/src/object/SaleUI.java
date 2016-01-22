@@ -1,51 +1,45 @@
-package layered.view;
+package object;
 
 import call.SalePrompt;
-import layered.bl.SaleBL;
-import layered.bl.UserBL;
-import object.SaleDelegate;
 import sharedByDifferentStyle.User;
 
 import java.util.Scanner;
 
 /**
- * Created by zzt on 1/22/16.
+ * Created by zzt on 1/21/16.
  * <p>
  * Usage:
  */
 public class SaleUI {
 
-    private final Scanner in;
-    private SaleBL saleBL;
-    private UserBL userBL;
-    private SaleDelegate saleDelegate;
+    private Scanner scanner;
+    private final SaleDelegate saleDelegate;
 
     public SaleUI(Scanner scanner) {
-        in = scanner;
-        saleBL = SaleBL.getInstance();
-        userBL = UserBL.getInstance();
+        this.scanner = scanner;
+        saleDelegate = new SaleDelegate(new SimpleGoodsPrinter());
     }
 
     public void sale() {
         System.out.println("sale started");
 
         System.out.println("input user account and password for this sale:");
-        User user = userBL.getUser(in.next(), in.next());
-        saleDelegate = saleBL.getSale(user);
-        in.nextLine();
+        User user = new User(scanner.next(), scanner.next());
+        saleDelegate.setUser(user);
+        scanner.nextLine();
 
-        SalePrompt.addGoodsPrompt(saleDelegate.getSale(), in);
+        SalePrompt.addGoodsPrompt(saleDelegate.getSale(), scanner);
         System.out.println("sum: " + saleDelegate.getSum());
         System.out.println("after strategy: " + saleDelegate.getActual());
     }
 
     public void charge() {
         System.out.println("now pay how much?");
-        int pay = in.nextInt();
+        int pay = scanner.nextInt();
         while (!saleDelegate.validPay(pay)) {
             System.out.println("you should pay more");
             System.out.println("now pay how much?");
-            pay = in.nextInt();
+            pay = scanner.nextInt();
         }
         System.out.println("now give you change: " + saleDelegate.change(pay));
     }
@@ -54,3 +48,4 @@ public class SaleUI {
         saleDelegate.print();
     }
 }
+

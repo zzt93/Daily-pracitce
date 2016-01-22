@@ -17,4 +17,10 @@ public class GoodsItem {
     public double getPrice() {
         return goods.getPrice() * num;
     }
+
+    @Override
+    public String toString() {
+        return goods.getName() + "----------" +
+                goods.getPrice() + "*" + num + "\n";
+    }
 }

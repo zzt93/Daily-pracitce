@@ -1,8 +1,6 @@
-package layered.view;
+package mvc;
 
 import call.SalePrompt;
-import layered.bl.SaleBL;
-import layered.bl.UserBL;
 import object.SaleDelegate;
 import sharedByDifferentStyle.User;
 
@@ -13,25 +11,24 @@ import java.util.Scanner;
  * <p>
  * Usage:
  */
-public class SaleUI {
+public class Controller {
 
-    private final Scanner in;
-    private SaleBL saleBL;
-    private UserBL userBL;
+    private final SaleView view;
+    private UserModel userModel = new UserModel();
+    private SaleModel saleModel = new SaleModel();
     private SaleDelegate saleDelegate;
 
-    public SaleUI(Scanner scanner) {
-        in = scanner;
-        saleBL = SaleBL.getInstance();
-        userBL = UserBL.getInstance();
+    public Controller(SaleView saleView) {
+        view = saleView;
     }
 
     public void sale() {
         System.out.println("sale started");
 
         System.out.println("input user account and password for this sale:");
-        User user = userBL.getUser(in.next(), in.next());
-        saleDelegate = saleBL.getSale(user);
+        Scanner in = view.getIn();
+        User user = getUser(in.next(), in.next());
+        saleDelegate = saleModel.getSale(user);
         in.nextLine();
 
         SalePrompt.addGoodsPrompt(saleDelegate.getSale(), in);
@@ -39,8 +36,13 @@ public class SaleUI {
         System.out.println("after strategy: " + saleDelegate.getActual());
     }
 
+    private User getUser(String name, String pw) {
+        return userModel.getUser(name, pw);
+    }
+
     public void charge() {
         System.out.println("now pay how much?");
+        Scanner in = view.getIn();
         int pay = in.nextInt();
         while (!saleDelegate.validPay(pay)) {
             System.out.println("you should pay more");
