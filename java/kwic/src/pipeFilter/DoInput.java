@@ -24,7 +24,7 @@ public class DoInput implements Runnable{
         while (in.hasNextLine()) {
             String line = in.nextLine();
             try {
-                input2shift.put(line);
+                input2shift.put(new SimpleStringMessage(line));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

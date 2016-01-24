@@ -1,31 +1,18 @@
 package pipeFilter;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
- * Created by zzt on 1/14/16.
+ * Created by zzt on 1/24/16.
  * <p>
  * Usage:
  */
-public class QueuePipe {
+public interface QueuePipe {
+    void put(StringMessage s) throws InterruptedException;
 
-    BlockingQueue<String> queue = new ArrayBlockingQueue<>(100);
+    StringMessage take() throws InterruptedException;
 
-    public void put(String s) throws InterruptedException {
-        queue.put(s);
-    }
+    StringMessage peek();
 
-    public String take() throws InterruptedException {
-        return queue.take();
-    }
-
-    /**
-     * Retrieves, but does not remove, the head of this queue, or returns null if this queue is empty.
-     *
-     * @return the head of this queue, or null if this queue is empty
-     */
-    public String peek() {
-        return queue.peek();
-    }
+    StringMessage poll(long timeout) throws InterruptedException;
 }

@@ -1,6 +1,5 @@
 package pipeFilter;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -8,8 +7,9 @@ import java.util.ArrayList;
  * <p>
  * Usage:
  */
-public class Shift implements Runnable{
+public class Shift implements Runnable {
 
+    public static final String SPACE = " ";
     QueuePipe shift2Sort;
     QueuePipe input2shift;
 
@@ -20,24 +20,40 @@ public class Shift implements Runnable{
 
     @Override
     public void run() {
-        String line = input2shift.peek();
-        while (line != null) {
+        while (true) {
+            StringMessage line;
             try {
                 line = input2shift.take();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                return;
             }
             // shift words in line and put them in next pipe
-            ArrayList<String> strings = shift(line);
-            //
-            line = input2shift.peek();
+            ArrayList<String> strings = shift(line.getMessage());
+            // put it to next pipe
+            strings.forEach(s -> {
+                try {
+                    shift2Sort.put(new SimpleStringMessage(s));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            });
         }
     }
 
     private ArrayList<String> shift(String line) {
         ArrayList<String> res = new ArrayList<>();
         res.add(line);
-
+        String[] split = line.split(SPACE);
+        int len = split.length;
+        for (int i = 1; i < len; i++) {
+            String str = "";
+            for (int j = 0; j < len - 1; j++) {
+                str += split[(i + j) % len] + SPACE;
+            }
+            str += split[(i + len - 1) % len];
+            res.add(str);
+        }
         return res;
     }
 }

@@ -1,4 +1,4 @@
-package event;
+package event.basic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
