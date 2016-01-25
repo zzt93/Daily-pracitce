@@ -8,14 +8,21 @@ import java.util.ArrayList;
  * Usage:
  */
 public class Input {
-    ArrayList<String> inputs = new ArrayList<>();
-
+    private ArrayList<String> inputs = new ArrayList<>();
 
     public Input(String input) {
         inputs.add(input);
     }
 
+    public Input(ArrayList<String> strings) {
+        inputs = strings;
+    }
+
     public void more(String string) {
         inputs.add(string);
+    }
+
+    public ArrayList<String> getInputs() {
+        return inputs;
     }
 }

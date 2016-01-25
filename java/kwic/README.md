@@ -36,3 +36,8 @@ Make the system interactive
 allow the user to delete lines from original list and re-output alphabetized list
 Performance: Both space and time
 Reuse: To what extent can the components serve as reusable entities
+
+
+## Question:
+ - pipe and filter: change of data representation from string to line with index?
+ - event: code duplication of children of InputEvent

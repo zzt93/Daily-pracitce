@@ -5,7 +5,18 @@ package event.basic;
  * <p>
  * Usage:
  */
-public interface InputEvent {
-    String getDescription();
-    String getInput();
+public abstract class InputEvent {
+    private Input input;
+
+    public String getDescription() {
+        return this.getClass().getName() + ":" + input;
+    }
+
+    public Input getInput() {
+        return input;
+    }
+
+    public void setInput(Input input) {
+        this.input = input;
+    }
 }

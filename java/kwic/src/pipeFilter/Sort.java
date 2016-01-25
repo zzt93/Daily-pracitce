@@ -11,6 +11,7 @@ import java.util.Comparator;
  */
 public class Sort implements Runnable {
 
+    public static final int TIMEOUT = 3;
     private final QueuePipe shift2Sort;
     private final QueuePipe sort2output;
 
@@ -26,7 +27,9 @@ public class Sort implements Runnable {
         while (true) {
             StringMessage line = null;
             try {
-                line = shift2Sort.poll(3);
+                // using the timeout to indicate whether it is finished
+                // changing to a special StringMessage may be better way
+                line = shift2Sort.poll(TIMEOUT);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

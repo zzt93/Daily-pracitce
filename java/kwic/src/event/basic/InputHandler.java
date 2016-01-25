@@ -6,5 +6,5 @@ package event.basic;
  * Usage:
  */
 public interface InputHandler {
-    void sendInput(Input input);
+    void receive(Input input);
 }

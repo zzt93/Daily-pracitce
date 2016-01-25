@@ -41,7 +41,7 @@ public class Shift implements Runnable {
         }
     }
 
-    private ArrayList<String> shift(String line) {
+    public static ArrayList<String> shift(String line) {
         ArrayList<String> res = new ArrayList<>();
         res.add(line);
         String[] split = line.split(SPACE);
