@@ -14,6 +14,12 @@ import java.util.Collections;
  * Usage:
  */
 public class DoSort implements InputHandler {
+
+    public DoSort() {
+        EventRouter.register(InputFinishedEvent.class, this);
+        this.new PrepareSort();
+    }
+
     private ArrayList<String> inputs = new ArrayList<>();
 
     @Override
@@ -28,6 +34,10 @@ public class DoSort implements InputHandler {
     }
 
     class PrepareSort implements InputHandler {
+
+        private PrepareSort() {
+            EventRouter.register(ShiftedInputEvent.class, this);
+        }
 
         @Override
         public void receive(Input input) {

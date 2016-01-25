@@ -18,15 +18,12 @@ public class EventTester {
         ExecutorService executor = Executors.newCachedThreadPool();
 
         DoInput doInput = new DoInput(new MyIn("test"));
-        DoShift doShift = new DoShift();
-        DoSort doSort = new DoSort();
-        DoSort.PrepareSort prepareSort = doSort.new PrepareSort();
-        DoOutput doOutput = new DoOutput();
-        EventRouter.register(SimpleInputEvent.class, doShift);
-        EventRouter.register(InputFinishedEvent.class, doSort);
-        EventRouter.register(ShiftedInputEvent.class, prepareSort);
-        EventRouter.register(SortedEvent.class, doOutput);
+        new DoShift();
+        new DoSort();
+        new DoOutput();
 
         executor.execute(doInput);
+        // without it, this program will not finish
+        executor.shutdown();
     }
 }

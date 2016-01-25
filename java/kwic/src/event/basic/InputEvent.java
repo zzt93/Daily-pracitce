@@ -13,7 +13,7 @@ public abstract class InputEvent {
     }
 
     public Input getInput() {
-        return input;
+        return new Input(input);
     }
 
     public void setInput(Input input) {

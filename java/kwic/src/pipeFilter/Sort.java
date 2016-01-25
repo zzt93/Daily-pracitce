@@ -28,7 +28,8 @@ public class Sort implements Runnable {
             StringMessage line = null;
             try {
                 // using the timeout to indicate whether it is finished
-                // changing to a special StringMessage may be better way
+                // changing to a special StringMessage may be a better way
+                // e.g. A StringMessage with null message
                 line = shift2Sort.poll(TIMEOUT);
             } catch (InterruptedException e) {
                 e.printStackTrace();

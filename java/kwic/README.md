@@ -40,4 +40,6 @@ Reuse: To what extent can the components serve as reusable entities
 
 ## Question:
  - pipe and filter: change of data representation from string to line with index?
- - event: code duplication of children of InputEvent
+ - event: data sent by event?
+ - blackboard: data and operation is separated?(or this problem is not so suitable for this
+ style

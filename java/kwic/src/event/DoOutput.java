@@ -1,5 +1,6 @@
 package event;
 
+import event.basic.EventRouter;
 import event.basic.Input;
 import event.basic.InputHandler;
 
@@ -9,6 +10,11 @@ import event.basic.InputHandler;
  * Usage:
  */
 public class DoOutput implements InputHandler {
+
+    public DoOutput() {
+        EventRouter.register(SortedEvent.class, this);
+    }
+
     @Override
     public void receive(Input input) {
         input.getInputs().forEach(System.out::println);

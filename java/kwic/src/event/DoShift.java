@@ -10,6 +10,10 @@ import pipeFilter.Shift;
  */
 public class DoShift implements InputHandler {
 
+    public DoShift() {
+        EventRouter.register(SimpleInputEvent.class, this);
+    }
+
     @Override
     public void receive(Input input) {
         for (String s : input.getInputs()) {

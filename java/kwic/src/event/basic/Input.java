@@ -18,6 +18,10 @@ public class Input {
         inputs = strings;
     }
 
+    public Input(Input input) {
+        inputs.addAll(input.getInputs());
+    }
+
     public void more(String string) {
         inputs.add(string);
     }

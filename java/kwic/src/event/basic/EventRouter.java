@@ -2,6 +2,8 @@ package event.basic;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by zzt on 1/14/16.
@@ -10,6 +12,7 @@ import java.util.HashMap;
  */
 public class EventRouter {
     private static HashMap<Class<? extends InputEvent>, ArrayList<InputHandler>> routers = new HashMap<>();
+    private static ExecutorService service = Executors.newCachedThreadPool();
 
     public static void throwEvent(InputEvent event) throws NoHandlerException {
         ArrayList<InputHandler> eventHandlers = routers.get(event.getClass());
@@ -17,6 +20,8 @@ public class EventRouter {
             throw new NoHandlerException(event);
         }
         for (InputHandler eventHandler : eventHandlers) {
+            // execute every handle in the different thread
+//            service.execute(() -> eventHandler.receive(event.getInput()));
             eventHandler.receive(event.getInput());
         }
     }
