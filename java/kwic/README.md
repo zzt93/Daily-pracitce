@@ -43,3 +43,8 @@ Reuse: To what extent can the components serve as reusable entities
  - event: data sent by event?
  - blackboard: data and operation is separated?(or this problem is not so suitable for this
  style
+
+
+## Thinking
+ - 现在有filterA->pipe->filterB这样一个链。若filterA被替换为filterC，虽然pipe的接收格式改变了，
+ 但是pipe传递给filterB的格式并不改变，所以只修改pipe即可.

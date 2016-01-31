@@ -24,7 +24,6 @@ public class DoSort implements InputHandler {
 
     @Override
     public void receive(Input input) {
-        assert input == null;
         Collections.sort(inputs);
         try {
             EventRouter.throwEvent(new SortedEvent(new Input(inputs)));

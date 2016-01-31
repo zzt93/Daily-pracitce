@@ -15,7 +15,11 @@ public class Input {
     }
 
     public Input(ArrayList<String> strings) {
-        inputs = strings;
+        // deep copy the object of message
+        for (String string : strings) {
+            inputs.add(string);
+        }
+//        inputs = strings;
     }
 
     public Input(Input input) {
@@ -28,5 +32,9 @@ public class Input {
 
     public ArrayList<String> getInputs() {
         return inputs;
+    }
+
+    public void setInputs(ArrayList<String> inputs) {
+        this.inputs = inputs;
     }
 }
