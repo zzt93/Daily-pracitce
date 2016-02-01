@@ -14,6 +14,9 @@ public class EventRouter {
     private static HashMap<Class<? extends InputEvent>, ArrayList<InputHandler>> routers = new HashMap<>();
 
     public static void throwEvent(InputEvent event) throws NoHandlerException {
+        if (!routers.containsKey(event.getClass())) {
+            throw new NoHandlerException(event);
+        }
         ArrayList<InputHandler> eventHandlers = routers.get(event.getClass());
         if (eventHandlers.isEmpty()) {
             throw new NoHandlerException(event);

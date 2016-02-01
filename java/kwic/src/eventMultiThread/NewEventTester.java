@@ -14,18 +14,20 @@ import java.util.concurrent.Executors;
  */
 public class NewEventTester {
     public static void main(String[] args) throws FileNotFoundException {
-        ExecutorService executor = Executors.newCachedThreadPool();
+        ExecutorService executor = Executors.newFixedThreadPool(4);
 
         DoInput doInput = new DoInput(new MyIn("test"));
         DoShift doShift = new DoShift();
         DoSort doSort = new DoSort();
         DoOutput doOutput = new DoOutput();
 
-        executor.execute(doInput);
         executor.execute(doShift);
         executor.execute(doSort);
         executor.execute(doOutput);
-        // without it, this program will not finish
-        executor.shutdown();
+        // make it start later, test implementation
+        executor.execute(doInput);
+
+        // This method does not wait for previously submitted tasks to complete execution
+//        executor.shutdown();
     }
 }

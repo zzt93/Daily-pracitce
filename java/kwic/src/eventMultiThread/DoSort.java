@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zzt on 1/31/16.
@@ -25,21 +26,25 @@ public class DoSort implements MultiThreadInputHandler {
 
 
     public DoSort() {
-        EventRouter.register(InputFinishedEvent.class, this);
         EventRouter.register(ShiftedInputEvent.class, this);
+//        EventRouter.register(InputFinishedEvent.class, this);
+        EventRouter.register(ShiftFinished.class, this);
     }
 
     @Override
     public void run() {
         while (true) {
-            Input input = null;
+            Input input;
             try {
-                input = queue.take();
+                input = queue.poll(1, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 continue;
             }
-            if (input.getInputs() == null) {
+            if (input == null) {
+                continue;
+            }
+            if (input.isFinished()) {
                 Collections.sort(inputs);
                 try {
                     EventRouter.throwEvent(new SortedEvent(new Input(inputs)));

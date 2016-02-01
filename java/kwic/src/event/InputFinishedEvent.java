@@ -9,10 +9,6 @@ import event.basic.InputEvent;
  * Usage:
  */
 public class InputFinishedEvent extends InputEvent {
-    private static Input input = new Input("");
-    static {
-        input.setInputs(null);
-    }
 
     @Override
     public String getDescription() {
@@ -21,6 +17,6 @@ public class InputFinishedEvent extends InputEvent {
 
     @Override
     public Input getInput() {
-        return input;
+        return Input.finishedInput;
     }
 }

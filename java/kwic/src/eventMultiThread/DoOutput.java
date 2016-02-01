@@ -7,6 +7,7 @@ import eventMultiThread.basic.MultiThreadInputHandler;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zzt on 1/31/16.
@@ -26,11 +27,15 @@ public class DoOutput implements MultiThreadInputHandler {
         while (true) {
             Input input = null;
             try {
-                input = queue.take();
+                input = queue.poll(1, TimeUnit.SECONDS);
             } catch (InterruptedException e) {
                 e.printStackTrace();
                 continue;
             }
+            if (input == null) {
+                continue;
+            }
+            System.out.println("---------output-------");
             input.getInputs().forEach(System.out::println);
         }
     }

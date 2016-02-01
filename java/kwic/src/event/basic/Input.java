@@ -8,6 +8,11 @@ import java.util.ArrayList;
  * Usage:
  */
 public class Input {
+    public static Input finishedInput = new Input("");
+    static {
+        Input.finishedInput.setInputs(null);
+    }
+
     private ArrayList<String> inputs = new ArrayList<>();
 
     public Input(String input) {
@@ -23,7 +28,7 @@ public class Input {
     }
 
     public Input(Input input) {
-        inputs.addAll(input.getInputs());
+        this(input.getInputs());
     }
 
     public void more(String string) {
@@ -36,5 +41,9 @@ public class Input {
 
     public void setInputs(ArrayList<String> inputs) {
         this.inputs = inputs;
+    }
+
+    public boolean isFinished() {
+        return inputs == null;
     }
 }
