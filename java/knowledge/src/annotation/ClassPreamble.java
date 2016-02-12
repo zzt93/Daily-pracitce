@@ -26,5 +26,7 @@ import java.lang.annotation.Documented;
         reviewers = {"zzt"}
 )
 class Test {
-
+    public static void main(String[] args) {
+        Test.class.getAnnotations()
+    }
 }
