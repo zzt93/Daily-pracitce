@@ -1,0 +1,191 @@
+@import "advice-content-small.css";
+
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+}
+
+#tabbed-block {
+    padding: 0.8em;
+    color: #4c84d4;
+    font-family: Roboto, helvetica, arial, sans-serif;
+    font-weight: 500;
+    background-color: white;
+    background-size: cover;
+}
+
+/*------------------------------------------------------------*/
+/*the following is main content*/
+
+.container {
+    margin: auto;
+    max-width: 800px;
+    display: none;
+}
+
+/*----------------------------------------------------*/
+/*the following is for analysis ui*/
+
+.analysis_block {
+    margin: auto;
+    border: 2px solid #c0ffb4;
+    border-radius: 10px;
+}
+
+.all-health-data table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.all-health-data tbody {
+    color: black;
+}
+
+.graph {
+    margin-top: 8%;
+}
+
+/*----------------------------------------------------*/
+/*the following is for personal ui*/
+
+#upload-file-container {
+    background: url(../images/input-file.png) no-repeat;
+    -webkit-background-size: cover;
+    background-size: cover;
+    max-width: 169px;
+}
+
+#upload-file-container input {
+    filter: alpha(opacity=0);
+    opacity: 0;
+}
+
+.avatar-wrapper {
+    display: inline-block;
+    margin: 10px;
+    border: 1px solid #c0ffb4;
+}
+
+.avatar-wrapper input[type=file] {
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.resize {
+    max-width: 169px;
+    width: 100%;
+    height: auto;
+}
+
+.apply-container {
+    margin: 1% 2%;
+    padding: 1% 2%;
+}
+
+.apply-container a {
+    font-weight: 600;
+}
+
+.personal-info input[type='submit'], #settings input[type='submit']{
+    display: inline-block;
+    margin: 20px 2% 0;
+    padding: 5px;
+    background-color: #DB4D37;
+    color: white;
+    cursor: pointer;
+}
+
+.info-part {
+    padding: 3%;
+}
+
+.info-part li {
+    background-color: #b1b1b1;
+    color: white;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 2px;
+}
+
+.info-part h4 {
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+/*--------------------------------------------------------*/
+/*the following is for advice ui*/
+
+.user-list {
+    width: 100%;
+    margin: auto;
+}
+
+/*--------------------------------------------------------*/
+/*the following is for setting ui*/
+
+.user-setting label, .personal-info label {
+    display: inline-block;
+    margin: 1% 2% 0;
+}
+
+.personal-info {
+    margin: 1%;
+}
+
+#setting-search {
+}
+
+/*--------------------------------------------------------*/
+/*the following is for campaign ui*/
+.post {
+    width: 100%;
+    border-radius: 30px;
+    border: 3px solid #c0ffb4;
+    min-height: 300px;
+    max-height: 500px;
+}
+
+.post .horizontal-center {
+    border-bottom: 1px solid #c0ffb4;
+}
+
+.notice {
+    display: none;
+    width: 100%;
+    padding: 2% 5%;
+    border-bottom: 1px solid #c0ffb4;
+}
+
+.activity {
+    margin-top: 5px;
+    border: 1px solid #c0ffb4;
+}
+
+.activity h3 {
+    display: inline;
+    padding: 0 4%;
+}
+
+.activity-content {
+    padding: 4% 8%;
+}
+
+.activity-join input {
+    margin: 0;
+    padding: 5% 20%;
+    background-color: white;
+    color: #42d2d6;
+    font-size: 1.5em;
+}
+
+
+.activity-join input:focus {
+    padding: 5% 20%;
+}

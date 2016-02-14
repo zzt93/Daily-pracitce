@@ -1,0 +1,8 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+ul {
+    list-style: outside none none;
+    margin: 0;
+}

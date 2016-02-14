@@ -22,35 +22,34 @@
     <div class="container">
 
         <header>
-            <h1>Student Teaching Support System</h1>
+            <h1>Dessert house</h1>
 
         </header>
-        <form action="../login"
+        <form action="/dessert/Login_execute.action"
             method="post" id="register">
             <h2 class="inline-h2">Log in | <a href="visitor.html">take a tour</a></h2>
             <h2 class="smaller-font inline-h2" id="failAuth"></h2>
 
             <br>
-            <label for="name">User Name</label>
+            <label for="name">用户名</label>
             <br>
-            <input type="text" name="sid" id="name"
+            <input type="text" name="name" id="name"
                    title="how to name you in our website?"
                    placeholder="Zeng ZeTang" required>
             <br>
 
-            <label for="pw">Password</label>
+            <label for="pw">密码</label>
             <br>
-            <input type="password" name="password" id="pw"
+            <input type="password" name="pw" id="pw"
                    title="your password"
                    placeholder="******" required>
             <br>
             <br>
-            <input type="submit" value="Log in">
-
-            <input type="hidden" name="funcName" value="logIn">
+            <input type="submit" value="登陆">
 
             <br>
         </form>
+
         <!-- Elements after a floating element will flow around it.
          To avoid this, use the clear property.
         The clear property specifies on which sides of an element
@@ -90,11 +89,12 @@
     </div>
 </div>
 
+
 <section class="fixed-size"></section>
 <footer>
     <div>
         <section id="contact">
-            <p>Email us: zzt@health.com</p>
+            <p>Email us: zzt@dessert.com</p>
 
             <p>Contact us: (xxx) xxxx xxxx</p>
         </section>

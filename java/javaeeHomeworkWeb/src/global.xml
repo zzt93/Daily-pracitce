@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+        "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+    <package name="default" namespace="/dessert" extends="struts-default">
+
+        <!--must just after the opening package node.-->
+        <interceptors>
+            <interceptor-stack name="appDefaultStack">
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
+            </interceptor-stack>
+        </interceptors>
+
+        <default-interceptor-ref name="appDefaultStack"/>
+
+        <default-action-ref name="index"/>
+
+        <global-results>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <result name="input">/UserLogin.jsp</result>
+        </global-results>
+
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>
+
+        <action name="index">
+            <result>/Index.jsp</result>
+        </action>
+
+
+    </package>
+
+    <package name="example" namespace="/example" extends="default">
+
+
+        <!--put a mapping like <action name="*" > last!)-->
+        <action name="*">
+            <result>/{1}.jsp</result>
+        </action>
+
+        <!-- Add actions here -->
+    </package>
+
+</struts>

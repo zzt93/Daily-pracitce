@@ -3,11 +3,11 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
- * Created by zzt on 2/11/16.
+ * Created by zzt on 2/14/16.
  * <p>
  * Usage:
  */
-public class UserLoginAction extends ActionSupport {
+public class Branch extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
