@@ -1,7 +1,5 @@
 package action;
 
-import servlet.LoginServlet;
-
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +16,7 @@ public class SessionManagement {
 
     public static void setSession(HttpServletRequest request, int sid) {
         HttpSession session = request.getSession(true);
-        session.setAttribute(LoginServlet.SID, sid);
+        session.setAttribute(UserLogin.UID, sid);
     }
 
     /**
@@ -38,8 +36,8 @@ public class SessionManagement {
             HttpServletRequest req = (HttpServletRequest) request;
             HttpServletResponse resp = (HttpServletResponse) response;
             HttpSession session = req.getSession(false);
-            if (session == null || session.getAttribute(LoginServlet.SID) == null) {
-                resp.sendRedirect(req.getContextPath() + "/html/userLogin.html");
+            if (session == null || session.getAttribute(UserLogin.UID) == null) {
+                resp.sendRedirect(req.getContextPath() + "/jsp/UserLogin.jsp");
                 return false;
             }
             return true;

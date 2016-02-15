@@ -23,7 +23,7 @@
 
         <global-results>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
-            <result name="input">/UserLogin.jsp</result>
+            <result name="input">/jsp/UserLogin.jsp</result>
         </global-results>
 
         <global-exception-mappings>
@@ -31,7 +31,7 @@
         </global-exception-mappings>
 
         <action name="index">
-            <result>/Index.jsp</result>
+            <result>index.html</result>
         </action>
 
 

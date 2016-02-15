@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
@@ -16,11 +17,11 @@
 
     <title>account</title>
 
-    <link rel="stylesheet" href="styles/account-content.css">
-    <link rel="stylesheet" href="styles/main-header.css">
+    <link rel="stylesheet" href="../styles/account-content.css">
+    <link rel="stylesheet" href="../styles/main-header.css">
 
 
-    <link rel="stylesheet" href="fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
 </head>
 <body onload="
@@ -30,17 +31,17 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
 <header>
     <section id="main-header">
-        <img src="images/yellow-pin.png" id="logo">
+        <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="Branches.jsp">Fit</a></p>
+        <p id="app-name"><a href="Branches.jsp">Dessert</a></p>
 
         <form>
             <p class="action">
-                <a href="html/userLogin.html" class="fa fa-user"> log out</a>
+                <a href="<s:url action='Login_input'/>" class="fa fa-user"> log out</a>
             </p>
 
             <p class="action">
-                <a href="Branches.jsp" class="fa fa-home"> home</a>
+                <a href="<s:url action='Branches'/> " class="fa fa-home"> home</a>
             </p>
         </form>
         <br>
@@ -51,7 +52,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <nav id="side_nav" class="none">
         <ul id="side_nav_list">
             <li>
-                <a href="#">个人信息 </a>
+                <a href="#">Personal </a>
+            </li>
+            <li>
+                <a href="#">Consumption </a>
             </li>
         </ul>
     </nav>
@@ -62,11 +66,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <h3>Your public information</h3>
             <section class="personal-info flex-container-large" id="public-info">
                 <div class="avatar-wrapper none">
-                    <img id="avatar" class="resize" src="images/user.png" alt="a user">
+                    <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     <div id="upload-file-container">
                         <form enctype="multipart/form-data" id="avatar-form">
-                            <input type="file" name="photo" title="choose a picture" onchange="checkFileAndUpload(this)">
+                            <input type="file" name="photo" title="choose a picture"
+                                   onchange="checkFileAndUpload(this)">
                             <input type="hidden" name="funcName" value="updateAvatar">
                         </form>
                     </div>
@@ -94,6 +99,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <h4> Your card
                     </h4>
                     <ul id="roles">
+                        <li>silver</li>
                     </ul>
 
                     <div class="apply-container" id="apply-container">
@@ -116,7 +122,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
                     <br>
 
-                    <s:radio list="gender"/>
+                    <%--<s:radio list="gender"/>--%>
 
                     <label id="gender">Gender
 
@@ -133,6 +139,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     </label>
                     <br>
                     <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
+                    <br>
+                    <s:textfield label="BackCard Number" readonly="true"/>
 
                 </div>
 
@@ -140,16 +148,27 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <br>
         </div>
 
+        <div class="container" id="consumption">
+            <h3>Your public information</h3>
+
+            <display:table name="students"/>
+            <br>
+
+            <h3>Your private information</h3>
+            <br>
+        </div>
+
     </div>
 </div>
 </body>
 
-<%@include file="html/footer.html"%>
+<%@include file="../html/footer.html" %>
 
-<script type="application/javascript" src="scripts/chosen.js"></script>
-<script type="application/javascript" src="scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="scripts/useLineChart.js"></script>
-<script type="application/javascript" src="scripts/jquery/dist/jquery.min.js"></script>
+
+<script type="application/javascript" src="../scripts/chosen.js"></script>
+<script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
+<script type="application/javascript" src="../scripts/useLineChart.js"></script>
+<script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 
 
 </html>

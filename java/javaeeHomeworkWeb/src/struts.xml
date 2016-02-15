@@ -13,16 +13,16 @@
         <action name="Login_*" method="{1}" class="action.UserLogin">
             <!--"success" is the default result code, so the framework will use the "Menu" action as response. (Which we haven't written yet.)-->
             <result type="redirectAction">Account</result>
-            <result name="input">/UserLogin.jsp</result>
+            <result name="input">/jsp/UserLogin.jsp</result>
         </action>
 
-        <action name="Register" class="action.Register">
-            <result>/Account.jsp</result>
-            <result name="input">/Register.jsp</result>
+        <action name="Register_*" method="{1}" class="action.Register">
+            <result>/jsp/Account.jsp</result>
+            <result name="input">/jsp/Register.jsp</result>
         </action>
 
-        <action name="Inner" class="action.InnerLogin">
-            <result name="input">/html/innerLogin.html</result>
+        <action name="Inner_*" method="{1}" class="action.InnerLogin">
+            <result name="input">/jsp/InnerLogin.jsp</result>
             <!-- redirect and not forward-->
             <result type="redirectAction" name="manager">ManagerSession</result>
             <result type="redirectAction" name="waiter">WaiterSession</result>
@@ -39,17 +39,17 @@
         </action>
 
         <action name="Account" class="action.Account">
-            <result name="success">/Account.jsp</result>
+            <result name="success">/jsp/Account.jsp</result>
             <!--<result name="input">/UserLogin.jsp</result>-->
         </action>
 
         <action name="Branches">
-            <result>/Branches.jsp</result>
+            <result>/jsp/Branches.jsp</result>
             <!--<result name="input">/UserLogin.jsp</result>-->
         </action>
 
         <action name="Branch" class="action.Branch">
-            <result>/Branch.jsp</result>
+            <result>/jsp/Branch.jsp</result>
             <!--<result name="input">/UserLogin.jsp</result>-->
         </action>
 

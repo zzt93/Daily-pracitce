@@ -28,6 +28,7 @@ import com.opensymphony.xwork2.validator.annotations.ValidatorType;
  */
 public class UserLogin extends ActionSupport {
 
+    public static final String UID = "uid";
     private String name;
     private String pw;
 
@@ -40,19 +41,20 @@ public class UserLogin extends ActionSupport {
     )
     @Override
     public String execute() throws Exception {
-        if (isInvalid(getName())) {
+        String name = getName();
+        if (true) {
+            addFieldError("name", "user name is already used.");
             return INPUT;
         }
-        if (isInvalid(getPw())) {
-            return INPUT;
+
+        String pw = getPw();
+        if (pw.length() < 6) {
+            addFieldError("pw", "user name is already used.");
         }
         return SUCCESS;
     }
 
 
-    private boolean isInvalid(String value) {
-        return (value == null || value.length() == 0);
-    }
 
     public void setName(String name) {
         this.name = name;

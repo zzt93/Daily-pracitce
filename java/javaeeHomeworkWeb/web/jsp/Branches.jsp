@@ -12,7 +12,7 @@
 <html>
 <head>
     <title>Branches</title>
-    <link href="styles/branches.css" type="text/css" rel="stylesheet">
+    <link href="../styles/branches.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 <div class="container flex-container">

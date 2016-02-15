@@ -22,13 +22,13 @@ public class Register extends ActionSupport {
 
     public void validate() {
         String name = getName();
-        if (false) {
+        if (true) {
             addFieldError("name", "user name is already used.");
         }
 
         String pw = getPw();
         if (!pw.equals(pw2)) {
-            addFieldError("pw", "pw is not same");
+            addFieldError("pw", "password are not same");
         }
 
     }

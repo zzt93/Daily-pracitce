@@ -1,7 +1,16 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: zzt
+  Date: 2/12/16
+  Time: 10:11 PM
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ page session="false" %>
 
+<html>
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,7 +23,8 @@
     <link href="../styles/tooltip.css" type="text/css" rel="stylesheet">
 
 
-    <title>Log in</title>
+    <title>Login</title>
+    <s:head/>
 </head>
 <body onload="useToolTip('#register')">
 
@@ -25,31 +35,18 @@
             <h1>Dessert house</h1>
 
         </header>
-        <form action="/dessert/Login_execute.action"
-            method="post" id="register">
-            <h2 class="inline-h2">Log in | <a href="visitor.html">take a tour</a></h2>
-            <h2 class="smaller-font inline-h2" id="failAuth"></h2>
+        <s:form action="Login_execute" id="register">
 
-            <br>
-            <label for="name">用户名</label>
-            <br>
-            <input type="text" name="name" id="name"
-                   title="how to name you in our website?"
-                   placeholder="Zeng ZeTang" required>
-            <br>
-
-            <label for="pw">密码</label>
-            <br>
-            <input type="password" name="pw" id="pw"
-                   title="your password"
-                   placeholder="******" required>
-            <br>
-            <br>
-            <input type="submit" value="登陆">
-
-            <br>
-        </form>
-
+            <h2 class="inline-h2">Log in </h2>
+            <h2 class="smaller-font inline-h2"> | try <a href="<s:url action='Register_input'/> " class="on-logpanel">
+                sign up</a></h2>
+            <%--The most common use of the property tag is used to "get" the value returned
+            by calling a public get method (of the Action class) and
+            then to include that value in the HTML returned to the browser.--%>
+            <s:textfield name="name" label="user name" required="required"/>
+            <s:password name="pw" label="password" required="required"/>
+            <s:submit value="submit"/>
+        </s:form>
         <!-- Elements after a floating element will flow around it.
          To avoid this, use the clear property.
         The clear property specifies on which sides of an element
@@ -69,18 +66,8 @@
 
             <p class="quote">
                 Lee:<br>
-                "I follow the advice of my fitness to dive,
-                and I feel so good now."
+                "I love their pancake so much"
             </p>
-        </div>
-        <div class="avatar">
-            <img src="../images/user.png" alt="Li is diving">
-            <p class="quote">
-                Lee:<br>
-                "I follow the advice of my fitness to dive,
-                and I feel so good now."
-            </p>
-
         </div>
         <ul>
             <li>Li's comment and health statistic</li>
@@ -90,18 +77,7 @@
 </div>
 
 
-<section class="fixed-size"></section>
-<footer>
-    <div>
-        <section id="contact">
-            <p>Email us: zzt@dessert.com</p>
-
-            <p>Contact us: (xxx) xxxx xxxx</p>
-        </section>
-        <section id="mis">
-        </section>
-    </div>
-</footer>
+<%@include file="../html/footer.html" %>
 
 
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>

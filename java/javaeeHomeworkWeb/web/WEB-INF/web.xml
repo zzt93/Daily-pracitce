@@ -16,7 +16,7 @@
     </filter-mapping>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/index.html</welcome-file>
     </welcome-file-list>
 
     <!-- Restricts access to pure JSP files - access available only via Struts action -->
@@ -43,10 +43,5 @@
         </jsp-property-group>
     </jsp-config>
 
-    <!--<listener>
-        <listener-class>
-            org.springframework.web.context.
-            ContextLoaderListener
-        </listener-class>
-    </listener>-->
+
 </web-app>
