@@ -7,9 +7,14 @@
 
     <package name="default" namespace="/dessert" extends="struts-default">
 
+        
         <!--must just after the opening package node.-->
         <interceptors>
+            <interceptor name="encoding" class="interceptor.EncodingInterceptor"/>
+            <interceptor name="login" class="interceptor.LogInInterceptor"/>
             <interceptor-stack name="appDefaultStack">
+                <interceptor-ref name="encoding"/>
+                <!--<interceptor-ref name="login"/>-->
                 <interceptor-ref name="defaultStack">
                     <param name="exception.logEnabled">true</param>
                     <param name="exception.logLevel">ERROR</param>
@@ -31,19 +36,16 @@
         </global-exception-mappings>
 
         <action name="index">
-            <result>index.html</result>
+            <result>/html/index.html</result>
+            <interceptor-ref name="defaultStack"/>
         </action>
-
 
     </package>
 
     <package name="example" namespace="/example" extends="default">
 
 
-        <!--put a mapping like <action name="*" > last!)-->
-        <action name="*">
-            <result>/{1}.jsp</result>
-        </action>
+
 
         <!-- Add actions here -->
     </package>

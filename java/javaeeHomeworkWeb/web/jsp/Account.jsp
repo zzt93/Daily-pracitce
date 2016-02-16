@@ -149,13 +149,22 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         </div>
 
         <div class="container" id="consumption">
-            <h3>Your public information</h3>
+            <h3>Your payment history</h3>
 
-            <display:table name="students"/>
+            <s:url action="Account" var="accountLink">
+                <s:param name="now">1</s:param>
+            </s:url>
+            <%--size="32" partialList="true"--%>
+            <display:table id="studentTable" name="students" pagesize="5" cellpadding="5px;"
+                           cellspacing="5px;" style="margin-left:50px;margin-top:20px;"
+                           requestURI="${accountLink}">
+                <display:column property="rollNo" title="Roll No"/>
+                <display:column property="studentName" title="Student Name"/>
+                <display:column property="department" title="Department"/>
+                <display:column property="rank" title="Rank"/>
+            </display:table>
             <br>
 
-            <h3>Your private information</h3>
-            <br>
         </div>
 
     </div>
