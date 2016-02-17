@@ -1,0 +1,27 @@
+
+
+.dessert-div {
+    float: left;
+    margin: 0 5px 5px 0;
+}
+
+.dessert {
+    border-radius: 5px;
+    height: 80px;
+    cursor: pointer;
+    width: 80px;
+    float: left;
+    background-size: cover;
+}
+
+.right-split {
+    margin-right: 80px;
+    border-right: solid white 2px;
+}
+
+.map {
+    border: outset #a3a3a3 1px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-size: cover;
+}

@@ -42,9 +42,13 @@
 
     </package>
 
-    <package name="example" namespace="/example" extends="default">
+    <!--no such namespace cause a exception-->
+    <package name="example" namespace="/" extends="default">
 
-
+        <action name="*">
+            <result>/html/index.html</result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
 
 
         <!-- Add actions here -->

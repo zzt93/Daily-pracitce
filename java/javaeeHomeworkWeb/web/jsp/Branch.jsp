@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page session="false" %>
 
 <html>
@@ -15,12 +16,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!--<link href="styles/fonts.css" type="text/css" rel="stylesheet">-->
     <link href="../styles/sign-head.css" type="text/css" rel="stylesheet">
-    <link href="../styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="../styles/sign-content.css" type="text/css" rel="stylesheet">
     <link href="../styles/anchor.css" type="text/css" rel="stylesheet">
-    <link href="../styles/tooltip.css" type="text/css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="../styles/main-header.css">
+    <link rel="stylesheet" href="../styles/branches.css">
+    <link rel="stylesheet" href="../styles/util.css">
+    <link rel="stylesheet" href="../styles/dessert.css">
 
 
     <title>Branch ${branchNum}</title>
@@ -28,51 +32,77 @@
 </head>
 <body onload="useToolTip('#register')">
 
+<header>
+    <section id="main-header">
+        <img src="../images/yellow-pin.png" id="logo">
+
+        <p id="app-name"><a href="<s:url action="Branches"/> ">Dessert</a></p>
+
+        <form>
+            <p class="action">
+                <a href="<s:url action='Login_input'/>" class="fa fa-user"> log out</a>
+            </p>
+
+            <p class="action">
+                <a href="<s:url action='Account'/> " class="fa fa-home"> ${sessionScope.userName}</a>
+            </p>
+        </form>
+        <br>
+    </section>
+</header>
+
 <div id="headline">
-    <div class="container">
+    <div class="branch-container ">
 
         <header>
             <h1>Dessert house</h1>
 
-        </header>
-        <s:form action="Login_execute" id="register">
+            <h3>Branch ${branchNum}</h3>
 
-            <h2 class="inline-h2">Log in </h2>
-            <h2 class="smaller-font inline-h2"> | try <a href="<s:url action='Register_input'/> " class="on-logpanel">
-                sign up</a></h2>
-            <%--The most common use of the property tag is used to "get" the value returned
-            by calling a public get method (of the Action class) and
-            then to include that value in the HTML returned to the browser.--%>
-            <s:textfield name="name" label="user name" required="required"/>
-            <s:password name="pw" label="password" required="required"/>
-            <s:submit value="submit"/>
-        </s:form>
+        </header>
         <!-- Elements after a floating element will flow around it.
          To avoid this, use the clear property.
         The clear property specifies on which sides of an element
          floating elements are not allowed to float:-->
-        <br>
     </div>
 </div>
 
 <div id="example">
-    <div class="container">
-        <h2>Our Users</h2>
+    <div class="branch-container flex-container">
 
-        <p>some comments and app screen shots</p>
+        <nav class="flex1 right-split">
+            <h5>Phone Number:</h5>
+            <h3>025-83593186</h3>
+            <h5>Address:</h5>
+            <h3>NanJing, NJU</h3>
 
-        <div class="avatar">
-            <img src="../images/user.png" alt="Li is diving">
+            <a class="dessert-div" href="http://cn.bing.com/ditu/?FORM=Z9LH4#JnE9LiUyNXU1MzU3JTI1dTRlYWMlMjV1NTkyNyUyNXU1YjY2JTI1dTlmMTMlMjV1Njk3YyU3ZXNzdC4wJTdlcGcuMSZiYj0zMi4wNTkwOTEwNTM4NTk2JTdlMTE4Ljc5MDQ1NzA3NDg4NiU3ZTMyLjA0OTg4ODc3ODA5NTMlN2UxMTguNzY4Njc3NTM3Njg1">
+                <img class="map" src="../images/map.png">
+            </a>
+        </nav>
 
-            <p class="quote">
-                Lee:<br>
-                "I love their pancake so much"
-            </p>
+        <div class="flex2">
+            <h3>Orders</h3>
+            <h3>Photos</h3>
+            <div>
+                <c:forEach items="${plan.details}" var="detail">
+                    <div class="dessert-div">
+                        <img class="dessert" src="../images/${detail.did}.jpg">
+                    </div>
+                </c:forEach>
+
+                <div class="dessert-div">
+                    <img class="dessert" src="../images/1.jpg">
+                </div>
+                <div class="dessert-div">
+                    <img class="dessert" src="../images/2.jpg">
+                </div>
+                <div class="dessert-div">
+                    <img class="dessert" src="../images/3.jpg">
+                </div>
+            </div>
         </div>
-        <ul>
-            <li>Li's comment and health statistic</li>
-            <li>Hong's comment and statistic analysis</li>
-        </ul>
+
     </div>
 </div>
 

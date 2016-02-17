@@ -46,6 +46,7 @@
             <result name="success">/jsp/Account.jsp</result>
         </action>
 
+
         <action name="Branch" class="action.Branch">
             <result>/jsp/Branch.jsp</result>
         </action>
@@ -57,5 +58,21 @@
 
     </package>
 
+    <package name="ajax" namespace="/dessert" extends="json-default">
+        <action name="Reserve*" class="action.Account" method="reserve{1}">
+            <!--the action will return a json rather than a page-->
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+        <action name="Pay*" class="action.Account" method="pay{1}">
+            <!--the action will return a json rather than a page-->
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
+        <action name="list" class="action.Account" method="reserveList">
+            <result type="json">
+                <!--just for debug-->
+            </result>
+        </action>
+    </package>
 
 </struts>

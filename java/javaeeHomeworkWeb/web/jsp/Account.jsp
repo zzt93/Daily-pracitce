@@ -1,5 +1,4 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ taglib prefix="display" uri="http://displaytag.sf.net" %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
@@ -22,6 +21,11 @@
 
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
+    <!-- jTable Metro theme -->
+    <link href="../scripts/jtable.2.4.0/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css"/>
+    <link href="../scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"
+          type="text/css"/>
+
 
 </head>
 <body onload="
@@ -55,7 +59,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <a href="#">Personal </a>
             </li>
             <li>
-                <a href="#">Consumption </a>
+                <a href="#">Reservation </a>
+            </li>
+            <li>
+                <a href="#">History </a>
             </li>
         </ul>
     </nav>
@@ -148,23 +155,18 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <br>
         </div>
 
-        <div class="container" id="consumption">
-            <h3>Your payment history</h3>
+        <div class="container" id="reserve">
+            <h3>Your reservation</h3>
 
-            <s:url action="Account" var="accountLink">
-                <s:param name="now">1</s:param>
-            </s:url>
-            <%--size="32" partialList="true"--%>
-            <display:table id="studentTable" name="students" pagesize="5" cellpadding="5px;"
-                           cellspacing="5px;" style="margin-left:50px;margin-top:20px;"
-                           requestURI="${accountLink}">
-                <display:column property="rollNo" title="Roll No"/>
-                <display:column property="studentName" title="Student Name"/>
-                <display:column property="department" title="Department"/>
-                <display:column property="rank" title="Rank"/>
-            </display:table>
+            <div id="ReservationTableContainer"></div>
             <br>
 
+        </div>
+
+        <div class="container">
+            <h3>Your payment history</h3>
+
+            <div id="payTable"></div>
         </div>
 
     </div>
@@ -179,5 +181,82 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 
+<!-- jTable script file. -->
+<script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var con = $('#ReservationTableContainer');
+        con.jtable({
+            title: 'Reservations List',
+            paging: true,
+            pageSize: 8,
+            actions: {
+                listAction: 'ReserveList',
+                deleteAction: 'ReserveDelete'
+            },
+            fields: {
+                rollNo: {
+                    title: 'Reservation Id',
+                    width: '30%',
+                    key: true,
+                    list: true,
+                    create: true
+                },
+                studentName: {
+                    title: 'Branch',
+                    width: '30%',
+                    edit: false
+                },
+                department: {
+                    title: 'Department',
+                    width: '30%',
+                    edit: true
+                },
+                rank: {
+                    title: 'Rank',
+                    width: '20%',
+                    edit: true
+                }
+            }
+        });
+        con.jtable('load');
+        var pay = $('#payTable');
+        pay.jtable({
+            title: 'Payment History',
+            paging: true,
+            pageSize: 8,
+            actions: {
+                listAction: 'PayList',
+                deleteAction: 'PayDelete'
+            },
+            fields: {
+                rollNo: {
+                    title: 'Reservation Id',
+                    width: '30%',
+                    key: true,
+                    list: true,
+                    create: true
+                },
+                studentName: {
+                    title: 'Branch',
+                    width: '30%',
+                    edit: false
+                },
+                department: {
+                    title: 'Department',
+                    width: '30%',
+                    edit: true
+                },
+                rank: {
+                    title: 'Rank',
+                    width: '20%',
+                    edit: true
+                }
+            }
+        });
+        pay.jtable('load');
+    });
+</script>
 
 </html>

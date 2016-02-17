@@ -14,3 +14,8 @@
     width: 45%;
     display: inline-block;
 }
+
+.branch-container {
+    margin: auto;
+    max-width: 1000px;
+}
