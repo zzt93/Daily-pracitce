@@ -60,9 +60,14 @@
 
     <package name="ajax" namespace="/dessert" extends="json-default">
         <action name="Reserve*" class="action.Account" method="reserve{1}">
-            <!--the action will return a json rather than a page-->
+            <!--the action will return a json to use in a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
+
+        <action name="BranchReserve*" class="action.Branch" method="reserve{1}">
+            <result type="json">/jsp/Branch.jsp</result>
+        </action>
+
         <action name="Pay*" class="action.Account" method="pay{1}">
             <!--the action will return a json rather than a page-->
             <result type="json">/jsp/Account.jsp</result>

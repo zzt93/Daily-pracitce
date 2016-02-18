@@ -9,6 +9,7 @@ import java.util.List;
  * Created by zzt on 2/13/16.
  * <p>
  * Usage:
+ * Struts 2 Action objects are instantiated for each request, so there are no thread-safety issues.
  */
 public class Account extends ActionSupport {
 
@@ -122,12 +123,12 @@ public class Account extends ActionSupport {
 
     public String reserveDelete() throws Exception {
         result = OK;
-        return "success";
+        return SUCCESS;
     }
 
     public String payDelete() throws Exception {
         result = OK;
-        return "success";
+        return SUCCESS;
     }
 
     public String payList() throws Exception {

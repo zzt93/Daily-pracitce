@@ -19,3 +19,19 @@
     margin: auto;
     max-width: 1000px;
 }
+
+#drop {
+    color: #7e7e7e;
+    margin: 20px 0 10px;
+    width: 180px;
+    min-height: 100px;
+    border: 3px dashed #999;
+    background: #eee;
+    padding: 10px;
+    display: block;
+}
+
+
+.over {
+    color: white;
+}

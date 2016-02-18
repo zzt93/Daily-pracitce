@@ -1,16 +1,17 @@
 
 
 .dessert-div {
-    float: left;
+    /*width: 45%;*/
+    display: inline-block;
     margin: 0 5px 5px 0;
 }
 
 .dessert {
     border-radius: 5px;
     height: 80px;
-    cursor: pointer;
+    cursor: move;
     width: 80px;
-    float: left;
+    /*float: left;*/
     background-size: cover;
 }
 
@@ -24,4 +25,9 @@
     border-radius: 3px;
     cursor: pointer;
     background-size: cover;
+}
+
+.dessert-des {
+    display: inline-block;
+    margin: 5px 0 0 5px;
 }

@@ -190,7 +190,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         con.jtable({
             title: 'Reservations List',
             paging: true,
-            pageSize: 8,
+            pageSize: 4,
             actions: {
                 listAction: 'ReserveList',
                 deleteAction: 'ReserveDelete'
@@ -221,11 +221,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             }
         });
         con.jtable('load');
+
         var pay = $('#payTable');
         pay.jtable({
             title: 'Payment History',
             paging: true,
-            pageSize: 8,
+            pageSize: 4,
             actions: {
                 listAction: 'PayList',
                 deleteAction: 'PayDelete'
