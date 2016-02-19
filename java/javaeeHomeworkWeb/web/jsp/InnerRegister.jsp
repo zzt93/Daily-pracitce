@@ -1,13 +1,12 @@
 <%--
   Created by IntelliJ IDEA.
   User: zzt
-  Date: 2/12/16
-  Time: 10:11 PM
+  Date: 2/19/16
+  Time: 3:58 PM
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-<%@ page session="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
 
@@ -20,10 +19,10 @@
     <link href="../styles/sign-footer.css" type="text/css" rel="stylesheet">
     <link href="../styles/sign-content.css" type="text/css" rel="stylesheet">
     <link href="../styles/anchor.css" type="text/css" rel="stylesheet">
-    <link href="../styles/tooltip.css" type="text/css" rel="stylesheet">
 
 
-    <title>Staff Login</title>
+    <title>Staff Register</title>
+
     <s:head/>
 </head>
 <body>
@@ -32,22 +31,28 @@
     <div class="container">
 
         <header>
-            <h1>Staff login </h1>
+            <h1>Dessert house inner register</h1>
 
         </header>
-        <s:form action="InnerLogin"  id="register">
+        <h3>Register by completing this form.</h3>
 
-            <h2 class="inline-h2">Log in </h2>
-            <%--The most common use of the property tag is used to "get" the value returned
-            by calling a public get method (of the Action class) and
-            then to include that value in the HTML returned to the browser.--%>
+        <s:form action="InnerResiter" id="register">
+            <h2 class="inline-h2">Register </h2>
+
+            <s:password name="adminPW" label="admin password" required="required"/>
             <s:select label="Choose type"
                       name="type"
                       list="%{types}" required="required"/>
-            <s:textfield name="id" label="working id" required="required"/>
-            <s:password name="pw" label="password" required="required"/>
-            <s:submit value="submit"/>
+            <%--<s:radio list="types" required="required"/>--%>
+            <s:textfield name="bid" label="branch id" title="how to name you in website"/>
+            <s:password name="pw" label="password" title="have to longer than 6 chars" required="required"/>
+
+            <s:password name="pw2" label="confirm password" title="input it again" required="required"/>
+
+            <s:submit/>
+
         </s:form>
+
         <!-- Elements after a floating element will flow around it.
          To avoid this, use the clear property.
         The clear property specifies on which sides of an element
@@ -57,9 +62,6 @@
 </div>
 
 
-<%@include file="../html/footer.html" %>
-
-
-
 </body>
 </html>
+

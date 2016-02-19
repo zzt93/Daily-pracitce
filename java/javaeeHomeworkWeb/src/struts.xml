@@ -26,11 +26,19 @@
             <interceptor-ref name="defaultStack"/>
         </action>
 
-        <action name="Inner_*" method="{1}" class="action.InnerLogin">
+        <action name="InnerLogin_*" method="{1}" class="action.InnerLogin">
             <result name="input">/jsp/InnerLogin.jsp</result>
             <!-- redirect and not forward-->
             <result type="redirectAction" name="manager">ManagerSession</result>
-            <result type="redirectAction" name="waiter">WaiterSession</result>
+            <result type="redirectAction" name="waiter0">Waiter0Session</result>
+            <result type="redirectAction" name="waiter1">Waiter1Session</result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="InnerRegister_*" method="{1}" class="action.InnerRegister">
+            <result name="input">/jsp/InnerRegister.jsp</result>
+            <result>/jsp/InnerLogin.jsp</result>
+            <!-- redirect and not forward-->
             <interceptor-ref name="defaultStack"/>
         </action>
 
@@ -38,8 +46,12 @@
             <result></result>
         </action>
 
-        <action name="WaiterSession">
-            <result></result>
+        <action name="Waiter0Session">
+            <result>/jsp/Waiter0.jsp</result>
+        </action>
+
+        <action name="Waiter1Session">
+            <result>/jsp/Waiter1.jsp</result>
         </action>
 
         <action name="Account" class="action.Account">
@@ -59,12 +71,13 @@
     </package>
 
     <package name="ajax" namespace="/dessert" extends="json-default">
+
         <action name="Reserve*" class="action.Account" method="reserve{1}">
             <!--the action will return a json to use in a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="BranchReserve*" class="action.Branch" method="reserve{1}">
+        <action name="BranchReserve*" class="action.Reserve" method="branchReserve{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 

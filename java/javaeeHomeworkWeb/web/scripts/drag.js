@@ -1,4 +1,5 @@
 /**
+ *
  * Created by zzt on 2/18/16.
  */
 
@@ -13,18 +14,35 @@ function handleDragOver(e) {
 }
 
 var imgNum = 0;
+var date;
+var sameDate;
 
-function dragstart_handler(ev) {
-    ev.preventDefault();
-    // Add the target element's id to the data transfer object
+function handleDragStart(ev) {
+    ev.dataTransfer.effectAllowed = 'move';
+    ev.dataTransfer.setData('text/html', 'blah'); // needed for FF.
+    ev.dropEffect = "move";
+
+    // prepare dessert id
     var fields = ev.target.src.split('/');
     var imgName = fields[fields.length - 1];
     imgNum = +imgName.split('\.')[0];
-    ev.dropEffect = "move";
+    // prepare buy date
+    var date2 = $(ev.target.parentElement).prevAll('h4:first').text();
+    if (typeof date === 'undefined') {
+        date = date2;
+        sameDate = true;
+    } else {
+        sameDate = date === date2;
+    }
 }
 
 function initDragDrop() {
-    $('img.dessert').bind('dragstart', dragstart_handler);
+    //$('img.dessert').bind('dragstart', handleDragStart);
+    var cols = document.querySelectorAll('img.dessert');
+    [].forEach.call(cols, function (col) {
+        col.addEventListener('dragstart', handleDragStart, false);
+    });
+
 
     var target = document.querySelector('#drop');
     target.addEventListener('dragover', handleDragOver, false);
@@ -32,9 +50,28 @@ function initDragDrop() {
         if (e.stopPropagation) {
             e.stopPropagation();
         }
+
+        if (!sameDate) {
+            getShowBox("date-box")();
+            return false;
+        }
         //e.target.appendChild(document.getElementById(imgNum));
         console.info(imgNum);
+        console.info(date);
 
+        $.post('BranchReserveAdd',
+            {
+                did: imgNum,
+                bdate: date
+            }, function (response) {
+                console.log("Response: " + response);
+            });
+
+        var currentOrder = $('#current-order');
+        currentOrder.jtable('load');
+        //you'll need to prevent the browser's default behavior for drops,
+        // which is typically some sort of annoying redirect
         return false;
+
     }, false);
 }

@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class InnerLogin extends ActionSupport {
 
+    private String type;
     private int id;
     private String pw;
 
@@ -26,6 +27,14 @@ public class InnerLogin extends ActionSupport {
 
     public void setPw(String pw) {
         this.pw = pw;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override

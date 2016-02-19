@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="../styles/branches.css">
     <link rel="stylesheet" href="../styles/util.css">
     <link rel="stylesheet" href="../styles/dessert.css">
+    <link rel="stylesheet" href="../styles/lightBox.css">
 
     <!-- jTable Metro theme -->
     <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
@@ -87,8 +88,12 @@
 
             <h3>Create order</h3>
             <div id="drop">
-                drag dessert and drop here to make order
+                <div class="vertical-center" style="height: 80%;">
+                    drag dessert and drop here to make order
+                </div>
             </div>
+
+
         </nav>
 
         <div class="flex2">
@@ -97,6 +102,17 @@
 
             <h3>Desserts</h3>
             <div>
+                <c:forEach items="${plans}" var="plan">
+                    <h4>${plan.pdate}</h4>
+                    <c:forEach items="${plan.details}" var="detail">
+                        <div class="dessert-div">
+                            <img class="dessert" src="../images/${detail.did}.jpg">
+                        </div>
+                    </c:forEach>
+                </c:forEach>
+
+                <%--TODO delete following--%>
+                <h4>2016-02-22</h4>
                 <c:forEach items="${plan.details}" var="detail">
                     <div class="dessert-div">
                         <img class="dessert" src="../images/${detail.did}.jpg">
@@ -112,16 +128,42 @@
                 <div class="dessert-div">
                     <img class="dessert" src="../images/3.jpg">
                 </div>
+                <h4>2016-02-23</h4>
+                <c:forEach items="${plan.details}" var="detail">
+                    <div class="dessert-div">
+                        <img class="dessert" src="../images/${detail.did}.jpg">
+                    </div>
+                </c:forEach>
+
+                <div class="dessert-div">
+                    <img class="dessert" src="../images/1.jpg">
+                </div>
+                <div class="dessert-div">
+                    <img class="dessert" src="../images/7.jpg">
+                </div>
+            </div>
+
+            <h3>New order</h3>
+            <div id="current-order"></div>
+
+            <div class="horizontal-center">
+                <s:form action="BranchReservePay">
+                    <s:submit value="Submit your order"/>
+                </s:form>
             </div>
         </div>
 
     </div>
 </div>
 
+<div id="date-box" class="light-box">
+    <p class="fa fa-2x fa-warning">can't choose desserts in different date in same order</p>
+</div>
 
 <%@include file="../html/footer.html" %>
 
 
+<script type="application/javascript" src="../scripts/lightBox.js"></script>
 <script type="application/javascript" src="../scripts/drag.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 <!-- jTable script file. -->
@@ -136,8 +178,7 @@
             pageSize: 6,
             actions: {
                 listAction: 'ReserveList',
-                deleteAction: 'ReserveDelete',
-                createAction: 'BranchReserveAdd'
+                deleteAction: 'ReserveDelete'
             },
             fields: {
                 rollNo: {
@@ -168,8 +209,41 @@
 
 
         initDragDrop();
-    });
 
+
+        var currentOrder = $('#current-order');
+        currentOrder.jtable({
+            title: 'Current order',
+            // TODO remove paging
+            paging: true,
+            pageSize: 6,
+            actions: {
+                listAction: 'ReserveList',
+                deleteAction: 'BranchReserveDelete',
+                updateAction: 'BranchReserveEdit'
+            },
+            fields: {
+                rollNo: {
+                    title: 'Dessert Id',
+                    width: '30%',
+                    key: true,
+                    list: true,
+                    create: true
+                },
+                studentName: {
+                    title: 'Price',
+                    width: '30%',
+                    edit: false
+                },
+                department: {
+                    title: 'Number',
+                    width: '30%',
+                    edit: true
+                }
+            }
+        });
+        currentOrder.jtable('load');
+    });
 
 </script>
 

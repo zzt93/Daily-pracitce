@@ -43,6 +43,7 @@
     border: none;
     box-sizing: border-box;
     font-size: 18px;
+    cursor: hand;
 }
 
 .smaller-font {
@@ -77,7 +78,7 @@
 
     #headline #register {
         float: right;
-        padding: 20px;
+        padding: 20px 20px 20px 30px;
         width: 50%;
         box-sizing: border-box;
         font-weight: 300;

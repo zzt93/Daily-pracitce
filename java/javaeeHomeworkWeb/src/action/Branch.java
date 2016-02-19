@@ -14,7 +14,7 @@ public class Branch extends ActionSupport {
 
     private int branchNum;
     private LocalDate now;
-//    private Plan plan;
+//        private ArrayList<Plan> plans;
 
     @Override
     public String execute() throws Exception {

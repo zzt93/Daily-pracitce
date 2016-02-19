@@ -164,6 +164,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         </div>
 
         <div class="container">
+            <h3>Balance: ${consume.balance}</h3>
             <h3>Your payment history</h3>
 
             <div id="payTable"></div>
@@ -171,6 +172,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
     </div>
 </div>
+
 </body>
 
 <%@include file="../html/footer.html" %>

@@ -16,6 +16,7 @@ public class Account extends ActionSupport {
     public static final String OK = "OK";
     //    User user;
     //    Account account;
+    //    Consume consume;
     //    ArrayList<Reserve> reserves;
     //    ArrayList<Reserve> history;
     private ArrayList<StudentBean> students;
