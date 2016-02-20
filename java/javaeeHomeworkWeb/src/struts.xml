@@ -31,7 +31,7 @@
             <!-- redirect and not forward-->
             <result type="redirectAction" name="manager">ManagerSession</result>
             <result type="redirectAction" name="waiter0">Waiter0Session</result>
-            <result type="redirectAction" name="waiter1">Waiter1Session</result>
+            <result type="redirectAction" name="waiter1">OtherWaiterSession</result>
             <interceptor-ref name="defaultStack"/>
         </action>
 
@@ -46,12 +46,12 @@
             <result></result>
         </action>
 
-        <action name="Waiter0Session">
+        <action name="Waiter0Session" class="action.Waiter0">
             <result>/jsp/Waiter0.jsp</result>
         </action>
 
-        <action name="Waiter1Session">
-            <result>/jsp/Waiter1.jsp</result>
+        <action name="OtherWaiterSession" class="action.OtherWaiter">
+            <result>/jsp/OtherWaiter.jsp</result>
         </action>
 
         <action name="Account" class="action.Account">
@@ -86,11 +86,22 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
+        <action name="Plan*" class="action.Plan" method="plan{1}">
+            <!--the action will return a json rather than a page-->
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
+        <action name="SendMsg" class="action.Message">
+            <result type="json">/jsp/OtherWaiter.jsp</result>
+        </action>
+
         <action name="list" class="action.Account" method="reserveList">
             <result type="json">
                 <!--just for debug-->
             </result>
         </action>
+
+
     </package>
 
 </struts>

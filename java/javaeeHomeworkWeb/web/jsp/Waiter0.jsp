@@ -1,3 +1,4 @@
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
@@ -34,12 +35,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <form>
             <p class="action">
-                <a href="<s:url action='Login_input'/>" class="fa fa-user"> log out</a>
+                <a href="<s:url action='InnerLogin_input'/>" class="fa fa-user"> log out</a>
             </p>
 
-            <p class="action">
-                <a href="<s:url action='Branches'/> " class="fa fa-home"> home</a>
-            </p>
         </form>
         <br>
     </section>

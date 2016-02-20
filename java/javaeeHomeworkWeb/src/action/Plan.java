@@ -13,4 +13,14 @@ public class Plan extends ActionSupport {
     public String execute() throws Exception {
         return super.execute();
     }
+
+    public String planUpdate() throws Exception {
+        return super.execute();
+    }
+
+    public String planDelete() throws Exception {
+        return super.execute();
+    }
+
+
 }

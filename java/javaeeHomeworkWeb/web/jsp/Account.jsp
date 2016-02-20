@@ -87,14 +87,14 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <div class="flex1 info-part">
                     <label for="DisplayName">Display name
                         <br>
-                        <input id="DisplayName" value="" maxlength="30" tabindex="1"
+                        <input id="DisplayName" value="${user.name}" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
                     <label>Location
                         <br>
-                        <input id="Location" value="" maxlength="100"
+                        <input id="Location" value="${account.addr}" maxlength="100"
                                tabindex="3" data-site="Nanjing, China" type="text">
                     </label>
                     <br>
@@ -103,8 +103,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 </div>
 
                 <div class="flex1 info-part">
-                    <h4> Your card
-                    </h4>
+                    <h4> Your card</h4>
                     <ul id="roles">
                         <li>silver</li>
                     </ul>
@@ -123,16 +122,15 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <div>
                     <label for="age">Age
                         <br>
-                        <input id="age" value="" data-default="Tony" maxlength="30" tabindex="1"
+                        <input id="age" value="${account.age}" maxlength="30" tabindex="1"
                                data-site="Tony" type="text">
                     </label>
 
                     <br>
 
-                    <%--<s:radio list="gender"/>--%>
+                    <s:radio list="${account.gender}" label="Gender"/>
 
                     <label id="gender">Gender
-
                         <br>
                         <label>
                             <input type="radio" name="gender">Prefer not to say
@@ -147,7 +145,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <br>
                     <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
-                    <s:textfield label="BackCard Number" readonly="true"/>
+                    <s:textfield label="BackCard Number" value="${account.backCard}" readonly="true"/>
 
                 </div>
 
@@ -181,6 +179,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <script type="application/javascript" src="../scripts/chosen.js"></script>
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
+
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 
 <!-- jTable script file. -->

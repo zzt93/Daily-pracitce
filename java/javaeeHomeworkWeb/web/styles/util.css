@@ -61,3 +61,15 @@
     -webkit-filter: blur(5px);
     filter: blur(5px);
 }
+
+
+input[type=submit] {
+    background-color: hsl(8, 70%, 54%);
+    color: white;
+    margin-top: 20px;
+    padding: 10px;
+    border: none;
+    box-sizing: border-box;
+    font-size: 18px;
+    cursor: hand;
+}
