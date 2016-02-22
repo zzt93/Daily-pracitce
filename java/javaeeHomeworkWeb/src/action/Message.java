@@ -9,8 +9,16 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class Message extends ActionSupport {
 
-    @Override
-    public String execute() throws Exception {
+
+    public String msgSend() throws Exception {
+        return super.execute();
+    }
+
+    public String msgList() throws Exception {
+        return super.execute();
+    }
+
+    public String msgDelete() throws Exception {
         return super.execute();
     }
 }

@@ -52,7 +52,7 @@ function initDragDrop() {
         }
 
         if (!sameDate) {
-            getShowBox("date-box")();
+            $('#date-box').dialog();
             return false;
         }
         //e.target.appendChild(document.getElementById(imgNum));

@@ -20,7 +20,7 @@
     display: -webkit-flex;
 }
 
-.none {
+.flex-none {
     -webkit-flex: none;
     flex: none;
 }
@@ -72,4 +72,9 @@ input[type=submit] {
     box-sizing: border-box;
     font-size: 18px;
     cursor: hand;
+}
+
+
+.ui-dialog-titlebar {
+    background-color: #7e7e7e;
 }

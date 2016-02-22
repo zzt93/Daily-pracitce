@@ -156,18 +156,17 @@
     </div>
 </div>
 
-<div id="date-box" class="light-box">
+<div id="date-box" title="Date reminding" class="none">
     <p class="fa fa-2x fa-warning">can't choose desserts in different date in same order</p>
 </div>
 
 <%@include file="../html/footer.html" %>
 
 
-<script type="application/javascript" src="../scripts/lightBox.js"></script>
-<script type="application/javascript" src="../scripts/drag.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
+<script type="application/javascript" src="../scripts/drag.js"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function () {

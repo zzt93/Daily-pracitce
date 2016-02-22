@@ -53,7 +53,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 </header>
 
 <div id="main-container" class="flex-container-large">
-    <nav id="side_nav" class="none">
+    <nav id="side_nav" class="flex-none">
         <ul id="side_nav_list">
             <li>
                 <a href="#">Personal </a>
@@ -63,6 +63,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             </li>
             <li>
                 <a href="#">History </a>
+            </li>
+            <li>
+                <a href="#">Message </a>
             </li>
         </ul>
     </nav>
@@ -168,6 +171,15 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <div id="payTable"></div>
         </div>
 
+        <div class="container" id="message">
+            <h3>Your Messages</h3>
+
+            <div id="MessagesTable"></div>
+            <div class="horizontal-center">
+                <input type="submit" value="Delete selected rows" onclick="deleteMsg()"/>
+            </div>
+        </div>
+
     </div>
 </div>
 
@@ -229,8 +241,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             paging: true,
             pageSize: 4,
             actions: {
-                listAction: 'PayList',
-                deleteAction: 'PayDelete'
+                listAction: 'PayHistoryList',
+                deleteAction: 'PayHistoryDelete'
             },
             fields: {
                 rollNo: {
@@ -258,6 +270,51 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             }
         });
         pay.jtable('load');
+
+        var msg = $('#MessagesTable');
+        msg.jtable({
+            title: 'Message list',
+            paging: true,
+            pageSize: 4,
+            selecting: true, //Enable selecting
+            multiselect: true, //Allow multiple selecting
+            selectingCheckboxes: true, //Show checkboxes on first column
+            actions: {
+                listAction: 'MsgList',
+                deleteAction: 'MsgDelete'
+            },
+            fields: {
+                rollNo: {
+                    title: 'Reservation Id',
+                    width: '30%',
+                    key: true,
+                    list: true,
+                    create: true
+                },
+                studentName: {
+                    title: 'Branch',
+                    width: '30%',
+                    edit: false
+                },
+                department: {
+                    title: 'Department',
+                    width: '30%',
+                    edit: true
+                },
+                rank: {
+                    title: 'Rank',
+                    width: '20%',
+                    edit: true
+                }
+            }
+        });
+        msg.jtable('load');
+
+        function deleteMsg() {
+            var $MessagesTable = $('#MessagesTable');
+            var $selectedRows = $MessagesTable.jtable('selectedRows');
+            $MessagesTable.jtable('deleteRows', $selectedRows);
+        }
     });
 </script>
 

@@ -127,12 +127,17 @@ public class Account extends ActionSupport {
         return SUCCESS;
     }
 
-    public String payDelete() throws Exception {
+    public String payHistoryDelete() throws Exception {
         result = OK;
         return SUCCESS;
     }
 
-    public String payList() throws Exception {
+    public String payHistoryList() throws Exception {
+        return reserveList();
+    }
+
+    public String payMoney() throws Exception {
+
         return reserveList();
     }
 

@@ -1,11 +1,11 @@
-<%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
-  Date: 2/19/16
-  Time: 9:59 PM
+  Date: 2/22/16
+  Time: 11:35 AM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" session="false" %>
 <html>
 <head>
@@ -59,14 +59,13 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <div class="container">
             <div id="plan"></div>
+            <div class="horizontal-center">
+                <input type="submit" onclick="approve()" value="Approve"/>
+            </div>
         </div>
 
         <div class="container" id="message">
-            <h3>Your reservation</h3>
-
-            <div id="ReservationTableContainer"></div>
-            <br>
-
+            <h3>Your messages</h3>
         </div>
 
     </div>
@@ -82,17 +81,20 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     $(document).ready(function () {
         var plan = $('#plan');
         plan.jtable({
-            title: 'Your submitted plan',
+            title: 'Plan list',
             paging: true,
             pageSize: 6,
+            selecting: true, //Enable selecting
+            multiselect: true, //Allow multiple selecting
+            selectingCheckboxes: true, //Show checkboxes on first column
             actions: {
-                listAction: 'PlanList',
+                listAction: 'PlanManagerList',
                 deleteAction: 'PlanDelete',
                 updateAction: 'PlanUpdate'
             },
             fields: {
                 rollNo: {
-                    title: 'Reservation Id',
+                    title: 'Plan Id',
                     width: '30%',
                     key: true,
                     list: true,
@@ -117,6 +119,13 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         });
         plan.jtable('load');
 
+        function approve() {
+            var lineData = $('#plan').jtable('selectedRows');
+            $.post('PlanApprove', lineData, function (response) {
+                        console.log("Response: " + response);
+                    }
+            );
+        }
     });
 
 </script>

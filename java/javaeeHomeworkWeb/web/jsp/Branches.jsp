@@ -50,7 +50,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 </header>
 
 <div id="main-container" class="flex-container-large">
-    <nav id="side_nav" class="none">
+    <nav id="side_nav" class="flex-none">
         <ul id="side_nav_list">
             <li>
                 <a href="#">Branches </a>

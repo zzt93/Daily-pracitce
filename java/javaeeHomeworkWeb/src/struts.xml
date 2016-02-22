@@ -38,12 +38,11 @@
         <action name="InnerRegister_*" method="{1}" class="action.InnerRegister">
             <result name="input">/jsp/InnerRegister.jsp</result>
             <result>/jsp/InnerLogin.jsp</result>
-            <!-- redirect and not forward-->
             <interceptor-ref name="defaultStack"/>
         </action>
 
         <action name="ManagerSession">
-            <result></result>
+            <result>/jsp/Manager.jsp</result>
         </action>
 
         <action name="Waiter0Session" class="action.Waiter0">
@@ -82,23 +81,21 @@
         </action>
 
         <action name="Pay*" class="action.Account" method="pay{1}">
-            <!--the action will return a json rather than a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
         <action name="Plan*" class="action.Plan" method="plan{1}">
-            <!--the action will return a json rather than a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="SendMsg" class="action.Message">
-            <result type="json">/jsp/OtherWaiter.jsp</result>
+        <action name="Msg*" class="action.Message" method="msg{1}">
+            <result type="json">/jsp/Account.jsp</result>
         </action>
 
+
+        <!--just for debug-->
         <action name="list" class="action.Account" method="reserveList">
-            <result type="json">
-                <!--just for debug-->
-            </result>
+            <result type="json"/>
         </action>
 
 

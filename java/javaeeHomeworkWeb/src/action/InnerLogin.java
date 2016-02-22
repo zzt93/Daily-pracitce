@@ -9,9 +9,11 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class InnerLogin extends ActionSupport {
 
+
     private String type;
     private int id;
     private String pw;
+    public static final String MANAGER = "manager";
 
     public int getId() {
         return id;

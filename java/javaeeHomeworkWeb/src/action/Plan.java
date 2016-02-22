@@ -22,5 +22,17 @@ public class Plan extends ActionSupport {
         return super.execute();
     }
 
+    public String planApprove() throws Exception {
+        return super.execute();
+    }
+
+    public String planManagerList() throws Exception {
+        return super.execute();
+    }
+
+    public String planList() throws Exception {
+        return super.execute();
+    }
+
 
 }

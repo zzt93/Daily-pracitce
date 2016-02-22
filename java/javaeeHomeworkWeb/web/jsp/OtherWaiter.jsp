@@ -17,7 +17,6 @@
 
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
-    <link rel="stylesheet" href="../styles/lightBox.css">
 
     <!-- jTable Metro theme -->
     <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
@@ -46,7 +45,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 </header>
 
 <div id="main-container" class="flex-container-large">
-    <nav id="side_nav" class="none">
+    <nav id="side_nav" class="flex-none">
         <ul id="side_nav_list">
             <li>
                 <a href="#">Sale </a>
@@ -101,39 +100,54 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
                 <h3>User order</h3>
                 <div id="order-detail"></div>
+                <div id="payDialog" title="Pay dialog" class="none">
+                    <label>Money:
+                        <input type="text" id="money">
+                    </label>
+                    <div class="horizontal-center">
+                        <input type="submit" onclick="pay()" value="Pay"/>
+                    </div>
+                </div>
+
+
                 <div class="horizontal-center">
-                    <input type="submit" value="Pay by cash"/>
+                    <input type="submit" value="User card" onclick="payType = 'card';$('#payDialog').dialog();"/>
                     <pre>  </pre>
-                    <input type="submit" value="Pay by card"/>
+                    <input type="submit" value="Other ways" onclick="payType = 'other';$('#payDialog').dialog();"/>
                 </div>
             </div>
-
-
-
         </div>
 
         <div class="container" id="message">
 
             <div id="balanceTable"></div>
 
-            <div class="light-box" id="sendMsg">
-                <div style="height: 200px;">
-                    <label>Message:
-                        <textarea id="msg" style="height: 150px">Sir, your balance is too low.
-                        </textarea>
-                    </label>
+            <%--<div class="light-box" id="sendMsg">
+                            <div style="height: 200px;">
+                                <label>Message:
+                                    <textarea id="msg" style="height: 150px">Sir, your balance is too low.
+                                    </textarea>
+                                </label>
+                                <input type="submit" onclick="sendMsg()" value="Send"/>
+                            </div>
+                        </div>--%>
+            <div class="horizontal-center">
+                <input type="submit" onclick="$('#msgDialog').dialog();" value="Send notification"/>
+            </div>
+
+            <div id="msgDialog" title="Message dialog" class="none">
+                <label>Message:
+                    <textarea id="msg" style="height: 150px">Sir, your balance is too low.</textarea>
+                </label>
+                <div class="horizontal-center">
                     <input type="submit" onclick="sendMsg()" value="Send"/>
                 </div>
-            </div>
-            <div class="horizontal-center">
-                <input type="submit" onclick="getShowBox('sendMsg')()" value="Send notification"/>
             </div>
         </div>
 
     </div>
 </div>
 
-<script type="application/javascript" src="../scripts/lightBox.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 <script type="application/javascript" src="../scripts/chosen.js"></script>
 
@@ -211,12 +225,20 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         order.jtable('load');
     });
 
+    function logResponse(response) {
+        console.log("Response: " + response);
+    }
+
     function sendMsg() {
         var lineData = $('#balanceTable').jtable('selectedRows');
-        $.post('SendMsg', lineData, function (response) {
-                    console.log("Response: " + response);
-                }
-        );
+        $.post('MsgSend', lineData, logResponse);
+        $( this ).dialog( "close" );
+    }
+
+    function pay() {
+        var money = $('#money').text();
+        $.post('PayMoney', {money:money, type:payType}, logResponse);
+        $( this ).dialog( "close" );
     }
 
 </script>
