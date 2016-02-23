@@ -3,6 +3,8 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * Created by zzt on 2/19/16.
@@ -11,8 +13,12 @@ import java.util.ArrayList;
  */
 public class InnerRegister extends ActionSupport {
 
-    private ArrayList<String> types = new ArrayList<>(2);
+    public static final String ADMIN_PASSWORD = "123";
+    // for registration type list
+    private List<String> types = new ArrayList<>(2);
+    private int sid;
 
+    // request parameter
     private String adminPW;
     private int bid;
     private String pw;
@@ -22,16 +28,21 @@ public class InnerRegister extends ActionSupport {
     public InnerRegister() {
         types.add("waiter");
         types.add("manager");
+
+
     }
 
-    public ArrayList<String> getTypes() {
-        return types;
+    public List<String> getTypes() {
+        return Collections.unmodifiableList(types);
     }
 
-    public void setTypes(ArrayList<String> types) {
-        this.types = types;
+    public int getSid() {
+        return sid;
     }
 
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
 
     public String getAdminPW() {
         return adminPW;
@@ -75,6 +86,18 @@ public class InnerRegister extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
+        validate();
+
         return super.execute();
+    }
+
+    public void validate() {
+        if (!adminPW.equals(ADMIN_PASSWORD)) {
+            addFieldError("adminPW", "wrong admin password");
+        }
+        String pw = getPw();
+        if (!pw.equals(pw2)) {
+            addFieldError("pw", "password are not same");
+        }
     }
 }

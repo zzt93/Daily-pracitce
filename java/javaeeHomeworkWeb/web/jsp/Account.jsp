@@ -37,7 +37,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="Branches.jsp">Dessert</a></p>
+        <p id="app-name"><a href="<s:url action='Branches'/>">Dessert</a></p>
 
         <form>
             <p class="action">
@@ -111,10 +111,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         <li>silver</li>
                     </ul>
 
-                    <div class="apply-container" id="apply-container">
-                        <a href="#" id="apply-link"> Apply for higher rank?
-                        </a>
-                    </div>
                 </div>
 
             </section>
@@ -131,7 +127,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
                     <br>
 
-                    <s:radio list="${account.gender}" label="Gender"/>
+                    <%--<s:radio list="${account.gender}" label="Gender"/>--%>
 
                     <label id="gender">Gender
                         <br>
@@ -148,8 +144,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <br>
                     <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
-                    <s:textfield label="BackCard Number" value="${account.backCard}" readonly="true"/>
-
+                    <%--<s:textfield label="BackCard Number" value="${account.backCard}" readonly="true"/>--%>
+                    <a href="<s:url action='Activation_input'/>">Activate</a>
                 </div>
 
             </section>

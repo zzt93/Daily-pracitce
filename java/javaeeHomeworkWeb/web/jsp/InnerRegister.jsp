@@ -44,6 +44,7 @@
                       name="type"
                       list="%{types}" required="required"/>
             <%--<s:radio list="types" required="required"/>--%>
+            <s:textfield name="sid" label="staff id" readonly="true"/>
             <s:textfield name="bid" label="branch id" title="how to name you in website"/>
             <s:password name="pw" label="password" title="have to longer than 6 chars" required="required"/>
 

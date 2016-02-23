@@ -94,6 +94,21 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         <ul id="roles">
                             <li>silver</li>
                         </ul>
+
+                        <div id="apply" title="Message dialog" class="none">
+                            <label>Money:
+                                <input type="text" id="applyMoney">
+                            </label>
+                            <div class="horizontal-center">
+                                <input type="submit" value="User card" onclick="payType = 'card';pay()"/>
+                                <pre>  </pre>
+                                <input type="submit" value="Other ways" onclick="payType = 'other';pay()"/>
+                            </div>
+                        </div>
+                        <div class="apply-container">
+                            <a href="#" id="apply-link" onclick="$('#apply').dialog();"> Apply for higher rank
+                            </a>
+                        </div>
                     </div>
 
                 </section>
