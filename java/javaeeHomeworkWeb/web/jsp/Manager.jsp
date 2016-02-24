@@ -50,7 +50,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <a href="#">Plan </a>
             </li>
             <li>
-                <a href="#">Message </a>
+                <a href="#">Branches </a>
+            </li>
+            <li>
+                <a href="#">Statistic </a>
             </li>
         </ul>
     </nav>
@@ -64,8 +67,15 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             </div>
         </div>
 
-        <div class="container" id="message">
-            <h3>Your messages</h3>
+        <div class="container">
+            <div id="branch"></div>
+<%--            <div class="horizontal-center">
+                <input type="submit" onclick="approve()" value="Approve"/>
+            </div>--%>
+        </div>
+
+        <div class="container">
+
         </div>
 
     </div>
@@ -118,6 +128,33 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             }
         });
         plan.jtable('load');
+
+        var branch = $('#branch');
+        branch.jtable({
+            title: 'Branch list',
+            paging: true,
+            pageSize: 6,
+            actions: {
+                listAction: 'BranchList',
+                deleteAction: 'BranchDelete',
+                updateAction: 'BranchUpdate'
+            },
+            fields: {
+                rollNo: {
+                    title: 'Branch Id',
+                    width: '30%',
+                    key: true,
+                    list: true,
+                    create: true
+                },
+                studentName: {
+                    title: 'Address',
+                    width: '30%',
+                    edit: false
+                }
+            }
+        });
+        branch.jtable('load');
 
         function approve() {
             var lineData = $('#plan').jtable('selectedRows');

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 @Entity()
 @Table(name = "dessert")
 public class Dessert implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     private int did;
     private String name;

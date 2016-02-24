@@ -29,7 +29,7 @@ public class AccountBean implements AccountService, ConsumeService {
     public boolean register(String name, String pw) {
         User user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                 .setParameter(1, name).getSingleResult();
-        if (user == null) {
+        if (user != null) {
             return false;
         }
         em.persist(new User(name, pw));

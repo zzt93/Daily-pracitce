@@ -1,5 +1,6 @@
 package interceptor;
 
+import action.InnerLogin;
 import action.UserLogin;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.ActionSupport;
@@ -16,17 +17,18 @@ import javax.servlet.http.HttpSession;
  * Usage: Check the log in state before request reach the servlet
  */
 
-public class LogInInterceptor extends AbstractInterceptor {
+public class UserInterceptor extends AbstractInterceptor {
 
 
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         System.out.println("Interceptor Fired");
         HttpServletRequest request = ServletActionContext.getRequest();
-        HttpServletResponse response = ServletActionContext.getResponse();
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute(UserLogin.UID) == null) {
+        // TODO: 2/24/16 add role control
+        if (session == null ||
+                (session.getAttribute(UserLogin.UID) == null && session.getAttribute(InnerLogin.SID) == null)) {
             return ActionSupport.INPUT;
         }
 

@@ -4,6 +4,13 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
+import org.apache.struts2.ServletActionContext;
+import org.hornetq.utils.JNDIUtil;
+import remote.JNDIFactory;
+import service.AccountService;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by zzt on 2/11/16.
@@ -31,6 +38,11 @@ public class UserLogin extends ActionSupport {
     public static final String UID = "uid";
     private String name;
     private String pw;
+    private final AccountService accountService;
+
+    public UserLogin() {
+        accountService = (AccountService) JNDIFactory.getResource("ejb:/TryEJB//CourseEJB!service.CourseService");
+    }
 
     @Validations(
             requiredFields =
@@ -42,7 +54,7 @@ public class UserLogin extends ActionSupport {
     @Override
     public String execute() throws Exception {
         String name = getName();
-        if (true) {
+        if (accountService.register(name, pw)) {
             addFieldError("name", "user name is already used.");
             return INPUT;
         }
@@ -54,7 +66,13 @@ public class UserLogin extends ActionSupport {
         return SUCCESS;
     }
 
-
+    public String logOut() throws Exception {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession(false);
+        assert session != null;
+        session.invalidate();
+        return SUCCESS;
+    }
 
     public void setName(String name) {
         this.name = name;

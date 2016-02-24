@@ -13,8 +13,10 @@ import java.util.ArrayList;
 @Remote
 public interface PlanService {
 
-    void addPlan(int bid, int did, int num);
-    void deletePlan(int bid);
-    void updatePlan(Plan Plan);
-    ArrayList<Plan> allPlan();
+    void addPlan(int bid, String planDate);
+    void deletePlan(int planId);
+    void updatePlan(Plan plan);
+    ArrayList<Plan> newPlan();
+
+    void addPlanDetail(int planId, int num, int did);
 }

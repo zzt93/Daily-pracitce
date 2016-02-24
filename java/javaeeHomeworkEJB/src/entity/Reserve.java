@@ -11,9 +11,18 @@ import java.util.ArrayList;
  */
 @Entity()
 @Table(name = "reserve")
+@NamedQueries(
+        {
+                @NamedQuery(name = Reserve.USER_RESERVE, query = "select * from Reserve r where r.uid = ?1"),
+                @NamedQuery(name = Reserve.BRANCH_RESERVE, query = "select * from Reserve r where r.bid = ?1")
+        }
+)
 public class Reserve implements Serializable {
+    public static final long serialVersionUID = 42L;
 
 
+    public static final String USER_RESERVE = "user reserve";
+    public static final String BRANCH_RESERVE = "branch reserve";
     private int rid;
 
     private String bdate;
@@ -21,6 +30,15 @@ public class Reserve implements Serializable {
 
     private User user;
     private Branch branch;
+
+    public Reserve() {
+    }
+
+    public Reserve(User user, Branch branch, String bdate) {
+        this.bdate = bdate;
+        this.user = user;
+        this.branch = branch;
+    }
 
     @Id
     @GeneratedValue

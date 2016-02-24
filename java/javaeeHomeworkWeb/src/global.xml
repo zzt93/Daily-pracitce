@@ -11,7 +11,7 @@
         <!--must just after the opening package node.-->
         <interceptors>
             <interceptor name="encoding" class="interceptor.EncodingInterceptor"/>
-            <interceptor name="login" class="interceptor.LogInInterceptor"/>
+            <interceptor name="login" class="interceptor.UserInterceptor"/>
             <interceptor-stack name="appDefaultStack">
                 <interceptor-ref name="encoding"/>
                 <!--<interceptor-ref name="login"/>-->

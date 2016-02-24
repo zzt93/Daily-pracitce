@@ -15,5 +15,6 @@ public interface ReserveService {
     boolean reserveEdit(Reserve reserve);
     boolean reserveDelete(int rid);
     boolean reserveFinish(int rid);
-    ArrayList<Reserve> reserveList();
+    ArrayList<Reserve> userReserve(int uid, int startIndex, int pageSize);
+    ArrayList<Reserve> branchReserve(int bid, int startSize, int pageSize);
 }

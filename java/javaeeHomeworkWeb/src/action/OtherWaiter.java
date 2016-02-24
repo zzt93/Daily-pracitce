@@ -13,7 +13,7 @@ public class OtherWaiter extends ActionSupport {
     private int userId;
 
     //    private User user;
-    //    Account account;
+    //    AccountAction account;
 
     @Override
     public String execute() throws Exception {

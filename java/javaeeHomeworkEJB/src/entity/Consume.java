@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Entity()
 @Table(name = "consume")
 public class Consume implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     private int uid;
 

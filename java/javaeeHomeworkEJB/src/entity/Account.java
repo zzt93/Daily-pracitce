@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Table(name = "account")
 @NamedQuery(query = "select * from Account a where a.uid = ?1", name = Account.FIND_ACCOUNT_BY_ID)
 public class Account implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     public static final String FIND_ACCOUNT_BY_ID = "find account by id";
     private int uid;

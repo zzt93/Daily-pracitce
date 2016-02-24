@@ -1,9 +1,14 @@
 package service.bean;
 
+import entity.Branch;
+import entity.Dessert;
 import entity.Plan;
+import entity.PlanDetail;
 import service.PlanService;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
 /**
@@ -12,27 +17,38 @@ import java.util.ArrayList;
  * Usage:
  */
 @Stateless(name = "PlanEJB")
-public class PlanBean implements PlanService{
+public class PlanBean implements PlanService {
+
+    @PersistenceContext
+    EntityManager em;
+
     public PlanBean() {
     }
 
     @Override
-    public void addPlan(int bid, int did, int num) {
-
+    public void addPlan(int bid, String planDate) {
+        em.persist(new Plan(em.find(Branch.class, bid), planDate));
     }
 
     @Override
-    public void deletePlan(int bid) {
-
+    public void deletePlan(int planId) {
+        em.remove(em.find(Plan.class, planId));
     }
 
     @Override
-    public void updatePlan(Plan Plan) {
-
+    public void updatePlan(Plan plan) {
+        em.persist(plan);
     }
 
     @Override
-    public ArrayList<Plan> allPlan() {
-        return null;
+    public ArrayList<Plan> newPlan() {
+        return (ArrayList<Plan>) em.createNamedQuery(Plan.NEW_PLAN, Plan.class).getResultList();
+    }
+
+    @Override
+    public void addPlanDetail(int planId, int num, int did) {
+        Plan plan = em.find(Plan.class, planId);
+        Dessert dessert = em.find(Dessert.class, did);
+        em.persist(new PlanDetail(plan, dessert, num));
     }
 }

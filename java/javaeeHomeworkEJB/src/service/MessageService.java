@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Remote
 public interface MessageService {
 
-    void addMsg(String addr);
-    void deleteMsg(int bid);
-    ArrayList<Message> allMsg();
+    void addMsg(String msg, int toUser);
+    void deleteMsg(int mid);
+    ArrayList<Message> allMsg(int uid);
 }

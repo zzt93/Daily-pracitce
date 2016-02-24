@@ -10,12 +10,23 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "msg")
+@NamedQuery(name = Message.ALL_MESSAGE, query = "select * from Message m where m.uid = ?1")
 public class Message implements Serializable {
+    public static final long serialVersionUID = 42L;
 
+    public static final String ALL_MESSAGE = "all message";
     private int mid;
     private String msg;
 
     private User user;
+
+    public Message() {
+    }
+
+    public Message(String msg, User user) {
+        this.msg = msg;
+        this.user = user;
+    }
 
     @Id
     @GeneratedValue

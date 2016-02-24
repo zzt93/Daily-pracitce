@@ -29,6 +29,7 @@ public class InnerRegister extends ActionSupport {
         types.add("waiter");
         types.add("manager");
 
+        // get staff id
 
     }
 
@@ -87,7 +88,9 @@ public class InnerRegister extends ActionSupport {
     @Override
     public String execute() throws Exception {
         validate();
+        // store in db
 
+        InnerLogin.setStaffSession(sid);
         return super.execute();
     }
 

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 @Table(name = "branch")
 @NamedQuery(query = "select * from Branch", name = Branch.ALL_BRANCH)
 public class Branch implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     public static final String ALL_BRANCH = "all branch";
     private int bid;

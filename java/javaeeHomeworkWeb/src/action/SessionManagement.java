@@ -1,5 +1,7 @@
 package action;
 
+import org.apache.struts2.ServletActionContext;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -14,34 +16,22 @@ import java.io.IOException;
  */
 public class SessionManagement {
 
-    public static void setSession(HttpServletRequest request, int sid) {
-        HttpSession session = request.getSession(true);
-        session.setAttribute(UserLogin.UID, sid);
+    public static void setUserSession(int uid) {
+        setSession(UserLogin.UID, uid);
+    }
+    public static void setStaffSession(int sid) {
+        setSession(InnerLogin.SID, sid);
     }
 
-    /**
-     * if this method return false, the response should be considered to be committed and should not be written to.
-     *
-     * @param request Assume httpServletRequest
-     * @param response Assume httpServletResponse
-     *
-     * @return whether there is a user login created session
-     *
-     * @throws IOException
-     */
-    public static boolean checkSession(ServletRequest request, ServletResponse response) throws IOException {
-
-        if (request instanceof HttpServletRequest
-                && response instanceof HttpServletResponse) {
-            HttpServletRequest req = (HttpServletRequest) request;
-            HttpServletResponse resp = (HttpServletResponse) response;
-            HttpSession session = req.getSession(false);
-            if (session == null || session.getAttribute(UserLogin.UID) == null) {
-                resp.sendRedirect(req.getContextPath() + "/jsp/UserLogin.jsp");
-                return false;
-            }
-            return true;
-        }
-        return false;
+    private static void setSession(String s, int id) {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession(false);
+        session.setAttribute(s, id);
     }
+
+    public static HttpSession getSession() {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        return request.getSession(false);
+    }
+
 }

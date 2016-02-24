@@ -58,7 +58,7 @@
             <result>/jsp/OtherWaiter.jsp</result>
         </action>
 
-        <action name="Account" class="action.Account">
+        <action name="Account" class="action.AccountAction">
             <result name="success">/jsp/Account.jsp</result>
         </action>
 
@@ -76,16 +76,20 @@
 
     <package name="ajax" namespace="/dessert" extends="json-default">
 
-        <action name="Reserve*" class="action.Account" method="reserve{1}">
+        <action name="UserReserve*" class="action.ReserveAction" method="userReserve{1}">
             <!--the action will return a json to use in a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="BranchReserve*" class="action.Reserve" method="branchReserve{1}">
+        <action name="BranchReserve*" class="action.ReserveAction" method="branchReserve{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Pay*" class="action.Account" method="pay{1}">
+        <action name="Branch*" class="action.Branch" method="branch{1}">
+            <result type="json">/jsp/Manager.jsp</result>
+        </action>
+
+        <action name="Pay*" class="action.AccountAction" method="pay{1}">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
@@ -99,7 +103,7 @@
 
 
         <!--just for debug-->
-        <action name="list" class="action.Account" method="reserveList">
+        <action name="list" class="action.AccountAction" method="reserveList">
             <result type="json"/>
         </action>
 

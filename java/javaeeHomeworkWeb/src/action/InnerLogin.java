@@ -1,6 +1,11 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Created by zzt on 2/12/16.
@@ -10,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 public class InnerLogin extends ActionSupport {
 
 
+    public static final String SID = "sid";
     private String type;
     private int id;
     private String pw;
@@ -42,5 +48,12 @@ public class InnerLogin extends ActionSupport {
     @Override
     public String execute() throws Exception {
         return super.execute();
+    }
+
+    public static void setStaffSession(int sid) {
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpServletResponse response = ServletActionContext.getResponse();
+        HttpSession session = request.getSession(true);
+        session.setAttribute(SID, sid);
     }
 }

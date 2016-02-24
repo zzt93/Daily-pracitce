@@ -41,7 +41,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <form>
             <p class="action">
-                <a href="<s:url action='Login_input'/>" class="fa fa-user"> log out</a>
+                <a href="<s:url action='Login_logOut'/>" class="fa fa-user"> log out</a>
             </p>
 
             <p class="action">
@@ -201,8 +201,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             paging: true,
             pageSize: 4,
             actions: {
-                listAction: 'ReserveList',
-                deleteAction: 'ReserveDelete'
+                listAction: 'UserReserveList',
+                deleteAction: 'UserReserveDelete'
             },
             fields: {
                 rollNo: {

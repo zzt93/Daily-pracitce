@@ -5,7 +5,7 @@ package action;
  * <p>
  * Usage:
  * For test display-tag
- * @see Account
+ * @see AccountAction
  */
 public class StudentBean {
     private String rollNo;

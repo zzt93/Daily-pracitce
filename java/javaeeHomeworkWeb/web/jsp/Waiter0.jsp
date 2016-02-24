@@ -62,10 +62,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         </div>
 
         <div class="container" id="message">
-            <h3>Your reservation</h3>
 
             <div id="ReservationTableContainer"></div>
-            <br>
 
         </div>
 
@@ -88,7 +86,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             actions: {
                 listAction: 'PlanList',
                 deleteAction: 'PlanDelete',
-                updateAction: 'PlanUpdate'
+                updateAction: 'PlanUpdate',
+                createAction: 'PlanAdd'
             },
             fields: {
                 rollNo: {

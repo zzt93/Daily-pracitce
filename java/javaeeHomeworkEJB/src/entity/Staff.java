@@ -11,6 +11,7 @@ import java.io.Serializable;
 @Entity()
 @Table(name = "staff")
 public class Staff implements Serializable{
+    public static final long serialVersionUID = 42L;
 
     private int sid;
     private String pw;

@@ -11,17 +11,27 @@ import java.util.ArrayList;
  */
 @Entity()
 @Table(name = "")
+@NamedQuery(query = "select * from Plan p where p.state = 0", name = Plan.NEW_PLAN)
 public class Plan implements Serializable {
+    public static final long serialVersionUID = 42L;
 
+    public static final String NEW_PLAN = "new plan";
     private int planId;
 
     private byte state;
-    private int bid;
     private String pdate;
 
     private ArrayList<PlanDetail> details;
 
     private Branch branch;
+
+    public Plan() {
+    }
+
+    public Plan(Branch branch, String planDate) {
+        this.branch = branch;
+        this.pdate = planDate;
+    }
 
     @Id
     @GeneratedValue
@@ -39,14 +49,6 @@ public class Plan implements Serializable {
 
     public void setState(byte state) {
         this.state = state;
-    }
-
-    public int getBid() {
-        return bid;
-    }
-
-    public void setBid(int bid) {
-        this.bid = bid;
     }
 
     public String getPdate() {

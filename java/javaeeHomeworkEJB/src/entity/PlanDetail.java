@@ -11,12 +11,22 @@ import java.io.Serializable;
 @Entity()
 @Table(name = "pdetail")
 public class PlanDetail implements Serializable {
+    public static final long serialVersionUID = 42L;
 
     private int pdId;
     private int num;
 
     private Plan plan;
     private Dessert dessert;
+
+    public PlanDetail() {
+    }
+
+    public PlanDetail(Plan plan, Dessert dessert, int num) {
+        this.num = num;
+        this.dessert = dessert;
+        this.plan = plan;
+    }
 
     @Id
     @GeneratedValue

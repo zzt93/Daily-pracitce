@@ -40,6 +40,6 @@ public class BranchBean implements BranchService{
 
     @Override
     public ArrayList<Branch> allBranch() {
-        return (ArrayList<Branch>) em.createNamedQuery(Branch.ALL_BRANCH).getResultList();
+        return (ArrayList<Branch>) em.createNamedQuery(Branch.ALL_BRANCH, Branch.class).getResultList();
     }
 }
