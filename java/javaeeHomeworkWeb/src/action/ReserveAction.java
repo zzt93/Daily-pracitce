@@ -6,8 +6,6 @@ import remote.JNDIFactory;
 import service.ReserveService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,14 +36,19 @@ public class ReserveAction extends ActionSupport {
         this.branchNum = branchNum;
     }
 
-    public String branchReservePay() throws Exception {
-        return SUCCESS;
-    }
-
+    private int rid;
     private String bdate;
     private int did;
     private int num;
     private double price;
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
+    }
 
     public int getDid() {
         return did;
@@ -55,17 +58,6 @@ public class ReserveAction extends ActionSupport {
         this.did = did;
     }
 
-    public String branchReserveAdd() throws Exception {
-        return SUCCESS;
-    }
-
-    public String branchReserveEdit() throws Exception {
-        return SUCCESS;
-    }
-
-    public String branchReserveDelete() throws Exception {
-        return SUCCESS;
-    }
 
     // for table response
     private List<entity.Reserve> records;
@@ -128,16 +120,33 @@ public class ReserveAction extends ActionSupport {
 
     public String userReserveList() throws Exception {
         HttpSession session = SessionManagement.getSession();
+        Integer uid = (Integer) session.getAttribute(UserLogin.UID);
         records =
-                reserveService.userReserve((Integer) session.getAttribute(UserLogin.UID), jtStartIndex, jtPageSize);
+                reserveService.userReserve(uid, jtStartIndex, jtPageSize);
+        totalRecordCount = reserveService.countUserReserve(uid);
         result = JTableHelper.OK;
-        message = "this fine";
-        totalRecordCount = 16;
-//        records = students.subList(jtStartIndex, jtStartIndex + jtPageSize);
-        return execute();
+        return SUCCESS;
     }
 
     public String userReserveDelete() throws Exception {
+        reserveService.reserveDelete(rid);
+        result = JTableHelper.OK;
+        return SUCCESS;
+    }
+
+
+    public String payHistoryDelete() throws Exception {
+        reserveService.reserveDelete(rid);
+        result = JTableHelper.OK;
+        return SUCCESS;
+    }
+
+    public String payHistoryList() throws Exception {
+        HttpSession session = SessionManagement.getSession();
+        Integer uid = (Integer) session.getAttribute(UserLogin.UID);
+        records =
+                reserveService.userPayment(uid, jtStartIndex, jtPageSize);
+        totalRecordCount = reserveService.countUserPayment(uid);
         result = JTableHelper.OK;
         return SUCCESS;
     }

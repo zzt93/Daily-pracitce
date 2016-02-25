@@ -55,13 +55,13 @@ function initDragDrop() {
             $('#date-box').dialog();
             return false;
         }
-        //e.target.appendChild(document.getElementById(imgNum));
         console.info(imgNum);
         console.info(date);
 
-        $.post('BranchReserveAdd',
+        $.post('OrderAdd',
             {
                 did: imgNum,
+                num: 1,
                 bdate: date
             }, function (response) {
                 console.log("Response: " + response);

@@ -11,10 +11,19 @@ import java.util.ArrayList;
  */
 public interface ReserveService {
 
-    boolean reserveAdd(int uid, int bid, String bdate);
+    boolean reserveAdd(Reserve reserve);
     boolean reserveEdit(Reserve reserve);
     boolean reserveDelete(int rid);
     boolean reserveFinish(int rid);
+    Reserve reserveGet(int rid);
+
     ArrayList<Reserve> userReserve(int uid, int startIndex, int pageSize);
+    int countUserReserve(int uid);
     ArrayList<Reserve> branchReserve(int bid, int startSize, int pageSize);
+    int countBranchReserve(int bid);
+    ArrayList<Reserve> branchUserReserve(int bid, int uid, int startIndex, int pageSize);
+    int countBranchUserReserve(int bid, int uid);
+    ArrayList<Reserve> userPayment(int uid, int startIndex, int pageSize);
+    int countUserPayment(int uid);
+
 }

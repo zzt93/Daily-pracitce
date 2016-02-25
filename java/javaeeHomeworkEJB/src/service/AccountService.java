@@ -1,5 +1,7 @@
 package service;
 
+import entity.User;
+
 import javax.ejb.Remote;
 
 /**
@@ -11,6 +13,7 @@ import javax.ejb.Remote;
 public interface AccountService {
 
     boolean register(String name, String pw);
+    User getUser(int uid);
 
     void fillPrivateInfo(int uid, short age, byte gender);
 

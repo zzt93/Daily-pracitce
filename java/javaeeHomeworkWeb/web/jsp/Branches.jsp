@@ -1,4 +1,5 @@
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
@@ -65,57 +66,25 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <div class="container">
 
-            <div class="branch half">
-                <s:url action="Branch" var="branchLink">
-                    <s:param name="branchNum">0</s:param>
-                </s:url>
-                <h3>
-                    <a href="${branchLink}">Main Branch</a>
-                </h3>
-                <h5>
-                    The hilariously misnamed Pancake Dessert House in Chinatown's Midcity Arcade specializes in
-                    fantastic Hong
-                    Kong cuisine, in fact it seems to serve up almost everything...except pancake desserts (though I'm
-                    sure they
-                    have some somewhere). The sheer amount of variety on the menu can be challenging for first timers
-                    but most
-                    dishes are pretty well done.
-                </h5>
-            </div>
-            <div class="branch half">
-                <s:url action="Branch" var="branchLink">
-                    <s:param name="branchNum">1</s:param>
-                </s:url>
-                <h3>
-                    <a href="${branchLink}">Branch one</a>
-                </h3>
-                <h5>
-                    The hilariously misnamed Pancake Dessert House in Chinatown's Midcity Arcade specializes in
-                    fantastic Hong
-                    Kong cuisine, in fact it seems to serve up almost everything...except pancake desserts (though I'm
-                    sure they
-                    have some somewhere). The sheer amount of variety on the menu can be challenging for first timers
-                    but most
-                    dishes are pretty well done.
-                </h5>
-            </div>
-            <div class="branch half">
-                <s:url action="Branch" var="branchLink">
-                    <s:param name="branchNum">1</s:param>
-                </s:url>
-                <h3>
-                    <a href="${branchLink}">Branch one</a>
-                </h3>
-                <h5>
-                    The hilariously misnamed Pancake Dessert House in Chinatown's Midcity Arcade specializes in
-                    fantastic Hong
-                    Kong cuisine, in fact it seems to serve up almost everything...except pancake desserts (though I'm
-                    sure they
-                    have some somewhere). The sheer amount of variety on the menu can be challenging for first timers
-                    but most
-                    dishes are pretty well done.
-                </h5>
-            </div>
+            <c:forEach items="${branches}" var="branch">
+                <div class="branch half">
+                    <s:url action="Branch" var="branchLink">
+                        <s:param name="branchNum">branch.bid</s:param>
+                    </s:url>
+                    <h3>
+                        <a href="${branchLink}">Main Branch</a>
+                    </h3>
+                    <h5>
+                        The hilariously misnamed Pancake Dessert House in Chinatown's Midcity Arcade specializes in
+                        fantastic Hong
+                        Kong cuisine, in fact it seems to serve up almost everything...except pancake desserts (though I'm
+                        sure they
+                        have some somewhere). The sheer amount of variety on the menu can be challenging for first timers
+                        but most
+                        dishes are pretty well done.
+                    </h5>
+                </div>
+            </c:forEach>
 
             <br class="clear-left"/>
         </div>

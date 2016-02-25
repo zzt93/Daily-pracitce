@@ -27,7 +27,7 @@
         </action>
 
         <action name="Activation_*" class="action.Activation" method="{1}">
-            <result>/jsp/Account.jsp</result>
+            <result type="redirectAction">Account</result>
             <result name="input">/jsp/Activation.jsp</result>
         </action>
 
@@ -63,11 +63,11 @@
         </action>
 
 
-        <action name="Branch" class="action.Branch">
+        <action name="Branch" class="action.BranchAction">
             <result>/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Branches">
+        <action name="Branches" class="action.AllBranches">
             <result>/jsp/Branches.jsp</result>
         </action>
 
@@ -81,19 +81,24 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="BranchReserve*" class="action.ReserveAction" method="branchReserve{1}">
+        <action name="BranchUserReserve*" class="action.BranchAction" method="branchUserReserve{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Branch*" class="action.Branch" method="branch{1}">
-            <result type="json">/jsp/Manager.jsp</result>
+        <action name="Order*" class="action.ReserveDetailAction" method="order{1}">
+            <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Pay*" class="action.AccountAction" method="pay{1}">
+        <action name="Pay*" class="action.ReserveAction" method="pay{1}">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="Plan*" class="action.Plan" method="plan{1}">
+        <action name="Branch*" class="action.BranchAction" method="branch{1}">
+            <result type="json">/jsp/Manager.jsp</result>
+        </action>
+
+
+        <action name="Plan*" class="action.PlanAction" method="plan{1}">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
@@ -101,11 +106,6 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-
-        <!--just for debug-->
-        <action name="list" class="action.AccountAction" method="reserveList">
-            <result type="json"/>
-        </action>
 
 
     </package>

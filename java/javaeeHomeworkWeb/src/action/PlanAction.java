@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.ActionSupport;
  * <p>
  * Usage:
  */
-public class Plan extends ActionSupport {
+public class PlanAction extends ActionSupport {
 
     @Override
     public String execute() throws Exception {

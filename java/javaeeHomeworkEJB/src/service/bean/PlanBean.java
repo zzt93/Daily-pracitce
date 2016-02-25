@@ -37,12 +37,19 @@ public class PlanBean implements PlanService {
 
     @Override
     public void updatePlan(Plan plan) {
-        em.persist(plan);
+        em.merge(plan);
     }
 
     @Override
     public ArrayList<Plan> newPlan() {
         return (ArrayList<Plan>) em.createNamedQuery(Plan.NEW_PLAN, Plan.class).getResultList();
+    }
+
+    @Override
+    public ArrayList<Plan> branchPlan(int bid) {
+        return (ArrayList<Plan>) em.createNamedQuery(Plan.BRANCH_PLAN, Plan.class)
+                .setParameter(1, bid)
+                .getResultList();
     }
 
     @Override

@@ -34,4 +34,10 @@ public class SessionManagement {
         return request.getSession(false);
     }
 
+    public static int getUid() {
+        HttpSession session = getSession();
+        return (int) session.getAttribute(UserLogin.UID);
+    }
+
+
 }

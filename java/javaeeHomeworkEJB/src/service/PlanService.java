@@ -18,5 +18,8 @@ public interface PlanService {
     void updatePlan(Plan plan);
     ArrayList<Plan> newPlan();
 
+    ArrayList<Plan> branchPlan(int bid);
+
+
     void addPlanDetail(int planId, int num, int did);
 }

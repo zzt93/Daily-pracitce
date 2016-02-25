@@ -26,16 +26,19 @@ public class ReserveBean implements ReserveService {
 
 
     @Override
-    public boolean reserveAdd(int uid, int bid, String bdate) {
-        User user = em.find(User.class, uid);
-        Branch branch = em.find(Branch.class, bid);
-        em.persist(new Reserve(user, branch, bdate));
+    public boolean reserveAdd(Reserve reserve) {
+        em.persist(reserve);
         return true;
     }
 
     @Override
     public boolean reserveEdit(Reserve reserve) {
-        em.persist(reserve);
+        try {
+            em.merge(reserve);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
     }
 
@@ -54,8 +57,13 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
+    public Reserve reserveGet(int rid) {
+        return em.find(Reserve.class, rid);
+    }
+
+    @Override
     public ArrayList<Reserve> userReserve(int uid, int startIndex, int pageSize) {
-        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.BRANCH_RESERVE, Reserve.class)
+        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.USER_RESERVE, Reserve.class)
                 .setParameter(1, uid)
                 .setFirstResult(startIndex)
                 .setMaxResults(pageSize)
@@ -63,12 +71,51 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
+    public int countUserReserve(int uid) {
+        return (int) em.createNamedQuery(Reserve.COUNT_USER_RESERVE).getSingleResult();
+    }
+
+    @Override
+    public ArrayList<Reserve> userPayment(int uid, int startIndex, int pageSize) {
+        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.PAY_RESERVE, Reserve.class)
+                .setParameter(1, uid)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
+    @Override
+    public int countUserPayment(int uid) {
+        return (int) em.createNamedQuery(Reserve.COUNT_USER_PAYMENT).getSingleResult();
+    }
+
+    @Override
     public ArrayList<Reserve> branchReserve(int bid, int startIndex, int pageSize) {
-        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.USER_RESERVE, Reserve.class)
+        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.BRANCH_RESERVE, Reserve.class)
                 .setParameter(1, bid)
                 .setFirstResult(startIndex)
                 .setMaxResults(pageSize)
                 .getResultList();
+    }
+
+    @Override
+    public int countBranchReserve(int uid) {
+        return (int) em.createNamedQuery(Reserve.COUNT_BRANCH_RESERVE).getSingleResult();
+    }
+
+    @Override
+    public ArrayList<Reserve> branchUserReserve(int bid, int uid, int startIndex, int pageSize) {
+        return (ArrayList<Reserve>) em.createNamedQuery(Reserve.BRANCH_USER_RESERVE, Reserve.class)
+                .setParameter(1, bid)
+                .setParameter(2, uid)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
+                .getResultList();
+    }
+
+    @Override
+    public int countBranchUserReserve(int bid, int uid) {
+        return (int) em.createNamedQuery(Reserve.COUNT_BRANCH_USER_RESERVE).getSingleResult();
     }
 
 }

@@ -111,36 +111,6 @@
                     </c:forEach>
                 </c:forEach>
 
-                <%--TODO delete following--%>
-                <h4>2016-02-22</h4>
-                <c:forEach items="${plan.details}" var="detail">
-                    <div class="dessert-div">
-                        <img class="dessert" src="../images/${detail.did}.jpg">
-                    </div>
-                </c:forEach>
-
-                <div class="dessert-div">
-                    <img class="dessert" src="../images/1.jpg">
-                </div>
-                <div class="dessert-div">
-                    <img class="dessert" src="../images/2.jpg">
-                </div>
-                <div class="dessert-div">
-                    <img class="dessert" src="../images/3.jpg">
-                </div>
-                <h4>2016-02-23</h4>
-                <c:forEach items="${plan.details}" var="detail">
-                    <div class="dessert-div">
-                        <img class="dessert" src="../images/${detail.did}.jpg">
-                    </div>
-                </c:forEach>
-
-                <div class="dessert-div">
-                    <img class="dessert" src="../images/1.jpg">
-                </div>
-                <div class="dessert-div">
-                    <img class="dessert" src="../images/7.jpg">
-                </div>
             </div>
 
             <h3>New order</h3>
@@ -176,31 +146,74 @@
             paging: true,
             pageSize: 6,
             actions: {
-                listAction: 'ReserveList',
-                deleteAction: 'ReserveDelete'
+                listAction: 'BranchUserReserveList',
+                deleteAction: 'BranchUserReserveDelete'
             },
             fields: {
-                rollNo: {
+                rid: {
                     title: 'Reservation Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: true
                 },
-                studentName: {
+                branch: {
                     title: 'Branch',
                     width: '30%',
-                    edit: false
+                    display: function (reservationData) {
+                        // TODO check here
+                        return reservationData.record.branch.addr;
+                    }
                 },
-                department: {
-                    title: 'Department',
+                bdate: {
+                    title: 'Buy date',
                     width: '30%',
                     edit: true
                 },
-                rank: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: true
+                details: {
+                    title: 'Reservation detail',
+                    width: '5%',
+                    sorting: false,
+                    edit: false,
+                    create: false,
+                    display: function (reservationData) {
+                        //Create an image that will be used to open child table
+                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+                            $('#previous-order').jtable('openChildTable',
+                                    $img.closest('tr'),
+                                    {
+                                        title: reservationData.record.rid + ' - details',
+                                        actions: {
+                                            listAction: 'OrderList?rid=' + reservationData.record.rid,
+                                            deleteAction: 'OrderDelete',
+                                            updateAction: 'OrderUpdate'
+                                        },
+                                        fields: {
+                                            did: {
+                                                title: 'Dessert Id',
+                                                width: '30%',
+                                                key: true,
+                                                list: true
+                                            },
+                                            price: {
+                                                title: 'Price',
+                                                width: '30%'
+                                            },
+                                            num: {
+                                                title: 'Number',
+                                                width: '30%',
+                                                edit: true
+                                            }
+                                        }
+                                    },
+                                    function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    });
+                        });
+                        //Return image to show on the person row
+                        return $img;
+                    }
                 }
             }
         });
@@ -213,28 +226,23 @@
         var currentOrder = $('#current-order');
         currentOrder.jtable({
             title: 'Current order',
-            // TODO remove paging
-            paging: true,
-            pageSize: 6,
             actions: {
-                listAction: 'ReserveList',
-                deleteAction: 'BranchReserveDelete',
-                updateAction: 'BranchReserveEdit'
+                listAction: 'OrderList',
+                deleteAction: 'OrderDelete',
+                updateAction: 'OrderUpdate'
             },
             fields: {
-                rollNo: {
+                did: {
                     title: 'Dessert Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: true
                 },
-                studentName: {
+                price: {
                     title: 'Price',
-                    width: '30%',
-                    edit: false
+                    width: '30%'
                 },
-                department: {
+                num: {
                     title: 'Number',
                     width: '30%',
                     edit: true

@@ -1,5 +1,7 @@
 package entity;
 
+import mis.PlanState;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -11,11 +13,17 @@ import java.util.ArrayList;
  */
 @Entity()
 @Table(name = "")
-@NamedQuery(query = "select * from Plan p where p.state = 0", name = Plan.NEW_PLAN)
+@NamedQueries(
+        {
+                @NamedQuery(query = "select * from Plan p where p.state = 0", name = Plan.NEW_PLAN),
+                @NamedQuery(query = "select * from Plan p where p.state = 1 and p.bid = ?1", name = Plan.BRANCH_PLAN)
+        }
+)
 public class Plan implements Serializable {
     public static final long serialVersionUID = 42L;
 
     public static final String NEW_PLAN = "new plan";
+    public static final String BRANCH_PLAN = "branch plan";
     private int planId;
 
     private byte state;

@@ -37,6 +37,11 @@ public class AccountBean implements AccountService, ConsumeService {
     }
 
     @Override
+    public User getUser(int uid) {
+        return em.find(User.class, uid);
+    }
+
+    @Override
     public void fillPrivateInfo(int uid, short age, byte gender) {
         Account account = em.find(Account.class, uid);
         if (account == null) {

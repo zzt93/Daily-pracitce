@@ -35,7 +35,7 @@ public class BranchBean implements BranchService{
 
     @Override
     public void updateBranch(Branch branch) {
-        em.persist(branch);
+        em.merge(branch);
     }
 
     @Override

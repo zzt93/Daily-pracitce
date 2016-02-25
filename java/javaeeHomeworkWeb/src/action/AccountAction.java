@@ -4,9 +4,8 @@ import com.opensymphony.xwork2.ActionSupport;
 import entity.Account;
 import entity.Consume;
 import entity.User;
-
-import java.util.ArrayList;
-import java.util.List;
+import remote.JNDIFactory;
+import service.AccountService;
 
 /**
  * Created by zzt on 2/13/16.
@@ -24,6 +23,13 @@ public class AccountAction extends ActionSupport {
 
 
     public AccountAction() {
+        AccountService accountService =
+                (AccountService) JNDIFactory.getResource("");
+        int uid = SessionManagement.getUid();
+        assert accountService != null;
+        user = accountService.getUser(uid);
+        account = user.getAccount();
+        consume = user.getConsume();
     }
 
     @Override
@@ -32,17 +38,7 @@ public class AccountAction extends ActionSupport {
     }
 
 
-    public String payHistoryDelete() throws Exception {
-//        result = JTableHelper.OK;
-        return SUCCESS;
-    }
-
-    public String payHistoryList() throws Exception {
-        return SUCCESS;
-    }
-
     public String payMoney() throws Exception {
-
         return SUCCESS;
     }
 

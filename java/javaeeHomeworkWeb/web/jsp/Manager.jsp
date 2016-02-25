@@ -91,7 +91,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     $(document).ready(function () {
         var plan = $('#plan');
         plan.jtable({
-            title: 'Plan list',
+            title: 'PlanAction list',
             paging: true,
             pageSize: 6,
             selecting: true, //Enable selecting
@@ -104,7 +104,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             },
             fields: {
                 rollNo: {
-                    title: 'Plan Id',
+                    title: 'PlanAction Id',
                     width: '30%',
                     key: true,
                     list: true,
