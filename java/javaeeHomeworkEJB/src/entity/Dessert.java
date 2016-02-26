@@ -2,7 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/22/16.
@@ -35,25 +35,29 @@ public class Dessert implements Serializable {
         this.name = name;
     }
 
-    private ArrayList<PlanDetail> details;
+    private Set<PlanDetail> details;
 
+    /**
+     * Hibernate requires that persistent collection-valued fields be declared as an interface type
+     * @return
+     */
     @OneToMany(mappedBy = "dessert")
-    public ArrayList<PlanDetail> getDetails() {
+    public Set<PlanDetail> getDetails() {
         return details;
     }
 
-    public void setDetails(ArrayList<PlanDetail> details) {
+    public void setDetails(Set<PlanDetail> details) {
         this.details = details;
     }
 
-    private ArrayList<ReserveDetail> reserveDetails;
+    private Set<ReserveDetail> reserveDetails;
 
     @OneToMany(mappedBy = "dessert")
-    public ArrayList<ReserveDetail> getReserveDetails() {
+    public Set<ReserveDetail> getReserveDetails() {
         return reserveDetails;
     }
 
-    public void setReserveDetails(ArrayList<ReserveDetail> reserveDetails) {
+    public void setReserveDetails(Set<ReserveDetail> reserveDetails) {
         this.reserveDetails = reserveDetails;
     }
 }

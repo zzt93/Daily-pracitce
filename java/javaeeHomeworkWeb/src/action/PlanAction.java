@@ -19,6 +19,7 @@ public class PlanAction extends ActionSupport {
     }
 
     public String planDelete() throws Exception {
+        // TODO: 2/26/16 change to list
         return super.execute();
     }
 

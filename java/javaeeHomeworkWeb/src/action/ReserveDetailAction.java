@@ -6,7 +6,9 @@ import entity.ReserveDetail;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/25/16.
@@ -53,12 +55,13 @@ public class ReserveDetailAction extends ActionSupport {
 
     public String orderAdd() throws Exception {
         HttpSession session = SessionManagement.getSession();
-        ArrayList<ReserveDetail> details =
-                (ArrayList<ReserveDetail>) session.getAttribute(RESERVE_DETAIL);
+        Set<ReserveDetail> details =
+                (Set<ReserveDetail>) session.getAttribute(RESERVE_DETAIL);
         if (details == null) {
-            details = new ArrayList<>();
+            details = new HashSet<>();
         }
         details.add(new ReserveDetail());
+        session.setAttribute(RESERVE_DETAIL, details);
         return SUCCESS;
     }
 

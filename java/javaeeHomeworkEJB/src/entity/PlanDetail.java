@@ -46,7 +46,7 @@ public class PlanDetail implements Serializable {
         this.num = num;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "planId")
     public Plan getPlan() {
         return plan;
@@ -56,7 +56,7 @@ public class PlanDetail implements Serializable {
         this.plan = plan;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "did")
     public Dessert getDessert() {
         return dessert;
@@ -64,5 +64,21 @@ public class PlanDetail implements Serializable {
 
     public void setDessert(Dessert dessert) {
         this.dessert = dessert;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PlanDetail that = (PlanDetail) o;
+
+        return pdId == that.pdId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return pdId;
     }
 }

@@ -1,10 +1,9 @@
 package entity;
 
-import mis.PlanState;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/17/16.
@@ -12,11 +11,11 @@ import java.util.ArrayList;
  * Usage:
  */
 @Entity()
-@Table(name = "")
+@Table(name = "plan")
 @NamedQueries(
         {
-                @NamedQuery(query = "select * from Plan p where p.state = 0", name = Plan.NEW_PLAN),
-                @NamedQuery(query = "select * from Plan p where p.state = 1 and p.bid = ?1", name = Plan.BRANCH_PLAN)
+                @NamedQuery(query = "select p from Plan p where p.state = 0", name = Plan.NEW_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.state = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN)
         }
 )
 public class Plan implements Serializable {
@@ -29,7 +28,7 @@ public class Plan implements Serializable {
     private byte state;
     private String pdate;
 
-    private ArrayList<PlanDetail> details;
+    private Set<PlanDetail> details;
 
     private Branch branch;
 
@@ -68,15 +67,22 @@ public class Plan implements Serializable {
     }
 
     @OneToMany(mappedBy = "plan")
-    public ArrayList<PlanDetail> getDetails() {
+    public Set<PlanDetail> getDetails() {
         return details;
     }
 
-    public void setDetails(ArrayList<PlanDetail> details) {
+    public void setDetails(Set<PlanDetail> details) {
         this.details = details;
+        for (PlanDetail detail : details) {
+            addDetail(detail);
+        }
     }
 
-    @ManyToOne
+    public void addDetail(PlanDetail detail) {
+        detail.setPlan(this);
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "bid")
     public Branch getBranch() {
         return branch;
@@ -84,5 +90,21 @@ public class Plan implements Serializable {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plan plan = (Plan) o;
+
+        return planId == plan.planId;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return planId;
     }
 }

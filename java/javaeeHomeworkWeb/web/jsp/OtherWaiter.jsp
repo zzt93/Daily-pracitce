@@ -126,9 +126,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
 
                 <div class="horizontal-center">
-                    <input type="submit" value="User card" onclick="payType = 'card';$('#payDialog').dialog();"/>
+                    <input type="submit" value="User card" onclick="payType = 'USER_CARD';$('#payDialog').dialog();"/>
                     <pre>  </pre>
-                    <input type="submit" value="Other ways" onclick="payType = 'other';$('#payDialog').dialog();"/>
+                    <input type="submit" value="Other ways" onclick="payType = 'OTHER';$('#payDialog').dialog();"/>
                 </div>
             </div>
         </div>
@@ -181,7 +181,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             selectingCheckboxes: true, //Show checkboxes on first column
             defaultSorting: 'rank ASC',
             actions: {
-                listAction: 'ReserveList'
+                listAction: 'UserList'
             },
             fields: {
                 rollNo: {

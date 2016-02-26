@@ -1,11 +1,16 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import mis.StaffType;
 import org.apache.struts2.ServletActionContext;
+import remote.JNDIFactory;
+import service.StaffInfoService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zzt on 2/12/16.
@@ -14,19 +19,35 @@ import javax.servlet.http.HttpSession;
  */
 public class InnerLogin extends ActionSupport {
 
+    private List<String> types = new ArrayList<>(2);
 
     public static final String SID = "sid";
     private String type;
-    private int id;
+    private int sid;
     private String pw;
-    public static final String MANAGER = "manager";
 
-    public int getId() {
-        return id;
+    public InnerLogin() {
+        StaffType[] values = StaffType.values();
+        for (int i = 0; i < values.length - 1; i++) {
+            StaffType staffType = values[i];
+            types.add(staffType.getDes());
+        }
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public List<String> getTypes() {
+        return types;
+    }
+
+    public void setTypes(List<String> types) {
+        this.types = types;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
     }
 
     public String getPw() {
@@ -47,7 +68,16 @@ public class InnerLogin extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
-        return super.execute();
+        StaffInfoService staffInfoService =
+                (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded/StaffEJB!service.StaffInfoService");
+        StaffType staffType = StaffType.whatType(type);
+        assert staffInfoService != null;
+        boolean login = staffInfoService.login(sid, pw, staffType.ordinal());
+        if (!login) {
+            addFieldError("sid", "staff id or password for " + type + " is not match");
+            return INPUT;
+        }
+        return type;
     }
 
     public static void setStaffSession(int sid) {

@@ -10,11 +10,17 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "msg")
-@NamedQuery(name = Message.ALL_MESSAGE, query = "select * from Message m where m.uid = ?1")
+@NamedQueries(
+        {
+                @NamedQuery(name = Message.USER_MESSAGE, query = "select m from Message m where m.user.uid = ?1"),
+                @NamedQuery(name = Message.COUNT_USER_MESSAGE, query = "select count(m) from Message m where m.user.uid = ?1")
+        }
+)
 public class Message implements Serializable {
     public static final long serialVersionUID = 42L;
 
-    public static final String ALL_MESSAGE = "all message";
+    public static final String USER_MESSAGE = "user message";
+    public static final String COUNT_USER_MESSAGE = "count user message";
     private int mid;
     private String msg;
 
@@ -46,7 +52,7 @@ public class Message implements Serializable {
         this.msg = msg;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "uid")
     public User getUser() {
         return user;

@@ -29,14 +29,15 @@
         <action name="Activation_*" class="action.Activation" method="{1}">
             <result type="redirectAction">Account</result>
             <result name="input">/jsp/Activation.jsp</result>
+            <interceptor-ref name="defaultStack"/>
         </action>
 
         <action name="InnerLogin_*" method="{1}" class="action.InnerLogin">
             <result name="input">/jsp/InnerLogin.jsp</result>
             <!-- redirect and not forward-->
             <result type="redirectAction" name="manager">ManagerSession</result>
-            <result type="redirectAction" name="waiter0">Waiter0Session</result>
-            <result type="redirectAction" name="waiter1">OtherWaiterSession</result>
+            <result type="redirectAction" name="main branch waiter">Waiter0Session</result>
+            <result type="redirectAction" name="other branch waiter">OtherWaiterSession</result>
             <interceptor-ref name="defaultStack"/>
         </action>
 
@@ -102,7 +103,11 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="Msg*" class="action.Message" method="msg{1}">
+        <action name="Msg*" class="action.MessageAction" method="msg{1}">
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
+        <action name="UserList" class="action.AccountAction" method="userList">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 

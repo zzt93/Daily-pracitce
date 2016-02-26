@@ -1,49 +1,40 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.Account;
-import entity.Consume;
-import entity.User;
+import entity.Message;
 import remote.JNDIFactory;
-import service.AccountService;
-import service.ConsumeService;
+import service.MessageService;
 
 import java.util.List;
 
+
 /**
- * Created by zzt on 2/13/16.
+ * Created by zzt on 2/20/16.
  * <p>
  * Usage:
- * Struts 2 Action objects are instantiated for each request, so there are no thread-safety issues.
  */
-public class AccountAction extends ActionSupport {
+public class MessageAction extends ActionSupport {
 
-    User user;
-    Account account;
-    Consume consume;
+    private MessageService messageService =
+            (MessageService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//MessageEJB!service.MessageService");
+    private String msg;
 
-
-    public AccountAction() {
+    public String getMsg() {
+        return msg;
     }
 
-    @Override
-    public String execute() throws Exception {
-        try {
-            AccountService accountService =
-                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
-            int uid = SessionManagement.getUid();
-            assert accountService != null;
-            user = accountService.getUser(uid);
-            account = user.getAccount();
-            consume = user.getConsume();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ERROR;
-        }
-        return SUCCESS;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    private List<Consume> records;
+    public String msgSend() throws Exception {
+        // TODO: 2/26/16 change to list
+        messageService.addMsg(msg, SessionManagement.getUid());
+        return super.execute();
+    }
+
+    // for table response
+    private List<Message> records;
     private String result;
     private String message;
 
@@ -53,11 +44,11 @@ public class AccountAction extends ActionSupport {
     // Hold records to be displayed per Page
     private int jtPageSize;
 
-    public List<Consume> getRecords() {
+    public List<Message> getRecords() {
         return records;
     }
 
-    public void setRecords(List<Consume> records) {
+    public void setRecords(List<Message> records) {
         this.records = records;
     }
 
@@ -101,12 +92,12 @@ public class AccountAction extends ActionSupport {
         this.jtPageSize = jtPageSize;
     }
 
-    public String userList() throws Exception {
+    public String msgList() throws Exception {
         try {
-            ConsumeService consumeService
-                    = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
-            records = consumeService.userBalanceList();
-            totalRecordCount = consumeService.countUserBalanceList();
+            assert messageService != null;
+            int uid = SessionManagement.getUid();
+            records = messageService.userMsg(uid, jtStartIndex, jtPageSize);
+            totalRecordCount = messageService.countUserMsg(uid);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -115,5 +106,25 @@ public class AccountAction extends ActionSupport {
         }
         return SUCCESS;
     }
-}
 
+    private int mid;
+
+    public int getMid() {
+        return mid;
+    }
+
+    public void setMid(int mid) {
+        this.mid = mid;
+    }
+
+    public String msgDelete() throws Exception {
+        // TODO: 2/26/16 change to list
+        try {
+            messageService.deleteMsg(mid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+}

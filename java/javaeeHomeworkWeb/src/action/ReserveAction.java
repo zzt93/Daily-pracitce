@@ -18,7 +18,7 @@ public class ReserveAction extends ActionSupport {
     private final ReserveService reserveService;
 
     public ReserveAction() {
-        reserveService = (ReserveService) JNDIFactory.getResource("");
+        reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
     }
 
     @Override
@@ -129,6 +129,7 @@ public class ReserveAction extends ActionSupport {
     }
 
     public String userReserveDelete() throws Exception {
+        // TODO: 2/26/16 change to list
         reserveService.reserveDelete(rid);
         result = JTableHelper.OK;
         return SUCCESS;

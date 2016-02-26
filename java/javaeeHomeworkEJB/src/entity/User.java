@@ -2,7 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/11/16.
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 @Entity
 @Table(name = "user")
-@NamedQuery(query = "SELECT * FROM User u where u.name = ?1", name = User.FIND_USER_BY_NAME)
+@NamedQuery(query = "SELECT u FROM User u where u.name = ?1", name = User.FIND_USER_BY_NAME)
 public class User implements Serializable {
 
     public static final long serialVersionUID = 42L;
@@ -58,7 +58,7 @@ public class User implements Serializable {
     private Account account;
     private Consume consume;
 
-    @OneToOne
+    @OneToOne(optional = false)
     @MapsId
     public Account getAccount() {
         return account;
@@ -68,7 +68,7 @@ public class User implements Serializable {
         this.account = account;
     }
 
-    @OneToOne
+    @OneToOne(optional = false, cascade = CascadeType.ALL)
     @MapsId
     public Consume getConsume() {
         return consume;
@@ -78,25 +78,25 @@ public class User implements Serializable {
         this.consume = consume;
     }
 
-    private ArrayList<Reserve> reserves;
+    private Set<Reserve> reserves;
 
-    @OneToMany(mappedBy = "user")
-    public ArrayList<Reserve> getReserves() {
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    public Set<Reserve> getReserves() {
         return reserves;
     }
 
-    public void setReserves(ArrayList<Reserve> reserves) {
+    public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;
     }
 
-    private ArrayList<Message> messages;
+    private Set<Message> messages;
 
     @OneToMany(mappedBy = "user")
-    public ArrayList<Message> getMessages() {
+    public Set<Message> getMessages() {
         return messages;
     }
 
-    public void setMessages(ArrayList<Message> messages) {
+    public void setMessages(Set<Message> messages) {
         this.messages = messages;
     }
 }

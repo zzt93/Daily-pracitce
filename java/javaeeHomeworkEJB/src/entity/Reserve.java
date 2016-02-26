@@ -1,11 +1,11 @@
 package entity;
 
 import service.RDtemp;
-import service.bean.AccountBean;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/16/16.
@@ -16,14 +16,14 @@ import java.util.ArrayList;
 @Table(name = "reserve")
 @NamedQueries(
         {
-                @NamedQuery(name = Reserve.USER_RESERVE, query = "select * from Reserve r where r.uid = ?1 and state = false "),
-                @NamedQuery(name = Reserve.COUNT_USER_RESERVE, query = "select COUNT(*) from Reserve r where r.uid = ?1 and state = false "),
-                @NamedQuery(name = Reserve.PAY_RESERVE, query = "select * from Reserve r where r.uid = ?1"),
-                @NamedQuery(name = Reserve.COUNT_USER_PAYMENT, query = "select COUNT(*) from Reserve r where r.uid = ?1"),
-                @NamedQuery(name = Reserve.BRANCH_RESERVE, query = "select * from Reserve r where r.bid = ?1 and state = false"),
-                @NamedQuery(name = Reserve.COUNT_BRANCH_RESERVE, query = "select COUNT(*) from Reserve r where r.bid = ?1 and state = false"),
-                @NamedQuery(name = Reserve.BRANCH_USER_RESERVE, query = "select * from Reserve r where r.bid = ?1 and r.uid = ?2 and state = false"),
-                @NamedQuery(name = Reserve.COUNT_BRANCH_USER_RESERVE, query = "select COUNT(*) from Reserve r where r.bid = ?1 and r.uid = ?2 and state = false"),
+                @NamedQuery(name = Reserve.USER_RESERVE, query = "select r from Reserve r where r.user.uid = ?1 and r.state = false "),
+                @NamedQuery(name = Reserve.COUNT_USER_RESERVE, query = "select COUNT(r) from Reserve r where r.user.uid = ?1 and r.state = false "),
+                @NamedQuery(name = Reserve.PAY_RESERVE, query = "select r from Reserve r where r.user.uid = ?1"),
+                @NamedQuery(name = Reserve.COUNT_USER_PAYMENT, query = "select COUNT(r) from Reserve r where r.user.uid = ?1"),
+                @NamedQuery(name = Reserve.BRANCH_RESERVE, query = "select r from Reserve r where r.branch.bid = ?1 and r.state = false"),
+                @NamedQuery(name = Reserve.COUNT_BRANCH_RESERVE, query = "select COUNT(r) from Reserve r where r.branch.bid = ?1 and r.state = false"),
+                @NamedQuery(name = Reserve.BRANCH_USER_RESERVE, query = "select r from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false"),
+                @NamedQuery(name = Reserve.COUNT_BRANCH_USER_RESERVE, query = "select COUNT(r) from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false"),
         }
 )
 public class Reserve implements Serializable {
@@ -48,6 +48,12 @@ public class Reserve implements Serializable {
     private Branch branch;
 
     public Reserve() {
+    }
+
+    public Reserve(User user, Branch branch, String bdate) {
+        this.user = user;
+        this.bdate = bdate;
+        this.branch = branch;
     }
 
     public Reserve(int uid, int bid, String bdate, ArrayList<RDtemp> temps) {
@@ -100,15 +106,22 @@ public class Reserve implements Serializable {
         this.branch = branch;
     }
 
-    private ArrayList<ReserveDetail> details;
+    private Set<ReserveDetail> details;
 
     @OneToMany(mappedBy = "reserve")
-    public ArrayList<ReserveDetail> getDetails() {
+    public Set<ReserveDetail> getDetails() {
         return details;
     }
 
-    public void setDetails(ArrayList<ReserveDetail> details) {
+    public void setDetails(Set<ReserveDetail> details) {
         this.details = details;
+        for (ReserveDetail detail : details) {
+            addDetail(detail);
+        }
+    }
+
+    public void addDetail(ReserveDetail detail) {
+        detail.setReserve(this);
     }
 
     public double payment() {
@@ -116,5 +129,21 @@ public class Reserve implements Serializable {
                 .stream()
                 .mapToDouble(detail -> detail.getNum() * detail.getPrice())
                 .sum();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Reserve reserve = (Reserve) o;
+
+        return rid == reserve.rid;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return rid;
     }
 }

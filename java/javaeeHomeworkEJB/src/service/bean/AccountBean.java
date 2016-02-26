@@ -4,12 +4,14 @@ import entity.Account;
 import entity.Consume;
 import entity.User;
 import mis.CardState;
+import mis.Rank;
 import service.AccountService;
 import service.ConsumeService;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.List;
 
 /**
  * Created by zzt on 2/23/16.
@@ -64,18 +66,30 @@ public class AccountBean implements AccountService, ConsumeService {
         em.persist(account);
     }
 
+
     @Override
     public boolean activateAccount(int uid, double money, String bank) {
         Account account = em.find(Account.class, uid);
+        Consume consume = em.find(Consume.class, uid);
         account.setBankCard(bank);
-        addBalance(uid, money);
-        return false;
+        for (Rank rank : Rank.values()) {
+            if (rank.getThreshold() > money) {
+                consume.setRank((byte) rank.ordinal());
+                break;
+            }
+        }
+        double balance = consume.getBalance();
+        consume.setBalance(money + balance);
+        try {
+            em.merge(consume);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
-    private void addBalance(int uid, double money) {
-        Consume consume = em.find(Consume.class, uid);
-        consume.setBalance(money + consume.getBalance());
-    }
+
 
     @Override
     public boolean suspendAccount(int uid) {
@@ -96,7 +110,28 @@ public class AccountBean implements AccountService, ConsumeService {
 
     @Override
     public boolean payMoney(int uid, double money) {
-        addBalance(uid, money);
+        return addBalanceAndCredit(uid, -money);
+    }
+
+    @Override
+    public List<Consume> userBalanceList() {
+        return em.createNamedQuery(Consume.OWNING_MONEY_USER, Consume.class).getResultList();
+    }
+
+    @Override
+    public int countUserBalanceList() {
+        return (int) em.createNamedQuery(Consume.COUNT_OWNING_MONEY_USER).getSingleResult();
+    }
+
+    private boolean addBalanceAndCredit(int uid, double money) {
+        Consume consume = em.find(Consume.class, uid);
+        double balance = consume.getBalance();
+        if (balance + money < 0) {
+            return false;
+        }
+        consume.setBalance(money + balance);
+        consume.setCredit((int) money + consume.getCredit());
+        em.merge(consume);
         return true;
     }
 }

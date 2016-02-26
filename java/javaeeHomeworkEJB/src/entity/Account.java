@@ -1,9 +1,7 @@
 package entity;
 
 import javax.ejb.EJB;
-import javax.persistence.Entity;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -13,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "account")
-@NamedQuery(query = "select * from Account a where a.uid = ?1", name = Account.FIND_ACCOUNT_BY_ID)
+@NamedQuery(query = "select a from Account a where a.uid = ?1", name = Account.FIND_ACCOUNT_BY_ID)
 public class Account implements Serializable {
     public static final long serialVersionUID = 42L;
 
@@ -25,6 +23,8 @@ public class Account implements Serializable {
     private short age;
     private byte gender;
 
+    @Id
+    @GeneratedValue
     public int getUid() {
         return uid;
     }

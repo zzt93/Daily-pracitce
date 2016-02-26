@@ -1,7 +1,6 @@
 package entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
@@ -11,8 +10,17 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "consume")
+@NamedQueries(
+        {
+                @NamedQuery(name = Consume.OWNING_MONEY_USER, query = "select c from Consume c where c.balance < 0"),
+                @NamedQuery(name = Consume.COUNT_OWNING_MONEY_USER, query = "select count (c) from Consume c where c.balance < 0")
+
+        }
+)
 public class Consume implements Serializable {
     public static final long serialVersionUID = 42L;
+    public static final String OWNING_MONEY_USER = "owning money user";
+    public static final String COUNT_OWNING_MONEY_USER = "count user";
 
     private int uid;
 
@@ -22,6 +30,8 @@ public class Consume implements Serializable {
     private byte rank;
     private int credit;
 
+    @Id
+    @GeneratedValue
     public int getUid() {
         return uid;
     }

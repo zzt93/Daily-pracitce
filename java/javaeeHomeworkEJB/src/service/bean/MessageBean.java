@@ -35,9 +35,16 @@ public class MessageBean implements MessageService{
     }
 
     @Override
-    public ArrayList<Message> allMsg(int uid) {
-        return (ArrayList<Message>) em.createNamedQuery(Message.ALL_MESSAGE, Message.class)
+    public ArrayList<Message> userMsg(int uid, int startIndex, int pageSize) {
+        return (ArrayList<Message>) em.createNamedQuery(Message.USER_MESSAGE, Message.class)
                 .setParameter(1, uid)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
                 .getResultList();
+    }
+
+    @Override
+    public int countUserMsg(int uid) {
+        return (int) em.createNamedQuery(Message.COUNT_USER_MESSAGE).getSingleResult();
     }
 }

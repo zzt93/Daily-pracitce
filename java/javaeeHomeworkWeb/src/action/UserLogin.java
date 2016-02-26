@@ -41,7 +41,8 @@ public class UserLogin extends ActionSupport {
     private final AccountService accountService;
 
     public UserLogin() {
-        accountService = (AccountService) JNDIFactory.getResource("ejb:/TryEJB//CourseEJB!service.CourseService");
+        accountService =
+                (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
     }
 
     @Validations(

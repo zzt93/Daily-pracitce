@@ -1,6 +1,9 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import mis.StaffType;
+import remote.JNDIFactory;
+import service.StaffInfoService;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -24,13 +27,19 @@ public class InnerRegister extends ActionSupport {
     private String pw;
     private String pw2;
     private String type;
+    private final StaffInfoService staffInfoService;
 
     public InnerRegister() {
-        types.add("waiter");
-        types.add("manager");
+        StaffType[] values = StaffType.values();
+        for (int i = 0; i < values.length - 1; i++) {
+            StaffType staffType = values[i];
+            types.add(staffType.getDes());
+        }
 
         // get staff id
-
+        staffInfoService = (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded/StaffEJB!service.StaffInfoService");
+        assert staffInfoService != null;
+        sid = staffInfoService.maxId();
     }
 
     public List<String> getTypes() {
@@ -89,7 +98,11 @@ public class InnerRegister extends ActionSupport {
     public String execute() throws Exception {
         validate();
         // store in db
-
+        StaffType staffType = StaffType.whatType(type);
+        boolean res = staffInfoService.register(bid, pw, staffType.ordinal());
+        if (!res) {
+            addFieldError("bid", "no such branch number");
+        }
         InnerLogin.setStaffSession(sid);
         return super.execute();
     }

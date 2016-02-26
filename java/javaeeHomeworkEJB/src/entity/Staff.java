@@ -10,20 +10,21 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "staff")
+@NamedQuery(name = Staff.MAX_ID, query = "select max(s.sid) from Staff s")
 public class Staff implements Serializable{
     public static final long serialVersionUID = 42L;
+    public static final String MAX_ID = "max id";
 
     private int sid;
     private String pw;
+    private int type;
 
     private Branch branch;
 
-    public Staff() {
-    }
-
-    public Staff(Branch branch, String pw) {
+    public Staff(Branch branch, String pw, int type) {
         this.branch = branch;
         this.pw = pw;
+        this.type = type;
     }
 
     @Id
@@ -44,7 +45,15 @@ public class Staff implements Serializable{
         this.pw = pw;
     }
 
-    @ManyToOne
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "bid")
     public Branch getBranch() {
         return branch;

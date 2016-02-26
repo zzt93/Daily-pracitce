@@ -2,6 +2,7 @@ package service;
 
 import entity.Reserve;
 
+import javax.ejb.Remote;
 import java.util.ArrayList;
 
 /**
@@ -9,6 +10,7 @@ import java.util.ArrayList;
  * <p>
  * Usage:
  */
+@Remote
 public interface ReserveService {
 
     boolean reserveAdd(Reserve reserve);

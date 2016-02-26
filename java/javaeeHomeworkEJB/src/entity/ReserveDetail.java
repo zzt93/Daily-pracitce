@@ -47,7 +47,7 @@ public class ReserveDetail implements Serializable {
         this.price = price;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "rid")
     public Reserve getReserve() {
         return reserve;
@@ -57,7 +57,7 @@ public class ReserveDetail implements Serializable {
         this.reserve = reserve;
     }
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "did")
     public Dessert getDessert() {
         return dessert;
@@ -65,5 +65,21 @@ public class ReserveDetail implements Serializable {
 
     public void setDessert(Dessert dessert) {
         this.dessert = dessert;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ReserveDetail that = (ReserveDetail) o;
+
+        return rdid == that.rdid;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return rdid;
     }
 }

@@ -44,7 +44,7 @@
             <s:select label="Choose type"
                       name="type"
                       list="%{types}" required="required"/>
-            <s:textfield name="id" label="working id" required="required"/>
+            <s:textfield name="sid" label="working id" required="required"/>
             <s:password name="pw" label="password" required="required"/>
             <s:submit value="submit"/>
         </s:form>

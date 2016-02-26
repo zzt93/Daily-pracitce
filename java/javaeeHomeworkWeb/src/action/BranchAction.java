@@ -1,16 +1,16 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.Plan;
-import entity.Reserve;
-import entity.ReserveDetail;
+import entity.*;
 import remote.JNDIFactory;
+import service.ConsumeService;
 import service.PlanService;
 import service.ReserveService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/14/16.
@@ -21,18 +21,16 @@ public class BranchAction extends ActionSupport {
 
     private int branchNum;
     private ArrayList<Plan> plans;
-    private ReserveService reserveService;
-    private final PlanService planService;
 
 
     public BranchAction() {
-        reserveService = (ReserveService) JNDIFactory.getResource("");
-        planService = (PlanService) JNDIFactory.getResource("");
     }
 
     @Override
     public String execute() throws Exception {
-//        System.out.println("branch :" + branchNum);
+        PlanService planService =
+                (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//PlanEJB!service.PlanService");
+        assert planService != null;
         plans = planService.branchPlan(branchNum);
         return SUCCESS;
     }
@@ -115,33 +113,69 @@ public class BranchAction extends ActionSupport {
 
     private int rid;
     private String buyDate;
+    private double money;
 
     public String branchUserReserveList() throws Exception {
         int uid = SessionManagement.getUid();
-        records = reserveService.branchUserReserve(branchNum, uid, jtStartIndex, jtPageSize);
-        totalRecordCount = reserveService.countBranchUserReserve(branchNum, uid);
+        try {
+            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            records = reserveService.branchUserReserve(branchNum, uid, jtStartIndex, jtPageSize);
+            totalRecordCount = reserveService.countBranchUserReserve(branchNum, uid);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
         result = JTableHelper.OK;
         return SUCCESS;
     }
 
     public String branchUserReserveDelete() throws Exception {
-        reserveService.reserveDelete(rid);
+        ReserveService reserveService;
+        try {
+            reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            reserveService.reserveDelete(rid);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
         return SUCCESS;
     }
 
 
     /**
      * Finish an order
+     *
      * @return result string
+     *
      * @throws Exception
      */
     public String branchReservePay() throws Exception {
-        // update reserve by adding detail
-        Reserve reserve = reserveService.reserveGet(rid);
+        // create reserve and adding detail
+        User user = new User();
         HttpSession session = SessionManagement.getSession();
-        reserve.setDetails((ArrayList<ReserveDetail>) session.getAttribute(ReserveDetailAction.RESERVE_DETAIL));
+        int uid = SessionManagement.getUid();
+        user.setUid(uid);
+        Branch branch = new Branch();
+        branch.setBid(branchNum);
+        Reserve reserve = new Reserve(user, branch, buyDate);
+        reserve.setDetails((Set<ReserveDetail>) session.getAttribute(ReserveDetailAction.RESERVE_DETAIL));
+        ReserveService reserveService =
+                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        assert reserveService != null;
         reserveService.reserveAdd(reserve);
         // pay money
+        ConsumeService consumeService;
+        try {
+            consumeService =
+                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+        assert consumeService != null;
+        consumeService.payMoney(uid, money);
         return SUCCESS;
     }
 

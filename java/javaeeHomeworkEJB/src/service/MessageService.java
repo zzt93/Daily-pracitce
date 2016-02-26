@@ -15,5 +15,6 @@ public interface MessageService {
 
     void addMsg(String msg, int toUser);
     void deleteMsg(int mid);
-    ArrayList<Message> allMsg(int uid);
+    ArrayList<Message> userMsg(int uid, int startIndex, int pageSize);
+    int countUserMsg(int uid);
 }

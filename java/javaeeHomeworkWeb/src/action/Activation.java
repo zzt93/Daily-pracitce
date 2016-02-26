@@ -13,10 +13,8 @@ public class Activation extends ActionSupport {
 
     private double money;
     private String bankCard;
-    private final ConsumeService consumeService;
 
     public Activation() {
-        consumeService = (ConsumeService) JNDIFactory.getResource("");
     }
 
     public double getMoney() {
@@ -38,6 +36,8 @@ public class Activation extends ActionSupport {
     @Override
     public String execute() throws Exception {
         int uid = SessionManagement.getUid();
+        ConsumeService consumeService = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
+        assert consumeService != null;
         consumeService.activateAccount(uid, money, bankCard);
         return SUCCESS;
     }

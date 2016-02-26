@@ -2,7 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/22/16.
@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 @Entity()
 @Table(name = "branch")
-@NamedQuery(query = "select * from Branch", name = Branch.ALL_BRANCH)
+@NamedQuery(query = "select b from Branch b", name = Branch.ALL_BRANCH)
 public class Branch implements Serializable {
     public static final long serialVersionUID = 42L;
 
@@ -19,8 +19,8 @@ public class Branch implements Serializable {
     private int bid;
     private String addr;
 
-    private ArrayList<Plan> plans;
-    private ArrayList<Reserve> reserves;
+    private Set<Plan> plans;
+    private Set<Reserve> reserves;
 
     public Branch() {
     }
@@ -48,20 +48,20 @@ public class Branch implements Serializable {
     }
 
     @OneToMany(mappedBy = "branch")
-    public ArrayList<Plan> getPlans() {
+    public Set<Plan> getPlans() {
         return plans;
     }
 
-    public void setPlans(ArrayList<Plan> plans) {
+    public void setPlans(Set<Plan> plans) {
         this.plans = plans;
     }
 
     @OneToMany(mappedBy = "branch")
-    public ArrayList<Reserve> getReserves() {
+    public Set<Reserve> getReserves() {
         return reserves;
     }
 
-    public void setReserves(ArrayList<Reserve> reserves) {
+    public void setReserves(Set<Reserve> reserves) {
         this.reserves = reserves;
     }
 }
