@@ -136,8 +136,10 @@ public class BranchAction extends ActionSupport {
         try {
             reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
             reserveService.reserveDelete(rid);
+            result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
+            result = JTableHelper.ERROR;
             return ERROR;
         }
         return SUCCESS;

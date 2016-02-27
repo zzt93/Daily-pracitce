@@ -15,7 +15,8 @@ import java.util.Set;
 @NamedQueries(
         {
                 @NamedQuery(query = "select p from Plan p where p.state = 0", name = Plan.NEW_PLAN),
-                @NamedQuery(query = "select p from Plan p where p.state = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN)
+                @NamedQuery(query = "select p from Plan p where p.state = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.staff.sid = ?1 and p.state <> 1", name = Plan.STAFF_PLAN),
         }
 )
 public class Plan implements Serializable {
@@ -23,6 +24,7 @@ public class Plan implements Serializable {
 
     public static final String NEW_PLAN = "new plan";
     public static final String BRANCH_PLAN = "branch plan";
+    public static final String STAFF_PLAN = "staff submitted plan";
     private int planId;
 
     private byte state;
@@ -31,6 +33,8 @@ public class Plan implements Serializable {
     private Set<PlanDetail> details;
 
     private Branch branch;
+
+    private Staff staff;
 
     public Plan() {
     }
@@ -66,7 +70,7 @@ public class Plan implements Serializable {
         this.pdate = pdate;
     }
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
     public Set<PlanDetail> getDetails() {
         return details;
     }
@@ -90,6 +94,16 @@ public class Plan implements Serializable {
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "sid")
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
     @Override

@@ -24,6 +24,7 @@ import java.util.Set;
                 @NamedQuery(name = Reserve.COUNT_BRANCH_RESERVE, query = "select COUNT(r) from Reserve r where r.branch.bid = ?1 and r.state = false"),
                 @NamedQuery(name = Reserve.BRANCH_USER_RESERVE, query = "select r from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false"),
                 @NamedQuery(name = Reserve.COUNT_BRANCH_USER_RESERVE, query = "select COUNT(r) from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false"),
+                @NamedQuery(name = Reserve.BRANCH_USER_RESERVE_DETAIL, query = "select r from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false and r.bdate = ?3"),
         }
 )
 public class Reserve implements Serializable {
@@ -38,6 +39,7 @@ public class Reserve implements Serializable {
     public static final String COUNT_BRANCH_RESERVE = "count branch reserve";
     public static final String BRANCH_USER_RESERVE = "branch user reserve";
     public static final String COUNT_BRANCH_USER_RESERVE = "count branch user reserve";
+    public static final String BRANCH_USER_RESERVE_DETAIL = "branch user reserve detail";
 
     private int rid;
 
@@ -108,7 +110,7 @@ public class Reserve implements Serializable {
 
     private Set<ReserveDetail> details;
 
-    @OneToMany(mappedBy = "reserve")
+    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL)
     public Set<ReserveDetail> getDetails() {
         return details;
     }

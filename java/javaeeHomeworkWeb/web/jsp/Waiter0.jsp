@@ -80,37 +80,86 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     $(document).ready(function () {
         var plan = $('#plan');
         plan.jtable({
-            title: 'Your submitted plan',
+            title: 'Your not approved plan',
             paging: true,
             pageSize: 6,
             actions: {
-                listAction: 'PlanList',
+                listAction: 'PlanStaffList',
                 deleteAction: 'PlanDelete',
-                updateAction: 'PlanUpdate',
                 createAction: 'PlanAdd'
             },
             fields: {
-                rollNo: {
-                    title: 'Reservation Id',
+                planId: {
+                    title: 'Plan Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: false
                 },
-                studentName: {
-                    title: 'Branch',
+                state: {
+                    title: 'State',
                     width: '30%',
                     edit: false
                 },
-                department: {
-                    title: 'Department',
+                pdate: {
+                    title: 'Plan for ',
                     width: '30%',
-                    edit: true
+                    edit: false
                 },
-                rank: {
+                branch: {
                     title: 'Rank',
                     width: '20%',
-                    edit: true
+                    edit: false,
+                    display: function(data) {
+                        return data.record.bid;
+                    }
+                },
+                details: {
+                    title: 'Plan detail',
+                    width: '5%',
+                    edit: false,
+                    create: false,
+                    display: function (reservationData) {
+                        //Create an image that will be used to open child table
+                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+                            $('#previous-order').jtable('openChildTable',
+                                    $img.closest('tr'),
+                                    {
+                                        title: reservationData.record.rid + ' - details',
+                                        actions: {
+                                            listAction: 'PlanDetailList?planId=' + reservationData.record.rid,
+                                            deleteAction: 'PlanDetailDelete',
+                                            updateAction: 'PlanDetailUpdate'
+                                        },
+                                        fields: {
+                                            pdId: {
+                                                title: 'Plan detail id',
+                                                width: '30%',
+                                                key: true,
+                                                list: false
+                                            },
+                                            dessert: {
+                                                title: 'Dessert',
+                                                width: '20%',
+                                                display: function (data) {
+                                                    return data.record.name;
+                                                }
+                                            },
+                                            num: {
+                                                title: 'Number',
+                                                width: '30%',
+                                                edit: true
+                                            }
+                                        }
+                                    },
+                                    function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    });
+                        });
+                        //Return image to show on the person row
+                        return $img;
+                    }
                 }
             }
         });

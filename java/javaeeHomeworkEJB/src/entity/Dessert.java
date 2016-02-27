@@ -41,7 +41,7 @@ public class Dessert implements Serializable {
      * Hibernate requires that persistent collection-valued fields be declared as an interface type
      * @return
      */
-    @OneToMany(mappedBy = "dessert")
+    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
     public Set<PlanDetail> getDetails() {
         return details;
     }
@@ -52,7 +52,7 @@ public class Dessert implements Serializable {
 
     private Set<ReserveDetail> reserveDetails;
 
-    @OneToMany(mappedBy = "dessert")
+    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
     public Set<ReserveDetail> getReserveDetails() {
         return reserveDetails;
     }

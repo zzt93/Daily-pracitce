@@ -47,7 +47,7 @@ public class Branch implements Serializable {
         this.addr = addr;
     }
 
-    @OneToMany(mappedBy = "branch")
+    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL)
     public Set<Plan> getPlans() {
         return plans;
     }
@@ -56,7 +56,7 @@ public class Branch implements Serializable {
         this.plans = plans;
     }
 
-    @OneToMany(mappedBy = "branch")
+    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL)
     public Set<Reserve> getReserves() {
         return reserves;
     }

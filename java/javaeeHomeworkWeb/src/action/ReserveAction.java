@@ -129,7 +129,6 @@ public class ReserveAction extends ActionSupport {
     }
 
     public String userReserveDelete() throws Exception {
-        // TODO: 2/26/16 change to list
         reserveService.reserveDelete(rid);
         result = JTableHelper.OK;
         return SUCCESS;

@@ -82,11 +82,19 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
+        <action name="BranchUserReserveDetail*" class="action.OtherWaiter" method="branchUserReserveDetail{1}">
+            <result type="json">/jsp/OtherWaiter.jsp</result>
+        </action>
+
         <action name="BranchUserReserve*" class="action.BranchAction" method="branchUserReserve{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
         <action name="Order*" class="action.ReserveDetailAction" method="order{1}">
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
+        <action name="ReserveDetail*" class="action.ReserveDetailAction" method="order{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
@@ -98,6 +106,9 @@
             <result type="json">/jsp/Manager.jsp</result>
         </action>
 
+        <action name="PlanDetail*" class="action.PlanAction" method="planDetail{1}">
+            <result type="json">/jsp/Waiter0.jsp</result>
+        </action>
 
         <action name="Plan*" class="action.PlanAction" method="plan{1}">
             <result type="json">/jsp/Account.jsp</result>

@@ -36,6 +36,11 @@ public class StaffInfo implements StaffInfoService {
     }
 
     @Override
+    public Staff getStaff(int sid) {
+        return em.find(Staff.class, sid);
+    }
+
+    @Override
     public int maxId() {
         return (int) em.createNamedQuery(Staff.MAX_ID).getSingleResult();
     }

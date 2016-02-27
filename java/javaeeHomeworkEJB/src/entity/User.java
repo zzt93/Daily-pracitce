@@ -91,7 +91,7 @@ public class User implements Serializable {
 
     private Set<Message> messages;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public Set<Message> getMessages() {
         return messages;
     }

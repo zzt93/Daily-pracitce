@@ -203,37 +203,32 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         var order = $('#order-detail');
         order.jtable({
-            title: 'User order',
-            selecting: true, //Enable selecting
-            multiselect: true, //Allow multiple selecting
-            selectingCheckboxes: true, //Show checkboxes on first column
+            title: 'User today order detail',
             defaultSorting: 'rank ASC',
             actions: {
-                listAction: 'ReserveList',
-                deleteAction: 'ReserveDelete'
+                listAction: 'BranchUserReserveDetailList',
+                deleteAction: 'BranchUserReserveDetailDelete'
             },
             fields: {
-                rollNo: {
-                    title: 'Reservation Id',
-                    width: '30%',
-                    key: true,
-                    list: true,
-                    create: true
-                },
-                studentName: {
-                    title: 'Branch',
-                    width: '30%',
-                    edit: false
-                },
-                department: {
-                    title: 'Department',
-                    width: '30%',
-                    edit: true
-                },
-                rank: {
-                    title: 'Rank',
+                dessert: {
+                    title: 'Dessert',
                     width: '20%',
-                    edit: true
+                    display: function (data) {
+                        return data.record.dessert.name;
+                    }
+                },
+                num: {
+                    title: 'Number',
+                    width: '30%'
+                },
+                price: {
+                    title: 'Price',
+                    width: '30%'
+                },
+                rdid: {
+                    title: 'Reservation Detail Id',
+                    key: true,
+                    list: false
                 }
             }
         });

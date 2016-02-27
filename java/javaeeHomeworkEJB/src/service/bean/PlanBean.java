@@ -53,6 +53,18 @@ public class PlanBean implements PlanService {
     }
 
     @Override
+    public ArrayList<Plan> staffNotApprovedPlan(int sid) {
+        return (ArrayList<Plan>) em.createNamedQuery(Plan.STAFF_PLAN, Plan.class)
+                .setParameter(1, sid)
+                .getResultList();
+    }
+
+    @Override
+    public Plan getPlan(int planId) {
+        return em.find(Plan.class, planId);
+    }
+
+    @Override
     public void addPlanDetail(int planId, int num, int did) {
         Plan plan = em.find(Plan.class, planId);
         Dessert dessert = em.find(Dessert.class, did);

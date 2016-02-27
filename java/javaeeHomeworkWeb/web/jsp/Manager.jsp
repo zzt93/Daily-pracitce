@@ -100,32 +100,81 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             actions: {
                 listAction: 'PlanManagerList',
                 deleteAction: 'PlanDelete',
-                updateAction: 'PlanUpdate'
+                updateAction: 'planManagerUpdate'
             },
             fields: {
-                rollNo: {
-                    title: 'PlanAction Id',
+                planId: {
+                    title: 'Plan Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: false
                 },
-                studentName: {
-                    title: 'Branch',
+                state: {
+                    title: 'State',
+                    width: '30%',
+                    edit: true,
+                    options: {'0': 'New', '1': 'Approve', '2': 'Reject'}
+                },
+                pdate: {
+                    title: 'Plan for ',
                     width: '30%',
                     edit: false
                 },
-                department: {
-                    title: 'Department',
-                    width: '30%',
-                    edit: true
-                },
-                rank: {
+                branch: {
                     title: 'Rank',
                     width: '20%',
-                    edit: true
+                    edit: false
+                },
+                details: {
+                    title: 'Plan detail',
+                    width: '5%',
+                    edit: false,
+                    create: false,
+                    display: function (reservationData) {
+                        //Create an image that will be used to open child table
+                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+                            $('#previous-order').jtable('openChildTable',
+                                    $img.closest('tr'),
+                                    {
+                                        title: reservationData.record.rid + ' - details',
+                                        actions: {
+                                            listAction: 'PlanDetailList?planId=' + reservationData.record.rid,
+                                            deleteAction: 'PlanDetailDelete',
+                                            updateAction: 'PlanDetailUpdate'
+                                        },
+                                        fields: {
+                                            pdId: {
+                                                title: 'Plan detail id',
+                                                width: '30%',
+                                                key: true,
+                                                list: false
+                                            },
+                                            dessert: {
+                                                title: 'Dessert',
+                                                width: '20%',
+                                                display: function (data) {
+                                                    return data.record.name;
+                                                }
+                                            },
+                                            num: {
+                                                title: 'Number',
+                                                width: '30%',
+                                                edit: true
+                                            }
+                                        }
+                                    },
+                                    function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    });
+                        });
+                        //Return image to show on the person row
+                        return $img;
+                    }
                 }
             }
+
         });
         plan.jtable('load');
 

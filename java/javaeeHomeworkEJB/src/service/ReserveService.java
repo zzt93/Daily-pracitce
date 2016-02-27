@@ -28,4 +28,7 @@ public interface ReserveService {
     ArrayList<Reserve> userPayment(int uid, int startIndex, int pageSize);
     int countUserPayment(int uid);
 
+    Reserve branchUserReserveDetail(int bid, int uid, String buyDate);
+    boolean reserveDetailDelete(int rdid);
+
 }

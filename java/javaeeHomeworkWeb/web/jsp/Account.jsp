@@ -205,28 +205,79 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 deleteAction: 'UserReserveDelete'
             },
             fields: {
-                rollNo: {
+                rid: {
                     title: 'Reservation Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: false
                 },
-                studentName: {
-                    title: 'Branch',
+                bdate: {
+                    title: 'Date for buying',
                     width: '30%',
                     edit: false
                 },
-                department: {
+                branch: {
                     title: 'Department',
                     width: '30%',
-                    edit: true
+                    edit: false,
+                    display: function (data) {
+                        return data.record.addr
+                    }
                 },
-                rank: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: true
+                details: {
+                    title: 'Reservation detail',
+                    width: '5%',
+                    edit: false,
+                    create: false,
+                    display: function (reservationData) {
+                        //Create an image that will be used to open child table
+                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
+                        //Open child table when user clicks the image
+                        $img.click(function () {
+                            $('#previous-order').jtable('openChildTable',
+                                    $img.closest('tr'),
+                                    {
+                                        title: reservationData.record.rid + ' - details',
+                                        actions: {
+                                            listAction: 'OrderList?rid=' + reservationData.record.rid,
+                                            deleteAction: 'OrderDelete',
+                                            updateAction: 'OrderUpdate'
+                                        },
+                                        fields: {
+                                            rdid: {
+                                                title: 'Dessert Id',
+                                                width: '30%',
+                                                key: true,
+                                                list: false
+                                            },
+                                            dessert: {
+                                                title: 'Dessert',
+                                                width: '20%',
+                                                display: function (data) {
+                                                    return data.record.name;
+                                                }
+                                            },
+                                            price: {
+                                                title: 'Price',
+                                                width: '30%',
+                                                edit: false
+                                            },
+                                            num: {
+                                                title: 'Number',
+                                                width: '30%',
+                                                edit: true
+                                            }
+                                        }
+                                    },
+                                    function (data) { //opened handler
+                                        data.childTable.jtable('load');
+                                    });
+                        });
+                        //Return image to show on the person row
+                        return $img;
+                    }
                 }
+
             }
         });
         con.jtable('load');
@@ -280,27 +331,22 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 deleteAction: 'MsgDelete'
             },
             fields: {
-                rollNo: {
-                    title: 'Reservation Id',
+                mid: {
+                    title: 'Message Id',
                     width: '30%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: true
                 },
-                studentName: {
-                    title: 'Branch',
-                    width: '30%',
-                    edit: false
+                msg: {
+                    title: 'Message content',
+                    width: '30%'
                 },
-                department: {
+                user: {
                     title: 'Department',
                     width: '30%',
-                    edit: true
-                },
-                rank: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: true
+                    display: function (line) {
+                        return line.record.uid;
+                    }
                 }
             }
         });

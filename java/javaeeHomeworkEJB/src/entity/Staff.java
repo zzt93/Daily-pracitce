@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Created by zzt on 2/22/16.
@@ -20,6 +21,8 @@ public class Staff implements Serializable{
     private int type;
 
     private Branch branch;
+
+    private ArrayList<Plan> plans;
 
     public Staff(Branch branch, String pw, int type) {
         this.branch = branch;
@@ -61,5 +64,14 @@ public class Staff implements Serializable{
 
     public void setBranch(Branch branch) {
         this.branch = branch;
+    }
+
+    @OneToMany(mappedBy = "staff")
+    public ArrayList<Plan> getPlans() {
+        return plans;
+    }
+
+    public void setPlans(ArrayList<Plan> plans) {
+        this.plans = plans;
     }
 }

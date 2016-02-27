@@ -2,6 +2,7 @@ package service.bean;
 
 import entity.Branch;
 import entity.Reserve;
+import entity.ReserveDetail;
 import entity.User;
 import service.ReserveService;
 
@@ -52,7 +53,7 @@ public class ReserveBean implements ReserveService {
     public boolean reserveFinish(int rid) {
         Reserve reserve = em.find(Reserve.class, rid);
         reserve.setState(true);
-        em.persist(reserve);
+        em.merge(reserve);
         return true;
     }
 
@@ -87,6 +88,25 @@ public class ReserveBean implements ReserveService {
     @Override
     public int countUserPayment(int uid) {
         return (int) em.createNamedQuery(Reserve.COUNT_USER_PAYMENT).getSingleResult();
+    }
+
+    @Override
+    public Reserve branchUserReserveDetail(int bid, int uid, String buyDate) {
+        return em.createNamedQuery(Reserve.BRANCH_USER_RESERVE_DETAIL, Reserve.class)
+                .setParameter(1, bid)
+                .setParameter(2, uid)
+                .setParameter(3, buyDate)
+                .getSingleResult();
+    }
+
+    @Override
+    public boolean reserveDetailDelete(int rdid) {
+        ReserveDetail reserveDetail = em.find(ReserveDetail.class, rdid);
+        if (reserveDetail == null) {
+            return false;
+        }
+        em.remove(reserveDetail);
+        return true;
     }
 
     @Override

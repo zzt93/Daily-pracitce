@@ -172,7 +172,6 @@
                 details: {
                     title: 'Reservation detail',
                     width: '5%',
-                    sorting: false,
                     edit: false,
                     create: false,
                     display: function (reservationData) {
@@ -185,16 +184,23 @@
                                     {
                                         title: reservationData.record.rid + ' - details',
                                         actions: {
-                                            listAction: 'OrderList?rid=' + reservationData.record.rid,
-                                            deleteAction: 'OrderDelete',
-                                            updateAction: 'OrderUpdate'
+                                            listAction: 'ReserveDetailList?rid=' + reservationData.record.rid,
+                                            deleteAction: 'ReserveDetailDelete',
+                                            updateAction: 'ReserveDetailUpdate'
                                         },
                                         fields: {
-                                            did: {
+                                            rdid: {
                                                 title: 'Dessert Id',
                                                 width: '30%',
                                                 key: true,
-                                                list: true
+                                                list: false
+                                            },
+                                            dessert: {
+                                                title: 'Dessert',
+                                                width: '20%',
+                                                display: function (data) {
+                                                    return data.record.name;
+                                                }
                                             },
                                             price: {
                                                 title: 'Price',

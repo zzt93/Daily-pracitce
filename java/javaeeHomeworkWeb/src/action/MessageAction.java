@@ -33,7 +33,7 @@ public class MessageAction extends ActionSupport {
         return super.execute();
     }
 
-    // for table response
+    // for table list response
     private List<Message> records;
     private String result;
     private String message;
@@ -118,11 +118,12 @@ public class MessageAction extends ActionSupport {
     }
 
     public String msgDelete() throws Exception {
-        // TODO: 2/26/16 change to list
         try {
             messageService.deleteMsg(mid);
+            result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
+            result = JTableHelper.ERROR;
             return ERROR;
         }
         return SUCCESS;
