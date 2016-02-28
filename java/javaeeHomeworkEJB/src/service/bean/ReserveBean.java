@@ -1,9 +1,6 @@
 package service.bean;
 
-import entity.Branch;
-import entity.Reserve;
-import entity.ReserveDetail;
-import entity.User;
+import entity.*;
 import service.ReserveService;
 
 import javax.ejb.Stateless;
@@ -27,8 +24,9 @@ public class ReserveBean implements ReserveService {
 
 
     @Override
-    public boolean reserveAdd(Reserve reserve) {
-        em.persist(reserve);
+    public boolean reserveAdd(String bdate, int uid, int bid) {
+        Reserve entity = new Reserve(em.find(User.class, uid), em.find(Branch.class, bid), bdate);
+        em.persist(entity);
         return true;
     }
 
@@ -106,6 +104,27 @@ public class ReserveBean implements ReserveService {
             return false;
         }
         em.remove(reserveDetail);
+        return true;
+    }
+
+    @Override
+    public boolean reserveDetailAdd(int rid, int did, int num, double price) {
+        Reserve reserve = em.find(Reserve.class, rid);
+        Dessert dessert = em.find(Dessert.class, did);
+        if (reserve == null || dessert == null) {
+            return false;
+        }
+        em.persist(new ReserveDetail(num, price, reserve, dessert));
+        return true;
+    }
+
+    @Override
+    public boolean reserveDetailUpdateNum(int rdid, int num) {
+        ReserveDetail reserveDetail = em.find(ReserveDetail.class, rdid);
+        if (reserveDetail == null) {
+            return false;
+        }
+        reserveDetail.setNum(num);
         return true;
     }
 

@@ -1,7 +1,8 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.*;
+import entity.Plan;
+import entity.Reserve;
 import remote.JNDIFactory;
 import service.ConsumeService;
 import service.PlanService;
@@ -10,7 +11,6 @@ import service.ReserveService;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by zzt on 2/14/16.
@@ -154,19 +154,14 @@ public class BranchAction extends ActionSupport {
      * @throws Exception
      */
     public String branchReservePay() throws Exception {
-        // create reserve and adding detail
-        User user = new User();
+        // finish reserve by setting state
         HttpSession session = SessionManagement.getSession();
+        session.setAttribute(ReserveDetailAction.RESERVE_START, false);
         int uid = SessionManagement.getUid();
-        user.setUid(uid);
-        Branch branch = new Branch();
-        branch.setBid(branchNum);
-        Reserve reserve = new Reserve(user, branch, buyDate);
-        reserve.setDetails((Set<ReserveDetail>) session.getAttribute(ReserveDetailAction.RESERVE_DETAIL));
         ReserveService reserveService =
                 (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
         assert reserveService != null;
-        reserveService.reserveAdd(reserve);
+        reserveService.reserveAdd(buyDate, uid, branchNum);
         // pay money
         ConsumeService consumeService;
         try {

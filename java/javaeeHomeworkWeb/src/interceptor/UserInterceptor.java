@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 public class UserInterceptor extends AbstractInterceptor {
 
 
+
     @Override
     public String intercept(ActionInvocation invocation) throws Exception {
         System.out.println("Interceptor Fired");

@@ -31,7 +31,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="Branches.jsp">Dessert</a></p>
+        <p id="app-name"><a href="#">Staff Id: ${sid}</a></p>
 
         <form>
             <p class="action">
@@ -118,7 +118,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     width: '5%',
                     edit: false,
                     create: false,
-                    display: function (reservationData) {
+                    display: function (planLine) {
                         //Create an image that will be used to open child table
                         var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
                         //Open child table when user clicks the image
@@ -126,11 +126,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                             $('#previous-order').jtable('openChildTable',
                                     $img.closest('tr'),
                                     {
-                                        title: reservationData.record.rid + ' - details',
+                                        title: planLine.record.planId + ' - details',
                                         actions: {
-                                            listAction: 'PlanDetailList?planId=' + reservationData.record.rid,
+                                            listAction: 'PlanDetailList?planId=' + planLine.record.planId,
                                             deleteAction: 'PlanDetailDelete',
-                                            updateAction: 'PlanDetailUpdate'
+                                            updateAction: 'PlanDetailUpdate',
+                                            createAction: 'PlanDetailAdd?planId=' + planLine.record.planId
                                         },
                                         fields: {
                                             pdId: {
@@ -148,8 +149,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                                             },
                                             num: {
                                                 title: 'Number',
-                                                width: '30%',
-                                                edit: true
+                                                width: '30%'
                                             }
                                         }
                                     },

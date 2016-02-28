@@ -3,12 +3,13 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Reserve;
 import entity.ReserveDetail;
+import remote.JNDIFactory;
+import service.ReserveService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 2/25/16.
@@ -17,11 +18,21 @@ import java.util.Set;
  */
 public class ReserveDetailAction extends ActionSupport {
 
-    public static final String RESERVE_DETAIL = "reserveDetail";
+    public static final String RESERVE_START = "reserveDetail";
     // for table response
     private List<ReserveDetail> records;
     private String result;
     private String message;
+
+    public int getRdid() {
+        return rdid;
+    }
+
+    public void setRdid(int rdid) {
+        this.rdid = rdid;
+    }
+
+    private int rdid;
 
     public List<ReserveDetail> getRecords() {
         return records;
@@ -49,26 +60,84 @@ public class ReserveDetailAction extends ActionSupport {
 
     private int rid;
 
-    public String orderList() throws Exception {
+    public String orderBranchList() throws Exception {
+        records = new ArrayList<>();
+        result = JTableHelper.OK;
         return SUCCESS;
     }
 
-    public String orderAdd() throws Exception {
+    public String orderList() throws Exception {
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        Reserve reserve = reserveService.reserveGet(rid);
+        records.addAll(reserve.getDetails().stream().collect(Collectors.toList()));
+        result = JTableHelper.OK;
+        return SUCCESS;
+    }
+
+    private int did;
+    private int num;
+    private double price;
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String orderBranchAdd() throws Exception {
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
         HttpSession session = SessionManagement.getSession();
-        Set<ReserveDetail> details =
-                (Set<ReserveDetail>) session.getAttribute(RESERVE_DETAIL);
-        if (details == null) {
-            details = new HashSet<>();
+        boolean start = (boolean) session.getAttribute(RESERVE_START);
+        if (!start) {
+            session.setAttribute(RESERVE_START, true);
+            assert reserveService != null;
         }
-        details.add(new ReserveDetail());
-        session.setAttribute(RESERVE_DETAIL, details);
+        assert reserveService != null;
+        reserveService.reserveDetailAdd(rid, did, num, price);
+        result = JTableHelper.OK;
         return SUCCESS;
     }
 
     public String orderDelete() throws Exception {
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        assert reserveService != null;
+        reserveService.reserveDetailDelete(rdid);
+        result = JTableHelper.OK;
         return SUCCESS;
     }
+
     public String orderUpdate() throws Exception {
+        if (num >= 1) {
+            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            assert reserveService != null;
+            reserveService.reserveDetailUpdateNum(rdid, num);
+        }
         return SUCCESS;
     }
 }

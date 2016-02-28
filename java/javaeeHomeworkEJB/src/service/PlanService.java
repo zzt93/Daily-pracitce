@@ -17,13 +17,16 @@ public interface PlanService {
 
     void deletePlan(int planId);
     void updatePlan(Plan plan);
-    ArrayList<Plan> newPlan();
+    ArrayList<Plan> newPlan(int startIndex, int pageSize);
 
     ArrayList<Plan> branchPlan(int bid);
 
-    ArrayList<Plan> staffNotApprovedPlan(int sid);
+    ArrayList<Plan> staffNotApprovedPlan(int sid, int startIndex, int pageSize);
 
     Plan getPlan(int planId);
 
     void addPlanDetail(int planId, int num, int did);
+    void updatePlanDetail(int pdId, int did, int num);
+    boolean deletePlanDetail(int pdId);
+
 }

@@ -2,6 +2,8 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * Created by zzt on 2/20/16.
  * <p>
@@ -9,8 +11,16 @@ import com.opensymphony.xwork2.ActionSupport;
  */
 public class Waiter0 extends ActionSupport {
 
+    private int sid;
+
+    public int getSid() {
+        return sid;
+    }
+
     @Override
     public String execute() throws Exception {
-        return super.execute();
+        HttpSession session = SessionManagement.getSession();
+        sid = (int) session.getAttribute(InnerLogin.SID);
+        return SUCCESS;
     }
 }

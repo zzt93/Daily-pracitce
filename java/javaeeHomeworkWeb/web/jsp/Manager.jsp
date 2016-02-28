@@ -99,7 +99,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             selectingCheckboxes: true, //Show checkboxes on first column
             actions: {
                 listAction: 'PlanManagerList',
-                deleteAction: 'PlanDelete',
                 updateAction: 'planManagerUpdate'
             },
             fields: {
@@ -130,19 +129,17 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     width: '5%',
                     edit: false,
                     create: false,
-                    display: function (reservationData) {
+                    display: function (plan) {
                         //Create an image that will be used to open child table
                         var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
                         //Open child table when user clicks the image
-                        $img.click(function () {
+                        $img.click(function (reservationData) {
                             $('#previous-order').jtable('openChildTable',
                                     $img.closest('tr'),
                                     {
-                                        title: reservationData.record.rid + ' - details',
+                                        title: plan.record.planId + ' - details',
                                         actions: {
                                             listAction: 'PlanDetailList?planId=' + reservationData.record.rid,
-                                            deleteAction: 'PlanDetailDelete',
-                                            updateAction: 'PlanDetailUpdate'
                                         },
                                         fields: {
                                             pdId: {

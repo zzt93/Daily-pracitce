@@ -2,7 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/22/16.
@@ -22,7 +22,7 @@ public class Staff implements Serializable{
 
     private Branch branch;
 
-    private ArrayList<Plan> plans;
+    private Set<Plan> plans;
 
     public Staff(Branch branch, String pw, int type) {
         this.branch = branch;
@@ -67,11 +67,11 @@ public class Staff implements Serializable{
     }
 
     @OneToMany(mappedBy = "staff")
-    public ArrayList<Plan> getPlans() {
+    public Set<Plan> getPlans() {
         return plans;
     }
 
-    public void setPlans(ArrayList<Plan> plans) {
+    public void setPlans(Set<Plan> plans) {
         this.plans = plans;
     }
 }

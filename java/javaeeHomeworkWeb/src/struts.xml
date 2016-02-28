@@ -28,8 +28,7 @@
 
         <action name="Activation_*" class="action.Activation" method="{1}">
             <result type="redirectAction">Account</result>
-            <result name="input">/jsp/Activation.jsp</result>
-            <interceptor-ref name="defaultStack"/>
+            <result name="input">/jsp/UserLogin.jsp</result>
         </action>
 
         <action name="InnerLogin_*" method="{1}" class="action.InnerLogin">
@@ -42,8 +41,8 @@
         </action>
 
         <action name="InnerRegister_*" method="{1}" class="action.InnerRegister">
-            <result name="input">/jsp/InnerRegister.jsp</result>
             <result>/jsp/InnerLogin.jsp</result>
+            <result name="input">/jsp/InnerRegister.jsp</result>
             <interceptor-ref name="defaultStack"/>
         </action>
 

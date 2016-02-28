@@ -56,9 +56,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <li>
                 <a href="#">Branches </a>
             </li>
-            <li>
-                <a href="#">Consumption </a>
-            </li>
         </ul>
     </nav>
 
@@ -87,92 +84,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             </c:forEach>
 
             <br class="clear-left"/>
-        </div>
-
-        <div class="container" id="personal">
-            <h3>Your public information</h3>
-            <section class="personal-info flex-container-large" id="public-info">
-                <div class="avatar-wrapper none">
-                    <img id="avatar" class="resize" src="../images/user.png" alt="a user">
-
-                    <div id="upload-file-container">
-                        <form enctype="multipart/form-data" id="avatar-form">
-                            <input type="file" name="photo" title="choose a picture"
-                                   onchange="checkFileAndUpload(this)">
-                            <input type="hidden" name="funcName" value="updateAvatar">
-                        </form>
-                    </div>
-                </div>
-                <div id="change-picture-progress">&nbsp;</div>
-                <div class="flex1 info-part">
-                    <label for="DisplayName">Display name
-                        <br>
-                        <input id="DisplayName" value="" maxlength="30" tabindex="1"
-                               data-site="Tony" type="text">
-                    </label>
-
-                    <br>
-                    <label>Location
-                        <br>
-                        <input id="Location" value="" maxlength="100"
-                               tabindex="3" data-site="Nanjing, China" type="text">
-                    </label>
-                    <br>
-                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
-                    <br>
-                </div>
-
-                <div class="flex1 info-part">
-                    <h4> Your card
-                    </h4>
-                    <ul id="roles">
-                        <li>silver</li>
-                    </ul>
-
-                    <div class="apply-container" id="apply-container">
-                        <a href="#" id="apply-link"> Apply for higher rank?
-                        </a>
-                    </div>
-                </div>
-
-            </section>
-            <br>
-
-            <h3>Your private information</h3>
-            <section class="personal-info" id="private-info">
-                <div>
-                    <label for="age">Age
-                        <br>
-                        <input id="age" value="" data-default="Tony" maxlength="30" tabindex="1"
-                               data-site="Tony" type="text">
-                    </label>
-
-                    <br>
-
-                    <%--<s:radio list="gender"/>--%>
-
-                    <label id="gender">Gender
-
-                        <br>
-                        <label>
-                            <input type="radio" name="gender">Prefer not to say
-                        </label>
-                        <label>
-                            <input type="radio" name="gender">Female
-                        </label>
-                        <label>
-                            <input type="radio" name="gender">Male
-                        </label>
-                    </label>
-                    <br>
-                    <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
-                    <br>
-                    <s:textfield label="BackCard Number" readonly="true"/>
-
-                </div>
-
-            </section>
-            <br>
         </div>
 
     </div>

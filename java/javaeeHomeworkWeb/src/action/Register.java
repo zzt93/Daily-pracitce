@@ -1,6 +1,8 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import remote.JNDIFactory;
+import service.AccountService;
 
 /**
  * Created by zzt on 2/14/16.
@@ -12,26 +14,28 @@ public class Register extends ActionSupport {
     private String name;
     private String pw;
     private String pw2;
+    private AccountService accountService = (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
 
     @Override
     public String execute() throws Exception {
-        validate();
-        return INPUT;
-    }
-
-
-    public void validate() {
         String name = getName();
-        if (true) {
-            addFieldError("name", "user name is already used.");
-        }
 
         String pw = getPw();
         if (!pw.equals(pw2)) {
             addFieldError("pw", "password are not same");
+            return INPUT;
         }
 
+        Integer uid = accountService.register(name, pw);
+        if (uid == null) {
+            addFieldError("name", "user name is already used.");
+            return INPUT;
+        } else {
+            SessionManagement.setUserSession(uid);
+        }
+        return SUCCESS;
     }
+
 
     public String getName() {
         return name;

@@ -2,12 +2,14 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Plan;
+import entity.PlanDetail;
 import remote.JNDIFactory;
 import service.PlanService;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by zzt on 2/19/16.
@@ -115,7 +117,7 @@ public class PlanAction extends ActionSupport {
 
     public String planManagerList() throws Exception {
         try {
-            records = planService.newPlan();
+            records = planService.newPlan(jtStartIndex, jtPageSize);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -129,7 +131,7 @@ public class PlanAction extends ActionSupport {
         try {
             HttpSession session = SessionManagement.getSession();
             int sid = (int) session.getAttribute(InnerLogin.SID);
-            records = planService.staffNotApprovedPlan(sid);
+            records = planService.staffNotApprovedPlan(sid, jtStartIndex, jtPageSize);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,7 +160,13 @@ public class PlanAction extends ActionSupport {
     }
 
     public String planAdd() throws Exception {
-        planService.addPlan(bid, pdate);
+        try {
+            planService.addPlan(bid, pdate);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+        }
         return super.execute();
     }
 
@@ -170,16 +178,60 @@ public class PlanAction extends ActionSupport {
         this.planId = planId;
     }
 
+    private int pdId;
+
+    public int getPdId() {
+        return pdId;
+    }
+
+    public void setPdId(int pdId) {
+        this.pdId = pdId;
+    }
+
     public String planDetailUpdate() throws Exception {
-        return super.execute();
+        planService.updatePlanDetail(pdId, did, num);
+        result = JTableHelper.OK;
+        return SUCCESS;
+    }
+
+    private int num;
+    private int did;
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public int getDid() {
+        return did;
+    }
+
+    public void setDid(int did) {
+        this.did = did;
+    }
+
+    public String planDetailAdd() throws Exception {
+        // TODO: 2/28/16 did?
+        if (did == 0) {
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        try {
+            planService.addPlanDetail(planId, num, did);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+        }
+        return SUCCESS;
     }
 
     public String planDetailDelete() throws Exception {
-        return super.execute();
-    }
-
-    public String planDetailList() throws Exception {
-        return super.execute();
+        planService.deletePlanDetail(pdId);
+        return SUCCESS;
     }
 
 }

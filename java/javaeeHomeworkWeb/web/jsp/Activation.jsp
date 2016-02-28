@@ -44,7 +44,7 @@
         </header>
         <h3>Activate your account by completing this form.</h3>
 
-        <s:form action="Activation" id="register">
+        <s:form action="Activation_" id="register">
             <h2 class="inline-h2">Activate </h2>
 
 

@@ -43,9 +43,9 @@
                 Log in</a></h2>
             <s:textfield name="name" label="user name" title="how to name you in website"
                          required="required"/>
-            <s:password name="pw" label="password" title="have to longer than 6 chars" required="required"/>
+            <s:password name="pw" label="password" pattern=".{6}" title="at least 6 chars" required="required"/>
 
-            <s:password name="pw2" label="confirm password" title="input it again" required="required"/>
+            <s:password name="pw2" label="confirm password" pattern=".{6}" title="input it again" required="required"/>
 
             <s:submit/>
 

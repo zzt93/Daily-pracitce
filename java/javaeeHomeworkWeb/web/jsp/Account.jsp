@@ -82,7 +82,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         <form enctype="multipart/form-data" id="avatar-form">
                             <input type="file" name="photo" title="choose a picture"
                                    onchange="checkFileAndUpload(this)">
-                            <input type="hidden" name="funcName" value="updateAvatar">
                         </form>
                     </div>
                 </div>
@@ -189,6 +188,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
 
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
+<script type="application/javascript" src="../scripts/updateAccount.js"></script>
 
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>

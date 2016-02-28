@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @Remote
 public interface ReserveService {
 
-    boolean reserveAdd(Reserve reserve);
+    boolean reserveAdd(String bdate, int uid, int bid);
     boolean reserveEdit(Reserve reserve);
     boolean reserveDelete(int rid);
     boolean reserveFinish(int rid);
@@ -30,5 +30,7 @@ public interface ReserveService {
 
     Reserve branchUserReserveDetail(int bid, int uid, String buyDate);
     boolean reserveDetailDelete(int rdid);
+    boolean reserveDetailAdd(int rid, int did, int num, double price);
+    boolean reserveDetailUpdateNum(int rdid, int num);
 
 }

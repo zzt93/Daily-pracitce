@@ -27,15 +27,49 @@ public class AccountBean implements AccountService, ConsumeService {
     public AccountBean() {
     }
 
+    /**
+     * @param name user name
+     * @param pw   Password
+     *
+     * @return user id if exist such user and password is right
+     */
     @Override
-    public boolean register(String name, String pw) {
-        User user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
-                .setParameter(1, name).getSingleResult();
-        if (user != null) {
-            return false;
+    public Integer login(String name, String pw) {
+        User user;
+        try {
+            user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
+                    .setParameter(1, name).getSingleResult();
+        } catch (Exception e) {
+            //            e.printStackTrace();
+            return null;
         }
-        em.persist(new User(name, pw));
-        return true;
+        if (user.getPw().equals(pw)) {
+            return user.getUid();
+        }
+        return null;
+    }
+
+    /**
+     * @param name user name
+     * @param pw   password
+     *
+     * @return user id if no such name has already used;
+     * Otherwise, return null
+     */
+    @Override
+    public Integer register(String name, String pw) {
+        User user;
+        try {
+            user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
+                    .setParameter(1, name).getSingleResult();
+        } catch (Exception e) {
+            em.persist(new User(name, pw));
+            user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
+                    .setParameter(1, name).getSingleResult();
+            return user.getUid();
+        }
+        return null;
+
     }
 
     @Override
@@ -88,7 +122,6 @@ public class AccountBean implements AccountService, ConsumeService {
         }
         return true;
     }
-
 
 
     @Override

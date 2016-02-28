@@ -21,11 +21,6 @@ public class ReserveAction extends ActionSupport {
         reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
     }
 
-    @Override
-    public String execute() throws Exception {
-        return super.execute();
-    }
-
     private int branchNum;
 
     public int getBranchNum() {
@@ -38,9 +33,6 @@ public class ReserveAction extends ActionSupport {
 
     private int rid;
     private String bdate;
-    private int did;
-    private int num;
-    private double price;
 
     public int getRid() {
         return rid;
@@ -49,15 +41,6 @@ public class ReserveAction extends ActionSupport {
     public void setRid(int rid) {
         this.rid = rid;
     }
-
-    public int getDid() {
-        return did;
-    }
-
-    public void setDid(int did) {
-        this.did = did;
-    }
-
 
     // for table response
     private List<entity.Reserve> records;

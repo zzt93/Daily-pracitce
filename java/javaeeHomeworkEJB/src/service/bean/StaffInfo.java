@@ -42,6 +42,10 @@ public class StaffInfo implements StaffInfoService {
 
     @Override
     public int maxId() {
-        return (int) em.createNamedQuery(Staff.MAX_ID).getSingleResult();
+        Integer singleResult = em.createNamedQuery(Staff.MAX_ID, Integer.class).getSingleResult();
+        if (singleResult == null) {
+            return 0;
+        }
+        return singleResult;
     }
 }

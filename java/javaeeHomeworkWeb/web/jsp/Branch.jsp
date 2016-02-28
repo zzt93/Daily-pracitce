@@ -233,20 +233,24 @@
         currentOrder.jtable({
             title: 'Current order',
             actions: {
-                listAction: 'OrderList',
+                listAction: 'OrderBranchList',
                 deleteAction: 'OrderDelete',
                 updateAction: 'OrderUpdate'
             },
             fields: {
-                did: {
+                dessert: {
                     title: 'Dessert Id',
                     width: '30%',
                     key: true,
-                    list: true
+                    list: false,
+                    display: function(data) {
+                        return data.record.name;
+                    }
                 },
                 price: {
                     title: 'Price',
-                    width: '30%'
+                    width: '30%',
+                    edit: false
                 },
                 num: {
                     title: 'Number',

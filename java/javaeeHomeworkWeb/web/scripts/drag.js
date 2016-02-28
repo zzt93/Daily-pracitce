@@ -58,7 +58,7 @@ function initDragDrop() {
         console.info(imgNum);
         console.info(date);
 
-        $.post('OrderAdd',
+        $.post('OrderBranchAdd',
             {
                 did: imgNum,
                 num: 1,

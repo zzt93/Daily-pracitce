@@ -55,21 +55,19 @@ public class UserLogin extends ActionSupport {
     @Override
     public String execute() throws Exception {
         String name = getName();
-        if (accountService.register(name, pw)) {
-            addFieldError("name", "user name is already used.");
+        String pw = getPw();
+
+        Integer uid = accountService.login(name, pw);
+        if (uid == null) {
+            addFieldError("name", "user name or password is wrong.");
             return INPUT;
         }
-
-        String pw = getPw();
-        if (pw.length() < 6) {
-            addFieldError("pw", "user name is already used.");
-        }
+        SessionManagement.setUserSession(uid);
         return SUCCESS;
     }
 
     public String logOut() throws Exception {
-        HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = SessionManagement.getSession();
         assert session != null;
         session.invalidate();
         return SUCCESS;

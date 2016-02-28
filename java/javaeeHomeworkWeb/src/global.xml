@@ -14,7 +14,7 @@
             <interceptor name="login" class="interceptor.UserInterceptor"/>
             <interceptor-stack name="appDefaultStack">
                 <interceptor-ref name="encoding"/>
-                <!--<interceptor-ref name="login"/>-->
+                <interceptor-ref name="login"/>
                 <interceptor-ref name="defaultStack">
                     <param name="exception.logEnabled">true</param>
                     <param name="exception.logLevel">ERROR</param>

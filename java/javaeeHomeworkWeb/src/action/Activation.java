@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import mis.Rank;
 import remote.JNDIFactory;
 import service.ConsumeService;
 
@@ -8,6 +9,7 @@ import service.ConsumeService;
  * Created by zzt on 2/23/16.
  * <p>
  * Usage:
+ * 1234512345123451234
  */
 public class Activation extends ActionSupport {
 
@@ -35,6 +37,10 @@ public class Activation extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
+        if (money < Rank.LEVEL0.getThreshold()) {
+            addFieldError("money", "money too ");
+            return INPUT;
+        }
         int uid = SessionManagement.getUid();
         ConsumeService consumeService = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
         assert consumeService != null;

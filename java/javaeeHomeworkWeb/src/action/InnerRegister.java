@@ -102,6 +102,7 @@ public class InnerRegister extends ActionSupport {
         boolean res = staffInfoService.register(bid, pw, staffType.ordinal());
         if (!res) {
             addFieldError("bid", "no such branch number");
+            return INPUT;
         }
         InnerLogin.setStaffSession(sid);
         return super.execute();

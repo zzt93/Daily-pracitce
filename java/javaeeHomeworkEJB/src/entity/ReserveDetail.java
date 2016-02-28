@@ -21,6 +21,13 @@ public class ReserveDetail implements Serializable {
     private Reserve reserve;
     private Dessert dessert;
 
+    public ReserveDetail(int num, double price, Reserve reserve, Dessert dessert) {
+        this.num = num;
+        this.price = price;
+        this.reserve = reserve;
+        this.dessert = dessert;
+    }
+
     @Id
     @GeneratedValue
     public int getRdid() {

@@ -41,8 +41,11 @@ public class PlanBean implements PlanService {
     }
 
     @Override
-    public ArrayList<Plan> newPlan() {
-        return (ArrayList<Plan>) em.createNamedQuery(Plan.NEW_PLAN, Plan.class).getResultList();
+    public ArrayList<Plan> newPlan(int startIndex, int pageSize) {
+        return (ArrayList<Plan>) em.createNamedQuery(Plan.NEW_PLAN, Plan.class)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
+                .getResultList();
     }
 
     @Override
@@ -53,9 +56,11 @@ public class PlanBean implements PlanService {
     }
 
     @Override
-    public ArrayList<Plan> staffNotApprovedPlan(int sid) {
+    public ArrayList<Plan> staffNotApprovedPlan(int sid, int startIndex, int pageSize) {
         return (ArrayList<Plan>) em.createNamedQuery(Plan.STAFF_PLAN, Plan.class)
                 .setParameter(1, sid)
+                .setFirstResult(startIndex)
+                .setMaxResults(pageSize)
                 .getResultList();
     }
 
@@ -70,4 +75,24 @@ public class PlanBean implements PlanService {
         Dessert dessert = em.find(Dessert.class, did);
         em.persist(new PlanDetail(plan, dessert, num));
     }
+
+    @Override
+    public void updatePlanDetail(int pdId, int did, int num) {
+        PlanDetail planDetail = em.find(PlanDetail.class, pdId);
+        planDetail.setNum(num);
+        Dessert dessert = em.find(Dessert.class, did);
+        planDetail.setDessert(dessert);
+        em.merge(planDetail);
+    }
+
+    @Override
+    public boolean deletePlanDetail(int pdId) {
+        PlanDetail entity = em.find(PlanDetail.class, pdId);
+        if (entity == null) {
+            return false;
+        }
+        em.remove(entity);
+        return true;
+    }
+
 }
