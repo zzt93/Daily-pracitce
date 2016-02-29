@@ -70,8 +70,10 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
-    public int countUserReserve(int uid) {
-        return (int) em.createNamedQuery(Reserve.COUNT_USER_RESERVE).getSingleResult();
+    public long countUserReserve(int uid) {
+        return (long) em.createNamedQuery(Reserve.COUNT_USER_RESERVE)
+                .setParameter(1, uid)
+                .getSingleResult();
     }
 
     @Override
@@ -84,8 +86,10 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
-    public int countUserPayment(int uid) {
-        return (int) em.createNamedQuery(Reserve.COUNT_USER_PAYMENT).getSingleResult();
+    public long countUserPayment(int uid) {
+        return (long) em.createNamedQuery(Reserve.COUNT_USER_PAYMENT)
+                .setParameter(1, uid)
+                .getSingleResult();
     }
 
     @Override
@@ -138,8 +142,10 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
-    public int countBranchReserve(int uid) {
-        return (int) em.createNamedQuery(Reserve.COUNT_BRANCH_RESERVE).getSingleResult();
+    public long countBranchReserve(int uid) {
+        return (long) em.createNamedQuery(Reserve.COUNT_BRANCH_RESERVE)
+                .setParameter(1, uid)
+                .getSingleResult();
     }
 
     @Override
@@ -153,8 +159,11 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
-    public int countBranchUserReserve(int bid, int uid) {
-        return (int) em.createNamedQuery(Reserve.COUNT_BRANCH_USER_RESERVE).getSingleResult();
+    public long countBranchUserReserve(int bid, int uid) {
+        return (long) em.createNamedQuery(Reserve.COUNT_BRANCH_USER_RESERVE)
+                .setParameter(1, bid)
+                .setParameter(2, uid)
+                .getSingleResult();
     }
 
 }

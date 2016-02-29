@@ -20,13 +20,13 @@ public interface ReserveService {
     Reserve reserveGet(int rid);
 
     ArrayList<Reserve> userReserve(int uid, int startIndex, int pageSize);
-    int countUserReserve(int uid);
+    long countUserReserve(int uid);
     ArrayList<Reserve> branchReserve(int bid, int startSize, int pageSize);
-    int countBranchReserve(int bid);
+    long countBranchReserve(int bid);
     ArrayList<Reserve> branchUserReserve(int bid, int uid, int startIndex, int pageSize);
-    int countBranchUserReserve(int bid, int uid);
+    long countBranchUserReserve(int bid, int uid);
     ArrayList<Reserve> userPayment(int uid, int startIndex, int pageSize);
-    int countUserPayment(int uid);
+    long countUserPayment(int uid);
 
     Reserve branchUserReserveDetail(int bid, int uid, String buyDate);
     boolean reserveDetailDelete(int rdid);

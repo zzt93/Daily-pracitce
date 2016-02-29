@@ -30,7 +30,7 @@ public class Branch implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getBid() {
         return bid;
     }

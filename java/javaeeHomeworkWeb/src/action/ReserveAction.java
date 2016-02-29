@@ -18,7 +18,7 @@ public class ReserveAction extends ActionSupport {
     private final ReserveService reserveService;
 
     public ReserveAction() {
-        reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
     }
 
     private int branchNum;
@@ -47,7 +47,7 @@ public class ReserveAction extends ActionSupport {
     private String result;
     private String message;
 
-    private int totalRecordCount;
+    private long totalRecordCount;
     // Holds Start Page Index
     private int jtStartIndex;
     // Hold records to be displayed per Page
@@ -93,7 +93,7 @@ public class ReserveAction extends ActionSupport {
         this.jtPageSize = jtPageSize;
     }
 
-    public int getTotalRecordCount() {
+    public long getTotalRecordCount() {
         return totalRecordCount;
     }
 

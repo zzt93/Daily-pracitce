@@ -43,8 +43,15 @@ public class MessageBean implements MessageService{
                 .getResultList();
     }
 
+    /**
+     *
+     * @param uid user id
+     * @return count result in Long
+     */
     @Override
-    public int countUserMsg(int uid) {
-        return (int) em.createNamedQuery(Message.COUNT_USER_MESSAGE).getSingleResult();
+    public long countUserMsg(int uid) {
+        return (Long) em.createNamedQuery(Message.COUNT_USER_MESSAGE)
+                .setParameter(1, uid)
+                .getSingleResult();
     }
 }

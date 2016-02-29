@@ -31,7 +31,7 @@ public class OtherWaiter extends ActionSupport {
     public String execute() throws Exception {
         try {
             AccountService accountService =
-                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
+                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
             user = accountService.getUser(userId);
             account = user.getAccount();
         } catch (Exception e) {
@@ -72,7 +72,7 @@ public class OtherWaiter extends ActionSupport {
         PayType payType = PayType.valueOf(type);
         try {
             ConsumeService consumeService =
-                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
+                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
             payType.pay(SessionManagement.getUid(), money, consumeService);
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,12 +112,12 @@ public class OtherWaiter extends ActionSupport {
     public String branchUserReserveDetailList() throws Exception {
         try {
             StaffInfoService staffInfoService =
-                    (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded/StaffEJB!service.StaffInfoService");
+                    (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
             HttpSession session = SessionManagement.getSession();
             int sid = (int) session.getAttribute(InnerLogin.SID);
             Staff staff = staffInfoService.getStaff(sid);
             ReserveService reserveService =
-                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDateTime.now().toString());
             records = reserve.getDetails();
             result = JTableHelper.OK;
@@ -131,7 +131,7 @@ public class OtherWaiter extends ActionSupport {
     public String branchUserReserveDetailDelete() throws Exception {
         try {
             ReserveService reserveService =
-                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             reserveService.reserveDetailDelete(rdid);
             result = JTableHelper.OK;
         } catch (Exception e) {

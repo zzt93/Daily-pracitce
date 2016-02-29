@@ -14,7 +14,7 @@ public class Register extends ActionSupport {
     private String name;
     private String pw;
     private String pw2;
-    private AccountService accountService = (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
+    private AccountService accountService = (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
 
     @Override
     public String execute() throws Exception {

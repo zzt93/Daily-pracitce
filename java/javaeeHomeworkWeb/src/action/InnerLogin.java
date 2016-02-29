@@ -69,7 +69,7 @@ public class InnerLogin extends ActionSupport {
     @Override
     public String execute() throws Exception {
         StaffInfoService staffInfoService =
-                (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded/StaffEJB!service.StaffInfoService");
+                (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
         StaffType staffType = StaffType.whatType(type);
         assert staffInfoService != null;
         boolean login = staffInfoService.login(sid, pw, staffType.ordinal());

@@ -67,7 +67,7 @@ public class ReserveDetailAction extends ActionSupport {
     }
 
     public String orderList() throws Exception {
-        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
         Reserve reserve = reserveService.reserveGet(rid);
         records.addAll(reserve.getDetails().stream().collect(Collectors.toList()));
         result = JTableHelper.OK;
@@ -111,7 +111,7 @@ public class ReserveDetailAction extends ActionSupport {
     }
 
     public String orderBranchAdd() throws Exception {
-        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
         HttpSession session = SessionManagement.getSession();
         boolean start = (boolean) session.getAttribute(RESERVE_START);
         if (!start) {
@@ -125,7 +125,7 @@ public class ReserveDetailAction extends ActionSupport {
     }
 
     public String orderDelete() throws Exception {
-        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
         assert reserveService != null;
         reserveService.reserveDetailDelete(rdid);
         result = JTableHelper.OK;
@@ -134,7 +134,7 @@ public class ReserveDetailAction extends ActionSupport {
 
     public String orderUpdate() throws Exception {
         if (num >= 1) {
-            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             assert reserveService != null;
             reserveService.reserveDetailUpdateNum(rdid, num);
         }

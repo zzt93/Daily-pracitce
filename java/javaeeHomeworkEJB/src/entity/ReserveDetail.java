@@ -29,7 +29,7 @@ public class ReserveDetail implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getRdid() {
         return rdid;
     }

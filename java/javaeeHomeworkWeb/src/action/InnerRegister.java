@@ -37,7 +37,7 @@ public class InnerRegister extends ActionSupport {
         }
 
         // get staff id
-        staffInfoService = (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded/StaffEJB!service.StaffInfoService");
+        staffInfoService = (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
         assert staffInfoService != null;
         sid = staffInfoService.maxId();
     }

@@ -23,8 +23,32 @@ public class Account implements Serializable {
     private short age;
     private byte gender;
 
+    private User user;
+
+    public Account() {
+    }
+
+    public Account(User user) {
+        this.user = user;
+        /*
+         can't assign it, why?
+        cause error: null value was assigned to a property of primitive type setter uid
+         */
+        //        uid = user.getUid();
+    }
+
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "uid")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Id
-    @GeneratedValue
     public int getUid() {
         return uid;
     }

@@ -42,7 +42,7 @@ public class UserLogin extends ActionSupport {
 
     public UserLogin() {
         accountService =
-                (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
+                (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
     }
 
     @Validations(

@@ -20,7 +20,7 @@ public class PlanAction extends ActionSupport {
 
     private int planId;
 
-    private PlanService planService = (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//PlanEJB!service.PlanService");
+    private PlanService planService = (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
 
     private byte state;
 

@@ -8,6 +8,16 @@ import java.util.Set;
  * Created by zzt on 2/11/16.
  * <p>
  * Usage:
+ * Bidirectional Relationships:
+ * Each entity has a relationship field or property that refers to the other entity.
+ * <p>
+ * For one-to-one bidirectional relationships, the owning side corresponds to the side that contains the corresponding
+ * foreign key. In general, parent class is inverse side, child class is owning side.
+ * <p></p>
+ * In this case, `User` is inverse side
+ * <p>
+ * The inverse side of a bidirectional relationship must refer to its owning side
+ * by using the mappedBy element of the @OneToOne, @OneToMany, or @ManyToMany annotation
  */
 @Entity
 @Table(name = "user")
@@ -30,7 +40,7 @@ public class User implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getUid() {
         return uid;
     }
@@ -58,8 +68,12 @@ public class User implements Serializable {
     private Account account;
     private Consume consume;
 
-    @OneToOne(optional = false)
-    @MapsId
+    /*
+    add `optional = false`, make `user` reference `consume` and `account` use `uid`
+    i.e. add foreign key to user table
+     */
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @PrimaryKeyJoinColumn
     public Account getAccount() {
         return account;
     }
@@ -68,8 +82,8 @@ public class User implements Serializable {
         this.account = account;
     }
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL)
-    @MapsId
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "user")
+    @PrimaryKeyJoinColumn
     public Consume getConsume() {
         return consume;
     }

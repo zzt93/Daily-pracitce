@@ -13,6 +13,10 @@ public enum Gender {
 
     private final String des;
 
+    public String getDes() {
+        return des;
+    }
+
     Gender(String des) {
         this.des = des;
     }

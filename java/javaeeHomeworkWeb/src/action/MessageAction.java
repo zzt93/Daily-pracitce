@@ -16,7 +16,7 @@ import java.util.List;
 public class MessageAction extends ActionSupport {
 
     private MessageService messageService =
-            (MessageService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//MessageEJB!service.MessageService");
+            (MessageService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//MessageEJB!service.MessageService");
     private String msg;
 
     public String getMsg() {
@@ -38,7 +38,7 @@ public class MessageAction extends ActionSupport {
     private String result;
     private String message;
 
-    private int totalRecordCount;
+    private long totalRecordCount;
     // Holds Start Page Index
     private int jtStartIndex;
     // Hold records to be displayed per Page
@@ -68,7 +68,7 @@ public class MessageAction extends ActionSupport {
         this.message = message;
     }
 
-    public int getTotalRecordCount() {
+    public long getTotalRecordCount() {
         return totalRecordCount;
     }
 

@@ -1,3 +1,4 @@
+<jsp:useBean id="account" scope="request" type="entity.Account"/>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <%--
   Created by IntelliJ IDEA.
@@ -107,7 +108,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <div class="flex1 info-part">
                     <h4> Your card</h4>
                     <ul id="roles">
-                        <li>silver</li>
+                        <li>${userRank}</li>
                     </ul>
 
                 </div>
@@ -126,25 +127,14 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
                     <br>
 
-                    <%--<s:radio list="${account.gender}" label="Gender"/>--%>
+                    <s:radio name="gender" list="gender" label="Gender" value="userGender"/>
 
-                    <label id="gender">Gender
-                        <br>
-                        <label>
-                            <input type="radio" name="gender">Prefer not to say
-                        </label>
-                        <label>
-                            <input type="radio" name="gender">Female
-                        </label>
-                        <label>
-                            <input type="radio" name="gender">Male
-                        </label>
-                    </label>
+
                     <br>
                     <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
                     <%--<s:textfield label="BackCard Number" value="${account.backCard}" readonly="true"/>--%>
-                    <a href="<s:url action='Activation_input'/>">Activate</a>
+                    <label><a href="<s:url action='Activation_input'/>">Activate</a></label>
                 </div>
 
             </section>

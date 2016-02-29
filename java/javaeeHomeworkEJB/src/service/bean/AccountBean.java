@@ -66,7 +66,12 @@ public class AccountBean implements AccountService, ConsumeService {
             em.persist(new User(name, pw));
             user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                     .setParameter(1, name).getSingleResult();
-            return user.getUid();
+            int uid = user.getUid();
+            Account account = new Account(user);
+            Consume consume = new Consume(user);
+            em.persist(account);
+            em.persist(consume);
+            return uid;
         }
         return null;
 
@@ -152,8 +157,8 @@ public class AccountBean implements AccountService, ConsumeService {
     }
 
     @Override
-    public int countUserBalanceList() {
-        return (int) em.createNamedQuery(Consume.COUNT_OWNING_MONEY_USER).getSingleResult();
+    public long countUserBalanceList() {
+        return (long) em.createNamedQuery(Consume.COUNT_OWNING_MONEY_USER).getSingleResult();
     }
 
     private boolean addBalanceAndCredit(int uid, double money) {

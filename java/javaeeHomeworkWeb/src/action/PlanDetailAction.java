@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class PlanDetailAction extends ActionSupport {
 
-    private PlanService planService = (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//PlanEJB!service.PlanService");
+    private PlanService planService = (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
     private int planId;
 
     public int getPlanId() {

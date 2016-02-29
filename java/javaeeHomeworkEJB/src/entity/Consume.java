@@ -30,8 +30,31 @@ public class Consume implements Serializable {
     private byte rank;
     private int credit;
 
+    private User user;
+
+    public Consume() {
+    }
+
+    public Consume(User user) {
+        this.user = user;
+        /*
+        @see {Account}
+         */
+        //        uid = user.getUid();
+    }
+
+    @MapsId
+    @OneToOne
+    @JoinColumn(name = "uid")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Id
-    @GeneratedValue
     public int getUid() {
         return uid;
     }

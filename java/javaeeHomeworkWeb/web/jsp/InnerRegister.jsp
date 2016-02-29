@@ -36,7 +36,9 @@
         </header>
         <h3>Register by completing this form.</h3>
 
-        <%--use wrong action name also casue error about `set xxx`--%>
+        <%--use wrong action name also casue error about `set xxx ['xxx', ]`
+        e.g. use `InnerRegster`
+        --%>
         <s:form action="InnerRegister_" id="register">
             <h2 class="inline-h2">Register </h2>
 

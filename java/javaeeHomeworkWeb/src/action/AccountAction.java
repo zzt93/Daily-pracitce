@@ -4,10 +4,13 @@ import com.opensymphony.xwork2.ActionSupport;
 import entity.Account;
 import entity.Consume;
 import entity.User;
+import mis.Gender;
+import mis.Rank;
 import remote.JNDIFactory;
 import service.AccountService;
 import service.ConsumeService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +24,49 @@ public class AccountAction extends ActionSupport {
     User user;
     Account account;
     Consume consume;
+    private List<String> gender = new ArrayList<>();
+    private String userGender;
+    private String userRank;
 
+    public User getUser() {
+        return user;
+    }
+
+    public List<String> getGender() {
+        return gender;
+    }
+
+    public String getUserGender() {
+        return userGender;
+    }
+
+    public String getUserRank() {
+        return userRank;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
+    public Consume getConsume() {
+        return consume;
+    }
+
+    public void setConsume(Consume consume) {
+        this.consume = consume;
+    }
+
+    public void setTotalRecordCount(long totalRecordCount) {
+        this.totalRecordCount = totalRecordCount;
+    }
 
     public AccountAction() {
     }
@@ -30,12 +75,21 @@ public class AccountAction extends ActionSupport {
     public String execute() throws Exception {
         try {
             AccountService accountService =
-                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.AccountService");
+                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
             int uid = SessionManagement.getUid();
             assert accountService != null;
             user = accountService.getUser(uid);
             account = user.getAccount();
             consume = user.getConsume();
+
+            // handle gender
+            for (Gender gender1 : Gender.values()) {
+                gender.add(gender1.getDes());
+            }
+            userGender = Gender.values()[account.getGender()].getDes();
+
+            // handle rank
+            userRank = Rank.values()[consume.getRank()].getDes();
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -47,7 +101,7 @@ public class AccountAction extends ActionSupport {
     private String result;
     private String message;
 
-    private int totalRecordCount;
+    private long totalRecordCount;
     // Holds Start Page Index
     private int jtStartIndex;
     // Hold records to be displayed per Page
@@ -77,7 +131,7 @@ public class AccountAction extends ActionSupport {
         this.message = message;
     }
 
-    public int getTotalRecordCount() {
+    public long getTotalRecordCount() {
         return totalRecordCount;
     }
 
@@ -104,7 +158,7 @@ public class AccountAction extends ActionSupport {
     public String userList() throws Exception {
         try {
             ConsumeService consumeService
-                    = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
+                    = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
             records = consumeService.userBalanceList();
             totalRecordCount = consumeService.countUserBalanceList();
             result = JTableHelper.OK;

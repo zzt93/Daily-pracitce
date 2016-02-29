@@ -18,7 +18,7 @@ public class AllBranches extends ActionSupport {
 
     public AllBranches() {
         BranchService branchService =
-                (BranchService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//BranchEJB!service.BranchService");
+                (BranchService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//BranchEJB!service.BranchService");
         assert branchService != null;
         branches = branchService.allBranch();
     }

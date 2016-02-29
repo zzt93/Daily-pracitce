@@ -45,7 +45,7 @@ public class Plan implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getPlanId() {
         return planId;
     }

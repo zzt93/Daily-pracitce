@@ -31,7 +31,7 @@ public class Staff implements Serializable{
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getSid() {
         return sid;
     }

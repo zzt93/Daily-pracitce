@@ -35,7 +35,7 @@ public class Message implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getMid() {
         return mid;
     }

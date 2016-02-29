@@ -61,7 +61,7 @@ public class Reserve implements Serializable {
     }
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getRid() {
         return rid;
     }

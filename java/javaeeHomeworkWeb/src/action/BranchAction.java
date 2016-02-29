@@ -29,7 +29,7 @@ public class BranchAction extends ActionSupport {
     @Override
     public String execute() throws Exception {
         PlanService planService =
-                (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//PlanEJB!service.PlanService");
+                (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
         assert planService != null;
         plans = planService.branchPlan(branchNum);
         return SUCCESS;
@@ -118,7 +118,7 @@ public class BranchAction extends ActionSupport {
     public String branchUserReserveList() throws Exception {
         int uid = SessionManagement.getUid();
         try {
-            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             records = reserveService.branchUserReserve(branchNum, uid, jtStartIndex, jtPageSize);
             totalRecordCount = reserveService.countBranchUserReserve(branchNum, uid);
             result = JTableHelper.OK;
@@ -134,7 +134,7 @@ public class BranchAction extends ActionSupport {
     public String branchUserReserveDelete() throws Exception {
         ReserveService reserveService;
         try {
-            reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+            reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             reserveService.reserveDelete(rid);
             result = JTableHelper.OK;
         } catch (Exception e) {
@@ -159,14 +159,14 @@ public class BranchAction extends ActionSupport {
         session.setAttribute(ReserveDetailAction.RESERVE_START, false);
         int uid = SessionManagement.getUid();
         ReserveService reserveService =
-                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//ReserveEJB!service.ReserveService");
+                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
         assert reserveService != null;
         reserveService.reserveAdd(buyDate, uid, branchNum);
         // pay money
         ConsumeService consumeService;
         try {
             consumeService =
-                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_exploded//UserInfoEJB!service.ConsumeService");
+                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;

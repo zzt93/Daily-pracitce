@@ -21,14 +21,14 @@
         </action>
 
         <action name="Register_*" method="{1}" class="action.Register">
-            <result>/jsp/Activation.jsp</result>
+            <result type="redirectAction">Activation_input</result>
             <result name="input">/jsp/Register.jsp</result>
             <interceptor-ref name="defaultStack"/>
         </action>
 
         <action name="Activation_*" class="action.Activation" method="{1}">
             <result type="redirectAction">Account</result>
-            <result name="input">/jsp/UserLogin.jsp</result>
+            <result name="input">/jsp/Activation.jsp</result>
         </action>
 
         <action name="InnerLogin_*" method="{1}" class="action.InnerLogin">
@@ -75,6 +75,10 @@
     </package>
 
     <package name="ajax" namespace="/dessert" extends="json-default">
+
+        <global-results>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+        </global-results>
 
         <action name="UserReserve*" class="action.ReserveAction" method="userReserve{1}">
             <!--the action will return a json to use in a page-->

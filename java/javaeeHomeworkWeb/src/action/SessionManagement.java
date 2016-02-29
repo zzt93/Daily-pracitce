@@ -25,7 +25,7 @@ public class SessionManagement {
 
     private static void setSession(String s, int id) {
         HttpServletRequest request = ServletActionContext.getRequest();
-        HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(true);
         session.setAttribute(s, id);
     }
 
