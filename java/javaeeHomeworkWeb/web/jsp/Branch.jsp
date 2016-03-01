@@ -199,7 +199,7 @@
                                                 title: 'Dessert',
                                                 width: '20%',
                                                 display: function (data) {
-                                                    return data.record.name;
+                                                    return data.record.dessert.name;
                                                 }
                                             },
                                             price: {
@@ -244,7 +244,7 @@
                     key: true,
                     list: false,
                     display: function(data) {
-                        return data.record.name;
+                        return data.record.dessert.name;
                     }
                 },
                 price: {

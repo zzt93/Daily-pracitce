@@ -108,7 +108,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     key: true,
                     list: false
                 },
-                state: {
+                planState: {
                     title: 'State',
                     width: '30%',
                     edit: true,
@@ -122,7 +122,11 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 branch: {
                     title: 'Rank',
                     width: '20%',
-                    edit: false
+                    edit: false,
+                    // TODO change to options
+                    display: function (data) {
+                        return data.record.branch.addr;
+                    }
                 },
                 details: {
                     title: 'Plan detail',
@@ -152,7 +156,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                                                 title: 'Dessert',
                                                 width: '20%',
                                                 display: function (data) {
-                                                    return data.record.name;
+                                                    return data.record.dessert.name;
                                                 }
                                             },
                                             num: {

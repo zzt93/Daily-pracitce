@@ -24,6 +24,9 @@ public class Staff implements Serializable{
 
     private Set<Plan> plans;
 
+    public Staff() {
+    }
+
     public Staff(Branch branch, String pw, int type) {
         this.branch = branch;
         this.pw = pw;
@@ -56,7 +59,7 @@ public class Staff implements Serializable{
         this.type = type;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "bid")
     public Branch getBranch() {
         return branch;
@@ -73,5 +76,9 @@ public class Staff implements Serializable{
 
     public void setPlans(Set<Plan> plans) {
         this.plans = plans;
+    }
+
+    public void initLazy() {
+        getPlans().size();
     }
 }

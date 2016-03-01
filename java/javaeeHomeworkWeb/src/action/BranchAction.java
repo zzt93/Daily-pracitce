@@ -57,7 +57,7 @@ public class BranchAction extends ActionSupport {
     private String result;
     private String message;
 
-    private int totalRecordCount;
+    private long totalRecordCount;
     // Holds Start Page Index
     private int jtStartIndex;
     // Hold records to be displayed per Page
@@ -87,7 +87,7 @@ public class BranchAction extends ActionSupport {
         this.message = message;
     }
 
-    public int getTotalRecordCount() {
+    public long getTotalRecordCount() {
         return totalRecordCount;
     }
 

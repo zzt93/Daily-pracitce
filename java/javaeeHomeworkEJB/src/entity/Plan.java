@@ -2,21 +2,26 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Set;
 
 /**
  * Created by zzt on 2/17/16.
  * <p>
  * Usage:
+ * <p>
+ * <p>
+ * The bidirectional associations should always be updated on both sides, therefore the Parent side should contain the
+ * addChild and removeChild combo. These methods ensure we always synchronize both sides of the association, to avoid
+ * object or relational data corruption issues.
  */
 @Entity()
 @Table(name = "plan")
 @NamedQueries(
         {
-                @NamedQuery(query = "select p from Plan p where p.state = 0", name = Plan.NEW_PLAN),
-                @NamedQuery(query = "select p from Plan p where p.state = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN),
-                @NamedQuery(query = "select p from Plan p where p.staff.sid = ?1 and p.state <> 1", name = Plan.STAFF_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.planState = 0", name = Plan.NEW_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.planState = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.staff.sid = ?1 and p.planState <> 1", name = Plan.STAFF_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.branch.bid = ?1 and p.pdate = ?2", name = Plan.SAME_PLAN),
         }
 )
 public class Plan implements Serializable {
@@ -25,9 +30,10 @@ public class Plan implements Serializable {
     public static final String NEW_PLAN = "new plan";
     public static final String BRANCH_PLAN = "branch plan";
     public static final String STAFF_PLAN = "staff submitted plan";
+    public static final String SAME_PLAN = "same plan";
     private int planId;
 
-    private byte state;
+    private byte planState;
     private String pdate;
 
     private Set<PlanDetail> details;
@@ -39,7 +45,8 @@ public class Plan implements Serializable {
     public Plan() {
     }
 
-    public Plan(Branch branch, String planDate) {
+    public Plan(Staff staff, Branch branch, String planDate) {
+        this.staff = staff;
         this.branch = branch;
         this.pdate = planDate;
     }
@@ -54,12 +61,13 @@ public class Plan implements Serializable {
         this.planId = planId;
     }
 
-    public byte isState() {
-        return state;
+    @Column(name = "state")
+    public byte getPlanState() {
+        return planState;
     }
 
-    public void setState(byte state) {
-        this.state = state;
+    public void setPlanState(byte planState) {
+        this.planState = planState;
     }
 
     public String getPdate() {
@@ -83,10 +91,11 @@ public class Plan implements Serializable {
     }
 
     public void addDetail(PlanDetail detail) {
+        details.add(detail);
         detail.setPlan(this);
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "bid")
     public Branch getBranch() {
         return branch;
@@ -96,7 +105,7 @@ public class Plan implements Serializable {
         this.branch = branch;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "sid")
     public Staff getStaff() {
         return staff;

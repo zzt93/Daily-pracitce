@@ -109,7 +109,11 @@
             <result type="json">/jsp/Manager.jsp</result>
         </action>
 
-        <action name="PlanDetail*" class="action.PlanAction" method="planDetail{1}">
+        <!--<action name="PlanDetailList" class="action.PlanDetailAction" method="planDetailList">-->
+            <!--<result type="json">/jsp/Waiter0.jsp</result>-->
+        <!--</action>-->
+
+        <action name="PlanDetail*" class="action.PlanDetailAction" method="planDetail{1}">
             <result type="json">/jsp/Waiter0.jsp</result>
         </action>
 

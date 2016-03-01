@@ -77,6 +77,7 @@ public class InnerLogin extends ActionSupport {
             addFieldError("sid", "staff id or password for " + type + " is not match");
             return INPUT;
         }
+        SessionManagement.setStaffSession(sid);
         return type;
     }
 

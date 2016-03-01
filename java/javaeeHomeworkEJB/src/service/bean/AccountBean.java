@@ -111,11 +111,15 @@ public class AccountBean implements AccountService, ConsumeService {
         Account account = em.find(Account.class, uid);
         Consume consume = em.find(Consume.class, uid);
         account.setBankCard(bank);
+        byte rank1 = (byte) Rank.values()[Rank.values().length - 1].ordinal();
         for (Rank rank : Rank.values()) {
             if (rank.getThreshold() > money) {
-                consume.setRank((byte) rank.ordinal());
+                rank1 = (byte) (rank.ordinal() - 1);
                 break;
             }
+        }
+        if (rank1 > consume.getRank()) {
+            consume.setRank(rank1);
         }
         double balance = consume.getBalance();
         consume.setBalance(money + balance);

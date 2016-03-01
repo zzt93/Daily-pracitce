@@ -6,6 +6,7 @@ import entity.PlanDetail;
 import remote.JNDIFactory;
 import service.PlanService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,7 +28,7 @@ public class PlanDetailAction extends ActionSupport {
     }
 
 
-    private List<PlanDetail> records;
+    private List<PlanDetail> records = new ArrayList<>();
     private String result;
     private String message;
 
@@ -59,8 +60,73 @@ public class PlanDetailAction extends ActionSupport {
         Plan plan = planService.getPlan(planId);
         for (PlanDetail planDetail : plan.getDetails()) {
             records.add(planDetail);
+            planDetail.
         }
         result = JTableHelper.OK;
         return super.execute();
+    }
+
+    private int num;
+    private int dessert;
+    private int pdId;
+
+    public int getPdId() {
+        return pdId;
+    }
+
+    public void setPdId(int pdId) {
+        this.pdId = pdId;
+    }
+
+    public String planDetailUpdate() throws Exception {
+        planService.updatePlanDetail(pdId, dessert, num);
+        result = JTableHelper.OK;
+        return SUCCESS;
+    }
+
+    public int getNum() {
+        return num;
+    }
+
+    public void setNum(int num) {
+        this.num = num;
+    }
+
+    public int getDessert() {
+        return dessert;
+    }
+
+    public void setDessert(int dessert) {
+        this.dessert = dessert;
+    }
+
+    private PlanDetail record;
+
+    public PlanDetail getRecord() {
+        return record;
+    }
+
+    public void setRecord(PlanDetail record) {
+        this.record = record;
+    }
+
+    public String planDetailAdd() throws Exception {
+        if (dessert == 0) {
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        try {
+            record = planService.addPlanDetail(planId, num, dessert);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+        }
+        return SUCCESS;
+    }
+
+    public String planDetailDelete() throws Exception {
+        planService.deletePlanDetail(pdId);
+        return SUCCESS;
     }
 }

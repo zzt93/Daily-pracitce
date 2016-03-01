@@ -2,14 +2,11 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Plan;
-import entity.PlanDetail;
 import remote.JNDIFactory;
 import service.PlanService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by zzt on 2/19/16.
@@ -35,7 +32,7 @@ public class PlanAction extends ActionSupport {
     public String planManagerUpdate() throws Exception {
         try {
             Plan plan = planService.getPlan(planId);
-            plan.setState(state);
+            plan.setPlanState(state);
             planService.updatePlan(plan);
             result = JTableHelper.OK;
         } catch (Exception e) {
@@ -57,6 +54,8 @@ public class PlanAction extends ActionSupport {
         return SUCCESS;
     }
 
+    private Plan record;
+
     private List<Plan> records;
     private String result;
     private String message;
@@ -66,6 +65,14 @@ public class PlanAction extends ActionSupport {
     private int jtStartIndex;
     // Hold records to be displayed per Page
     private int jtPageSize;
+
+    public Plan getRecord() {
+        return record;
+    }
+
+    public void setRecord(Plan record) {
+        this.record = record;
+    }
 
     public List<Plan> getRecords() {
         return records;
@@ -136,19 +143,21 @@ public class PlanAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
             result = JTableHelper.ERROR;
+            message = "...";
+            return ERROR;
         }
-        return super.execute();
+        return SUCCESS;
     }
 
-    private int bid;
+    private int branch;
     private String pdate;
 
-    public int getBid() {
-        return bid;
+    public int getBranch() {
+        return branch;
     }
 
-    public void setBid(int bid) {
-        this.bid = bid;
+    public void setBranch(int branch) {
+        this.branch = branch;
     }
 
     public String getPdate() {
@@ -161,13 +170,22 @@ public class PlanAction extends ActionSupport {
 
     public String planAdd() throws Exception {
         try {
-            planService.addPlan(bid, pdate);
-            result = JTableHelper.OK;
+            int sid = (int) SessionManagement.getSession().getAttribute(InnerLogin.SID);
+            Plan plan = planService.addPlan(sid, branch, pdate);
+            if (plan != null) {
+                result = JTableHelper.OK;
+                record = plan;
+            } else {
+                result = JTableHelper.ERROR;
+                message = "Already have a plan for this branch at " + pdate;
+            }
         } catch (Exception e) {
             e.printStackTrace();
+            message = e.getMessage();
             result = JTableHelper.ERROR;
+            return ERROR;
         }
-        return super.execute();
+        return SUCCESS;
     }
 
     public int getPlanId() {
@@ -178,60 +196,9 @@ public class PlanAction extends ActionSupport {
         this.planId = planId;
     }
 
-    private int pdId;
 
-    public int getPdId() {
-        return pdId;
-    }
 
-    public void setPdId(int pdId) {
-        this.pdId = pdId;
-    }
 
-    public String planDetailUpdate() throws Exception {
-        planService.updatePlanDetail(pdId, did, num);
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
 
-    private int num;
-    private int did;
-
-    public int getNum() {
-        return num;
-    }
-
-    public void setNum(int num) {
-        this.num = num;
-    }
-
-    public int getDid() {
-        return did;
-    }
-
-    public void setDid(int did) {
-        this.did = did;
-    }
-
-    public String planDetailAdd() throws Exception {
-        // TODO: 2/28/16 did?
-        if (did == 0) {
-            result = JTableHelper.ERROR;
-            return ERROR;
-        }
-        try {
-            planService.addPlanDetail(planId, num, did);
-            result = JTableHelper.OK;
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = JTableHelper.ERROR;
-        }
-        return SUCCESS;
-    }
-
-    public String planDetailDelete() throws Exception {
-        planService.deletePlanDetail(pdId);
-        return SUCCESS;
-    }
 
 }

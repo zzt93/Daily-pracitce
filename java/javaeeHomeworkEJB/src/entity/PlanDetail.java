@@ -46,7 +46,7 @@ public class PlanDetail implements Serializable {
         this.num = num;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "planId")
     public Plan getPlan() {
         return plan;
@@ -56,7 +56,7 @@ public class PlanDetail implements Serializable {
         this.plan = plan;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "did")
     public Dessert getDessert() {
         return dessert;

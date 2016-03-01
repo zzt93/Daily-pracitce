@@ -1,9 +1,6 @@
 package service.bean;
 
-import entity.Branch;
-import entity.Dessert;
-import entity.Plan;
-import entity.PlanDetail;
+import entity.*;
 import service.PlanService;
 
 import javax.ejb.Stateless;
@@ -26,8 +23,18 @@ public class PlanBean implements PlanService {
     }
 
     @Override
-    public void addPlan(int bid, String planDate) {
-        em.persist(new Plan(em.find(Branch.class, bid), planDate));
+    public Plan addPlan(int sid, int bid, String planDate) {
+        try {
+            em.createNamedQuery(Plan.SAME_PLAN, Plan.class)
+                    .setParameter(1, bid)
+                    .setParameter(2, planDate)
+                    .getSingleResult();
+        } catch (Exception e) {
+            Plan entity = new Plan(em.find(Staff.class, sid), em.find(Branch.class, bid), planDate);
+            em.persist(entity);
+            return entity;
+        }
+        return null;
     }
 
     @Override
@@ -57,11 +64,21 @@ public class PlanBean implements PlanService {
 
     @Override
     public ArrayList<Plan> staffNotApprovedPlan(int sid, int startIndex, int pageSize) {
-        return (ArrayList<Plan>) em.createNamedQuery(Plan.STAFF_PLAN, Plan.class)
+        ArrayList<Plan> resultList = (ArrayList<Plan>) em.createNamedQuery(Plan.STAFF_PLAN, Plan.class)
                 .setParameter(1, sid)
                 .setFirstResult(startIndex)
                 .setMaxResults(pageSize)
                 .getResultList();
+        for (Plan plan : resultList) {
+            Branch branch = plan.getBranch();
+            branch.initLazy();
+            Staff staff = plan.getStaff();
+            staff.initLazy();
+            for (PlanDetail planDetail : plan.getDetails()) {
+                planDetail.getDessert().initLazy();
+            }
+        }
+        return resultList;
     }
 
     @Override
@@ -70,10 +87,18 @@ public class PlanBean implements PlanService {
     }
 
     @Override
-    public void addPlanDetail(int planId, int num, int did) {
+    public PlanDetail addPlanDetail(int planId, int num, int did) {
         Plan plan = em.find(Plan.class, planId);
         Dessert dessert = em.find(Dessert.class, did);
-        em.persist(new PlanDetail(plan, dessert, num));
+        dessert.initLazy();
+        PlanDetail entity = new PlanDetail(plan, dessert, num);
+        try {
+            em.persist(entity);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return entity;
     }
 
     @Override

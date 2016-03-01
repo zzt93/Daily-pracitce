@@ -1,6 +1,7 @@
 package service;
 
 import entity.Plan;
+import entity.PlanDetail;
 
 import javax.ejb.Remote;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 @Remote
 public interface PlanService {
 
-    void addPlan(int bid, String planDate);
+    Plan addPlan(int sid, int bid, String planDate);
 
     void deletePlan(int planId);
     void updatePlan(Plan plan);
@@ -25,7 +26,7 @@ public interface PlanService {
 
     Plan getPlan(int planId);
 
-    void addPlanDetail(int planId, int num, int did);
+    PlanDetail addPlanDetail(int planId, int num, int did);
     void updatePlanDetail(int pdId, int did, int num);
     boolean deletePlanDetail(int pdId);
 

@@ -60,4 +60,9 @@ public class Dessert implements Serializable {
     public void setReserveDetails(Set<ReserveDetail> reserveDetails) {
         this.reserveDetails = reserveDetails;
     }
+
+    public void initLazy() {
+        getDetails().size();
+        getReserveDetails().size();
+    }
 }

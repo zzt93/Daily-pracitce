@@ -39,7 +39,8 @@ public class InnerRegister extends ActionSupport {
         // get staff id
         staffInfoService = (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
         assert staffInfoService != null;
-        sid = staffInfoService.maxId();
+        sid = staffInfoService.maxId() + 1;
+        bid = 1;
     }
 
     public List<String> getTypes() {

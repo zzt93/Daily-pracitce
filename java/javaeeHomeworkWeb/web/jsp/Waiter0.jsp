@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
     <!-- jTable Metro theme -->
-    <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
+    <link href="../scripts/jtable.2.4.0/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"
           type="text/css"/>
 
@@ -76,97 +76,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
+<script type="application/javascript" src="../scripts/waiter0.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var plan = $('#plan');
-        plan.jtable({
-            title: 'Your not approved plan',
-            paging: true,
-            pageSize: 6,
-            actions: {
-                listAction: 'PlanStaffList',
-                deleteAction: 'PlanDelete',
-                createAction: 'PlanAdd'
-            },
-            fields: {
-                planId: {
-                    title: 'Plan Id',
-                    width: '30%',
-                    key: true,
-                    list: false
-                },
-                state: {
-                    title: 'State',
-                    width: '30%',
-                    edit: false
-                },
-                pdate: {
-                    title: 'Plan for ',
-                    width: '30%',
-                    edit: false
-                },
-                branch: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: false,
-                    display: function(data) {
-                        return data.record.bid;
-                    }
-                },
-                details: {
-                    title: 'Plan detail',
-                    width: '5%',
-                    edit: false,
-                    create: false,
-                    display: function (planLine) {
-                        //Create an image that will be used to open child table
-                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
-                        //Open child table when user clicks the image
-                        $img.click(function () {
-                            $('#previous-order').jtable('openChildTable',
-                                    $img.closest('tr'),
-                                    {
-                                        title: planLine.record.planId + ' - details',
-                                        actions: {
-                                            listAction: 'PlanDetailList?planId=' + planLine.record.planId,
-                                            deleteAction: 'PlanDetailDelete',
-                                            updateAction: 'PlanDetailUpdate',
-                                            createAction: 'PlanDetailAdd?planId=' + planLine.record.planId
-                                        },
-                                        fields: {
-                                            pdId: {
-                                                title: 'Plan detail id',
-                                                width: '30%',
-                                                key: true,
-                                                list: false
-                                            },
-                                            dessert: {
-                                                title: 'Dessert',
-                                                width: '20%',
-                                                display: function (data) {
-                                                    return data.record.name;
-                                                }
-                                            },
-                                            num: {
-                                                title: 'Number',
-                                                width: '30%'
-                                            }
-                                        }
-                                    },
-                                    function (data) { //opened handler
-                                        data.childTable.jtable('load');
-                                    });
-                        });
-                        //Return image to show on the person row
-                        return $img;
-                    }
-                }
-            }
-        });
-        plan.jtable('load');
-
-    });
-
+    $(waiter0PlanTable);
 </script>
 
 </body>

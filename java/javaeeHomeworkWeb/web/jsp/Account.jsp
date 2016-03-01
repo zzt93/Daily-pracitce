@@ -111,6 +111,15 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         <li>${userRank}</li>
                     </ul>
 
+
+                    <label>BankCard Number:
+                        <input type="text" value="${account.bankCard}" readonly>
+                    </label>
+                    <br>
+                    <div class="horizontal-center" style="margin-top: 10px; font-size: 1.5em;">
+                        <label><a
+                            href="<s:url action='Activation_input'/>">Activate</a></label>
+                    </div>
                 </div>
 
             </section>
@@ -133,8 +142,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <br>
                     <input type="submit" value="Submit changes" onclick="setUserAccountInfo(this)">
                     <br>
-                    <%--<s:textfield label="BackCard Number" value="${account.backCard}" readonly="true"/>--%>
-                    <label><a href="<s:url action='Activation_input'/>">Activate</a></label>
                 </div>
 
             </section>
@@ -211,7 +218,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     width: '30%',
                     edit: false,
                     display: function (data) {
-                        return data.record.addr
+                        return data.record.branch.addr
                     }
                 },
                 details: {
@@ -244,7 +251,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                                                 title: 'Dessert',
                                                 width: '20%',
                                                 display: function (data) {
-                                                    return data.record.name;
+                                                    return data.record.dessert.name;
                                                 }
                                             },
                                             price: {
@@ -332,10 +339,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     width: '30%'
                 },
                 user: {
-                    title: 'Department',
+                    title: 'User Id',
                     width: '30%',
                     display: function (line) {
-                        return line.record.uid;
+                        return line.record.user.uid;
                     }
                 }
             }

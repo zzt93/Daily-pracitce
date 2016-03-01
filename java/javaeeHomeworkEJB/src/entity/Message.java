@@ -52,7 +52,7 @@ public class Message implements Serializable {
         this.msg = msg;
     }
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "uid")
     public User getUser() {
         return user;

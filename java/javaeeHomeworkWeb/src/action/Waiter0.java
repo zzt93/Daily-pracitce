@@ -23,4 +23,7 @@ public class Waiter0 extends ActionSupport {
         sid = (int) session.getAttribute(InnerLogin.SID);
         return SUCCESS;
     }
+
+
+    // TODO: 3/1/16 add options, change case in jtable.js
 }
