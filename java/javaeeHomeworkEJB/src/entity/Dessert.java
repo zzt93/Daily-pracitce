@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -35,34 +36,34 @@ public class Dessert implements Serializable {
         this.name = name;
     }
 
-    private Set<PlanDetail> details;
+//    private Set<PlanDetail> details = new HashSet<>();
 
     /**
      * Hibernate requires that persistent collection-valued fields be declared as an interface type
      * @return
      */
-    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
-    public Set<PlanDetail> getDetails() {
-        return details;
-    }
+//    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
+//    public Set<PlanDetail> getDetails() {
+//        return details;
+//    }
 
-    public void setDetails(Set<PlanDetail> details) {
-        this.details = details;
-    }
+//    public void setDetails(Set<PlanDetail> details) {
+//        this.details = details;
+//    }
 
-    private Set<ReserveDetail> reserveDetails;
+//    private Set<ReserveDetail> reserveDetails = new HashSet<>();
 
-    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
-    public Set<ReserveDetail> getReserveDetails() {
-        return reserveDetails;
-    }
+//    @OneToMany(mappedBy = "dessert", cascade = CascadeType.ALL)
+//    public Set<ReserveDetail> getReserveDetails() {
+//        return reserveDetails;
+//    }
 
-    public void setReserveDetails(Set<ReserveDetail> reserveDetails) {
-        this.reserveDetails = reserveDetails;
-    }
-
-    public void initLazy() {
-        getDetails().size();
-        getReserveDetails().size();
-    }
+//    public void setReserveDetails(Set<ReserveDetail> reserveDetails) {
+//        this.reserveDetails = reserveDetails;
+//    }
+//
+//    public void initLazy() {
+//        getDetails().size();
+//        getReserveDetails().size();
+//    }
 }

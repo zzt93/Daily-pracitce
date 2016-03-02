@@ -39,8 +39,8 @@ public class Consume implements Serializable {
         this.user = user;
         /*
         @see {Account}
+                uid = user.getUid();
          */
-        //        uid = user.getUid();
     }
 
     @MapsId

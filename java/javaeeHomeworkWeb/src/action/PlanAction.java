@@ -60,7 +60,7 @@ public class PlanAction extends ActionSupport {
     private String result;
     private String message;
 
-    private int totalRecordCount;
+    private long totalRecordCount;
     // Holds Start Page Index
     private int jtStartIndex;
     // Hold records to be displayed per Page
@@ -98,7 +98,7 @@ public class PlanAction extends ActionSupport {
         this.message = message;
     }
 
-    public int getTotalRecordCount() {
+    public long getTotalRecordCount() {
         return totalRecordCount;
     }
 
@@ -125,6 +125,7 @@ public class PlanAction extends ActionSupport {
     public String planManagerList() throws Exception {
         try {
             records = planService.newPlan(jtStartIndex, jtPageSize);
+            totalRecordCount = planService.countNewPlan();
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();

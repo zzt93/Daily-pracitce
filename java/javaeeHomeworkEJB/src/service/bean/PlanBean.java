@@ -56,6 +56,11 @@ public class PlanBean implements PlanService {
     }
 
     @Override
+    public long countNewPlan() {
+        return (long) em.createNamedQuery(Plan.COUNT_NEW_PLAN).getSingleResult();
+    }
+
+    @Override
     public ArrayList<Plan> branchPlan(int bid) {
         return (ArrayList<Plan>) em.createNamedQuery(Plan.BRANCH_PLAN, Plan.class)
                 .setParameter(1, bid)
@@ -69,29 +74,36 @@ public class PlanBean implements PlanService {
                 .setFirstResult(startIndex)
                 .setMaxResults(pageSize)
                 .getResultList();
-        for (Plan plan : resultList) {
-            Branch branch = plan.getBranch();
-            branch.initLazy();
-            Staff staff = plan.getStaff();
-            staff.initLazy();
-            for (PlanDetail planDetail : plan.getDetails()) {
-                planDetail.getDessert().initLazy();
-            }
-        }
+//        for (Plan plan : resultList) {
+//            plan.initLazy();
+//        }
         return resultList;
     }
 
     @Override
     public Plan getPlan(int planId) {
-        return em.find(Plan.class, planId);
+        Plan plan = em.find(Plan.class, planId);
+//        plan.initLazy();
+        return plan;
     }
 
     @Override
-    public PlanDetail addPlanDetail(int planId, int num, int did) {
+    public ArrayList<PlanDetail> getPlanDetails(int planId) {
+        return (ArrayList<PlanDetail>) em.createNamedQuery(PlanDetail.A_PLAN_DETAIL, PlanDetail.class)
+                .setParameter(1, planId)
+                .getResultList();
+    }
+
+    @Override
+    public PlanDetail addPlanDetail(int planId, int did, double price, int num) {
         Plan plan = em.find(Plan.class, planId);
         Dessert dessert = em.find(Dessert.class, did);
-        dessert.initLazy();
-        PlanDetail entity = new PlanDetail(plan, dessert, num);
+        PlanDetail entity = new PlanDetail(plan, dessert, price, num);
+        /*
+        have to maintain the balance of parent and child, for you get
+        plan first, and add a new plan detail, you have to add detail by yourself
+        plan.addDetail(entity);
+         */
         try {
             em.persist(entity);
         } catch (Exception e) {

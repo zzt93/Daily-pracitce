@@ -60,6 +60,12 @@ public class ReserveDetailAction extends ActionSupport {
 
     private int rid;
 
+    /**
+     * Always empty at the beginning for it represent the new order of
+     * a user in this branch
+     * @return result
+     * @throws Exception
+     */
     public String orderBranchList() throws Exception {
         records = new ArrayList<>();
         result = JTableHelper.OK;
@@ -67,9 +73,10 @@ public class ReserveDetailAction extends ActionSupport {
     }
 
     public String orderList() throws Exception {
-        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-        Reserve reserve = reserveService.reserveGet(rid);
-        records.addAll(reserve.getDetails().stream().collect(Collectors.toList()));
+        ReserveService reserveService =
+                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+        List<ReserveDetail> reserveDetails = reserveService.reserveDetailGet(rid);
+        records.addAll(reserveDetails.stream().collect(Collectors.toList()));
         result = JTableHelper.OK;
         return SUCCESS;
     }

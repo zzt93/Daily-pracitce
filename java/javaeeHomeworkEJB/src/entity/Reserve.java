@@ -106,30 +106,30 @@ public class Reserve implements Serializable {
         this.branch = branch;
     }
 
-    private Set<ReserveDetail> details;
+//    private Set<ReserveDetail> details;
 
-    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL)
-    public Set<ReserveDetail> getDetails() {
-        return details;
-    }
+//    @OneToMany(mappedBy = "reserve", cascade = CascadeType.ALL)
+//    public Set<ReserveDetail> getDetails() {
+//        return details;
+//    }
 
-    public void setDetails(Set<ReserveDetail> details) {
-        this.details = details;
-        for (ReserveDetail detail : details) {
-            addDetail(detail);
-        }
-    }
+//    public void setDetails(Set<ReserveDetail> details) {
+//        this.details = details;
+//        for (ReserveDetail detail : details) {
+//            addDetail(detail);
+//        }
+//    }
 
     public void addDetail(ReserveDetail detail) {
         detail.setReserve(this);
     }
 
-    public double payment() {
-        return details
-                .stream()
-                .mapToDouble(detail -> detail.getNum() * detail.getPrice())
-                .sum();
-    }
+//    public double payment() {
+//        return details
+//                .stream()
+//                .mapToDouble(detail -> detail.getNum() * detail.getPrice())
+//                .sum();
+//    }
 
     @Override
     public boolean equals(Object o) {

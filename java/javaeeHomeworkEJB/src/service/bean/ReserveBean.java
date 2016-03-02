@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zzt on 2/23/16.
@@ -99,6 +100,13 @@ public class ReserveBean implements ReserveService {
                 .setParameter(2, uid)
                 .setParameter(3, buyDate)
                 .getSingleResult();
+    }
+
+    @Override
+    public List<ReserveDetail> reserveDetailGet(int rid) {
+        return em.createNamedQuery(ReserveDetail.A_RESERVE_DETAIL, ReserveDetail.class)
+                .setParameter(1, rid)
+                .getResultList();
     }
 
     @Override

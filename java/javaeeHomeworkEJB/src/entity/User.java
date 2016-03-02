@@ -92,25 +92,25 @@ public class User implements Serializable {
         this.consume = consume;
     }
 
-    private Set<Reserve> reserves;
+//    private Set<Reserve> reserves;
+//
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    public Set<Reserve> getReserves() {
+//        return reserves;
+//    }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public Set<Reserve> getReserves() {
-        return reserves;
-    }
+//    public void setReserves(Set<Reserve> reserves) {
+//        this.reserves = reserves;
+//    }
 
-    public void setReserves(Set<Reserve> reserves) {
-        this.reserves = reserves;
-    }
+//    private Set<Message> messages;
 
-    private Set<Message> messages;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    public Set<Message> getMessages() {
+//        return messages;
+//    }
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    public Set<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(Set<Message> messages) {
-        this.messages = messages;
-    }
+//    public void setMessages(Set<Message> messages) {
+//        this.messages = messages;
+//    }
 }

@@ -1,9 +1,11 @@
 package service;
 
 import entity.Reserve;
+import entity.ReserveDetail;
 
 import javax.ejb.Remote;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zzt on 2/23/16.
@@ -29,6 +31,7 @@ public interface ReserveService {
     long countUserPayment(int uid);
 
     Reserve branchUserReserveDetail(int bid, int uid, String buyDate);
+    List<ReserveDetail> reserveDetailGet(int rid);
     boolean reserveDetailDelete(int rdid);
     boolean reserveDetailAdd(int rid, int did, int num, double price);
     boolean reserveDetailUpdateNum(int rdid, int num);

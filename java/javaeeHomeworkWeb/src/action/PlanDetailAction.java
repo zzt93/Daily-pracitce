@@ -13,6 +13,7 @@ import java.util.List;
  * Created by zzt on 2/28/16.
  * <p>
  * Usage:
+ *
  */
 public class PlanDetailAction extends ActionSupport {
 
@@ -57,18 +58,19 @@ public class PlanDetailAction extends ActionSupport {
     }
 
     public String planDetailList() throws Exception {
-        Plan plan = planService.getPlan(planId);
-        for (PlanDetail planDetail : plan.getDetails()) {
+        ArrayList<PlanDetail> details = planService.getPlanDetails(planId);
+        for (PlanDetail planDetail : details) {
             records.add(planDetail);
-            planDetail.
         }
         result = JTableHelper.OK;
         return super.execute();
     }
 
-    private int num;
-    private int dessert;
     private int pdId;
+    private int dessert;
+    private double price;
+    private int num;
+
 
     public int getPdId() {
         return pdId;
@@ -100,6 +102,14 @@ public class PlanDetailAction extends ActionSupport {
         this.dessert = dessert;
     }
 
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     private PlanDetail record;
 
     public PlanDetail getRecord() {
@@ -116,7 +126,7 @@ public class PlanDetailAction extends ActionSupport {
             return ERROR;
         }
         try {
-            record = planService.addPlanDetail(planId, num, dessert);
+            record = planService.addPlanDetail(planId, dessert, price, num);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();

@@ -24,8 +24,10 @@ public class BranchBean implements BranchService{
 
 
     @Override
-    public void addBranch(String addr) {
-        em.persist(new Branch(addr));
+    public Branch addBranch(String addr) {
+        Branch entity = new Branch(addr);
+        em.persist(entity);
+        return entity;
     }
 
     @Override
@@ -34,8 +36,14 @@ public class BranchBean implements BranchService{
     }
 
     @Override
-    public void updateBranch(Branch branch) {
+    public Branch updateBranch(int bid, String addr) {
+        Branch branch = em.find(Branch.class, bid);
+        if (branch == null) {
+            return null;
+        }
+        branch.setAddr(addr);
         em.merge(branch);
+        return branch;
     }
 
     @Override

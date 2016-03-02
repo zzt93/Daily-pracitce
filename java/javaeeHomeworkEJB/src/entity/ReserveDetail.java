@@ -10,8 +10,10 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "rdetail")
+@NamedQuery(name = ReserveDetail.A_RESERVE_DETAIL, query = "select rd from ReserveDetail rd where rd.reserve.rid = ?1")
 public class ReserveDetail implements Serializable {
     public static final long serialVersionUID = 42L;
+    public static final java.lang.String A_RESERVE_DETAIL = "a reserve's details";
 
     private int rdid;
 

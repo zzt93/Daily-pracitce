@@ -1,17 +1,20 @@
 /**
- * Created by zzt on 3/1/16.
+ * Created by zzt on 3/2/16.
  */
 
-function waiter0PlanTable() {
+function tables() {
     var plan = $('#plan');
     plan.jtable({
-        title: 'Your not approved plan',
+        title: 'Plan list',
         paging: true,
         pageSize: 6,
+        selecting: true, //Enable selecting
+        multiselect: true, //Allow multiple selecting
+        selectingCheckboxes: true, //Show checkboxes on first column
+        selectOnRowClick: false,
         actions: {
-            listAction: 'PlanStaffList',
-            deleteAction: 'PlanDelete',
-            createAction: 'PlanAdd'
+            listAction: 'PlanManagerList',
+            updateAction: 'planManagerUpdate'
         },
         fields: {
             planId: {
@@ -21,11 +24,10 @@ function waiter0PlanTable() {
                 list: false
             },
             planState: {
-                title: 'Plan State',
+                title: 'State',
                 width: '20%',
-                edit: false,
-                create: false,
-                options: {0: 'New', 1:'Approved', 2:'Rejected'}
+                edit: true,
+                options: {'0': 'New', '1': 'Approve', '2': 'Reject'}
             },
             pdate: {
                 title: 'Plan for ',
@@ -46,7 +48,7 @@ function waiter0PlanTable() {
                 width: '2%',
                 edit: false,
                 create: false,
-                display: function (planLine) {
+                display: function (plan) {
                     //Create an image that will be used to open child table
                     var $img = $('<img src="../images/more.png" title="Show plan detail" />');
                     //Open child table when user clicks the image
@@ -54,12 +56,9 @@ function waiter0PlanTable() {
                         $('#plan').jtable('openChildTable',
                             $img.closest('tr'),
                             {
-                                title: 'Plan ' + planLine.record.planId + ' - details',
+                                title: 'Plan ' + plan.record.planId + ' - details',
                                 actions: {
-                                    listAction: 'PlanDetailList?planId=' + planLine.record.planId,
-                                    deleteAction: 'PlanDetailDelete',
-                                    updateAction: 'PlanDetailUpdate',
-                                    createAction: 'PlanDetailAdd?planId=' + planLine.record.planId
+                                    listAction: 'PlanDetailList?planId=' + plan.record.planId
                                 },
                                 fields: {
                                     pdId: {
@@ -69,17 +68,19 @@ function waiter0PlanTable() {
                                         list: false
                                     },
                                     dessert: {
-                                        title: 'Dessert Id',
-                                        //options: 'DessertMap',
+                                        title: 'Dessert',
+                                        width: '20%',
                                         display: function (data) {
-                                            return data.record.dessert.did;
+                                            return data.record.dessert.name;
                                         }
                                     },
                                     price: {
                                         title: 'Dessert price'
                                     },
                                     num: {
-                                        title: 'Number'
+                                        title: 'Number',
+                                        width: '30%',
+                                        edit: true
                                     }
                                 }
                             },
@@ -92,6 +93,38 @@ function waiter0PlanTable() {
                 }
             }
         }
+
     });
     plan.jtable('load');
+
+    var branch = $('#branch');
+    branch.jtable({
+        title: 'Branch list',
+        actions: {
+            listAction: 'BranchList',
+            deleteAction: 'BranchDelete',
+            updateAction: 'BranchUpdate',
+            createAction: 'BranchAdd'
+        },
+        fields: {
+            bid: {
+                title: 'Branch Id',
+                key: true,
+                list: true
+            },
+            addr: {
+                title: 'Address',
+                edit: true
+            }
+        }
+    });
+    branch.jtable('load');
+
+    function approve() {
+        var lineData = $('#plan').jtable('selectedRows');
+        $.post('PlanApprove', lineData, function (response) {
+                console.log("Response: " + response);
+            }
+        );
+    }
 }

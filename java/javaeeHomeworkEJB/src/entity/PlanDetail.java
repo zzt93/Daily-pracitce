@@ -10,11 +10,14 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "pdetail")
+@NamedQuery(name = PlanDetail.A_PLAN_DETAIL, query = "select pd from PlanDetail pd where pd.plan.planId = ?1")
 public class PlanDetail implements Serializable {
     public static final long serialVersionUID = 42L;
+    public static final String A_PLAN_DETAIL = "a plan's details";
 
     private int pdId;
     private int num;
+    private double price;
 
     private Plan plan;
     private Dessert dessert;
@@ -22,10 +25,11 @@ public class PlanDetail implements Serializable {
     public PlanDetail() {
     }
 
-    public PlanDetail(Plan plan, Dessert dessert, int num) {
-        this.num = num;
-        this.dessert = dessert;
+    public PlanDetail(Plan plan, Dessert dessert, double price, int num) {
         this.plan = plan;
+        this.dessert = dessert;
+        this.price = price;
+        this.num = num;
     }
 
     @Id
@@ -44,6 +48,14 @@ public class PlanDetail implements Serializable {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
@@ -80,5 +92,9 @@ public class PlanDetail implements Serializable {
     @Override
     public int hashCode() {
         return pdId;
+    }
+
+    public void initLazy() {
+//        getDessert().initLazy();
     }
 }

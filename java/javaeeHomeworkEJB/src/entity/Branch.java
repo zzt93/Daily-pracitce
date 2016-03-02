@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -19,8 +20,8 @@ public class Branch implements Serializable {
     private int bid;
     private String addr;
 
-    private Set<Plan> plans;
-    private Set<Reserve> reserves;
+//    private Set<Plan> plans = new HashSet<>();
+//    private Set<Reserve> reserves = new HashSet<>();
 
     public Branch() {
     }
@@ -47,26 +48,26 @@ public class Branch implements Serializable {
         this.addr = addr;
     }
 
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Plan> getPlans() {
-        return plans;
-    }
+//    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    public Set<Plan> getPlans() {
+//        return plans;
+//    }
 
-    public void setPlans(Set<Plan> plans) {
-        this.plans = plans;
-    }
+//    public void setPlans(Set<Plan> plans) {
+//        this.plans = plans;
+//    }
 
-    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Set<Reserve> getReserves() {
-        return reserves;
-    }
+//    @OneToMany(mappedBy = "branch", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    public Set<Reserve> getReserves() {
+//        return reserves;
+//    }
 
-    public void setReserves(Set<Reserve> reserves) {
-        this.reserves = reserves;
-    }
-
-    public void initLazy() {
-        getPlans().size();
-        getReserves().size();
-    }
+//    public void setReserves(Set<Reserve> reserves) {
+//        this.reserves = reserves;
+//    }
+//
+//    public void initLazy() {
+//        getPlans().size();
+//        getReserves().size();
+//    }
 }

@@ -63,7 +63,7 @@
         </action>
 
 
-        <action name="Branch" class="action.BranchAction">
+        <action name="Branch" class="action.BranchReserveAction">
             <result>/jsp/Branch.jsp</result>
         </action>
 
@@ -80,7 +80,7 @@
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </global-results>
 
-        <action name="UserReserve*" class="action.ReserveAction" method="userReserve{1}">
+        <action name="UserReserve*" class="action.AccountReserveAction" method="userReserve{1}">
             <!--the action will return a json to use in a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
@@ -89,8 +89,12 @@
             <result type="json">/jsp/OtherWaiter.jsp</result>
         </action>
 
-        <action name="BranchUserReserve*" class="action.BranchAction" method="branchUserReserve{1}">
+        <action name="BranchUserReserve*" class="action.BranchReserveAction" method="branchUserReserve{1}">
             <result type="json">/jsp/Branch.jsp</result>
+        </action>
+
+        <action name="Branch*" class="action.BranchAction" method="branch{1}">
+            <result type="json">/jsp/Manager.jsp</result>
         </action>
 
         <action name="Order*" class="action.ReserveDetailAction" method="order{1}">
@@ -101,17 +105,10 @@
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Pay*" class="action.ReserveAction" method="pay{1}">
+        <action name="Pay*" class="action.AccountReserveAction" method="pay{1}">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="Branch*" class="action.BranchAction" method="branch{1}">
-            <result type="json">/jsp/Manager.jsp</result>
-        </action>
-
-        <!--<action name="PlanDetailList" class="action.PlanDetailAction" method="planDetailList">-->
-            <!--<result type="json">/jsp/Waiter0.jsp</result>-->
-        <!--</action>-->
 
         <action name="PlanDetail*" class="action.PlanDetailAction" method="planDetail{1}">
             <result type="json">/jsp/Waiter0.jsp</result>

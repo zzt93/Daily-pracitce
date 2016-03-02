@@ -2,7 +2,6 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * Created by zzt on 2/17/16.
@@ -19,6 +18,7 @@ import java.util.Set;
 @NamedQueries(
         {
                 @NamedQuery(query = "select p from Plan p where p.planState = 0", name = Plan.NEW_PLAN),
+                @NamedQuery(query = "select count (p) from Plan p where p.planState = 0", name = Plan.COUNT_NEW_PLAN),
                 @NamedQuery(query = "select p from Plan p where p.planState = 1 and p.branch.bid = ?1", name = Plan.BRANCH_PLAN),
                 @NamedQuery(query = "select p from Plan p where p.staff.sid = ?1 and p.planState <> 1", name = Plan.STAFF_PLAN),
                 @NamedQuery(query = "select p from Plan p where p.branch.bid = ?1 and p.pdate = ?2", name = Plan.SAME_PLAN),
@@ -31,12 +31,13 @@ public class Plan implements Serializable {
     public static final String BRANCH_PLAN = "branch plan";
     public static final String STAFF_PLAN = "staff submitted plan";
     public static final String SAME_PLAN = "same plan";
+    public static final java.lang.String COUNT_NEW_PLAN = "count new plan";
     private int planId;
 
     private byte planState;
     private String pdate;
 
-    private Set<PlanDetail> details;
+    //    private Set<PlanDetail> details = new HashSet<>();
 
     private Branch branch;
 
@@ -78,22 +79,22 @@ public class Plan implements Serializable {
         this.pdate = pdate;
     }
 
-    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
-    public Set<PlanDetail> getDetails() {
-        return details;
-    }
+    //    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL)
+    //    public Set<PlanDetail> getDetails() {
+    //        return details;
+    //    }
 
-    public void setDetails(Set<PlanDetail> details) {
-        this.details = details;
-        for (PlanDetail detail : details) {
-            addDetail(detail);
-        }
-    }
+    //    public void setDetails(Set<PlanDetail> details) {
+    //        this.details = details;
+    //        for (PlanDetail detail : details) {
+    //            addDetail(detail);
+    //        }
+    //    }
 
-    public void addDetail(PlanDetail detail) {
-        details.add(detail);
-        detail.setPlan(this);
-    }
+    //    public void addDetail(PlanDetail detail) {
+    //        details.add(detail);
+    //        detail.setPlan(this);
+    //    }
 
     @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "bid")
@@ -130,4 +131,14 @@ public class Plan implements Serializable {
     public int hashCode() {
         return planId;
     }
+
+    //    public void initLazy() {
+    //        Branch branch = getBranch();
+    //        branch.initLazy();
+    //        Staff staff = getStaff();
+    //        staff.initLazy();
+    //        for (PlanDetail planDetail : getDetails()) {
+    //            planDetail.initLazy();
+    //        }
+    //    }
 }

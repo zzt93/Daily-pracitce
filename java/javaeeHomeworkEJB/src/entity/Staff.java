@@ -2,6 +2,7 @@ package entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,7 +23,7 @@ public class Staff implements Serializable{
 
     private Branch branch;
 
-    private Set<Plan> plans;
+//    private Set<Plan> plans = new HashSet<>();
 
     public Staff() {
     }
@@ -69,16 +70,16 @@ public class Staff implements Serializable{
         this.branch = branch;
     }
 
-    @OneToMany(mappedBy = "staff")
-    public Set<Plan> getPlans() {
-        return plans;
-    }
+//    @OneToMany(mappedBy = "staff")
+//    public Set<Plan> getPlans() {
+//        return plans;
+//    }
 
-    public void setPlans(Set<Plan> plans) {
-        this.plans = plans;
-    }
+//    public void setPlans(Set<Plan> plans) {
+//        this.plans = plans;
+//    }
 
-    public void initLazy() {
-        getPlans().size();
-    }
+//    public void initLazy() {
+//        getPlans().size();
+//    }
 }

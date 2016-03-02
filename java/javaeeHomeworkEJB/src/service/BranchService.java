@@ -16,8 +16,8 @@ import java.util.ArrayList;
 @Remote
 public interface BranchService {
 
-    void addBranch(String addr);
+    Branch addBranch(String addr);
     void deleteBranch(int bid);
-    void updateBranch(Branch branch);
+    Branch updateBranch(int bid, String addr);
     ArrayList<Branch> allBranch();
 }

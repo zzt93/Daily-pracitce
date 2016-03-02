@@ -1,73 +1,35 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.Plan;
-import entity.Reserve;
+import entity.Branch;
 import remote.JNDIFactory;
-import service.ConsumeService;
-import service.PlanService;
-import service.ReserveService;
+import service.BranchService;
 
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by zzt on 2/14/16.
+ * Created by zzt on 3/2/16.
  * <p>
  * Usage:
  */
 public class BranchAction extends ActionSupport {
 
-    private int branchNum;
-    private ArrayList<Plan> plans;
-
+    private final BranchService branchService;
 
     public BranchAction() {
+        branchService = (BranchService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//BranchEJB!service.BranchService");
     }
 
-    @Override
-    public String execute() throws Exception {
-        PlanService planService =
-                (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
-        assert planService != null;
-        plans = planService.branchPlan(branchNum);
-        return SUCCESS;
-    }
-
-
-    public int getBranchNum() {
-        return branchNum;
-    }
-
-    public void setBranchNum(int branchNum) {
-        this.branchNum = branchNum;
-    }
-
-    public ArrayList<Plan> getPlans() {
-        return plans;
-    }
-
-    public void setPlans(ArrayList<Plan> plans) {
-        this.plans = plans;
-    }
-
-    // for table response
-    private List<Reserve> records;
+    private List<Branch> records;
+    private Branch record;
     private String result;
     private String message;
 
-    private long totalRecordCount;
-    // Holds Start Page Index
-    private int jtStartIndex;
-    // Hold records to be displayed per Page
-    private int jtPageSize;
-
-    public List<Reserve> getRecords() {
+    public List<Branch> getRecords() {
         return records;
     }
 
-    public void setRecords(List<Reserve> records) {
+    public void setRecords(List<Branch> records) {
         this.records = records;
     }
 
@@ -87,55 +49,17 @@ public class BranchAction extends ActionSupport {
         this.message = message;
     }
 
-    public long getTotalRecordCount() {
-        return totalRecordCount;
+    public Branch getRecord() {
+        return record;
     }
 
-    public void setTotalRecordCount(int totalRecordCount) {
-        this.totalRecordCount = totalRecordCount;
+    public void setRecord(Branch record) {
+        this.record = record;
     }
 
-    public int getJtStartIndex() {
-        return jtStartIndex;
-    }
-
-    public void setJtStartIndex(int jtStartIndex) {
-        this.jtStartIndex = jtStartIndex;
-    }
-
-    public int getJtPageSize() {
-        return jtPageSize;
-    }
-
-    public void setJtPageSize(int jtPageSize) {
-        this.jtPageSize = jtPageSize;
-    }
-
-    private int rid;
-    private String buyDate;
-    private double money;
-
-    public String branchUserReserveList() throws Exception {
-        int uid = SessionManagement.getUid();
+    public String branchList() throws Exception {
         try {
-            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-            records = reserveService.branchUserReserve(branchNum, uid, jtStartIndex, jtPageSize);
-            totalRecordCount = reserveService.countBranchUserReserve(branchNum, uid);
-            result = JTableHelper.OK;
-        } catch (Exception e) {
-            e.printStackTrace();
-            result = JTableHelper.ERROR;
-            return ERROR;
-        }
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
-
-    public String branchUserReserveDelete() throws Exception {
-        ReserveService reserveService;
-        try {
-            reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-            reserveService.reserveDelete(rid);
+            records = branchService.allBranch();
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,35 +69,50 @@ public class BranchAction extends ActionSupport {
         return SUCCESS;
     }
 
+    int bid;
+    private String addr;
 
-    /**
-     * Finish an order
-     *
-     * @return result string
-     *
-     * @throws Exception
-     */
-    public String branchReservePay() throws Exception {
-        // finish reserve by setting state
-        HttpSession session = SessionManagement.getSession();
-        session.setAttribute(ReserveDetailAction.RESERVE_START, false);
-        int uid = SessionManagement.getUid();
-        ReserveService reserveService =
-                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-        assert reserveService != null;
-        reserveService.reserveAdd(buyDate, uid, branchNum);
-        // pay money
-        ConsumeService consumeService;
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
+    public void setAddr(String addr) {
+        this.addr = addr;
+    }
+
+    public String branchDelete() throws Exception {
         try {
-            consumeService =
-                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
+            branchService.deleteBranch(bid);
+            result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
+            result = JTableHelper.ERROR;
             return ERROR;
         }
-        assert consumeService != null;
-        consumeService.payMoney(uid, money);
         return SUCCESS;
     }
 
+    public String branchUpdate() throws Exception {
+        try {
+            record = branchService.updateBranch(bid, addr);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
+    public String branchAdd() throws Exception {
+        try {
+            record = branchService.addBranch(addr);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        return SUCCESS;
+    }
 }

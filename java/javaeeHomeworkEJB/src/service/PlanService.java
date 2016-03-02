@@ -19,6 +19,7 @@ public interface PlanService {
     void deletePlan(int planId);
     void updatePlan(Plan plan);
     ArrayList<Plan> newPlan(int startIndex, int pageSize);
+    long countNewPlan();
 
     ArrayList<Plan> branchPlan(int bid);
 
@@ -26,7 +27,8 @@ public interface PlanService {
 
     Plan getPlan(int planId);
 
-    PlanDetail addPlanDetail(int planId, int num, int did);
+    ArrayList<PlanDetail> getPlanDetails(int planId);
+    PlanDetail addPlanDetail(int planId, int did, double price, int num);
     void updatePlanDetail(int pdId, int did, int num);
     boolean deletePlanDetail(int pdId);
 

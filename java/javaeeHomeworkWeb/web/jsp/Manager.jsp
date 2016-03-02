@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../fonts/font-awesome-4.4.0/css/font-awesome.min.css"/>
 
     <!-- jTable Metro theme -->
-    <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
+    <link href="../scripts/jtable.2.4.0/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"
           type="text/css"/>
 
@@ -69,9 +69,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <div class="container">
             <div id="branch"></div>
-<%--            <div class="horizontal-center">
-                <input type="submit" onclick="approve()" value="Approve"/>
-            </div>--%>
+            <%--            <div class="horizontal-center">
+                            <input type="submit" onclick="approve()" value="Approve"/>
+                        </div>--%>
         </div>
 
         <div class="container">
@@ -87,134 +87,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
+<script type="application/javascript" src="../scripts/manager.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var plan = $('#plan');
-        plan.jtable({
-            title: 'PlanAction list',
-            paging: true,
-            pageSize: 6,
-            selecting: true, //Enable selecting
-            multiselect: true, //Allow multiple selecting
-            selectingCheckboxes: true, //Show checkboxes on first column
-            actions: {
-                listAction: 'PlanManagerList',
-                updateAction: 'planManagerUpdate'
-            },
-            fields: {
-                planId: {
-                    title: 'Plan Id',
-                    width: '30%',
-                    key: true,
-                    list: false
-                },
-                planState: {
-                    title: 'State',
-                    width: '30%',
-                    edit: true,
-                    options: {'0': 'New', '1': 'Approve', '2': 'Reject'}
-                },
-                pdate: {
-                    title: 'Plan for ',
-                    width: '30%',
-                    edit: false
-                },
-                branch: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: false,
-                    // TODO change to options
-                    display: function (data) {
-                        return data.record.branch.addr;
-                    }
-                },
-                details: {
-                    title: 'Plan detail',
-                    width: '5%',
-                    edit: false,
-                    create: false,
-                    display: function (plan) {
-                        //Create an image that will be used to open child table
-                        var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
-                        //Open child table when user clicks the image
-                        $img.click(function (reservationData) {
-                            $('#previous-order').jtable('openChildTable',
-                                    $img.closest('tr'),
-                                    {
-                                        title: plan.record.planId + ' - details',
-                                        actions: {
-                                            listAction: 'PlanDetailList?planId=' + reservationData.record.rid,
-                                        },
-                                        fields: {
-                                            pdId: {
-                                                title: 'Plan detail id',
-                                                width: '30%',
-                                                key: true,
-                                                list: false
-                                            },
-                                            dessert: {
-                                                title: 'Dessert',
-                                                width: '20%',
-                                                display: function (data) {
-                                                    return data.record.dessert.name;
-                                                }
-                                            },
-                                            num: {
-                                                title: 'Number',
-                                                width: '30%',
-                                                edit: true
-                                            }
-                                        }
-                                    },
-                                    function (data) { //opened handler
-                                        data.childTable.jtable('load');
-                                    });
-                        });
-                        //Return image to show on the person row
-                        return $img;
-                    }
-                }
-            }
-
-        });
-        plan.jtable('load');
-
-        var branch = $('#branch');
-        branch.jtable({
-            title: 'Branch list',
-            paging: true,
-            pageSize: 6,
-            actions: {
-                listAction: 'BranchList',
-                deleteAction: 'BranchDelete',
-                updateAction: 'BranchUpdate'
-            },
-            fields: {
-                rollNo: {
-                    title: 'Branch Id',
-                    width: '30%',
-                    key: true,
-                    list: true,
-                    create: true
-                },
-                studentName: {
-                    title: 'Address',
-                    width: '30%',
-                    edit: false
-                }
-            }
-        });
-        branch.jtable('load');
-
-        function approve() {
-            var lineData = $('#plan').jtable('selectedRows');
-            $.post('PlanApprove', lineData, function (response) {
-                        console.log("Response: " + response);
-                    }
-            );
-        }
-    });
-
+    $(tables);
 </script>
 
 </body>

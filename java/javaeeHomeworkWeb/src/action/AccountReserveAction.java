@@ -13,11 +13,11 @@ import java.util.List;
  * <p>
  * Usage:
  */
-public class ReserveAction extends ActionSupport {
+public class AccountReserveAction extends ActionSupport {
 
     private final ReserveService reserveService;
 
-    public ReserveAction() {
+    public AccountReserveAction() {
         reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
     }
 
