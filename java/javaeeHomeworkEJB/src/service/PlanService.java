@@ -17,7 +17,8 @@ public interface PlanService {
     Plan addPlan(int sid, int bid, String planDate);
 
     void deletePlan(int planId);
-    void updatePlan(Plan plan);
+    Plan managerUpdatePlan(int planId, byte planState);
+    Plan staffUpdatePlan(int planId, int bid, String pdate, byte planState);
     ArrayList<Plan> newPlan(int startIndex, int pageSize);
     long countNewPlan();
 

@@ -63,14 +63,16 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         <div class="container">
             <div id="plan"></div>
             <div class="horizontal-center">
-                <input type="submit" onclick="approve()" value="Approve"/>
+                <input type="submit" onclick="approvePlan()" value="Approve"/>
+                <pre>  </pre>
+                <input type="submit" onclick="rejectPlan()" value="Reject"/>
             </div>
         </div>
 
         <div class="container">
             <div id="branch"></div>
             <%--            <div class="horizontal-center">
-                            <input type="submit" onclick="approve()" value="Approve"/>
+                            <input type="submit" onclick="approvePlan()" value="Approve"/>
                         </div>--%>
         </div>
 

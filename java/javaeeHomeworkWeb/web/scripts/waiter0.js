@@ -11,7 +11,8 @@ function waiter0PlanTable() {
         actions: {
             listAction: 'PlanStaffList',
             deleteAction: 'PlanDelete',
-            createAction: 'PlanAdd'
+            createAction: 'PlanAdd',
+            updateAction: 'PlanWaiterUpdate'
         },
         fields: {
             planId: {
@@ -23,14 +24,13 @@ function waiter0PlanTable() {
             planState: {
                 title: 'Plan State',
                 width: '20%',
-                edit: false,
+                edit: true,
                 create: false,
-                options: {0: 'New', 1:'Approved', 2:'Rejected'}
+                options: {0: 'New', 2:'Rejected'}
             },
             pdate: {
                 title: 'Plan for ',
-                width: '20%',
-                edit: false
+                width: '20%'
             },
             branch: {
                 title: 'Branch',

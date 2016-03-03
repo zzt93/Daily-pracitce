@@ -3,6 +3,7 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import entity.*;
 import mis.PayType;
+import mis.Rank;
 import remote.JNDIFactory;
 import service.AccountService;
 import service.ConsumeService;
@@ -11,7 +12,8 @@ import service.StaffInfoService;
 
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zzt on 2/20/16.
@@ -26,14 +28,17 @@ public class OtherWaiter extends ActionSupport {
     private User user;
     private Account account;
     private int rdid;
+    private String userRank;
 
-    @Override
-    public String execute() throws Exception {
+    public String searchUser() throws Exception {
+
         try {
             AccountService accountService =
                     (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
             user = accountService.getUser(userId);
             account = user.getAccount();
+            Consume consume = user.getConsume();
+            userRank = Rank.values()[consume.getRank()].getDes();
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -68,6 +73,30 @@ public class OtherWaiter extends ActionSupport {
         this.money = money;
     }
 
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRdid() {
+        return rdid;
+    }
+
+    public void setRdid(int rdid) {
+        this.rdid = rdid;
+    }
+
+    public String getUserRank() {
+        return userRank;
+    }
+
+    public void setUserRank(String userRank) {
+        this.userRank = userRank;
+    }
+
     public String payMoney() throws Exception {
         PayType payType = PayType.valueOf(type);
         try {
@@ -81,15 +110,15 @@ public class OtherWaiter extends ActionSupport {
         return SUCCESS;
     }
 
-    private Set<ReserveDetail> records;
+    private List<ReserveDetail> records;
     private String result;
     private String message;
 
-    public Set<ReserveDetail> getRecords() {
+    public List<ReserveDetail> getRecords() {
         return records;
     }
 
-    public void setRecords(Set<ReserveDetail> records) {
+    public void setRecords(List<ReserveDetail> records) {
         this.records = records;
     }
 
@@ -115,11 +144,17 @@ public class OtherWaiter extends ActionSupport {
                     (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
             HttpSession session = SessionManagement.getSession();
             int sid = (int) session.getAttribute(InnerLogin.SID);
+            assert staffInfoService != null;
             Staff staff = staffInfoService.getStaff(sid);
             ReserveService reserveService =
                     (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+            assert reserveService != null;
             Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDateTime.now().toString());
-            records = reserve.getDetails();
+            if (reserve != null) {
+                records = reserveService.reserveDetailGet(reserve.getRid());
+            } else {
+                records = new ArrayList<>();
+            }
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -132,6 +167,7 @@ public class OtherWaiter extends ActionSupport {
         try {
             ReserveService reserveService =
                     (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+            assert reserveService != null;
             reserveService.reserveDetailDelete(rdid);
             result = JTableHelper.OK;
         } catch (Exception e) {

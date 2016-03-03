@@ -19,7 +19,7 @@
 
 
     <!-- jTable Metro theme -->
-    <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
+    <link href="../scripts/jtable.2.4.0/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"
           type="text/css"/>
 
@@ -61,7 +61,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         <div class="container">
             <form class="inner-search">
                 <label class="fa fa-search">
-                    <input type="search" class="search-input" placeholder="user id">
+                    <input type="search" class="search-input" placeholder="user id" pattern="\d+" onkeypress="getUserInfo()">
                 </label>
             </form>
 
@@ -92,7 +92,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <div class="flex1 info-part">
                         <h4> User card</h4>
                         <ul id="roles">
-                            <li>silver</li>
+                            <li>${userRank}</li>
                         </ul>
 
                         <div id="apply" title="Message dialog" class="none">
@@ -169,88 +169,9 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
+<script type="application/javascript" src="../scripts/otherWaiter.js"></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        var balance = $('#balanceTable');
-        balance.jtable({
-            title: 'User balance list',
-            paging: true,
-            pageSize: 6,
-            selecting: true, //Enable selecting
-            multiselect: true, //Allow multiple selecting
-            selectingCheckboxes: true, //Show checkboxes on first column
-            defaultSorting: 'rank ASC',
-            actions: {
-                listAction: 'UserList'
-            },
-            fields: {
-                rollNo: {
-                    title: 'User Id',
-                    width: '30%',
-                    key: true,
-                    list: true,
-                    create: true,
-                    edit: true
-                },
-                rank: {
-                    title: 'balance',
-                    width: '20%',
-                    edit: true
-                }
-            }
-        });
-        balance.jtable('load');
-
-        var order = $('#order-detail');
-        order.jtable({
-            title: 'User today order detail',
-            defaultSorting: 'rank ASC',
-            actions: {
-                listAction: 'BranchUserReserveDetailList',
-                deleteAction: 'BranchUserReserveDetailDelete'
-            },
-            fields: {
-                dessert: {
-                    title: 'Dessert',
-                    width: '20%',
-                    display: function (data) {
-                        return data.record.dessert.name;
-                    }
-                },
-                num: {
-                    title: 'Number',
-                    width: '30%'
-                },
-                price: {
-                    title: 'Price',
-                    width: '30%'
-                },
-                rdid: {
-                    title: 'Reservation Detail Id',
-                    key: true,
-                    list: false
-                }
-            }
-        });
-        order.jtable('load');
-    });
-
-    function logResponse(response) {
-        console.log("Response: " + response);
-    }
-
-    function sendMsg() {
-        var lineData = $('#balanceTable').jtable('selectedRows');
-        $.post('MsgSend', lineData, logResponse);
-        $( this ).dialog( "close" );
-    }
-
-    function pay() {
-        var money = $('#money').text();
-        $.post('PayMoney', {money:money, type:payType}, logResponse);
-        $( this ).dialog( "close" );
-    }
-
+    $(tableInit);
 </script>
 
 </body>

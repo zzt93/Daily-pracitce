@@ -43,8 +43,25 @@ public class PlanBean implements PlanService {
     }
 
     @Override
-    public void updatePlan(Plan plan) {
+    public Plan managerUpdatePlan(int planId, byte planState) {
+        Plan plan = em.find(Plan.class, planId);
+        plan.setPlanState(planState);
         em.merge(plan);
+        return plan;
+    }
+
+    @Override
+    public Plan staffUpdatePlan(int planId, int bid, String pdate, byte planState) {
+//        Branch branch = em.find(Branch.class, bid);
+//        if (branch == null) {
+//            return null;
+//        }
+//        plan.setBranch(branch);
+        Plan plan = em.find(Plan.class, planId);
+        plan.setPdate(pdate);
+        plan.setPlanState(planState);
+        em.merge(plan);
+        return plan;
     }
 
     @Override

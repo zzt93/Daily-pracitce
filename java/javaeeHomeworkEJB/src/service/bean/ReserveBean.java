@@ -95,11 +95,18 @@ public class ReserveBean implements ReserveService {
 
     @Override
     public Reserve branchUserReserveDetail(int bid, int uid, String buyDate) {
-        return em.createNamedQuery(Reserve.BRANCH_USER_RESERVE_DETAIL, Reserve.class)
-                .setParameter(1, bid)
-                .setParameter(2, uid)
-                .setParameter(3, buyDate)
-                .getSingleResult();
+        Reserve singleResult;
+        try {
+            singleResult = em.createNamedQuery(Reserve.BRANCH_USER_RESERVE_DETAIL, Reserve.class)
+                    .setParameter(1, bid)
+                    .setParameter(2, uid)
+                    .setParameter(3, buyDate)
+                    .getSingleResult();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return singleResult;
     }
 
     @Override

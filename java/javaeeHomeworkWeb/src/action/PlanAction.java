@@ -19,21 +19,23 @@ public class PlanAction extends ActionSupport {
 
     private PlanService planService = (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
 
-    private byte state;
+    private byte planState;
 
-    public byte getState() {
-        return state;
+    public void setTotalRecordCount(long totalRecordCount) {
+        this.totalRecordCount = totalRecordCount;
     }
 
-    public void setState(byte state) {
-        this.state = state;
+    public byte getPlanState() {
+        return planState;
+    }
+
+    public void setPlanState(byte planState) {
+        this.planState = planState;
     }
 
     public String planManagerUpdate() throws Exception {
         try {
-            Plan plan = planService.getPlan(planId);
-            plan.setPlanState(state);
-            planService.updatePlan(plan);
+            record = planService.managerUpdatePlan(planId, planState);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,6 +47,18 @@ public class PlanAction extends ActionSupport {
     public String planDelete() throws Exception {
         try {
             planService.deletePlan(planId);
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        return SUCCESS;
+    }
+
+    public String planWaiterUpdate() throws Exception {
+        try {
+            record = planService.staffUpdatePlan(planId, branch, pdate, planState);
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,7 +158,7 @@ public class PlanAction extends ActionSupport {
         } catch (Exception e) {
             e.printStackTrace();
             result = JTableHelper.ERROR;
-            message = "...";
+            message = e.getMessage();
             return ERROR;
         }
         return SUCCESS;
@@ -189,6 +203,20 @@ public class PlanAction extends ActionSupport {
         return SUCCESS;
     }
 
+//    public String planApprove() throws Exception {
+//        try {
+//            Plan plan = null;
+//            result = JTableHelper.OK;
+//            record = plan;
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            message = e.getMessage();
+//            result = JTableHelper.ERROR;
+//            return ERROR;
+//        }
+//        return SUCCESS;
+//    }
+
     public int getPlanId() {
         return planId;
     }
@@ -196,10 +224,6 @@ public class PlanAction extends ActionSupport {
     public void setPlanId(int planId) {
         this.planId = planId;
     }
-
-
-
-
 
 
 }
