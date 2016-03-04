@@ -132,10 +132,7 @@ function updatePlanState(state) {
                 planId: line.attributes['data-record-key'].value,
                 planState: state
             };
-            //$.post('PlanManagerUpdate', newPlan, function (response) {
-            //        console.log("Response: " + response);
-            //    }
-            //);
+
             $('#plan').jtable('updateRecord',
                 {
                     record: newPlan

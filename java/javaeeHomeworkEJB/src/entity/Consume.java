@@ -1,7 +1,10 @@
 package entity;
 
+import mis.Rank;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * Created by zzt on 2/23/16.
@@ -101,5 +104,19 @@ public class Consume implements Serializable {
 
     public void setCredit(int credit) {
         this.credit = credit;
+    }
+
+    public void pay(double price) {
+        if (getBalance() >= price) {
+            balance -= price;
+            credit += price;
+        } else if (getBalance() + Rank.values()[rank].getCredit() >= price) {
+            credit += price;
+            balance -= price;
+            nDate = LocalDate.now().toString();
+//            nDate = nDate.substring(0, 3) + (nDate.charAt(4) + 1) + nDate.substring()
+        } else {
+            throw new RuntimeException("no enough money");
+        }
     }
 }

@@ -71,6 +71,9 @@
             <result>/jsp/Branches.jsp</result>
         </action>
 
+        <action name="SearchUser" class="action.OtherWaiter" method="searchUser">
+            <result>/jsp/OtherWaiter.jsp</result>
+        </action>
 
     </package>
 
@@ -93,7 +96,7 @@
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Branch*" class="action.BranchAction" method="branch{1}">
+        <action name="Branch*" class="action.BranchManagementAction" method="branch{1}">
             <result type="json">/jsp/Manager.jsp</result>
         </action>
 
@@ -101,11 +104,15 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
-        <action name="ReserveDetail*" class="action.ReserveDetailAction" method="order{1}">
+        <action name="ReserveDetailAdd" class="action.SessionRDAction" method="orderBranchAdd">
+            <result type="json"></result>
+        </action>
+
+        <action name="ReserveDetail*" class="action.SessionRDAction" method="orderBranch{1}">
             <result type="json">/jsp/Branch.jsp</result>
         </action>
 
-        <action name="Pay*" class="action.AccountReserveAction" method="pay{1}">
+        <action name="Pay*" class="action.PayHistoryAction" method="pay{1}">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
@@ -125,7 +132,6 @@
         <action name="UserList" class="action.AccountAction" method="userList">
             <result type="json">/jsp/Account.jsp</result>
         </action>
-
 
 
     </package>

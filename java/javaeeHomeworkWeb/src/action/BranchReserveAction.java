@@ -2,11 +2,13 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Plan;
+import entity.PlanDetail;
 import entity.Reserve;
 import remote.JNDIFactory;
-import service.ConsumeService;
 import service.PlanService;
 import service.ReserveService;
+import tmpEntity.ReserveBranchVO;
+import vo.PlanBranchVO;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -20,7 +22,8 @@ import java.util.List;
 public class BranchReserveAction extends ActionSupport {
 
     private int branchNum;
-    private ArrayList<Plan> plans;
+    private ArrayList<PlanBranchVO> plans = new ArrayList<>();
+    private String branchAddr;
 
 
     public BranchReserveAction() {
@@ -31,10 +34,20 @@ public class BranchReserveAction extends ActionSupport {
         PlanService planService =
                 (PlanService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//PlanEJB!service.PlanService");
         assert planService != null;
-        plans = planService.branchPlan(branchNum);
+        ArrayList<Plan> branchPlan = planService.branchPlan(branchNum);
+        for (Plan plan : branchPlan) {
+            ArrayList<PlanDetail> details = planService.getPlanDetails(plan.getPlanId());
+            plans.add(new PlanBranchVO(plan, details));
+        }
+        if (branchPlan.size() > 0) {
+            branchAddr = branchPlan.get(0).getBranch().getAddr();
+        }
         return SUCCESS;
     }
 
+    public String getBranchAddr() {
+        return branchAddr;
+    }
 
     public int getBranchNum() {
         return branchNum;
@@ -44,11 +57,11 @@ public class BranchReserveAction extends ActionSupport {
         this.branchNum = branchNum;
     }
 
-    public ArrayList<Plan> getPlans() {
+    public ArrayList<PlanBranchVO> getPlans() {
         return plans;
     }
 
-    public void setPlans(ArrayList<Plan> plans) {
+    public void setPlans(ArrayList<PlanBranchVO> plans) {
         this.plans = plans;
     }
 
@@ -113,7 +126,6 @@ public class BranchReserveAction extends ActionSupport {
 
     private int rid;
     private String buyDate;
-    private double money;
 
     public int getRid() {
         return rid;
@@ -129,14 +141,6 @@ public class BranchReserveAction extends ActionSupport {
 
     public void setBuyDate(String buyDate) {
         this.buyDate = buyDate;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        this.money = money;
     }
 
     public String branchUserReserveList() throws Exception {
@@ -177,26 +181,20 @@ public class BranchReserveAction extends ActionSupport {
      *
      * @throws Exception
      */
-    public String branchReservePay() throws Exception {
-        // finish reserve by setting state
+    public String branchUserReservePay() throws Exception {
+        // finish reserve by sending all data
         HttpSession session = SessionManagement.getSession();
-        session.setAttribute(ReserveDetailAction.RESERVE_START, false);
-        int uid = SessionManagement.getUid();
-        ReserveService reserveService =
-                (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-        assert reserveService != null;
-        reserveService.reserveAdd(buyDate, uid, branchNum);
-        // pay money
-        ConsumeService consumeService;
+        ReserveBranchVO tmpReserve = (ReserveBranchVO) session.getAttribute(SessionRDAction.TMP_RESERVE);
+        session.setAttribute(SessionRDAction.TMP_RESERVE, null);
         try {
-            consumeService =
-                    (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
+            ReserveService reserveService =
+                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+            assert reserveService != null;
+            reserveService.reserveAdd(tmpReserve);
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
-        assert consumeService != null;
-        consumeService.payMoney(uid, money);
         return SUCCESS;
     }
 

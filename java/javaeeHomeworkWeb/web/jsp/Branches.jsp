@@ -66,10 +66,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <c:forEach items="${branches}" var="branch">
                 <div class="branch half">
                     <s:url action="Branch" var="branchLink">
-                        <s:param name="branchNum">branch.bid</s:param>
+                        <s:param name="branchNum">${branch.bid}</s:param>
                     </s:url>
                     <h3>
-                        <a href="${branchLink}">Main Branch</a>
+                        <a href="${branchLink}">${branch.addr}</a>
                     </h3>
                     <h5>
                         The hilariously misnamed Pancake Dessert House in Chinatown's Midcity Arcade specializes in

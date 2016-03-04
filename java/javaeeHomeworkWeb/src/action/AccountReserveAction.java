@@ -32,7 +32,6 @@ public class AccountReserveAction extends ActionSupport {
     }
 
     private int rid;
-    private String bdate;
 
     public int getRid() {
         return rid;
@@ -43,7 +42,7 @@ public class AccountReserveAction extends ActionSupport {
     }
 
     // for table response
-    private List<entity.Reserve> records;
+    private List<Reserve> records;
     private String result;
     private String message;
 
@@ -117,20 +116,4 @@ public class AccountReserveAction extends ActionSupport {
         return SUCCESS;
     }
 
-
-    public String payHistoryDelete() throws Exception {
-        reserveService.reserveDelete(rid);
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
-
-    public String payHistoryList() throws Exception {
-        HttpSession session = SessionManagement.getSession();
-        Integer uid = (Integer) session.getAttribute(UserLogin.UID);
-        records =
-                reserveService.userPayment(uid, jtStartIndex, jtPageSize);
-        totalRecordCount = reserveService.countUserPayment(uid);
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
 }

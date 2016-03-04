@@ -32,7 +32,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="Branches.jsp">Dessert</a></p>
+        <p id="app-name"><a href="<s:url action='Branches'/>">Dessert</a></p>
+
 
         <form>
             <p class="action">
@@ -61,7 +62,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         <div class="container">
             <form class="inner-search">
                 <label class="fa fa-search">
-                    <input type="search" class="search-input" placeholder="user id" pattern="\d+" onkeypress="getUserInfo()">
+                    <input type="search" class="search-input" placeholder="user id" pattern="\d+" id="search">
                 </label>
             </form>
 
@@ -72,7 +73,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
                     </div>
-                    <div id="change-picture-progress">&nbsp;</div>
                     <div class="flex1 info-part">
                         <label for="DisplayName">User name
                             <br>
@@ -137,15 +137,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
             <div id="balanceTable"></div>
 
-            <%--<div class="light-box" id="sendMsg">
-                            <div style="height: 200px;">
-                                <label>Message:
-                                    <textarea id="msg" style="height: 150px">Sir, your balance is too low.
-                                    </textarea>
-                                </label>
-                                <input type="submit" onclick="sendMsg()" value="Send"/>
-                            </div>
-                        </div>--%>
+
             <div class="horizontal-center">
                 <input type="submit" onclick="$('#msgDialog').dialog();" value="Send notification"/>
             </div>
@@ -157,6 +149,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <div class="horizontal-center">
                     <input type="submit" onclick="sendMsg()" value="Send"/>
                 </div>
+            </div>
+            <div id="doneSending" class="none" title="Success">
+                <p>Sending message done</p>
+            </div>
+            <div id="errorSending" class="none" title="Error">
+                <p>Sending message meet error</p>
             </div>
         </div>
 
@@ -172,6 +170,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <script type="application/javascript" src="../scripts/otherWaiter.js"></script>
 <script type="text/javascript">
     $(tableInit);
+    document.getElementById('search').onkeypress = getUserInfo;
 </script>
 
 </body>

@@ -12,11 +12,11 @@ import java.util.List;
  * <p>
  * Usage:
  */
-public class BranchAction extends ActionSupport {
+public class BranchManagementAction extends ActionSupport {
 
     private final BranchService branchService;
 
-    public BranchAction() {
+    public BranchManagementAction() {
         branchService = (BranchService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//BranchEJB!service.BranchService");
     }
 

@@ -1,12 +1,16 @@
 package service.bean;
 
 import entity.*;
+import mis.Default;
 import service.ReserveService;
+import tmpEntity.RDBranchVO;
+import tmpEntity.ReserveBranchVO;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -25,10 +29,37 @@ public class ReserveBean implements ReserveService {
 
 
     @Override
-    public boolean reserveAdd(String bdate, int uid, int bid) {
-        Reserve entity = new Reserve(em.find(User.class, uid), em.find(Branch.class, bid), bdate);
-        em.persist(entity);
-        return true;
+    public Reserve reserveAdd(ReserveBranchVO reserveBranchVO) {
+        // pay money first
+        Collection<RDBranchVO> values = reserveBranchVO.getDetails().values();
+        double price = 0;
+        for (RDBranchVO value : values) {
+            price += value.getPrice() * value.getNum();
+        }
+        price *= Default.RESERVE_RATIO;
+        Consume consume = em.find(Consume.class, reserveBranchVO.getUid());
+        if (consume == null) {
+            return null;
+        }
+        Reserve entity;
+        try {
+            consume.pay(price);
+
+            entity = new Reserve(
+                    em.find(User.class, reserveBranchVO.getUid()),
+                    em.find(Branch.class, reserveBranchVO.getBid()),
+                    reserveBranchVO.getBdate()
+            );
+            em.persist(entity);
+            for (RDBranchVO rdBranchVO : values) {
+                Dessert dessert = em.find(Dessert.class, rdBranchVO.getDid());
+                em.persist(new ReserveDetail(rdBranchVO.getNum(), rdBranchVO.getPrice(), entity, dessert));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return entity;
     }
 
     @Override
@@ -127,24 +158,25 @@ public class ReserveBean implements ReserveService {
     }
 
     @Override
-    public boolean reserveDetailAdd(int rid, int did, int num, double price) {
+    public ReserveDetail reserveDetailAdd(int rid, int did, int num, double price) {
         Reserve reserve = em.find(Reserve.class, rid);
         Dessert dessert = em.find(Dessert.class, did);
         if (reserve == null || dessert == null) {
-            return false;
+            return null;
         }
-        em.persist(new ReserveDetail(num, price, reserve, dessert));
-        return true;
+        ReserveDetail entity = new ReserveDetail(num, price, reserve, dessert);
+        em.persist(entity);
+        return entity;
     }
 
     @Override
-    public boolean reserveDetailUpdateNum(int rdid, int num) {
+    public ReserveDetail reserveDetailUpdateNum(int rdid, int num) {
         ReserveDetail reserveDetail = em.find(ReserveDetail.class, rdid);
         if (reserveDetail == null) {
-            return false;
+            return null;
         }
         reserveDetail.setNum(num);
-        return true;
+        return reserveDetail;
     }
 
     @Override

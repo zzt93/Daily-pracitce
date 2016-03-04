@@ -1,15 +1,15 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import entity.Reserve;
 import entity.ReserveDetail;
 import remote.JNDIFactory;
 import service.ReserveService;
+import tmpEntity.RDBranchVO;
+import tmpEntity.ReserveBranchVO;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 2/25/16.
@@ -18,11 +18,13 @@ import java.util.stream.Collectors;
  */
 public class ReserveDetailAction extends ActionSupport {
 
-    public static final String RESERVE_START = "reserveDetail";
     // for table response
-    private List<ReserveDetail> records;
+    private List<ReserveDetail> records = new ArrayList<>();
     private String result;
     private String message;
+    private String bdate;
+    private int bid;
+    private ReserveDetail record;
 
     public int getRdid() {
         return rdid;
@@ -58,25 +60,32 @@ public class ReserveDetailAction extends ActionSupport {
         this.message = message;
     }
 
+    public String getBdate() {
+        return bdate;
+    }
+
+    public void setBdate(String bdate) {
+        this.bdate = bdate;
+    }
+
+    public int getBid() {
+        return bid;
+    }
+
+    public void setBid(int bid) {
+        this.bid = bid;
+    }
+
     private int rid;
 
-    /**
-     * Always empty at the beginning for it represent the new order of
-     * a user in this branch
-     * @return result
-     * @throws Exception
-     */
-    public String orderBranchList() throws Exception {
-        records = new ArrayList<>();
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
 
     public String orderList() throws Exception {
         ReserveService reserveService =
                 (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
         List<ReserveDetail> reserveDetails = reserveService.reserveDetailGet(rid);
-        records.addAll(reserveDetails.stream().collect(Collectors.toList()));
+        for (ReserveDetail reserveDetail : reserveDetails) {
+            records.add(reserveDetail);
+        }
         result = JTableHelper.OK;
         return SUCCESS;
     }
@@ -117,19 +126,6 @@ public class ReserveDetailAction extends ActionSupport {
         this.price = price;
     }
 
-    public String orderBranchAdd() throws Exception {
-        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-        HttpSession session = SessionManagement.getSession();
-        boolean start = (boolean) session.getAttribute(RESERVE_START);
-        if (!start) {
-            session.setAttribute(RESERVE_START, true);
-            assert reserveService != null;
-        }
-        assert reserveService != null;
-        reserveService.reserveDetailAdd(rid, did, num, price);
-        result = JTableHelper.OK;
-        return SUCCESS;
-    }
 
     public String orderDelete() throws Exception {
         ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
@@ -143,7 +139,7 @@ public class ReserveDetailAction extends ActionSupport {
         if (num >= 1) {
             ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             assert reserveService != null;
-            reserveService.reserveDetailUpdateNum(rdid, num);
+            record = reserveService.reserveDetailUpdateNum(rdid, num);
         }
         return SUCCESS;
     }

@@ -18,6 +18,15 @@ public class MessageAction extends ActionSupport {
     private MessageService messageService =
             (MessageService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//MessageEJB!service.MessageService");
     private String msg;
+    private int uid;
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public String getMsg() {
         return msg;
@@ -28,8 +37,7 @@ public class MessageAction extends ActionSupport {
     }
 
     public String msgSend() throws Exception {
-        // TODO: 2/26/16 change to list
-        messageService.addMsg(msg, SessionManagement.getUid());
+        messageService.addMsg(msg, uid);
         return super.execute();
     }
 
@@ -72,7 +80,7 @@ public class MessageAction extends ActionSupport {
         return totalRecordCount;
     }
 
-    public void setTotalRecordCount(int totalRecordCount) {
+    public void setTotalRecordCount(long totalRecordCount) {
         this.totalRecordCount = totalRecordCount;
     }
 

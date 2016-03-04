@@ -28,11 +28,11 @@
     <link rel="stylesheet" href="../styles/lightBox.css">
 
     <!-- jTable Metro theme -->
-    <link href="../scripts/jtable.2.4.0/themes/lightcolor/gray/jtable.css" rel="stylesheet" type="text/css"/>
+    <link href="../scripts/jtable.2.4.0/themes/metro/blue/jtable.css" rel="stylesheet" type="text/css"/>
     <link href="../scripts/jquery-ui-1.11.4/jquery-ui.min.css" rel="stylesheet"
           type="text/css"/>
 
-    <title>Branch ${branchNum}</title>
+    <title>Branch ${branchNum}: ${branchAddr} </title>
     <s:head/>
 </head>
 <body>
@@ -49,7 +49,7 @@
             </p>
 
             <p class="action">
-                <a href="<s:url action='Account'/> " class="fa fa-home"> ${sessionScope.userName}</a>
+                <a href="<s:url action='Account'/> " class="fa fa-home"> home</a>
             </p>
         </form>
         <br>
@@ -62,7 +62,7 @@
         <header>
             <h1>Dessert house</h1>
 
-            <h3>Branch ${branchNum}</h3>
+            <h3>Branch ${branchAddr}</h3>
 
         </header>
         <!-- Elements after a floating element will flow around it.
@@ -100,13 +100,18 @@
             <h3>Orders</h3>
             <div id="previous-order"></div>
 
+            <div id="date-box" title="Date reminding" class="none">
+                <p class="fa fa-warning">Can't choose desserts in different date in same order</p>
+            </div>
+
             <h3>Desserts</h3>
             <div>
                 <c:forEach items="${plans}" var="plan">
                     <h4>${plan.pdate}</h4>
                     <c:forEach items="${plan.details}" var="detail">
                         <div class="dessert-div">
-                            <img class="dessert" src="../images/${detail.did}.jpg">
+                            <img class="dessert" src="../images/${detail.dessert.did}.jpg"
+                                 title="${detail.dessert.name}:${detail.price}">
                         </div>
                     </c:forEach>
                 </c:forEach>
@@ -117,18 +122,19 @@
             <div id="current-order"></div>
 
             <div class="horizontal-center">
-                <s:form action="BranchReservePay">
-                    <s:submit value="Submit your order"/>
-                </s:form>
+                <s:submit value="Pay your order" onclick="payOrder()"/>
+            </div>
+            <div id="donePaying" class="none" title="Success">
+                <p>Paying succeed</p>
+            </div>
+            <div id="errorPaying" class="none" title="Error">
+                <p>Paying fail</p>
             </div>
         </div>
 
     </div>
 </div>
 
-<div id="date-box" title="Date reminding" class="none">
-    <p class="fa fa-2x fa-warning">can't choose desserts in different date in same order</p>
-</div>
 
 <%@include file="../html/footer.html" %>
 
@@ -144,15 +150,15 @@
         order.jtable({
             title: 'Your orders in this branch',
             paging: true,
-            pageSize: 6,
+            pageSize: 4,
             actions: {
-                listAction: 'BranchUserReserveList',
+                listAction: 'BranchUserReserveList?branchNum=' + ${branchNum},
                 deleteAction: 'BranchUserReserveDelete'
             },
             fields: {
                 rid: {
                     title: 'Reservation Id',
-                    width: '30%',
+                    width: '10%',
                     key: true,
                     list: true
                 },
@@ -160,18 +166,17 @@
                     title: 'Branch',
                     width: '30%',
                     display: function (reservationData) {
-                        // TODO check here
                         return reservationData.record.branch.addr;
                     }
                 },
                 bdate: {
                     title: 'Buy date',
-                    width: '30%',
+                    width: '20%',
                     edit: true
                 },
                 details: {
-                    title: 'Reservation detail',
-                    width: '5%',
+                    title: '',
+                    width: '2%',
                     edit: false,
                     create: false,
                     display: function (reservationData) {
@@ -182,11 +187,11 @@
                             $('#previous-order').jtable('openChildTable',
                                     $img.closest('tr'),
                                     {
-                                        title: reservationData.record.rid + ' - details',
+                                        title: 'reservation ' + reservationData.record.rid + ' - details',
                                         actions: {
-                                            listAction: 'ReserveDetailList?rid=' + reservationData.record.rid,
-                                            deleteAction: 'ReserveDetailDelete',
-                                            updateAction: 'ReserveDetailUpdate'
+                                            listAction: 'OrderList?rid=' + reservationData.record.rid,
+                                            deleteAction: 'OrderDelete',
+                                            updateAction: 'OrderUpdate'
                                         },
                                         fields: {
                                             rdid: {
@@ -233,19 +238,19 @@
         currentOrder.jtable({
             title: 'Current order',
             actions: {
-                listAction: 'OrderBranchList',
-                deleteAction: 'OrderDelete',
-                updateAction: 'OrderUpdate'
+                listAction: 'ReserveDetailList',
+                deleteAction: 'ReserveDetailDelete',
+                updateAction: 'ReserveDetailUpdate'
             },
             fields: {
-                dessert: {
-                    title: 'Dessert Id',
-                    width: '30%',
+                tmpId: {
                     key: true,
-                    list: false,
-                    display: function(data) {
-                        return data.record.dessert.name;
-                    }
+                    list: false
+                },
+                dessertName: {
+                    title: 'Dessert name',
+                    width: '30%',
+                    edit: false
                 },
                 price: {
                     title: 'Price',
@@ -254,7 +259,7 @@
                 },
                 num: {
                     title: 'Number',
-                    width: '30%',
+                    width: '20%',
                     edit: true
                 }
             }
@@ -262,6 +267,10 @@
         currentOrder.jtable('load');
     });
 
+
+    $(window).bind('beforeunload', function () {
+        return 'If not paying your order, you may lose it later';
+    });
 </script>
 
 

@@ -2,6 +2,7 @@ package service;
 
 import entity.Reserve;
 import entity.ReserveDetail;
+import tmpEntity.ReserveBranchVO;
 
 import javax.ejb.Remote;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import java.util.List;
 @Remote
 public interface ReserveService {
 
-    boolean reserveAdd(String bdate, int uid, int bid);
+    Reserve reserveAdd(ReserveBranchVO reserveBranchVO);
     boolean reserveEdit(Reserve reserve);
     boolean reserveDelete(int rid);
     boolean reserveFinish(int rid);
@@ -33,7 +34,7 @@ public interface ReserveService {
     Reserve branchUserReserveDetail(int bid, int uid, String buyDate);
     List<ReserveDetail> reserveDetailGet(int rid);
     boolean reserveDetailDelete(int rdid);
-    boolean reserveDetailAdd(int rid, int did, int num, double price);
-    boolean reserveDetailUpdateNum(int rdid, int num);
+    ReserveDetail reserveDetailAdd(int rid, int did, int num, double price);
+    ReserveDetail reserveDetailUpdateNum(int rdid, int num);
 
 }

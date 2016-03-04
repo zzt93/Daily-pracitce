@@ -1,9 +1,10 @@
 /**
  * Created by zzt on 3/3/16.
+ *
  */
 
 
-function tableInit () {
+function tableInit() {
     var balance = $('#balanceTable');
     balance.jtable({
         title: 'User balance list',
@@ -17,15 +18,14 @@ function tableInit () {
             listAction: 'UserList'
         },
         fields: {
-            rollNo: {
+            uid: {
                 title: 'User Id',
                 width: '30%',
                 key: true,
                 list: true,
-                create: true,
                 edit: true
             },
-            rank: {
+            balance: {
                 title: 'balance',
                 width: '20%',
                 edit: true
@@ -39,7 +39,7 @@ function tableInit () {
         title: 'User today order detail',
         defaultSorting: 'rank ASC',
         actions: {
-            listAction: 'BranchUserReserveDetailList',
+            listAction: 'BranchUserReserveDetailList?userId=' + readGet()['userId'],
             deleteAction: 'BranchUserReserveDetailDelete'
         },
         fields: {
@@ -75,16 +75,48 @@ function logResponse(response) {
 
 function sendMsg() {
     var lineData = $('#balanceTable').jtable('selectedRows');
-    $.post('MsgSend', lineData, logResponse);
-    $( this ).dialog( "close" );
+    $.each(
+        lineData,
+        function (index, line) {
+            var user = {
+                uid: line.attributes['data-record-key'].value,
+                msg: $('#msg').text()
+            };
+            var dialogSetting = {
+                buttons: {
+                    "Get it": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            };
+            $.ajax({
+                type: "POST",
+                url: "MsgSend",
+                data: user,
+                success: function (response) {
+                    $('#doneSending').dialog(dialogSetting);
+                    console.log(response);
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    $('#errorSending').dialog(dialogSetting);
+                }
+            });
+        }
+    );
+    $('#msgDialog').dialog("close");
 }
 
 function pay() {
     var money = $('#money').text();
-    $.post('PayMoney', {money:money, type:payType}, logResponse);
-    $( this ).dialog( "close" );
+    $.post('PayMoney', {money: money, type: payType}, logResponse);
+    $(this).dialog("close");
 }
 
 function getUserInfo(e) {
-
+    var code = (e.keyCode ? e.keyCode : e.which);
+    if (code == 13) {
+        // have to prevent default!!
+        e.preventDefault();
+        window.location.replace('/dessert/SearchUser?userId=' + this.value);
+    }
 }

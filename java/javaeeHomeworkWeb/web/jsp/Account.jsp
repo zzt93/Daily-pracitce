@@ -118,7 +118,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <br>
                     <div class="horizontal-center" style="margin-top: 10px; font-size: 1.5em;">
                         <label><a
-                            href="<s:url action='Activation_input'/>">Activate</a></label>
+                                href="<s:url action='Activation_input'/>">Activate</a></label>
                     </div>
                 </div>
 
@@ -152,7 +152,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             <h3>Your reservation</h3>
 
             <div id="ReservationTableContainer"></div>
-            <br>
 
         </div>
 
@@ -166,9 +165,11 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         <div class="container" id="message">
             <h3>Your Messages</h3>
 
-            <div id="MessagesTable"></div>
             <div class="horizontal-center">
-                <input type="submit" value="Delete selected rows" onclick="deleteMsg()"/>
+                <div id="MessagesTable"></div>
+            </div>
+            <div class="horizontal-center">
+                <input type="submit" value="Delete selected messages" onclick="deleteMsg()"/>
             </div>
         </div>
 
@@ -204,13 +205,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             fields: {
                 rid: {
                     title: 'Reservation Id',
-                    width: '30%',
-                    key: true,
-                    list: false
+                    width: '10%',
+                    key: true
                 },
                 bdate: {
                     title: 'Date for buying',
-                    width: '30%',
+                    width: '20%',
                     edit: false
                 },
                 branch: {
@@ -222,8 +222,8 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     }
                 },
                 details: {
-                    title: 'Reservation detail',
-                    width: '5%',
+                    title: '',
+                    width: '2%',
                     edit: false,
                     create: false,
                     display: function (reservationData) {
@@ -231,10 +231,10 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                         var $img = $('<img src="../images/more.png" title="Show reservation detail" />');
                         //Open child table when user clicks the image
                         $img.click(function () {
-                            $('#previous-order').jtable('openChildTable',
+                            $('#ReservationTableContainer').jtable('openChildTable',
                                     $img.closest('tr'),
                                     {
-                                        title: reservationData.record.rid + ' - details',
+                                        title: 'reservation ' + reservationData.record.rid + ' - details',
                                         actions: {
                                             listAction: 'OrderList?rid=' + reservationData.record.rid,
                                             deleteAction: 'OrderDelete',
@@ -289,27 +289,27 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 deleteAction: 'PayHistoryDelete'
             },
             fields: {
-                rollNo: {
+                rid: {
                     title: 'Reservation Id',
-                    width: '30%',
+                    width: '10%',
                     key: true,
-                    list: true,
-                    create: true
+                    list: true
                 },
-                studentName: {
+                branch: {
                     title: 'Branch',
                     width: '30%',
+                    edit: false,
+                    display: function (reservationData) {
+                        return reservationData.record.branch.addr;
+                    }
+                },
+                bdate: {
+                    title: 'Buy date',
+                    width: '20%',
                     edit: false
                 },
-                department: {
-                    title: 'Department',
-                    width: '30%',
-                    edit: true
-                },
-                rank: {
-                    title: 'Rank',
-                    width: '20%',
-                    edit: true
+                payment: {
+                    title: 'Payment'
                 }
             }
         });

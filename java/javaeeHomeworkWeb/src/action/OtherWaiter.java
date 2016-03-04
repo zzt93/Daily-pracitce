@@ -11,6 +11,7 @@ import service.ReserveService;
 import service.StaffInfoService;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -149,7 +150,7 @@ public class OtherWaiter extends ActionSupport {
             ReserveService reserveService =
                     (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             assert reserveService != null;
-            Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDateTime.now().toString());
+            Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDate.now().toString());
             if (reserve != null) {
                 records = reserveService.reserveDetailGet(reserve.getRid());
             } else {

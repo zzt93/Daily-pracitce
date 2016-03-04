@@ -1,5 +1,8 @@
 package entity;
 
+import mis.Default;
+import mis.Rank;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -22,6 +25,9 @@ public class ReserveDetail implements Serializable {
 
     private Reserve reserve;
     private Dessert dessert;
+
+    public ReserveDetail() {
+    }
 
     public ReserveDetail(int num, double price, Reserve reserve, Dessert dessert) {
         this.num = num;
@@ -90,5 +96,13 @@ public class ReserveDetail implements Serializable {
     @Override
     public int hashCode() {
         return rdid;
+    }
+
+    public double toPayReservation() {
+        return num * price * Default.RESERVE_RATIO;
+    }
+
+    public double toPayRest(Rank rank) {
+        return num * price * rank.getRatio();
     }
 }

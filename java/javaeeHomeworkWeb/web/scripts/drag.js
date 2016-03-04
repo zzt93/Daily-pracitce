@@ -2,6 +2,15 @@
  *
  * Created by zzt on 2/18/16.
  */
+function readGet() {
+    var parts = window.location.search.substr(1).split("&");
+    var $_GET = {};
+    for (var i = 0; i < parts.length; i++) {
+        var temp = parts[i].split("=");
+        $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+    }
+    return $_GET;
+}
 
 function handleDragOver(e) {
     if (e.preventDefault) {
@@ -14,6 +23,8 @@ function handleDragOver(e) {
 }
 
 var imgNum = 0;
+var price = 0;
+var name;
 var date;
 var sameDate;
 
@@ -28,6 +39,15 @@ function handleDragStart(ev) {
     imgNum = +imgName.split('\.')[0];
     // prepare buy date
     var date2 = $(ev.target.parentElement).prevAll('h4:first').text();
+    // prepare price
+    var title = ev.target.title.split(':');
+    price = title[1];
+    name = title[0];
+
+    var rows = $('#current-order').find('tr').length - 1;
+    if (rows == 0) {
+        date = 'undefined';
+    }
     if (typeof date === 'undefined') {
         date = date2;
         sameDate = true;
@@ -58,20 +78,54 @@ function initDragDrop() {
         console.info(imgNum);
         console.info(date);
 
-        $.post('OrderBranchAdd',
+        var tmpId;
+        $.post('ReserveDetailAdd',
             {
                 did: imgNum,
                 num: 1,
-                bdate: date
+                price: price,
+                bdate: date,
+                bid: readGet()['branchNum'],
+                dessertName: name
             }, function (response) {
+                tmpId = response['tmpId'];
                 console.log("Response: " + response);
             });
 
         var currentOrder = $('#current-order');
-        currentOrder.jtable('load');
+        currentOrder.jtable('addRecord', {
+            record: {
+                tmpId: tmpId,
+                dessertName: name,
+                price: price,
+                num: 1
+            },
+            clientOnly: true
+        });
         //you'll need to prevent the browser's default behavior for drops,
         // which is typically some sort of annoying redirect
         return false;
 
     }, false);
+}
+
+
+function payOrder() {
+    var dialogSetting = {
+        buttons: {
+            "Get it" : function () {
+                $(this).dialog("close");
+            }
+        }};
+    $.ajax({
+        type: "POST",
+        url: "BranchUserReservePay",
+        success: function(response){
+            $('#donePaying').dialog(dialogSetting);
+            console.log(response);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $('#errorPaying').dialog(dialogSetting);
+        }
+    });
 }

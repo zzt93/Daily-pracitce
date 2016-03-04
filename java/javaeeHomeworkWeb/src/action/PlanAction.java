@@ -6,6 +6,8 @@ import remote.JNDIFactory;
 import service.PlanService;
 
 import javax.servlet.http.HttpSession;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -57,6 +59,9 @@ public class PlanAction extends ActionSupport {
     }
 
     public String planWaiterUpdate() throws Exception {
+        if (checkPlanDate()) {
+            return ERROR;
+        }
         try {
             record = planService.staffUpdatePlan(planId, branch, pdate, planState);
             result = JTableHelper.OK;
@@ -184,6 +189,9 @@ public class PlanAction extends ActionSupport {
     }
 
     public String planAdd() throws Exception {
+        if (checkPlanDate()) {
+            return ERROR;
+        }
         try {
             int sid = (int) SessionManagement.getSession().getAttribute(InnerLogin.SID);
             Plan plan = planService.addPlan(sid, branch, pdate);
@@ -203,7 +211,16 @@ public class PlanAction extends ActionSupport {
         return SUCCESS;
     }
 
-//    public String planApprove() throws Exception {
+    private boolean checkPlanDate() {
+        if (pdate.compareTo(LocalDate.now().toString()) < 0) {
+            message = "invalid date";
+            result = JTableHelper.ERROR;
+            return true;
+        }
+        return false;
+    }
+
+    //    public String planApprove() throws Exception {
 //        try {
 //            Plan plan = null;
 //            result = JTableHelper.OK;

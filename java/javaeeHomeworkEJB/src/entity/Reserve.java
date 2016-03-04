@@ -56,9 +56,6 @@ public class Reserve implements Serializable {
         this.branch = branch;
     }
 
-    public Reserve(int uid, int bid, String bdate, ArrayList<RDtemp> temps) {
-        this.bdate = bdate;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

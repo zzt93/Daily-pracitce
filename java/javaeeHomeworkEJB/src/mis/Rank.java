@@ -19,7 +19,7 @@ public enum Rank {
 
     Rank(int threshold, double ratio, int credit, String des) {
         this.threshold = threshold;
-        this.ratio = ratio;
+        this.ratio = ratio - Default.RESERVE_RATIO;
         this.credit = credit;
         this.des = des;
     }
