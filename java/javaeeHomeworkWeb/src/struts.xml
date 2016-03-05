@@ -139,6 +139,10 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
+        <action name="UserCardList" class="action.AccountAction" method="UserCardList">
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
         <action name="UpdateAccount" class="action.UpdateAccountAction" method="update">
             <result type="json">/jsp/Account.jsp</result>
         </action>

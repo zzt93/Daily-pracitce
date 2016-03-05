@@ -1,0 +1,7 @@
+
+.half {
+    float: left;
+    margin: 1% 2% 1% 2%;
+    width: 45%;
+    display: inline-block;
+}

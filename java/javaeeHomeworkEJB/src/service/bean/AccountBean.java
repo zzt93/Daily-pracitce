@@ -166,8 +166,18 @@ public class AccountBean implements AccountService, ConsumeService {
     }
 
     @Override
+    public List<Consume> userCardList() {
+        return em.createNamedQuery(Consume.ALL_CONSUME, Consume.class).getResultList();
+    }
+
+    @Override
     public long countUserBalanceList() {
         return (long) em.createNamedQuery(Consume.COUNT_OWNING_MONEY_USER).getSingleResult();
+    }
+
+    @Override
+    public long countuserCardList() {
+        return (long) em.createNamedQuery(Consume.COUNT_ALL_CONSUME).getSingleResult();
     }
 
     private boolean addBalanceAndCredit(int uid, double money) {

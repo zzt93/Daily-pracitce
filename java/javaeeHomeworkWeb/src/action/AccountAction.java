@@ -170,5 +170,20 @@ public class AccountAction extends ActionSupport {
         }
         return SUCCESS;
     }
+
+    public String UserCardList() throws Exception {
+        try {
+            ConsumeService consumeService
+                    = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
+            records = consumeService.userCardList();
+            totalRecordCount = consumeService.countuserCardList();
+            result = JTableHelper.OK;
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = JTableHelper.ERROR;
+            return ERROR;
+        }
+        return SUCCESS;
+    }
 }
 

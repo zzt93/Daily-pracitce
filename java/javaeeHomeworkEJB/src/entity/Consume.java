@@ -20,7 +20,9 @@ import java.time.LocalDate;
 @NamedQueries(
         {
                 @NamedQuery(name = Consume.OWNING_MONEY_USER, query = "select c from Consume c where c.balance < 0"),
-                @NamedQuery(name = Consume.COUNT_OWNING_MONEY_USER, query = "select count (c) from Consume c where c.balance < 0")
+                @NamedQuery(name = Consume.COUNT_OWNING_MONEY_USER, query = "select count (c) from Consume c where c.balance < 0"),
+                @NamedQuery(name = Consume.ALL_CONSUME, query = "select c from Consume c"),
+                @NamedQuery(name = Consume.COUNT_ALL_CONSUME, query = "select count (c) from Consume c"),
 
         }
 )
@@ -28,6 +30,8 @@ public class Consume implements Serializable {
     public static final long serialVersionUID = 42L;
     public static final String OWNING_MONEY_USER = "owning money user";
     public static final String COUNT_OWNING_MONEY_USER = "count user";
+    public static final String ALL_CONSUME = "all consume";
+    public static final String COUNT_ALL_CONSUME = "count all consume";
 
     private int uid;
 

@@ -95,7 +95,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
 <script type="application/javascript" src="../scripts/chosen.js"></script>
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/jquery/dist/jquery.min.js"></script>
 
 

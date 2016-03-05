@@ -20,5 +20,7 @@ public interface ConsumeService {
     boolean payMoney(int uid, double money);
 
     List<Consume> userBalanceList();
+    List<Consume> userCardList();
     long countUserBalanceList();
+    long countuserCardList();
 }

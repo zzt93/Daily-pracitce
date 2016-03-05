@@ -1,5 +1,6 @@
 /**
  * Created by zzt on 10/25/15.
+ *
  */
 
 var randomScalingFactor = function() {
@@ -55,5 +56,5 @@ var produceLineChart = function (eleId) {
 
 };
 
-produceLineChart('relation-line-chart');
-produceLineChart('cmp-line-chart');
+//produceLineChart('relation-line-chart');
+produceLineChart('myChart');

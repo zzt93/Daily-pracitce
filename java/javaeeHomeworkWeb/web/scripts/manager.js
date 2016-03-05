@@ -1,5 +1,6 @@
 /**
  * Created by zzt on 3/2/16.
+ *
  */
 
 var planStateOptions = {0: 'New', 1: 'Approved', 2: 'Rejected'};
@@ -121,6 +122,36 @@ function tables() {
     });
     branch.jtable('load');
 
+    var balance = $('#userCard');
+    balance.jtable({
+        title: 'User balance list',
+        paging: true,
+        pageSize: 6,
+        selecting: true, //Enable selecting
+        multiselect: true, //Allow multiple selecting
+        selectingCheckboxes: true, //Show checkboxes on first column
+        actions: {
+            listAction: 'UserCardList'
+        },
+        fields: {
+            uid: {
+                title: 'User Id',
+                width: '20%',
+                key: true,
+                list: true
+            },
+            state: {
+                title: 'Card state',
+                width: '30%',
+                options: {0: 'Let to activate', 1: 'Activated', 2: 'Suspend', 3: 'Canceled'}
+            },
+            balance: {
+                title: 'Balance',
+                width: '30'
+            }
+        }
+    });
+    balance.jtable('load');
 }
 
 function updatePlanState(state) {
