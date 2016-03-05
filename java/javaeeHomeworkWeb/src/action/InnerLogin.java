@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import interceptor.SessionManagement;
 import mis.StaffType;
 import org.apache.struts2.ServletActionContext;
 import remote.JNDIFactory;
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class InnerLogin extends ActionSupport {
 
+    public static final String TYPE = "type";
     private List<String> types = new ArrayList<>(2);
 
     public static final String SID = "sid";
@@ -30,7 +32,7 @@ public class InnerLogin extends ActionSupport {
         StaffType[] values = StaffType.values();
         for (int i = 0; i < values.length - 1; i++) {
             StaffType staffType = values[i];
-            types.add(staffType.getDes());
+            types.add(staffType.getName());
         }
     }
 
@@ -78,6 +80,8 @@ public class InnerLogin extends ActionSupport {
             return INPUT;
         }
         SessionManagement.setStaffSession(sid);
+        HttpSession session = SessionManagement.getSession();
+        session.setAttribute(TYPE, staffType);
         return type;
     }
 

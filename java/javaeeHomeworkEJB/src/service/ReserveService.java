@@ -2,6 +2,7 @@ package service;
 
 import entity.Reserve;
 import entity.ReserveDetail;
+import service.exception.BalanceNotEnoughException;
 import tmpEntity.ReserveBranchVO;
 
 import javax.ejb.Remote;
@@ -16,7 +17,7 @@ import java.util.List;
 @Remote
 public interface ReserveService {
 
-    Reserve reserveAdd(ReserveBranchVO reserveBranchVO);
+    Reserve reserveAddAndPay(ReserveBranchVO reserveBranchVO) throws BalanceNotEnoughException;
     boolean reserveEdit(Reserve reserve);
     boolean reserveDelete(int rid);
     boolean reserveFinish(int rid);

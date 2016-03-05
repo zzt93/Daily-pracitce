@@ -33,7 +33,7 @@ public class InnerRegister extends ActionSupport {
         StaffType[] values = StaffType.values();
         for (int i = 0; i < values.length - 1; i++) {
             StaffType staffType = values[i];
-            types.add(staffType.getDes());
+            types.add(staffType.getName());
         }
 
         // get staff id

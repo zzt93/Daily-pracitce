@@ -7,6 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page session="true" %>
+
 <html>
 <head>
     <title>branch waiter</title>
@@ -37,7 +39,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
         <form>
             <p class="action">
-                <a href="<s:url action='InnerLogin_input'/>" class="fa fa-user"> log out</a>
+                <a href="<s:url action='InnerLogin_logOut'/>" class="fa fa-user"> log out</a>
             </p>
 
         </form>

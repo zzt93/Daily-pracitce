@@ -6,6 +6,7 @@ import service.PlanService;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -81,6 +82,7 @@ public class PlanBean implements PlanService {
     public ArrayList<Plan> branchPlan(int bid) {
         return (ArrayList<Plan>) em.createNamedQuery(Plan.BRANCH_PLAN, Plan.class)
                 .setParameter(1, bid)
+                .setParameter(2, LocalDate.now().toString())
                 .getResultList();
     }
 

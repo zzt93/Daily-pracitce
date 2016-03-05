@@ -4,13 +4,13 @@
  */
 
 function setUserAccountInfo(submit) {
-    var $gender = $('#gender').find(':checked');
+    var $input = $('input[name="gender"]');
+    var $gender = $('input[name="gender"]:checked');
     var account = {
-        funcName: "setUserData",
         uname: $('#DisplayName').val(),
         location: $('#Location').val(),
         age: $('#age').val(),
-        gender: $('input[name="gender"]').index($gender)
+        gender: $input.index($gender)
     };
     updateAccount(account, submit);
 }
@@ -18,14 +18,14 @@ function setUserAccountInfo(submit) {
 
 function updateAccount(data, submit) {
     var original = $(submit).css('background-color');
-    $(submit).css('background-color', 'blue');
+    $(submit).css('background-color', '#4c84d4');
 
     $.post(
-        '../php/Controller/AccountController.class.php',
+        'UpdateAccount',
         data,
         function (res, textStatus) {
             //console.log("status is: " + textStatus + " Response from server: " + res);
-            if (res === 'true') {
+            if (textStatus === "success") {
                 $(submit).css('background-color', original);
             }
         }

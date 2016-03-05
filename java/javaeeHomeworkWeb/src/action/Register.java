@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.AccountService;
 

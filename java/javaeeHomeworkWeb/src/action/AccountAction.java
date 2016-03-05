@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import entity.Account;
 import entity.Consume;
 import entity.User;
+import interceptor.SessionManagement;
 import mis.Gender;
 import mis.Rank;
 import remote.JNDIFactory;

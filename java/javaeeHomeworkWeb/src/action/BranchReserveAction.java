@@ -4,6 +4,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import entity.Plan;
 import entity.PlanDetail;
 import entity.Reserve;
+import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.PlanService;
 import service.ReserveService;
@@ -190,7 +191,10 @@ public class BranchReserveAction extends ActionSupport {
             ReserveService reserveService =
                     (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
             assert reserveService != null;
-            reserveService.reserveAdd(tmpReserve);
+            Reserve reserve = reserveService.reserveAddAndPay(tmpReserve);
+            if (reserve == null) {
+                return ERROR;
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;

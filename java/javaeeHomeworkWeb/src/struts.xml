@@ -11,7 +11,7 @@
 
 
     <package name="struts2" namespace="/dessert"
-             extends="default">
+             extends="appDefault">
 
         <action name="Login_*" method="{1}" class="action.UserLogin">
             <!--"success" is the default result code, so the framework will use the "Menu" action as response. (Which we haven't written yet.)-->
@@ -47,15 +47,21 @@
         </action>
 
         <action name="ManagerSession">
+            <result name="input" type="redirectAction">InnerLogin_input</result>
             <result>/jsp/Manager.jsp</result>
+            <interceptor-ref name="staffStack"/>
         </action>
 
         <action name="Waiter0Session" class="action.Waiter0">
+            <result name="input" type="redirectAction">InnerLogin_input</result>
             <result>/jsp/Waiter0.jsp</result>
+            <interceptor-ref name="staffStack"/>
         </action>
 
         <action name="OtherWaiterSession" class="action.OtherWaiter">
+            <result name="input" type="redirectAction">InnerLogin_input</result>
             <result>/jsp/OtherWaiter.jsp</result>
+            <interceptor-ref name="staffStack"/>
         </action>
 
         <action name="Account" class="action.AccountAction">
@@ -130,6 +136,10 @@
         </action>
 
         <action name="UserList" class="action.AccountAction" method="userList">
+            <result type="json">/jsp/Account.jsp</result>
+        </action>
+
+        <action name="UpdateAccount" class="action.UpdateAccountAction" method="update">
             <result type="json">/jsp/Account.jsp</result>
         </action>
 

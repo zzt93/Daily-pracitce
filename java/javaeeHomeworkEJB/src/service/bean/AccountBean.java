@@ -34,7 +34,7 @@ public class AccountBean implements AccountService, ConsumeService {
      * @return user id if exist such user and password is right
      */
     @Override
-    public Integer login(String name, String pw) {
+    public User login(String name, String pw) {
         User user;
         try {
             user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
@@ -44,7 +44,7 @@ public class AccountBean implements AccountService, ConsumeService {
             return null;
         }
         if (user.getPw().equals(pw)) {
-            return user.getUid();
+            return user;
         }
         return null;
     }
@@ -111,6 +111,7 @@ public class AccountBean implements AccountService, ConsumeService {
         Account account = em.find(Account.class, uid);
         Consume consume = em.find(Consume.class, uid);
         account.setBankCard(bank);
+        // set rank
         byte rank1 = (byte) Rank.values()[Rank.values().length - 1].ordinal();
         for (Rank rank : Rank.values()) {
             if (rank.getThreshold() > money) {
@@ -121,6 +122,10 @@ public class AccountBean implements AccountService, ConsumeService {
         if (rank1 > consume.getRank()) {
             consume.setRank(rank1);
         }
+        // set card state
+        CardState cardState = CardState.moveNext(consume.getState());
+        consume.setState((byte) cardState.ordinal());
+        // set balance
         double balance = consume.getBalance();
         consume.setBalance(money + balance);
         try {

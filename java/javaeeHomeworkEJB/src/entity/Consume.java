@@ -1,6 +1,10 @@
 package entity;
 
+import mis.Default;
 import mis.Rank;
+import scheduler.BalanceChecker;
+import scheduler.Starter;
+import service.exception.BalanceNotEnoughException;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -106,17 +110,33 @@ public class Consume implements Serializable {
         this.credit = credit;
     }
 
-    public void pay(double price) {
+    public void payReservation(double price) throws BalanceNotEnoughException {
+        pay(price * Default.RESERVE_RATIO);
+    }
+
+    public void pay(double price) throws BalanceNotEnoughException {
         if (getBalance() >= price) {
             balance -= price;
             credit += price;
         } else if (getBalance() + Rank.values()[rank].getCredit() >= price) {
             credit += price;
             balance -= price;
-            nDate = LocalDate.now().toString();
-//            nDate = nDate.substring(0, 3) + (nDate.charAt(4) + 1) + nDate.substring()
+            nDate = nowPlusOneYear();
+            // add user to check
+            synchronized (BalanceChecker.class) {
+                if (BalanceChecker.noUser()) {
+                    new Starter().startChecking(user);
+                } else {
+                    BalanceChecker.addUser(user);
+                }
+            }
         } else {
-            throw new RuntimeException("no enough money");
+            throw new BalanceNotEnoughException("no enough money to pay this order");
         }
+    }
+
+    private String nowPlusOneYear() {
+        String now = LocalDate.now().toString();
+        return now.substring(0, 3) + (now.charAt(4) + 1) + now.substring(5);
     }
 }

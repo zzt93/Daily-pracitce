@@ -3,6 +3,7 @@ package action;
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Reserve;
 import entity.ReserveDetail;
+import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.ReserveService;
 import vo.PayVO;

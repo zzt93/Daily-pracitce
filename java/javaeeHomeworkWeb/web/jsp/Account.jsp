@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page session="false" %>
+<%@ page session="true" %>
 
 <html lang="en">
 <head>
@@ -46,7 +46,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             </p>
 
             <p class="action">
-                <a href="<s:url action='Branches'/> " class="fa fa-home"> home</a>
+                <a href="<s:url action='Branches'/> " class="fa fa-home"> dessert</a>
             </p>
         </form>
         <br>
@@ -79,12 +79,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                 <div class="avatar-wrapper none">
                     <img id="avatar" class="resize" src="../images/user.png" alt="a user">
 
-                    <div id="upload-file-container">
+                    <%--<div id="upload-file-container">
                         <form enctype="multipart/form-data" id="avatar-form">
                             <input type="file" name="photo" title="choose a picture"
                                    onchange="checkFileAndUpload(this)">
                         </form>
-                    </div>
+                    </div>--%>
                 </div>
                 <div id="change-picture-progress">&nbsp;</div>
                 <div class="flex1 info-part">
@@ -117,8 +117,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     </label>
                     <br>
                     <div class="horizontal-center" style="margin-top: 10px; font-size: 1.5em;">
-                        <label><a
-                                href="<s:url action='Activation_input'/>">Activate</a></label>
+                        <label><a href="<s:url action='Activation_input'/>">Activate/Upgrade</a></label>
                     </div>
                 </div>
 
@@ -131,12 +130,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <label for="age">Age
                         <br>
                         <input id="age" value="${account.age}" maxlength="30" tabindex="1"
-                               data-site="Tony" type="text">
+                               data-site="Tony" type="text" pattern="\d+">
                     </label>
 
                     <br>
 
-                    <s:radio name="gender" list="gender" label="Gender" value="userGender"/>
+                    <s:radio id="gender" name="gender" list="gender" label="Gender" value="userGender"/>
 
 
                     <br>
@@ -354,6 +353,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             var $selectedRows = $MessagesTable.jtable('selectedRows');
             $MessagesTable.jtable('deleteRows', $selectedRows);
         }
+
     });
 </script>
 

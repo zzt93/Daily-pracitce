@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import interceptor.SessionManagement;
 import mis.Rank;
 import remote.JNDIFactory;
 import service.ConsumeService;

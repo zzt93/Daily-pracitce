@@ -4,12 +4,11 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 import com.opensymphony.xwork2.validator.annotations.ValidatorType;
-import org.apache.struts2.ServletActionContext;
-import org.hornetq.utils.JNDIUtil;
+import entity.User;
+import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.AccountService;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -36,6 +35,8 @@ import javax.servlet.http.HttpSession;
 public class UserLogin extends ActionSupport {
 
     public static final String UID = "uid";
+    public static final String USER_NAME = "userName";
+    public static final String CARD_STATE = "cardState";
     private String name;
     private String pw;
     private final AccountService accountService;
@@ -45,24 +46,27 @@ public class UserLogin extends ActionSupport {
                 (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
     }
 
-    @Validations(
-            requiredFields =
-                    {
-                            @RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "name", message = "You must enter a value for field."),
-                            @RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "pw", message = "You must enter a value for field.")
-                    }
-    )
+//    @Validations(
+//            requiredFields =
+//                    {
+//                            @RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "name", message = "You must enter a value for field."),
+//                            @RequiredFieldValidator(type = ValidatorType.SIMPLE, fieldName = "pw", message = "You must enter a value for field.")
+//                    }
+//    )
     @Override
     public String execute() throws Exception {
         String name = getName();
         String pw = getPw();
 
-        Integer uid = accountService.login(name, pw);
-        if (uid == null) {
+        User user = accountService.login(name, pw);
+        if (user == null) {
             addFieldError("name", "user name or password is wrong.");
             return INPUT;
         }
-        SessionManagement.setUserSession(uid);
+        SessionManagement.setUserSession(user.getUid());
+        HttpSession session = SessionManagement.getSession();
+        session.setAttribute(USER_NAME, user.getName());
+        session.setAttribute(CARD_STATE, user.getConsume().getState());
         return SUCCESS;
     }
 

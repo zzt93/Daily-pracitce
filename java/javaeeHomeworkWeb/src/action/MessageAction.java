@@ -2,6 +2,7 @@ package action;
 
 import com.opensymphony.xwork2.ActionSupport;
 import entity.Message;
+import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.MessageService;
 

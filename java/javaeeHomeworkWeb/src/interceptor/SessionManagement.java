@@ -1,5 +1,7 @@
-package action;
+package interceptor;
 
+import action.InnerLogin;
+import action.UserLogin;
 import org.apache.struts2.ServletActionContext;
 
 import javax.servlet.ServletRequest;
@@ -19,6 +21,7 @@ public class SessionManagement {
     public static void setUserSession(int uid) {
         setSession(UserLogin.UID, uid);
     }
+
     public static void setStaffSession(int sid) {
         setSession(InnerLogin.SID, sid);
     }
@@ -40,4 +43,11 @@ public class SessionManagement {
     }
 
 
+    public static boolean checkId(String id) {
+        System.out.println("Interceptor Fired");
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession(false);
+
+        return session == null || session.getAttribute(id) == null;
+    }
 }

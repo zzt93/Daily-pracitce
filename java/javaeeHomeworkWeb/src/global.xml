@@ -5,7 +5,7 @@
 
 <struts>
 
-    <package name="default" namespace="/dessert" extends="struts-default">
+    <package name="appDefault" namespace="/dessert" extends="struts-default">
 
         
         <!--must just after the opening package node.-->
@@ -15,6 +15,15 @@
             <interceptor-stack name="appDefaultStack">
                 <interceptor-ref name="encoding"/>
                 <interceptor-ref name="login"/>
+                <interceptor-ref name="defaultStack">
+                    <param name="exception.logEnabled">true</param>
+                    <param name="exception.logLevel">ERROR</param>
+                </interceptor-ref>
+            </interceptor-stack>
+            <interceptor name="staff" class="interceptor.StaffInterceptor"/>
+            <interceptor-stack name="staffStack">
+                <interceptor-ref name="encoding"/>
+                <interceptor-ref name="staff"/>
                 <interceptor-ref name="defaultStack">
                     <param name="exception.logEnabled">true</param>
                     <param name="exception.logLevel">ERROR</param>
@@ -43,13 +52,12 @@
     </package>
 
     <!--no such namespace cause a exception-->
-    <package name="example" namespace="/" extends="default">
+    <package name="example" namespace="/" extends="appDefault">
 
         <action name="*">
             <result>/html/index.html</result>
             <interceptor-ref name="defaultStack"/>
         </action>
-
 
         <!-- Add actions here -->
     </package>

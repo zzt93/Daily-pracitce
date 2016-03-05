@@ -12,7 +12,7 @@ import javax.ejb.Remote;
 @Remote
 public interface AccountService {
 
-    Integer login(String name, String pw);
+    User login(String name, String pw);
     Integer register(String name, String pw);
     User getUser(int uid);
 

@@ -1,8 +1,8 @@
 package service.bean;
 
 import entity.*;
-import mis.Default;
 import service.ReserveService;
+import service.exception.BalanceNotEnoughException;
 import tmpEntity.RDBranchVO;
 import tmpEntity.ReserveBranchVO;
 
@@ -29,22 +29,20 @@ public class ReserveBean implements ReserveService {
 
 
     @Override
-    public Reserve reserveAdd(ReserveBranchVO reserveBranchVO) {
+    public Reserve reserveAddAndPay(ReserveBranchVO reserveBranchVO) throws BalanceNotEnoughException {
         // pay money first
         Collection<RDBranchVO> values = reserveBranchVO.getDetails().values();
         double price = 0;
         for (RDBranchVO value : values) {
             price += value.getPrice() * value.getNum();
         }
-        price *= Default.RESERVE_RATIO;
         Consume consume = em.find(Consume.class, reserveBranchVO.getUid());
         if (consume == null) {
             return null;
         }
         Reserve entity;
+        consume.payReservation(price);
         try {
-            consume.pay(price);
-
             entity = new Reserve(
                     em.find(User.class, reserveBranchVO.getUid()),
                     em.find(Branch.class, reserveBranchVO.getBid()),
