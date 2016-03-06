@@ -180,3 +180,11 @@ function approvePlan() {
 function rejectPlan() {
     updatePlanState(2);
 }
+
+function getChartData() {
+    $.get('ManagerAgeChart', function (response) {
+        produceBarChart('ageChart', response['ageChartData']);
+        produceBarChart('profitChart', response['profitChartData']);
+        produceBarChart('dessertChart', response['dessertChartData']);
+    });
+}

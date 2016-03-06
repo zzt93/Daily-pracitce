@@ -1,9 +1,6 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.Validations;
-import com.opensymphony.xwork2.validator.annotations.ValidatorType;
 import entity.User;
 import interceptor.SessionManagement;
 import remote.JNDIFactory;
@@ -63,18 +60,13 @@ public class UserLogin extends ActionSupport {
             addFieldError("name", "user name or password is wrong.");
             return INPUT;
         }
-        SessionManagement.setUserSession(user.getUid());
-        HttpSession session = SessionManagement.getSession();
-        session.setAttribute(USER_NAME, user.getName());
-        session.setAttribute(CARD_STATE, user.getConsume().getState());
+        SessionManagement.setUserSession(user);
         return SUCCESS;
     }
 
     public String logOut() throws Exception {
-        HttpSession session = SessionManagement.getSession();
-        assert session != null;
-        session.invalidate();
-        return SUCCESS;
+        SessionManagement.logout();
+        return INPUT;
     }
 
     public void setName(String name) {

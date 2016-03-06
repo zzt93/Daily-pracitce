@@ -32,7 +32,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="Branches.jsp">Dessert</a></p>
+        <p id="app-name"><a href="#">Staff Id: ${sessionScope.sid}</a></p>
 
         <form>
             <p class="action">
@@ -111,31 +111,16 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <!-- jTable script file. -->
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
-<script type="application/javascript" src="../scripts/manager.js"></script>
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
 <script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/useBarChart.js"></script>
+<script type="application/javascript" src="../scripts/manager.js"></script>
 
 <script type="text/javascript">
     $(tables);
 
-    var barChartData = {
-        labels: ["0-20", "21-40", "41-60", ">61"],
-        datasets: [{
-            label: 'Not select',
-            backgroundColor: "rgba(220,220,220,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: 'Male',
-            backgroundColor: "rgba(101,187,205,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: 'Female',
-            backgroundColor: "rgba(151,187,205,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }]
+    $(getChartData);
 
-    };
     var barChartData2 = {
         labels: ["Branch 1", "Branch 2", "Branch 3"],
         datasets: [{
@@ -150,7 +135,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
     };
     var barChartData3 = {
-        labels: ["Golden", "Silver", "bronze"],
+        labels: ["cake1", "cake2", "cake3"],
         datasets: [{
             label: 'Reservation',
             backgroundColor: "rgba(220,220,220,0.5)",
@@ -162,9 +147,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
         }]
 
     };
-    produceBarChart('ageChart', barChartData);
-    produceBarChart('profitChart', barChartData2);
-    produceBarChart('dessertChart', barChartData3);
+
 </script>
 
 </body>

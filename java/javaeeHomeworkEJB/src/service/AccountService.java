@@ -3,6 +3,7 @@ package service;
 import entity.User;
 
 import javax.ejb.Remote;
+import java.util.HashMap;
 
 /**
  * Created by zzt on 2/11/16.
@@ -13,7 +14,7 @@ import javax.ejb.Remote;
 public interface AccountService {
 
     User login(String name, String pw);
-    Integer register(String name, String pw);
+    User register(String name, String pw);
     User getUser(int uid);
 
 
@@ -21,4 +22,5 @@ public interface AccountService {
 
     void fillPublicInfo(int uid, String name, String addr);
 
+    HashMap<Byte, long[]> accountCountByGenderAndAge(short[] ageRanges);
 }

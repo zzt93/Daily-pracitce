@@ -4,6 +4,7 @@ import entity.Account;
 import entity.Consume;
 import entity.User;
 import mis.CardState;
+import mis.Gender;
 import mis.Rank;
 import service.AccountService;
 import service.ConsumeService;
@@ -11,6 +12,7 @@ import service.ConsumeService;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -57,21 +59,20 @@ public class AccountBean implements AccountService, ConsumeService {
      * Otherwise, return null
      */
     @Override
-    public Integer register(String name, String pw) {
+    public User register(String name, String pw) {
         User user;
         try {
-            user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
+            em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                     .setParameter(1, name).getSingleResult();
         } catch (Exception e) {
             em.persist(new User(name, pw));
             user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                     .setParameter(1, name).getSingleResult();
-            int uid = user.getUid();
             Account account = new Account(user);
             Consume consume = new Consume(user);
             em.persist(account);
             em.persist(consume);
-            return uid;
+            return user;
         }
         return null;
 
@@ -103,6 +104,28 @@ public class AccountBean implements AccountService, ConsumeService {
         }
         account.setAddr(addr);
         em.persist(account);
+    }
+
+    @Override
+    public HashMap<Byte, long[]> accountCountByGenderAndAge(short[] ageRanges) {
+        HashMap<Byte, long[]> res = new HashMap<>(Gender.values().length);
+        for (Gender gender : Gender.values()) {
+            long[] counts = new long[ageRanges.length - 1];
+            res.put((byte) gender.ordinal(), counts);
+        }
+        for (int i = 0; i < ageRanges.length - 1; i++) {
+            List<Object[]> resultList = em.createNamedQuery(Account.ACCOUNT_COUNT_GENDER_AGE, Object[].class)
+                    .setParameter(1, ageRanges[i])
+                    .setParameter(2, ageRanges[i + 1])
+                    .getResultList();
+            for (Object[] objects : resultList) {
+                long count = (long) objects[1];
+                Byte gender = (Byte) objects[0];
+                long[] counts = res.get(gender);
+                counts[i] = count;
+            }
+        }
+        return res;
     }
 
 

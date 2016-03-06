@@ -34,7 +34,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     <section id="main-header">
         <img src="../images/yellow-pin.png" id="logo">
 
-        <p id="app-name"><a href="<s:url action='Branches'/>">Dessert</a></p>
+        <p id="app-name"><a href="#">Staff Id: ${sessionScope.sid}</a></p>
 
 
         <form>

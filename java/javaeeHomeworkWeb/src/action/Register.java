@@ -1,6 +1,7 @@
 package action;
 
 import com.opensymphony.xwork2.ActionSupport;
+import entity.User;
 import interceptor.SessionManagement;
 import remote.JNDIFactory;
 import service.AccountService;
@@ -27,12 +28,12 @@ public class Register extends ActionSupport {
             return INPUT;
         }
 
-        Integer uid = accountService.register(name, pw);
-        if (uid == null) {
+        User user = accountService.register(name, pw);
+        if (user == null) {
             addFieldError("name", "user name is already used.");
             return INPUT;
         } else {
-            SessionManagement.setUserSession(uid);
+            SessionManagement.setUserSession(user);
         }
         return SUCCESS;
     }

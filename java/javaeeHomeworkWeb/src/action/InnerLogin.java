@@ -91,4 +91,9 @@ public class InnerLogin extends ActionSupport {
         HttpSession session = request.getSession(true);
         session.setAttribute(SID, sid);
     }
+
+    public String logOut() throws Exception {
+        SessionManagement.logout();
+        return INPUT;
+    }
 }

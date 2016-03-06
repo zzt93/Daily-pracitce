@@ -147,6 +147,10 @@
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
+        <action name="ManagerAgeChart" class="action.ManagerStatistic" method="prepareAgeChart">
+            <result type="json"></result>
+        </action>
+
 
     </package>
 

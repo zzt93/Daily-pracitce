@@ -2,14 +2,11 @@ package interceptor;
 
 import action.InnerLogin;
 import action.UserLogin;
+import entity.User;
 import org.apache.struts2.ServletActionContext;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  * Created by zzt on 12/28/15.
@@ -18,8 +15,11 @@ import java.io.IOException;
  */
 public class SessionManagement {
 
-    public static void setUserSession(int uid) {
-        setSession(UserLogin.UID, uid);
+    public static void setUserSession(User user) {
+        HttpSession session = getSession();
+        session.setAttribute(UserLogin.UID, user.getUid());
+        session.setAttribute(UserLogin.USER_NAME, user.getName());
+        session.setAttribute(UserLogin.CARD_STATE, user.getConsume().getState());
     }
 
     public static void setStaffSession(int sid) {
@@ -49,5 +49,11 @@ public class SessionManagement {
         HttpSession session = request.getSession(false);
 
         return session == null || session.getAttribute(id) == null;
+    }
+
+    public static void logout() {
+        HttpSession session = getSession();
+        assert session != null;
+        session.invalidate();
     }
 }
