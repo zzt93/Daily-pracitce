@@ -96,7 +96,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
             </div>
             <div class="half">
                 <div class="horizontal-center">
-                    <h4>Top 5 dessert</h4>
+                    <h4>Top 3 dessert</h4>
                 </div>
                 <canvas id="dessertChart"></canvas>
             </div>
@@ -112,7 +112,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 <script src="../scripts/jquery-ui-1.11.4/jquery-ui.min.js" type="text/javascript"></script>
 <script src="../scripts/jtable.2.4.0/jquery.jtable.js" type="text/javascript"></script>
 <script type="application/javascript" src="../scripts/Chart.js-2.0-dev/Chart.js"></script>
-<script type="application/javascript" src="../scripts/useLineChart.js"></script>
 <script type="application/javascript" src="../scripts/useBarChart.js"></script>
 <script type="application/javascript" src="../scripts/manager.js"></script>
 
@@ -120,33 +119,6 @@ addListChosenListener('side_nav_list', 'tabbed-block');
     $(tables);
 
     $(getChartData);
-
-    var barChartData2 = {
-        labels: ["Branch 1", "Branch 2", "Branch 3"],
-        datasets: [{
-            label: 'Reservation',
-            backgroundColor: "rgba(220,220,220,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: 'Sell',
-            backgroundColor: "rgba(101,187,205,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }]
-
-    };
-    var barChartData3 = {
-        labels: ["cake1", "cake2", "cake3"],
-        datasets: [{
-            label: 'Reservation',
-            backgroundColor: "rgba(220,220,220,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }, {
-            label: 'Sell',
-            backgroundColor: "rgba(101,187,205,0.5)",
-            data: [randomScalingFactor(), randomScalingFactor(), randomScalingFactor()]
-        }]
-
-    };
 
 </script>
 

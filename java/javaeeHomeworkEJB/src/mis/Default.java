@@ -9,8 +9,7 @@ public class Default {
 
     public static double RESERVE_RATIO = 0.6;
 
-    // TIMEUNIT.SECOND
-    public static double OVERDUE_CHECK_GAP = 24 * 60 * 60;
+    public static int CAKE_ORDRE_LIMIT = 3;
 
 
 }

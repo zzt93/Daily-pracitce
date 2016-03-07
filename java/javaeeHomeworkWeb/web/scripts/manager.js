@@ -185,6 +185,6 @@ function getChartData() {
     $.get('ManagerAgeChart', function (response) {
         produceBarChart('ageChart', response['ageChartData']);
         produceBarChart('profitChart', response['profitChartData']);
-        produceBarChart('dessertChart', response['dessertChartData']);
+        produceTwoAxisChart('dessertChart', response['dessertChartData']);
     });
 }

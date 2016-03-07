@@ -10,10 +10,21 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "pdetail")
-@NamedQuery(name = PlanDetail.A_PLAN_DETAIL, query = "select pd from PlanDetail pd where pd.plan.planId = ?1")
+@NamedQueries(
+        {
+                @NamedQuery(name = PlanDetail.A_PLAN_DETAIL,
+                        query = "select pd from PlanDetail pd where pd.plan.planId = ?1"),
+
+                @NamedQuery(name = PlanDetail.DETAIL_BY_BID_DATE_DID,
+                        query = "select pd from PlanDetail pd where pd.plan.branch.bid = ?1 " +
+                                "and pd.plan.pdate = ?2 and pd.dessert.did = ?3"),
+
+        }
+)
 public class PlanDetail implements Serializable {
     public static final long serialVersionUID = 42L;
     public static final String A_PLAN_DETAIL = "a plan's details";
+    public static final java.lang.String DETAIL_BY_BID_DATE_DID = "detail by bid, date, did";
 
     private int pdId;
     private int num;
@@ -95,6 +106,6 @@ public class PlanDetail implements Serializable {
     }
 
     public void initLazy() {
-//        getDessert().initLazy();
+        //        getDessert().initLazy();
     }
 }

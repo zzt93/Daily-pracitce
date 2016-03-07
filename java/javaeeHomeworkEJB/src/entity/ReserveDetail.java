@@ -13,10 +13,19 @@ import java.io.Serializable;
  */
 @Entity()
 @Table(name = "rdetail")
-@NamedQuery(name = ReserveDetail.A_RESERVE_DETAIL, query = "select rd from ReserveDetail rd where rd.reserve.rid = ?1")
+@NamedQueries(
+        {
+                @NamedQuery(name = ReserveDetail.A_RESERVE_DETAIL, query = "select rd from ReserveDetail rd where rd.reserve.rid = ?1"),
+
+                @NamedQuery(name = ReserveDetail.SUM_AMOUNT_BY_DESSERT,
+                        query = "select sum(r.num) from ReserveDetail r where r.dessert.did = ?1"),
+
+        }
+)
 public class ReserveDetail implements Serializable {
     public static final long serialVersionUID = 42L;
     public static final java.lang.String A_RESERVE_DETAIL = "a reserve's details";
+    public static final String SUM_AMOUNT_BY_DESSERT = "sale amount sum ByDessert";
 
     private int rdid;
 

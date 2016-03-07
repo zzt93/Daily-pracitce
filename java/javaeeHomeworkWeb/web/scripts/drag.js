@@ -90,18 +90,18 @@ function initDragDrop() {
             }, function (response) {
                 tmpId = response['tmpId'];
                 console.log("Response: " + response);
+                var currentOrder = $('#current-order');
+                currentOrder.jtable('addRecord', {
+                    record: {
+                        tmpId: tmpId,
+                        dessertName: name,
+                        price: price,
+                        num: 1
+                    },
+                    clientOnly: true
+                });
             });
 
-        var currentOrder = $('#current-order');
-        currentOrder.jtable('addRecord', {
-            record: {
-                tmpId: tmpId,
-                dessertName: name,
-                price: price,
-                num: 1
-            },
-            clientOnly: true
-        });
         //you'll need to prevent the browser's default behavior for drops,
         // which is typically some sort of annoying redirect
         return false;
@@ -113,18 +113,19 @@ function initDragDrop() {
 function payOrder() {
     var dialogSetting = {
         buttons: {
-            "Get it" : function () {
+            "Get it": function () {
                 $(this).dialog("close");
             }
-        }};
+        }
+    };
     $.ajax({
         type: "POST",
         url: "BranchUserReservePay",
-        success: function(response){
+        success: function (response) {
             $('#donePaying').dialog(dialogSetting);
             console.log(response);
         },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+        error: function (XMLHttpRequest, textStatus, errorThrown) {
             $('#errorPaying').dialog(dialogSetting);
         }
     });

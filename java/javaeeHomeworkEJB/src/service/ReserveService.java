@@ -2,11 +2,13 @@ package service;
 
 import entity.Reserve;
 import entity.ReserveDetail;
+import mis.ChartDataWrapper;
 import service.exception.BalanceNotEnoughException;
 import tmpEntity.ReserveBranchVO;
 
 import javax.ejb.Remote;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -37,5 +39,9 @@ public interface ReserveService {
     boolean reserveDetailDelete(int rdid);
     ReserveDetail reserveDetailAdd(int rid, int did, int num, double price);
     ReserveDetail reserveDetailUpdateNum(int rdid, int num);
+
+    HashMap<Boolean, long[]> reserveCountByBranch();
+    ChartDataWrapper saleSumByDessert();
+
 
 }
