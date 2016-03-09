@@ -70,6 +70,7 @@ public class InnerLogin extends ActionSupport {
 
     @Override
     public String execute() throws Exception {
+        logOut();
         StaffInfoService staffInfoService =
                 (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
         StaffType staffType = StaffType.whatType(type);

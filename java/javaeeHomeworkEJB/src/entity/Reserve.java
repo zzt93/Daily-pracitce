@@ -24,7 +24,7 @@ import java.util.Set;
                 @NamedQuery(name = Reserve.COUNT_BRANCH_USER_RESERVE, query = "select COUNT(r) from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false"),
                 @NamedQuery(name = Reserve.BRANCH_USER_RESERVE_DETAIL, query = "select r from Reserve r where r.branch.bid = ?1 and r.user.uid = ?2 and r.state = false and r.bdate = ?3"),
 
-                @NamedQuery(name = Reserve.RESERVE_COUNT_BY_BRANCH, query = "select r.state, count (r) from Reserve r where r.branch.bid = ?1 order by r.state"),
+                @NamedQuery(name = Reserve.RESERVE_COUNT_BY_BRANCH, query = "select r.state, count (r) from Reserve r where r.branch.bid = ?1 group by r.state"),
         }
 )
 public class Reserve implements Serializable {

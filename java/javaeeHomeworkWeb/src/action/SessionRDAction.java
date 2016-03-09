@@ -142,7 +142,7 @@ public class SessionRDAction extends ActionSupport {
         }
         tmpReserve.addDetail(new RDBranchVO(count++, did, dessertName, num, price));
         session.setAttribute(RESERVE_DETAIL_COUNT, count);
-        tmpId = count;
+        tmpId = count - 1;
         result = JTableHelper.OK;
         return SUCCESS;
     }
@@ -150,7 +150,10 @@ public class SessionRDAction extends ActionSupport {
     public String orderBranchDelete() throws Exception {
         HttpSession session = SessionManagement.getSession();
         ReserveBranchVO tmpReserve = (ReserveBranchVO) session.getAttribute(TMP_RESERVE);
-        tmpReserve.getDetails().remove(tmpId);
+        RDBranchVO remove = tmpReserve.getDetails().remove(tmpId);
+        if (remove == null) {
+            return ERROR;
+        }
         result = JTableHelper.OK;
         return SUCCESS;
     }
@@ -165,7 +168,7 @@ public class SessionRDAction extends ActionSupport {
             result = JTableHelper.OK;
             return SUCCESS;
         } else {
-            message = "wrong number to update";
+            message = "wrong amount to update";
             result = JTableHelper.ERROR;
             return ERROR;
         }

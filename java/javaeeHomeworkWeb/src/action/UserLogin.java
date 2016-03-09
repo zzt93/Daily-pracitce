@@ -52,6 +52,7 @@ public class UserLogin extends ActionSupport {
 //    )
     @Override
     public String execute() throws Exception {
+        SessionManagement.logout();
         String name = getName();
         String pw = getPw();
 

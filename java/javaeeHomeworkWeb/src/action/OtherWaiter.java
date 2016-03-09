@@ -29,22 +29,72 @@ public class OtherWaiter extends ActionSupport {
     private User user;
     private Account account;
     private int rdid;
-    private String userRank;
+
+    private double toPay;
+    private String userRankDes;
+    private int rid;
+
+    public int getRid() {
+        return rid;
+    }
+
+    public void setRid(int rid) {
+        this.rid = rid;
+    }
+
+    public void setToPay(double toPay) {
+        this.toPay = toPay;
+    }
+
+    public String getUserRankDes() {
+        return userRankDes;
+    }
+
+    public double getToPay() {
+        return toPay;
+    }
 
     public String searchUser() throws Exception {
-
+        if (userId == 0) {
+            return SUCCESS;
+        }
         try {
-            AccountService accountService =
-                    (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
-            user = accountService.getUser(userId);
-            account = user.getAccount();
-            Consume consume = user.getConsume();
-            userRank = Rank.values()[consume.getRank()].getDes();
+            initToPay();
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    private void initToPay() {
+        AccountService accountService =
+                (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
+        user = accountService.getUser(userId);
+        account = user.getAccount();
+        Consume consume = user.getConsume();
+        userRankDes = Rank.values()[consume.getRank()].getDes();
+        Rank userRank = Rank.values()[consume.getRank()];
+
+        StaffInfoService staffInfoService =
+                (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
+        HttpSession session = SessionManagement.getSession();
+        int sid = (int) session.getAttribute(InnerLogin.SID);
+        assert staffInfoService != null;
+        Staff staff = staffInfoService.getStaff(sid);
+        ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+        assert reserveService != null;
+        Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDate.now().toString());
+        if (reserve != null) {
+            rid = reserve.getRid();
+            records = reserveService.reserveDetailGet(rid);
+        } else {
+            records = new ArrayList<>();
+        }
+        toPay = records.stream().mapToDouble(r -> {
+            double v = r.toPayRest(userRank);
+            return v;
+        }).sum();
     }
 
     private double money;
@@ -90,20 +140,15 @@ public class OtherWaiter extends ActionSupport {
         this.rdid = rdid;
     }
 
-    public String getUserRank() {
-        return userRank;
-    }
-
-    public void setUserRank(String userRank) {
-        this.userRank = userRank;
-    }
 
     public String payMoney() throws Exception {
         PayType payType = PayType.valueOf(type);
         try {
             ConsumeService consumeService =
                     (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
-            payType.pay(SessionManagement.getUid(), money, consumeService);
+            payType.pay(userId, money, consumeService);
+            ReserveService reserveService = (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
+            reserveService.reserveFinish(rid);
         } catch (Exception e) {
             e.printStackTrace();
             return ERROR;
@@ -111,7 +156,7 @@ public class OtherWaiter extends ActionSupport {
         return SUCCESS;
     }
 
-    private List<ReserveDetail> records;
+    private List<ReserveDetail> records = new ArrayList<>();
     private String result;
     private String message;
 
@@ -140,22 +185,12 @@ public class OtherWaiter extends ActionSupport {
     }
 
     public String branchUserReserveDetailList() throws Exception {
+        if (userId == 0) {
+            result = JTableHelper.OK;
+            return SUCCESS;
+        }
         try {
-            StaffInfoService staffInfoService =
-                    (StaffInfoService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded/StaffEJB!service.StaffInfoService");
-            HttpSession session = SessionManagement.getSession();
-            int sid = (int) session.getAttribute(InnerLogin.SID);
-            assert staffInfoService != null;
-            Staff staff = staffInfoService.getStaff(sid);
-            ReserveService reserveService =
-                    (ReserveService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//ReserveEJB!service.ReserveService");
-            assert reserveService != null;
-            Reserve reserve = reserveService.branchUserReserveDetail(staff.getBranch().getBid(), userId, LocalDate.now().toString());
-            if (reserve != null) {
-                records = reserveService.reserveDetailGet(reserve.getRid());
-            } else {
-                records = new ArrayList<>();
-            }
+            initToPay();
             result = JTableHelper.OK;
         } catch (Exception e) {
             e.printStackTrace();

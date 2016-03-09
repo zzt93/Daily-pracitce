@@ -72,8 +72,7 @@ public class AccountAction extends ActionSupport {
     public AccountAction() {
     }
 
-    @Override
-    public String execute() throws Exception {
+    public String account() throws Exception {
         try {
             AccountService accountService =
                     (AccountService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.AccountService");
@@ -175,6 +174,7 @@ public class AccountAction extends ActionSupport {
         try {
             ConsumeService consumeService
                     = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
+            assert consumeService != null;
             records = consumeService.userCardList();
             totalRecordCount = consumeService.countuserCardList();
             result = JTableHelper.OK;
@@ -184,6 +184,19 @@ public class AccountAction extends ActionSupport {
             return ERROR;
         }
         return SUCCESS;
+    }
+
+    public String accountDelete() throws Exception {
+        try {
+            ConsumeService consumeService
+                    = (ConsumeService) JNDIFactory.getResource("ejb:/javaeeHomeworkEJB_ejb exploded//UserInfoEJB!service.ConsumeService");
+            assert consumeService != null;
+            consumeService.deleteAccount(SessionManagement.getUid());
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ERROR;
+        }
+        return INPUT;
     }
 }
 

@@ -19,7 +19,7 @@ import java.io.Serializable;
         {
                 @NamedQuery(query = "select p from Plan p where p.planState = 0", name = Plan.NEW_PLAN),
                 @NamedQuery(query = "select count (p) from Plan p where p.planState = 0", name = Plan.COUNT_NEW_PLAN),
-                @NamedQuery(query = "select p from Plan p where p.planState = 1 and p.branch.bid = ?1 and p.pdate > ?2 order by p.pdate", name = Plan.BRANCH_PLAN),
+                @NamedQuery(query = "select p from Plan p where p.planState = 1 and p.branch.bid = ?1 and p.pdate >= ?2 order by p.pdate", name = Plan.BRANCH_PLAN),
                 @NamedQuery(query = "select p from Plan p where p.staff.sid = ?1 and p.planState <> 1", name = Plan.STAFF_PLAN),
                 @NamedQuery(query = "select p from Plan p where p.branch.bid = ?1 and p.pdate = ?2", name = Plan.SAME_PLAN),
         }

@@ -165,6 +165,7 @@
                 branch: {
                     title: 'Branch',
                     width: '30%',
+                    options: 'BranchOptions',
                     display: function (reservationData) {
                         return reservationData.record.branch.addr;
                     }

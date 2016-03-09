@@ -94,12 +94,12 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     <div class="flex1 info-part">
                         <h4> User card</h4>
                         <ul id="roles">
-                            <li>${userRank}</li>
+                            <li>${userRankDes}</li>
                         </ul>
 
                         <div id="apply" title="Message dialog" class="none">
                             <label>Money:
-                                <input type="text" id="applyMoney">
+                                <input type="text" id="applyMoney" value="${toPay}">
                             </label>
                             <div class="horizontal-center">
                                 <input type="submit" value="User card" onclick="payType = 'card';pay()"/>
@@ -107,15 +107,13 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                                 <input type="submit" value="Other ways" onclick="payType = 'other';pay()"/>
                             </div>
                         </div>
-                        <div class="apply-container">
-                            <a href="#" id="apply-link" onclick="$('#apply').dialog();"> Apply for higher rank
-                            </a>
-                        </div>
                     </div>
 
                 </section>
 
-                <h3>User order</h3>
+                <h3>User order in your branch</h3>
+                <h4 style="display: inline">Reservation Id: </h4><h4 id="rid" style="display: inline;">${rid}</h4>
+                <h4>Should pay: ${toPay}</h4>
                 <div id="order-detail"></div>
                 <div id="payDialog" title="Pay dialog" class="none">
                     <label>Money:

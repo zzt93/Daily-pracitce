@@ -1,5 +1,6 @@
-<jsp:useBean id="account" scope="request" type="entity.Account"/>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c' %>
 <%--
   Created by IntelliJ IDEA.
   User: zzt
@@ -112,8 +113,17 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     </ul>
 
 
+                    <fmt:formatNumber value="${sessionScope.uid}" var="formattedId"
+                                      maxIntegerDigits="7" minIntegerDigits="7" groupingUsed="false"/>
+
+                    <fmt:formatNumber value="${account.bankCard}" var="formattedBackCard"
+                                      groupingUsed="true"/>
+
+                    <label>User Card Number:
+                        <input type="text" value="${formattedId}" readonly>
+                    </label>
                     <label>BankCard Number:
-                        <input type="text" value="${account.bankCard}" readonly>
+                        <input type="text" value="${formattedBackCard}" readonly>
                     </label>
                     <br>
                     <div class="horizontal-center" style="margin-top: 10px; font-size: 1.5em;">
@@ -145,6 +155,11 @@ addListChosenListener('side_nav_list', 'tabbed-block');
 
             </section>
             <br>
+            <div class="horizontal-center">
+                <form action="AccountDelete">
+                    <input type="submit" value="Delete Account">
+                </form>
+            </div>
         </div>
 
         <div class="container" id="reserve">
@@ -298,6 +313,7 @@ addListChosenListener('side_nav_list', 'tabbed-block');
                     title: 'Branch',
                     width: '30%',
                     edit: false,
+                    options: 'BranchOptions',
                     display: function (reservationData) {
                         return reservationData.record.branch.addr;
                     }

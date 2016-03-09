@@ -11,6 +11,7 @@ import service.ConsumeService;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.HashMap;
 import java.util.List;
@@ -55,7 +56,7 @@ public class AccountBean implements AccountService, ConsumeService {
      * @param name user name
      * @param pw   password
      *
-     * @return user id if no such name has already used;
+     * @return user object if no such name has already used;
      * Otherwise, return null
      */
     @Override
@@ -64,7 +65,7 @@ public class AccountBean implements AccountService, ConsumeService {
         try {
             em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                     .setParameter(1, name).getSingleResult();
-        } catch (Exception e) {
+        } catch (NoResultException e) {
             em.persist(new User(name, pw));
             user = em.createNamedQuery(User.FIND_USER_BY_NAME, User.class)
                     .setParameter(1, name).getSingleResult();
@@ -205,6 +206,9 @@ public class AccountBean implements AccountService, ConsumeService {
 
     private boolean addBalanceAndCredit(int uid, double money) {
         Consume consume = em.find(Consume.class, uid);
+        if (consume.getState() == CardState.SUSPEND.ordinal()) {
+            return false;
+        }
         double balance = consume.getBalance();
         if (balance + money < 0) {
             return false;

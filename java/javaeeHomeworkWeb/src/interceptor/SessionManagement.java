@@ -16,7 +16,8 @@ import javax.servlet.http.HttpSession;
 public class SessionManagement {
 
     public static void setUserSession(User user) {
-        HttpSession session = getSession();
+        HttpServletRequest request = ServletActionContext.getRequest();
+        HttpSession session = request.getSession(true);
         session.setAttribute(UserLogin.UID, user.getUid());
         session.setAttribute(UserLogin.USER_NAME, user.getName());
         session.setAttribute(UserLogin.CARD_STATE, user.getConsume().getState());
@@ -53,7 +54,9 @@ public class SessionManagement {
 
     public static void logout() {
         HttpSession session = getSession();
-        assert session != null;
+        if (session == null) {
+            return;
+        }
         session.invalidate();
     }
 }

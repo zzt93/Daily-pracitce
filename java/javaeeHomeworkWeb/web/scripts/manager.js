@@ -40,7 +40,8 @@ function tables() {
                 title: 'Branch',
                 width: '30%',
                 edit: false,
-                // TODO change to options
+                options: 'BranchOptions',
+
                 display: function (data) {
                     return data.record.branch.addr;
                 }

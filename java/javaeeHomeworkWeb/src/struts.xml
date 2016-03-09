@@ -64,7 +64,8 @@
             <interceptor-ref name="staffStack"/>
         </action>
 
-        <action name="Account" class="action.AccountAction">
+
+        <action name="Account*" class="action.AccountAction" method="account{1}">
             <result name="success">/jsp/Account.jsp</result>
         </action>
 
@@ -79,6 +80,7 @@
 
         <action name="SearchUser" class="action.OtherWaiter" method="searchUser">
             <result>/jsp/OtherWaiter.jsp</result>
+            <interceptor-ref name="defaultStack"/>
         </action>
 
     </package>
@@ -89,12 +91,17 @@
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </global-results>
 
+        <action name="WaiterPayMoney" class="action.OtherWaiter" method="payMoney">
+            <result>/jsp/OtherWaiter.jsp</result>
+        </action>
+
         <action name="UserReserve*" class="action.AccountReserveAction" method="userReserve{1}">
             <!--the action will return a json to use in a page-->
             <result type="json">/jsp/Account.jsp</result>
         </action>
 
         <action name="BranchUserReserveDetail*" class="action.OtherWaiter" method="branchUserReserveDetail{1}">
+            <!--<result name="input">/jsp/OtherWaiter.jsp</result>-->
             <result type="json">/jsp/OtherWaiter.jsp</result>
         </action>
 
@@ -148,6 +155,10 @@
         </action>
 
         <action name="ManagerAgeChart" class="action.ManagerStatistic" method="prepareChart">
+            <result type="json"></result>
+        </action>
+
+        <action name="BranchOptions" class="action.BranchesOptions" method="branches">
             <result type="json"></result>
         </action>
 

@@ -36,6 +36,7 @@ public class Account implements Serializable {
 
     public Account(User user) {
         this.user = user;
+        user.setAccount(this);
         /*
          can't assign it, why?
         cause error: null value was assigned to a property of primitive type setter uid

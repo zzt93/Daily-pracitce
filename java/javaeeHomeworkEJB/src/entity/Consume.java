@@ -48,6 +48,7 @@ public class Consume implements Serializable {
 
     public Consume(User user) {
         this.user = user;
+        user.setConsume(this);
         /*
         @see {Account}
                 uid = user.getUid();
@@ -141,6 +142,6 @@ public class Consume implements Serializable {
 
     private String nowPlusOneYear() {
         String now = LocalDate.now().toString();
-        return now.substring(0, 3) + (now.charAt(4) + 1) + now.substring(5);
+        return now.substring(0, 3) + (char) (now.charAt(3) + 1) + now.substring(4);
     }
 }

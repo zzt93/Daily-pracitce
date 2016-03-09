@@ -35,11 +35,14 @@ function tableInit() {
     balance.jtable('load');
 
     var order = $('#order-detail');
+    var uid = readGet()['userId'];
+    uid = uid === undefined ? 0 : uid;
+
     order.jtable({
         title: 'User today order detail',
         defaultSorting: 'rank ASC',
         actions: {
-            listAction: 'BranchUserReserveDetailList?userId=' + readGet()['userId'],
+            listAction: 'BranchUserReserveDetailList?userId=' + uid,
             deleteAction: 'BranchUserReserveDetailDelete'
         },
         fields: {
@@ -107,9 +110,11 @@ function sendMsg() {
 }
 
 function pay() {
-    var money = $('#money').text();
-    $.post('PayMoney', {money: money, type: payType}, logResponse);
-    $(this).dialog("close");
+    var money = $('#money').val();
+    var uid = readGet()['userId'];
+    var rid = $('#rid').text();
+    $.post('WaiterPayMoney', {money: money, type: payType, userId: uid, rid: rid}, logResponse);
+    $('#payDialog').dialog("close");
 }
 
 function getUserInfo(e) {
