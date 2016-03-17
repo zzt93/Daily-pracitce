@@ -78,9 +78,9 @@ public class UserLogin extends ActionSupport {
         return name;
     }
 
-    public void setPw(String pw) {
-        this.pw = pw;
-    }
+//    public void setPw(String pw) {
+//        this.pw = pw;
+//    }
 
     public String getPw() {
         return pw;

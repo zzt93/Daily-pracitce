@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
+    <constant name="struts.devMode" value="true"/>
+
+
+    <include file="global.xml"/>
+
+
+    <package name="struts2" namespace="/dessert"
+             extends="appDefault">
+
+        <action name="Login_*" method="{1}" class="action.UserLogin">
+            <!--"success" is the default result code, so the framework will use the "Menu" action as response. (Which we haven't written yet.)-->
+            <result>/jsp/Success.jsp</result>
+            <result name="input">/jsp/UserLogin.jsp</result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+        <action name="Register_*" method="{1}" class="action.Register">
+            <result name="input">/jsp/Register.jsp</result>
+            <interceptor-ref name="defaultStack"/>
+        </action>
+
+    </package>
+
+
+</struts>
