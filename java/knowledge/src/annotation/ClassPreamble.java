@@ -27,6 +27,6 @@ import java.lang.annotation.Documented;
 )
 class Test {
     public static void main(String[] args) {
-        Test.class.getAnnotations()
+        Test.class.getAnnotations();
     }
 }
