@@ -6,6 +6,8 @@ import java.util.WeakHashMap;
  * Created by zzt on 3/22/16.
  * <p>
  * Usage:
+ *
+ * WeakReference/SoftReference -- map(key is weak), cache
  */
 class Element {
     private String ident;
@@ -64,6 +66,7 @@ public class CanonicalMapping {
             }
             map.put(k, v);
         }
+        Value value = map.get(new Key("1"));
         System.gc();
     }
 }

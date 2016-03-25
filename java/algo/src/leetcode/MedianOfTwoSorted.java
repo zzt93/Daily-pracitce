@@ -10,6 +10,7 @@ import java.util.Arrays;
  * <li>median of a sorted array? O(1). make them sorted -- O(m+n)</li>
  * <li>selection problem -- O(n)</li>
  * <li>O(log(n)) -- binary search</li>
+ * <li>median -- compare number</li>
  */
 public class MedianOfTwoSorted {
     public int[] subArray(int[] a, int start, int end) {
