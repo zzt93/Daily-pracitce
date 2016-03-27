@@ -62,15 +62,16 @@ every line is a file info line
 
 
 -output:
-        
-        -rw-rw-r--  1 470 1000 1000 6823901 READEM.md
-        drwxr-xr-x  3 4096 1000 1000 6822142 .
-        -rw-r--r--  1 1741 1000 1000 6823853 wc.c
-        drwxrwxr-x  2 4096 1000 1000 7079201 test
-        drwxrwxr-x  4 4096 1000 1000 6815798 ..
-        -rwxrwxr-x  1 12048 1000 1000 6823896 wc
-        -rwxrwxr-x  1 17800 1000 1000 6823894 ls
-        -rw-r--r--  1 5569 1000 1000 6823786 ls.c
+        type + permission|link| size|usr|group|time                  | inode 
+        -rw-rw-r--        1     2638 zzt zzt Sun Mar 27 18:15:50 2016   6823973 READEM.md
+        drwxr-xr-x        3     4096 zzt zzt Sun Mar 27 18:59:20 2016   6822142 .
+        -rw-r--r--        1     1741 zzt zzt Wed Mar 23 20:38:42 2016   6823853 wc.c
+        drwxrwxr-x        2     4096 zzt zzt Sun Mar 27 09:39:46 2016   7079201 test
+        drwxrwxr-x        4     4096 zzt zzt Sun Mar 27 19:07:06 2016   6815798 ..
+        -rwxrwxr-x        1    12048 zzt zzt Wed Mar 23 20:45:09 2016   6823896 a.out
+        -rwxrwxr-x        1    18624 zzt zzt Sun Mar 27 18:59:20 2016   6823894 ls
+        -rw-r--r--        1     6449 zzt zzt Sun Mar 27 18:59:06 2016   6823786 ls.c
+
 
 
 ------------------
@@ -81,18 +82,18 @@ every line is a file info line
         
         
 -output:
+        type + permission|link| size|usr|group|time
+		-rw-rw-r--        1     2932 zzt zzt Sun Mar 27 19:13:57 2016  READEM.md
+		-rw-r--r--        1     1741 zzt zzt Wed Mar 23 20:38:42 2016  wc.c
+		drwxrwxr-x        2     4096 zzt zzt Sun Mar 27 09:39:46 2016  test
+		test:
+		-rw-rw-r--        1       47 zzt zzt Fri Mar 25 23:23:21 2016  b
+		-rw-rw-r--        1        0 zzt zzt Wed Mar 23 23:14:18 2016  a
 
+		-rwxrwxr-x        1    12048 zzt zzt Wed Mar 23 20:45:09 2016  a.out
+		-rwxrwxr-x        1    18624 zzt zzt Sun Mar 27 18:59:20 2016  ls
+		-rw-r--r--        1     6449 zzt zzt Sun Mar 27 18:59:06 2016  ls.c
 
-        -rw-rw-r--  1 1577 1000 1000 READEM.md
-        -rw-r--r--  1 1741 1000 1000 wc.c
-        drwxrwxr-x  2 4096 1000 1000 test
-        test:
-        -rw-rw-r--  1 47 1000 1000 b
-        -rw-rw-r--  1  0 1000 1000 a
-        
-        -rwxrwxr-x  1 12048 1000 1000 a.out
-        -rwxrwxr-x  1 17800 1000 1000 ls
-        -rw-r--r--  1 5569 1000 1000 ls.c
 
 
 #### Exit status
@@ -124,3 +125,19 @@ every line is a file info line
     - no such file or directory
     - too few arguments
     - invalid option
+
+
+## Comparison with source code
+
+### wc
+ - 在源码中，对于字符，或者说宽字符的类型都是通过宏或者typedef来定义的，这对于wc在不同系统平
+台上的实现，或者对于不同字符编码集的字符宽度（Unicode-16或者ASCII），
+这些是我的简单实现中没有涉及到的，我默认的字符都是以1Byte为单位⻓度
+的，这些是没有详细考虑去实现的。
+ - 源码考虑了一次传入多个文件，我没有。
+
+### ls
+ - 在我的实现中，这些信息都是取出后直接存放在变量中，然后打印出来。在源码中，
+其定义了fileinfo的结构体，并且通过枚举类定义了与这些⽂件信息相关的类型, 以链表将多个文件的信息链接在一起，最后再输出。
+ - 源码考虑了一次传入多个文件，我没有。
+ - 源码考虑了先传入文件名，再传入参数，我默认最后一个参数为文件名

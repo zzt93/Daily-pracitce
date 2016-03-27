@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <time.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/types.h>
@@ -6,6 +7,8 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <pwd.h>
+#include <grp.h>
 
 #define FAIL -1
 #define SUCC 0
@@ -35,11 +38,18 @@ static
 int copy_int_to_str(char *buf, int i) {
     int len = NUM_MAX_WIDTH + 1;
     char num[len];
-    len = snprintf(num, len, "%2d ", i);
+    len = snprintf(num, len, "%8d ", i);
     strncpy(buf, num, len);
     return len;
 }
 
+static
+int copy_str_to_str(char *dest, char *aim) {
+    int len = strlen(aim);
+    strncpy(dest, aim, len);
+    strncpy(dest + len, " ", 1);
+    return len + 1;
+}
 
 int inode_handler(const char *name, struct stat* stat, char *buf, int now, int max) {
     if (now + NUM_MAX_WIDTH > max) {
@@ -50,13 +60,30 @@ int inode_handler(const char *name, struct stat* stat, char *buf, int now, int m
     return now + len;
 }
 
+const char *file_type(mode_t mode) {
+    if (S_ISDIR(mode)) {
+        return "d";
+    } else if (S_ISREG(mode)) {
+        return "-";
+    } else if (S_ISCHR(mode)) {
+        return "c";
+    } else if (S_ISBLK(mode)) {
+        return "b";
+    } else if (S_ISFIFO(mode)) {
+        return "p";
+    } else if (S_ISLNK(mode)) {
+        return "l";
+    }
+    return "s";
+}
+
 int detail_handler(const char *name, struct stat* stat, char *buf, int now, int max) {
     if (now + NUM_MAX_WIDTH > max) {
         return FAIL;
     }
 
-    //("File Permissions: \t");
-    strncpy(buf + now++, (S_ISDIR(stat->st_mode)) ? "d" : "-", 1);
+    //("File Permissions");
+    strncpy(buf + now++, file_type(stat->st_mode), 1);
     strncpy(buf + now++, (stat->st_mode & S_IRUSR) ? "r" : "-", 1);
     strncpy(buf + now++, (stat->st_mode & S_IWUSR) ? "w" : "-", 1);
     strncpy(buf + now++, (stat->st_mode & S_IXUSR) ? "x" : "-", 1);
@@ -69,8 +96,21 @@ int detail_handler(const char *name, struct stat* stat, char *buf, int now, int 
     strncpy(buf + now++, " ", 1);
     now += copy_int_to_str(buf + now, stat->st_nlink);
     now += copy_int_to_str(buf + now, stat->st_size);
-    now += copy_int_to_str(buf + now, stat->st_uid);
-    now += copy_int_to_str(buf + now, stat->st_gid);
+
+    // user name
+    struct passwd *pwd;
+    pwd = getpwuid(stat->st_uid);
+    now += copy_str_to_str(buf + now, pwd->pw_name);
+
+    // group name
+    struct group *grp;
+    grp = getgrgid(stat->st_gid);
+    now += copy_str_to_str(buf + now, grp->gr_name);
+
+    // time
+    now += copy_str_to_str(buf + now, asctime(localtime(&stat->st_atim.tv_sec)));
+    // remove a newline of time string
+    buf[now - 2] = ' ';
     return now;
 }
 
@@ -202,5 +242,5 @@ int main(int argc, char *argv[]){
         return 1;
     }
     ls(argv[argc - 1], option_num);
-	return 0;
+    return 0;
 }

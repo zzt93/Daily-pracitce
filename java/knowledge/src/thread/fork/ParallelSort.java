@@ -71,7 +71,7 @@ public class ParallelSort extends RecursiveAction {
         Random random = new Random();
         int[] target = random.ints(30, 0, 100).toArray();
         ParallelSort parallelSort = new ParallelSort(target, 0, target.length);
-        ForkJoinPool forkJoinPool = new ForkJoinPool();
+        ForkJoinPool forkJoinPool = ForkJoinPool.commonPool();
         forkJoinPool.invoke(parallelSort);
         System.out.println(Arrays.toString(target));
     }

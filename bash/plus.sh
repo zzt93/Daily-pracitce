@@ -6,4 +6,5 @@ read -p "Enter two numbers:" x y
 ans=$((x + y))
 ans1=$(($x + $y))
 let ans2=$x+$y
+let ans3="$x + $y"
 echo "$x + $y = $ans = $ans1 = $ans2"
