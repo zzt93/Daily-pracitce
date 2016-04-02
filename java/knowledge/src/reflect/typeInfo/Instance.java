@@ -1,4 +1,4 @@
-package type;
+package reflect.typeInfo;
 
 /**
  * Created by zzt on 7/14/15.

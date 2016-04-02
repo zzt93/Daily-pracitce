@@ -1,4 +1,4 @@
-package type;
+package reflect.typeInfo;
 
 import java.io.Serializable;
 

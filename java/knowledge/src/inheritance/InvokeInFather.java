@@ -10,11 +10,15 @@ package inheritance;
 class Father {
     public void f() {
         System.out.println("in father.f()");
-        g();
+        this.g();
     }
 
     public void g() {
         System.out.println("in father.g()");
+    }
+
+    public void des(Father self) {
+        System.out.println(self.getClass());
     }
 }
 
@@ -28,6 +32,11 @@ class Son extends Father {
     @Override
     public void g() {
         System.out.println("in son.g()");
+    }
+
+    @Override
+    public void des(Father self) {
+        super.des(self);
     }
 }
 
