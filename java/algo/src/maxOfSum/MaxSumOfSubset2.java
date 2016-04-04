@@ -9,10 +9,10 @@ package maxOfSum;
  */
 import java.util.*;
 
-public class maxOfSum2 {
+public class MaxSumOfSubset2 {
 	ArrayList<Double> set ;
 
-	public maxOfSum2 (ArrayList<Double> set) {
+	public MaxSumOfSubset2(ArrayList<Double> set) {
 		this.set = set;
 	}
 
@@ -112,6 +112,6 @@ public class maxOfSum2 {
 		return true;
 	}
     public static void main (String[] argv) {
-		new maxOfSum (new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0, -7.0, 8.0, 9.0))).parts();
+		new MaxSumOfSubset2(new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0, -7.0, 8.0, 9.0))).parts();
     }
 }

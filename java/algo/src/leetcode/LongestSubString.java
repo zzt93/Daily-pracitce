@@ -3,14 +3,19 @@ package leetcode;
 /**
  * Created by zzt on 3/20/16.
  * <p>
+ * Problem description:
+ * Given a string, find the length of the longest substring without repeating characters.
+ * For example, the longest substring without repeating letters for "abcabcbb" is "abc",
+ * which the length is 3. For "bbbbb" the longest substring is "b", with the length of 1.
+ * <p>
  * Essence:
- *     find a char ever exists in the already viewed string
+ * find a char ever exists in the already viewed string
  * </p>
- *
  * <p>
  * Solution:
  * <li>Trie tree</li>
  * <li>LinkedHashMap to find and count</li>
+ * </p>
  */
 public class LongestSubString {
 
@@ -19,7 +24,7 @@ public class LongestSubString {
         int start = 0;
         int res = 0;
         int i;
-        for(i = 0; i < chars.length; i++) {
+        for (i = 0; i < chars.length; i++) {
             if (res < i - start) {
                 res = i - start;
             }
@@ -37,6 +42,6 @@ public class LongestSubString {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LongestSubString().lengthOfLongestSubstring("bbbbbb"));
+        System.out.println(new LongestSubString().lengthOfLongestSubstring("bbbbabb"));
     }
 }
