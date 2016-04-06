@@ -15,8 +15,8 @@ public class TrieTree<T extends Comparable<T>> {
     private Node root;
     private T endSymbol;
 
-    public TrieTree(T data, T endSymbol) {
-        this.root = new Node(data);
+    public TrieTree(T root, T endSymbol) {
+        this.root = new Node(root);
         this.endSymbol = endSymbol;
     }
 
