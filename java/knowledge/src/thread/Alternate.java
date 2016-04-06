@@ -6,16 +6,23 @@ package thread;
  * Description:
  * The following code cause 'java.lang.IllegalMonitorStateException'
  * A single lock?
- *
+ * <p>
  * __________________
- *
+ * <p>
  * Answer: Every time you set `mutex` to `true` or `false`,
  * it will autoboxing the boolean so produce a new object which
  * cause deadlock and exception
- *
  */
 public class Alternate {
-    static Boolean mutex = true;
+    /**
+     * <p>it is not so good to use the boolean as synchronization lock,
+     * for it is interned by vm which may block unrelated thread
+     * </p>
+     * <p>
+     * should be volatile avoiding cache
+     * </p>
+     */
+    static volatile Boolean mutex = true;
 
     public static void main(String[] args) {
         Thread t1 = new Thread(new Odd(mutex));

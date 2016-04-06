@@ -89,6 +89,16 @@ public class LCSequence {
         return lcs2(s1, s1.length(), s2, s2.length(), new WeakHashMap<EndIndex, Outcome>());
     }
 
+    /**
+     * This implementation is wrong.
+     * For example, "adfcab", "adcaf" prove this way is wrong: should be "adca"
+     * @param s1 first string
+     * @param l1 first length
+     * @param s2 second string
+     * @param l2 second length
+     * @param endIndexOutcomeWeakHashMap map for memorization
+     * @return all lcs and length count
+     */
     private Outcome lcs1(String s1, int l1, String s2, int l2,
                          WeakHashMap<EndIndex, Outcome> endIndexOutcomeWeakHashMap) {
         if (l1 == 0 || l2 == 0) {

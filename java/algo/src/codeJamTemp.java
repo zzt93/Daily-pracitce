@@ -1,5 +1,5 @@
-import utility.MyIn;
-import utility.MyOut;
+import competition.utility.MyIn;
+import competition.utility.MyOut;
 
 import java.io.FileNotFoundException;
 

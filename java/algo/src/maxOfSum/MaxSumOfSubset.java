@@ -52,7 +52,7 @@ public class MaxSumOfSubset {
         if (allPositive()) {
             return addAll(set);
         }
-        //collapse all adjacent positive practice.round1A2008.number and negative practice.round1A2008.number
+        //collapse all adjacent positive number and negative number
         collapse(produceSeparator(true));
         collapse(produceSeparator(false));
 
@@ -97,10 +97,10 @@ public class MaxSumOfSubset {
             for (int j = separator[i] + 1; j < separator[i + 1]; ++j) {
                 sum += set.get(j);
             }
-            if (separator[i] + 1 != separator[i + 1]) {//not the case of adjacent negative/positive practice.round1A2008.number
+            if (separator[i] + 1 != separator[i + 1]) {//not the case of adjacent negative/positive number
                 temp.add(sum);
             }
-            if (separator[i + 1] != set.size()) {//keep the negative practice.round1A2008.number in the mid of set and avoid adding the set.size()
+            if (separator[i + 1] != set.size()) {//keep the negative number in the mid of set and avoid adding the set.size()
                 temp.add(set.get(separator[i + 1]));
             } else {
                 break;// Usually, the i+1 is far smaller than separator.length, so let the set.size to be the sentinel

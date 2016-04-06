@@ -24,16 +24,16 @@ public class MaxSumOfSubset3 {
 			    break;
 			}
 		}   
-		//make the set no adjacent positive, negative practice.round1A2008.number
+		//make the set no adjacent positive, negative number
 	    HashMap<Double, double[]> tMap = new HashMap<Double, double[]>();
         ArrayList<Double> temp = new ArrayList<Double>();
 		double sum = 0;
 		double number = 0;
-		boolean sign = true; // means the practice.round1A2008.number is positive
-        int j = i;//record the begin index of contiguous positive, negative practice.round1A2008.number
+		boolean sign = true; // means the number is positive
+        int j = i;//record the begin index of contiguous positive, negative number
 		for (; i < set.size(); ++i) {
 			number = set.get(i);
-            //enter the following two blocks when the sign of a practice.round1A2008.number is changed
+            //enter the following two blocks when the sign of a number is changed
 			if (number < 0 && sign) {
 				sign = false;
                 tMap.put(sum, new double[]{j, i});// [j, i) is the interval
