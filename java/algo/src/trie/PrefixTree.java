@@ -1,26 +1,34 @@
 package trie;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by zzt on 1/26/16.
  * <p>
  * Usage:
+ * Only working as prefix searching;
+ * can't working as a mapping from sequences to something else now
  */
-public class TrieTree<T extends Comparable<T>> {
+public class PrefixTree<T extends Comparable<T>> {
 
     private Node root;
     private T endSymbol;
 
-    public TrieTree(T root, T endSymbol) {
+    public PrefixTree(T root, T endSymbol) {
         this.root = new Node(root);
         this.endSymbol = endSymbol;
     }
 
+    /**
+     * Add a serial of data to tree
+     *
+     * @param data list of data
+     */
     public void add(ArrayList<T> data) {
+        T last = data.get(data.size() - 1);
+        if (last.compareTo(endSymbol) != 0) {
+            data.add(endSymbol);
+        }
         addUnder(root, data);
     }
 
@@ -61,8 +69,8 @@ public class TrieTree<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("TrieTree\n");
-//        dfsView(root, stringBuilder);
+        StringBuilder stringBuilder = new StringBuilder("PrefixTree\n");
+        //        dfsView(root, stringBuilder);
         bfsView(root, stringBuilder);
         return stringBuilder.toString();
     }
