@@ -1,6 +1,8 @@
 package suffixTree;
 
 import java.util.Collection;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.TreeMap;
 
 /**
@@ -61,7 +63,7 @@ public class SuffixTree {
 
         Node findOrSplitNode(char edge, int activeLen) {
             Node node = children.get(edge);
-            while (node.edgeLength() <= activeLen) {
+            while (node.edgeLength() <= activeLen) {// observation two
                 activeLen -= node.edgeLength();
                 if (activeLen == 0) {
                     break;
@@ -70,7 +72,6 @@ public class SuffixTree {
                 assert node != null;
             }
             if (activeLen != 0) {// find the node, no need to split
-                // TODO: 4/8/16 endIndex is wrong
                 int endIndex = activeLen + node.startIndex;
                 // split node by setting endIndex and init string
                 node.initString(endIndex);
@@ -90,11 +91,6 @@ public class SuffixTree {
                 return nowIndex - startIndex;
             }
             return str.length();
-        }
-
-        int getEndIndex() {
-            assert str != null;
-            return startIndex + str.length();
         }
 
         void addChild(char newSon, Node node) {
@@ -121,6 +117,10 @@ public class SuffixTree {
         boolean isLeaf() {
             return str == null;
         }
+
+        public String getStr() {
+            return str;
+        }
     }
 
     public SuffixTree add(String s) {
@@ -133,21 +133,59 @@ public class SuffixTree {
 
         nowIndex = 0;
         ActivePoint current = new ActivePoint(root, ActivePoint.EMPTY, 0);
-        for (char c : s.toCharArray()) {
+        for (char c : this.current.toCharArray()) {
             updateTree(current, c, nowIndex);
             nowIndex++;
         }
         initLeaf(root);
+        //                dfs(root);
+        //        bfs(root);
         return this;
+    }
+
+    private void bfs(Node root) {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        queue.add(null);
+        while (!queue.isEmpty()) {
+            Node poll = queue.poll();
+            if (poll == null) {
+                System.out.println();
+                continue;
+            }
+            System.out.print(poll.str + " ");
+            for (Node node : poll.getChildren()) {
+                queue.add(node);
+            }
+            queue.add(null);
+        }
+    }
+
+    private void dfs(Node root) {
+        System.out.println(root.str);
+        int count = 0;
+        for (Node node : root.getChildren()) {
+            System.out.print(count++ + ":");
+            dfs(node);
+        }
     }
 
     public boolean contain(String s) {
         Node now = root;
-        for (char c : s.toCharArray()) {
+        char[] aim = s.toCharArray();
+        for (int i = 0; i < aim.length; ) {
+            char c = aim[i];
             if (!now.containsChild(c)) {
                 return false;
             }
             now = now.getChild(c);
+            char[] chars = now.getStr().toCharArray();
+            i++;
+            for (int j = 1; i < aim.length && j < chars.length; j++, i++) {
+                if (aim[i] != chars[j]) {
+                    return false;
+                }
+            }
         }
         return true;
     }
@@ -186,6 +224,7 @@ public class SuffixTree {
         void containUpdate(char c) {
             remainder++;
             if (this.len == 0) {
+                assert edgeChar == EMPTY;
                 this.edgeChar = c;
                 len = 1;
             } else {
@@ -209,6 +248,9 @@ public class SuffixTree {
                 }
             } else {
                 now.addChild(input, toAdd);
+                // reset active point
+                edgeChar = EMPTY;
+                len = 0;
             }
         }
 
@@ -224,7 +266,7 @@ public class SuffixTree {
     }
 
     private void updateTree(ActivePoint current, char input, int nowIndex) {
-        if (current.contains(input)) {
+        if (current.contains(input)) {//observation one
             current.containUpdate(input);
         } else {
             current.addNewNode(input, nowIndex, null);
@@ -237,5 +279,7 @@ public class SuffixTree {
         suffixTree.add("abcabxabcd");
         System.out.println(suffixTree.contain("abc"));
         System.out.println(suffixTree.contain("bxa"));
+        System.out.println(suffixTree.contain("xac"));
+        System.out.println(suffixTree.contain("bcab"));
     }
 }

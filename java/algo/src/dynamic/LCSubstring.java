@@ -95,6 +95,7 @@ public class LCSubstring {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LCSubstring().LCSub("ambabac", "cababma"));
+        StringBuilder sb = new StringBuilder("ambabac");
+        System.out.println(new LCSubstring().LCSub(sb.toString(), sb.reverse().toString()));
     }
 }
