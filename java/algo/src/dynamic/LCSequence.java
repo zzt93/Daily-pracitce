@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  * Problem description:
  * <p>
  * finding the longest sequence common to all sequences in a set of sequences.
- * It differs from problems of finding common substrings:
+ * It differs from problems of finding common subStrings:
  * unlike substrings, subsequences are not required to occupy consecutive positions within the original sequences.
  */
 public class LCSequence {

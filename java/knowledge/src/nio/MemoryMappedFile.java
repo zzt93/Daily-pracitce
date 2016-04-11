@@ -1,5 +1,6 @@
 package nio;
 
+import java.io.File;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -10,7 +11,7 @@ import java.nio.channels.FileChannel;
  * Usage:
  */
 public class MemoryMappedFile {
-    static int length = 0x8FFFFFF; // 128 MB
+    private static int length = 0x8FFFFFF; // 128 MB
 
     public static void main(String[] args) throws Exception {
         MappedByteBuffer out =
