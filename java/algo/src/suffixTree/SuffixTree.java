@@ -9,6 +9,8 @@ import java.util.TreeMap;
  * Created by zzt on 4/5/16.
  * <p>
  * Usage:
+ * <a href="http://stackoverflow.com/questions/9452701/ukkonens-suffix-tree-algorithm-in-plain-english">
+ * suffix tree implementation chat</a>
  * <li>A single string's suffix tree;</li>
  * <li>A set of string's generalized suffix tree(at most 3 string)</li>
  * <ul>

@@ -1,4 +1,4 @@
-package thread;
+package thread.lock;
 
 /**
  * Created by zzt on 7/30/15.
