@@ -56,7 +56,7 @@ class SynchronizedBlocked implements Runnable {
     public SynchronizedBlocked() {
         new Thread() {
             public void run() {
-                f(); // Lock acquired by this thread
+                f(); // UseLock acquired by this thread
             }
         }.start();
     }
