@@ -73,14 +73,12 @@ class SynchronizedHashMap extends MapTester {
 
     @Override
     Map<Integer, Integer> containerInitializer() {
-        return Collections.synchronizedMap(
-                new HashMap<>(
-                        new Random().ints(containerSize, Tester.RANDOM_NUMBER_ORIGIN, Tester.RANDOM_NUMBER_BOUND).boxed().collect(Collectors.toMap(
-                                i -> i * 2,
-                                i -> i * 3
-                        ))
-                )
-        );
+        Map<Integer, Integer> map = Collections.synchronizedMap(new HashMap<>());
+        Random random = new Random();
+        for (int i = 0; i < containerSize; i++) {
+            map.put(i, random.nextInt());
+        }
+        return map;
     }
 }
 
@@ -92,12 +90,12 @@ class ConcurrentHashMapTest extends MapTester {
 
     @Override
     Map<Integer, Integer> containerInitializer() {
-        return new ConcurrentHashMap<>(
-                new Random().ints(containerSize, Tester.RANDOM_NUMBER_ORIGIN, Tester.RANDOM_NUMBER_BOUND).boxed().collect(Collectors.toMap(
-                        i -> i * 2,
-                        i -> i * 3
-                        )
-                ));
+        ConcurrentHashMap<Integer, Integer> map = new ConcurrentHashMap<>();
+        Random random = new Random();
+        for (int i = 0; i < containerSize; i++) {
+            map.put(i, random.nextInt());
+        }
+        return map;
     }
 }
 

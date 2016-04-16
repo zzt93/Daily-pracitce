@@ -22,8 +22,8 @@ public abstract class Contention {
     volatile long value;
 
 
-    public Contention(int s, int writeSize) {
-        readSize = s;
+    public Contention(int readSize, int writeSize) {
+        this.readSize = readSize;
         this.writeSize = writeSize;
     }
 

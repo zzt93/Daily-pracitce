@@ -26,6 +26,7 @@ public class SyncVSLockVSAtomic {
         Sync sync = new Sync(readSize, writeSize);
         UseLock lock = new UseLock(readSize, writeSize);
         Atomic atomic = new Atomic(readSize, writeSize);
+        UseRWLock rwLock = new UseRWLock(readSize, writeSize);
         System.out.println("============================");
         System.out.printf("%-12s : %13d\n", "Cycles", Contention.cycle);
         System.out.printf("Read:%-7d - %10s:%2d\n", readSize, "Write", writeSize);
@@ -33,9 +34,11 @@ public class SyncVSLockVSAtomic {
         sync.timedTest();
         lock.timedTest();
         atomic.timedTest();
+        rwLock.timedTest();
         Contention.report(sync, baseLine);
         Contention.report(lock, baseLine);
         Contention.report(atomic, baseLine);
+        Contention.report(rwLock, baseLine);
         Contention.report(sync, lock);
         Contention.report(sync, atomic);
         Contention.report(lock, atomic);
