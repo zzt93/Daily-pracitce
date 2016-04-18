@@ -1,8 +1,7 @@
 package enum_type;
 
-import thread.OSExecute;
+import thread.old.OSExecute;
 
-import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 import java.util.Set;

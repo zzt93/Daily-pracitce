@@ -1,6 +1,6 @@
-package thread.monitor;
+package thread.old.monitor;
 
-import thread.pv.Semaphore;
+import thread.old.pv.Semaphore;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

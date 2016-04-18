@@ -34,5 +34,6 @@ public class VolatileVar implements Runnable {
         service.execute(volatileVar);
         Thread.sleep(10);
         volatileVar.stop();
+        service.shutdown();
     }
 }

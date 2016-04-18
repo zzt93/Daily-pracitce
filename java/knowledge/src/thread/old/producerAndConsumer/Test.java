@@ -1,4 +1,4 @@
-package thread.producerAndConsumer;
+package thread.old.producerAndConsumer;
 
 /**
  * Created by zzt on 4/3/15.

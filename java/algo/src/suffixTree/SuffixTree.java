@@ -41,6 +41,10 @@ public class SuffixTree {
     private StringBuilder current = new StringBuilder();
     private Node root = new Node(0, "");
 
+    public SuffixTree() {
+        root.setLink(root);
+    }
+
     private class Node {
         // used in the construction phase
         private int startIndex;
@@ -59,10 +63,6 @@ public class SuffixTree {
             startIndex = i;
         }
 
-        Node(String substring) {
-            str = substring;
-        }
-
         Collection<Node> getChildren() {
             return children.values();
         }
@@ -70,37 +70,32 @@ public class SuffixTree {
         Node findOrSplitNode(char edge, int activeLen) {
             Node node = children.get(edge);
             Node father = this;
-            char fatherChar = edge;
-            while (node.edgeLength() <= activeLen) {// observation two
-                activeLen -= node.edgeLength();
-                if (activeLen == 0) {
-                    break;
-                }
-                father = node;
-                fatherChar = current.charAt(nowIndex - activeLen);
-                node = node.getChild(fatherChar);
-                assert node != null;
-            }
+            assert node.edgeLength() > activeLen;
             if (activeLen != 0) {// find the node, and need to split
                 // split node by setting endIndex and set string
                 // add the rest of splitting node
                 node = node.splitStringAndAddNode(activeLen);
-                father.addChild(fatherChar, node);
+                father.updateChild(edge, node);
             }
             return node;
+        }
+
+        private void updateChild(char c, Node node) {
+            assert children.containsKey(c);
+            children.put(c, node);
         }
 
         private Node getChild(char c) {
             return children.get(c);
         }
 
-        public int getStartIndex() {
+        int getStartIndex() {
             return startIndex;
         }
 
         private int edgeLength() {
             if (str == null) {
-                return nowIndex - startIndex;
+                return nowIndex - startIndex + 1;
             }
             return str.length();
         }
@@ -111,7 +106,7 @@ public class SuffixTree {
 
         private Node splitStringAndAddNode(int activeLen) {
             int endIndex = activeLen + getStartIndex();
-            Node newThis = new Node(current.substring(getStartIndex(), endIndex));
+            Node newThis = new Node(getStartIndex(), current.substring(getStartIndex(), endIndex));
             // change current node to it's son
             moveBack(endIndex);
             char newSon = current.charAt(endIndex);
@@ -149,6 +144,11 @@ public class SuffixTree {
         String getStr() {
             return str;
         }
+
+        @Override
+        public String toString() {
+            return hashCode() + ":(" + str + ")->(" + suffixLink.hashCode() + ") ";
+        }
     }
 
     public SuffixTree add(String s) {
@@ -156,6 +156,7 @@ public class SuffixTree {
             System.err.println("can't add more");
             return this;
         }
+        //        String next = s;
         String next = s + CharNotInAlphabet.values()[count].getDes();
         addCurrent(next);
         count++;
@@ -185,7 +186,7 @@ public class SuffixTree {
                 System.out.println();
                 continue;
             }
-            System.out.print(poll.str + " ");
+            System.out.print(poll.toString());
             queue.addAll(poll.getChildren());
             queue.add(null);
         }
@@ -233,7 +234,13 @@ public class SuffixTree {
         static final char EMPTY = '\0';
 
         private Node now;
+        /**
+         * @inv if (edgeChar == EMPTY) {assert len == 0}
+         */
         private Character edgeChar;
+        /**
+         * @inv if (len == 0) {assert edgeChar == EMPTY}
+         */
         private int len;
 
         /**
@@ -249,20 +256,57 @@ public class SuffixTree {
         }
 
         /**
-         * When the final suffix we need to insert is found to exist in the same edge already
+         * When the final suffix we need to insert is found to
+         * exist in the same edge or decedent edge
+         * already
          *
          * @param c final suffix
          *
          * @return result
          */
         boolean contains(char c) {
-            if (edgeChar == EMPTY) {
+            if (len == 0) {
+                assert edgeChar == EMPTY;
                 return now.containsChild(c);
-            } else {
+            } else {// this branch assure activeLen < edgeLength
                 assert now.containsChild(edgeChar);
                 Node child = now.getChild(edgeChar);
+                Node father = now;
+                char nextChar = edgeChar;
+                int activeLen = len;
+                while (child.edgeLength() <= activeLen) {// observation two
+                    /**
+                     * make {@link #now} {@link #len}, {@link #edgeChar} consistent
+                     */
+                    activeLen -= child.edgeLength();
+                    assert activeLen >= 0;
+                    nextChar = current.charAt(nowIndex - activeLen);
+                    father = child;
+
+                    child = child.getChild(nextChar);
+                    if (child == null) {
+                        assert activeLen == 0;
+                        break;
+                    }
+                }
+                /**
+                 * move active point so no need to move again in
+                 * {@link #containUpdate(char)}
+                 * {@link #addNewNode(char, int, Node)}
+                 */
+                if (activeLen == 0) { // just check char from node by map, no need to look more
+                    moveActivePoint(father, EMPTY, activeLen);
+                    return father.containsChild(nextChar);
+                }
+                moveActivePoint(father, nextChar, activeLen);
                 return getChar(child.getStartIndex() - 1 + len + 1) == c;
             }
+        }
+
+        private void moveActivePoint(Node child, char fatherChar, int activeLen) {
+            now = child;
+            edgeChar = fatherChar;
+            len = activeLen;
         }
 
         void containUpdate(char c) {
@@ -276,11 +320,11 @@ public class SuffixTree {
                 len++;
             }
             Node child = now.getChild(edgeChar);
-            if (len == child.edgeLength()) {//if this node is not enough for next loop up
-                now = child;
-                edgeChar = EMPTY;
-                len -= child.edgeLength();
-            }
+            assert len <= child.edgeLength() : "assured by contains";
+        }
+
+        private void moveActivePoint(Node node) {
+            now = node;
         }
 
         void addNewNode(char input, int nowIndex, Node old) {
@@ -290,6 +334,9 @@ public class SuffixTree {
                     Node insertPoint = now.findOrSplitNode(edgeChar, len);
                     insertPoint.addChild(input, toAdd);
                     if (old != null) { // rule two: set link
+                        // the insertPoint's string is the suffix of old's, so
+                        // if we insert a new suffix into old, then we have to
+                        // insert it into insertPoint
                         old.setLink(insertPoint);
                     }
 
@@ -314,7 +361,7 @@ public class SuffixTree {
                     edgeChar = EMPTY;
                 }
             } else {// rule three
-                now = now.getSuffixLink();
+                moveActivePoint(now.getSuffixLink());
             }
         }
     }
@@ -325,6 +372,7 @@ public class SuffixTree {
 
     private void updateTree(ActivePoint current, char input, int nowIndex, Node insertPoint) {
         if (current.contains(input)) {//observation one
+            // TODO: 4/18/16 also set link?
             current.containUpdate(input);
         } else {
             current.addNewNode(input, nowIndex, insertPoint);
@@ -334,14 +382,24 @@ public class SuffixTree {
 
     public static void main(String[] args) {
         SuffixTree suffixTree = new SuffixTree();
-        StringBuilder sb = new StringBuilder("bacab");
-        suffixTree.add(sb.toString());
-        suffixTree.add(sb.reverse().toString());
-        //        suffixTree.add("bacab");
-        //        suffixTree.add("abcabxabcd");
+        suffixTree.add("cdddcdc");
+        //        StringBuilder sb = new StringBuilder("bacab");
+        //        suffixTree.add(sb.toString());
+        //        suffixTree.add(sb.reverse().toString());
+//                suffixTree.add("abcabxabcd");
+//                suffixTree.add("abcdefabxybcdmnabcdex");
+//                suffixTree.add("abcadak");
+//                suffixTree.add("dedododeeodo");
+//                suffixTree.add("ooooooooo");
+//                suffixTree.add("mississippi");
+                suffixTree.add("abacad");
         System.out.println(suffixTree.contain("ab"));
         System.out.println(suffixTree.contain("ba"));
-        System.out.println(suffixTree.contain("ac"));
+        System.out.println(suffixTree.contain("cd"));
+        System.out.println(suffixTree.contain("cddd"));
+        System.out.println(suffixTree.contain("cddde"));
         System.out.println(suffixTree.contain("bab"));
+        System.out.println(suffixTree.contain("bac"));
+        System.out.println(suffixTree.contain("baca"));
     }
 }

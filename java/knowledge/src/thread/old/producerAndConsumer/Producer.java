@@ -1,4 +1,4 @@
-package thread.producerAndConsumer;
+package thread.old.producerAndConsumer;
 
 import java.io.BufferedInputStream;
 import java.io.File;

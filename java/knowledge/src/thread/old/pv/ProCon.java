@@ -1,6 +1,6 @@
-package thread.pv;
+package thread.old.pv;
 
-import thread.monitor.ConsumerProducer;
+import thread.old.monitor.ConsumerProducer;
 
 import java.util.ArrayList;
 import java.util.Random;

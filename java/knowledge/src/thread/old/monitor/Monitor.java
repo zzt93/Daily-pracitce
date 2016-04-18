@@ -1,6 +1,6 @@
-package thread.monitor;
+package thread.old.monitor;
 
-import thread.pv.Semaphore;
+import thread.old.pv.Semaphore;
 
 /**
  * Created by zzt on 7/14/15.
@@ -9,7 +9,7 @@ import thread.pv.Semaphore;
  * <p>
  * In my implementation, a monitor is a way to inspect/protect a resource which has some state and
  * can be associated with a condition variable. Multiple monitors can protect a single resource
- * which have different condition variables: eg. {@link thread.monitor.ConsumerProducer} --
+ * which have different condition variables: eg. {@link thread.old.monitor.ConsumerProducer} --
  * Producer and Consumer problem<br>
  * <p>
  * The buffer has a monitor to stop thread interleave;<br>

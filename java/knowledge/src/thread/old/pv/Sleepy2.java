@@ -1,11 +1,11 @@
-package thread.pv;
+package thread.old.pv;
 
 import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Created by zzt on 7/3/15.
+ * Created by zzt on 7/4/15.
  *
  * Description: A emulation of sleepy barber using semaphore
  *
@@ -18,50 +18,52 @@ import java.util.concurrent.Executors;
  *      3. if no more seats -- leaving
  *
  * The resources:
- *      1. barber -- not used here
- *      2. customer
+ *      1. barber -- to suspend customer
+ *      2. customer -- to suspend barber
  *      3. seat
  *
  */
-public class Sleepy {
+public class Sleepy2 {
     public static final int NUM_SEATS = 10;
-//    private Semaphore barber = new Semaphore(1);
+    private Semaphore barber = new Semaphore(0);
     private Semaphore customer = new Semaphore(0);
     private int cusCount = 0;
     private Semaphore count = new Semaphore(1);
 
 
     public static void main(String[] args) {
-        new Sleepy().test();
+        new Sleepy2().test();
     }
 
     private void test() {
-        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        ExecutorService executorService = Executors.newFixedThreadPool(11);
         executorService.execute(this::barber);
-        executorService.execute(this::customers);
-    }
-
-    /**
-     * The source of customers
-     */
-    private void customers() {
         while (true) {
             try {
                 Thread.sleep(new Random(2000).nextInt(2000));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("customer coming");
-            count.P();
-            if (cusCount >= NUM_SEATS) {
-                count.V();
-                System.out.println("customer leaving");
-                continue;
-            }
-            cusCount++;
-            count.V();
-            customer.V();
+            executorService.execute(this::customer_i);
         }
+    }
+
+    /**
+     * The behaviour of every single customer
+     */
+    private void customer_i() {
+        System.out.println("customer coming");
+        count.P();
+        if (cusCount >= NUM_SEATS) {
+            count.V();
+            System.out.println("customer leaving");
+            return;
+        }
+        cusCount++;
+        count.V();
+        customer.V();
+        barber.P();
+        System.out.println("get hair cut");
     }
 
     private void barber() {
@@ -83,6 +85,7 @@ public class Sleepy {
             }
             cusCount--;
             count.V();
+            barber.V();
         }
     }
 }

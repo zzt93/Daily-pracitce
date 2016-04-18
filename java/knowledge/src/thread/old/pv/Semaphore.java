@@ -1,4 +1,4 @@
-package thread.pv;
+package thread.old.pv;
 
 /**
  * Created by zzt on 6/30/15.
@@ -14,7 +14,7 @@ package thread.pv;
  * the list store the thread waiting for this resource
  * <p>
  * A single resource can be viewed from different perspectives
- * which will have multiple Semaphores: eg. Producer and Consumer {@link thread.pv.ProCon}<br>
+ * which will have multiple Semaphores: eg. Producer and Consumer {@link thread.old.pv.ProCon}<br>
  * The buffer can be used by only one thread at a time, so we need a mutex semaphore;<br>
  * the buffer can be viewed as k empty space, so a semaphore {@code empty = new Semaphore(k);}<br>
  * the buffer can be viewed as 0 full space, so a semaphore {@code full = new Semaphore(0);}<br>
