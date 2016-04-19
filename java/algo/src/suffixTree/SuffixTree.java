@@ -1,9 +1,6 @@
 package suffixTree;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Created by zzt on 4/5/16.
@@ -21,6 +18,7 @@ import java.util.TreeMap;
 public class SuffixTree {
 
 
+    private static final int NOT_CONTAIN_END_SYMBOL = -1;
     private int nowIndex = 0;
 
     private enum CharNotInAlphabet {
@@ -34,6 +32,16 @@ public class SuffixTree {
 
         public String getDes() {
             return des;
+        }
+
+        public static boolean inIt(char c) {
+            String str = "" + c;
+            for (CharNotInAlphabet charNotInAlphabet : values()) {
+                if (str.equals(charNotInAlphabet.getDes())) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 
@@ -53,14 +61,27 @@ public class SuffixTree {
         private Node suffixLink = root;
 
         private TreeMap<Character, Node> children = new TreeMap<>();
+        private TreeSet<Integer> labels = new TreeSet<>();
 
         Node(int startIndex) {
             this.startIndex = startIndex;
+            labels.add(count);
         }
 
+        /**
+         * This constructor is for {@link #splitStringAndAddNode(int)} and root
+         * which should not {@link #markLabel()}
+         *
+         * @param i startIndex
+         * @param s string for look up
+         */
         Node(int i, String s) {
-            str = s;
             startIndex = i;
+            str = s;
+        }
+
+        void markLabel() {
+            labels.add(count);
         }
 
         Collection<Node> getChildren() {
@@ -68,8 +89,9 @@ public class SuffixTree {
         }
 
         Node findOrSplitNode(char edge, int activeLen) {
-            Node node = children.get(edge);
+            Node node = getChild(edge);
             Node father = this;
+            assert node != null;
             assert node.edgeLength() > activeLen;
             if (activeLen != 0) {// find the node, and need to split
                 // split node by setting endIndex and set string
@@ -86,7 +108,12 @@ public class SuffixTree {
         }
 
         private Node getChild(char c) {
-            return children.get(c);
+            Node node = children.get(c);
+            if (node == null) {
+                return null;
+            }
+            node.markLabel();
+            return node;
         }
 
         int getStartIndex() {
@@ -107,11 +134,25 @@ public class SuffixTree {
         private Node splitStringAndAddNode(int activeLen) {
             int endIndex = activeLen + getStartIndex();
             Node newThis = new Node(getStartIndex(), current.substring(getStartIndex(), endIndex));
+            // newThis should have the same labels with original one
+            newThis.markLabel(this.getLabels());
+            // remove current label from new son: it's not appear in the new string for the time being
+            // TODO: 4/19/16 wrong
+            //            this.removeLabel();
+
             // change current node to it's son
             moveBack(endIndex);
             char newSon = current.charAt(endIndex);
             newThis.addChild(newSon, this);
             return newThis;
+        }
+
+        private void removeLabel() {
+            labels.remove(count);
+        }
+
+        private void markLabel(TreeSet<Integer> labels) {
+            this.labels.addAll(labels);
         }
 
         private void moveBack(int newStartIndex) {
@@ -147,7 +188,14 @@ public class SuffixTree {
 
         @Override
         public String toString() {
-            return hashCode() + ":(" + str + ")->(" + suffixLink.hashCode() + ") ";
+            StringBuilder sb = new StringBuilder();
+            labels.forEach(i -> sb.append(i).append(" "));
+            return hashCode() + ":(" + str + ", " + sb +
+                    ")->(" + suffixLink.hashCode() + ") ";
+        }
+
+        TreeSet<Integer> getLabels() {
+            return labels;
         }
     }
 
@@ -162,6 +210,7 @@ public class SuffixTree {
         count++;
 
         ActivePoint current = new ActivePoint(root, ActivePoint.EMPTY, 0);
+        root.markLabel();
         for (char c : next.toCharArray()) {
             updateTree(current, c, nowIndex, null);
             nowIndex++;
@@ -201,24 +250,111 @@ public class SuffixTree {
         }
     }
 
+    /**
+     * determine whether s is a substring of T(added before)
+     *
+     * @param s input string
+     *
+     * @return true is contain
+     */
     public boolean contain(String s) {
-        Node now = root;
-        char[] aim = s.toCharArray();
-        for (int i = 0; i < aim.length; ) {
-            char c = aim[i];
-            if (!now.containsChild(c)) {
-                return false;
-            }
-            now = now.getChild(c);
-            char[] chars = now.getStr().toCharArray();
-            i++;
-            for (int j = 1; i < aim.length && j < chars.length; j++, i++) {
-                if (aim[i] != chars[j]) {
-                    return false;
+        char next = 'a';
+        Traverse traverse = new Traverse(s, next).invoke();
+        return traverse.find();
+    }
+
+    /**
+     * check whether s is a suffix of T(added before)
+     *
+     * @param s input string
+     *
+     * @return true if it is suffix
+     */
+    public boolean isSuffix(String s) {
+        char next = CharNotInAlphabet.DOLOR.getDes().charAt(0);
+        Traverse traverse = new Traverse(s, next).invoke();
+        if (!traverse.find()) {
+            return false;
+        }
+        next = traverse.getNext();
+        return CharNotInAlphabet.inIt(next);
+    }
+
+    /**
+     * @param s input string
+     *
+     * @return repeat time
+     */
+    public int repeatTime(String s) {
+        return 0;
+    }
+
+    /**
+     * find a substring which appear more than once
+     *
+     * <li>ooooo -> oooo</li>
+     * <li>cdddcdc -> cd/dd/dc</li>
+     * @implNote Find the node that has longest path from root and at least 2 leaves under it.
+     *
+     * @return longest repeat string
+     */
+    public String longestRepeat() {
+        ArrayList<String> tmp = repeat();
+        return tmp.stream()
+                .max((s1, s2) -> new Integer(s1.length()).compareTo(s2.length()))
+                .orElseGet(String::new);
+    }
+
+    public ArrayList<String> repeat() {
+        ArrayList<String> res = new ArrayList<>();
+        findRepeatString(root, res, "");
+        return res;
+    }
+
+    private void findRepeatString(Node now, ArrayList<String> res, String s) {
+        Collection<Node> children = now.getChildren();
+        String next;
+        if (children.size() >= 2) {
+            next = s.concat(now.getStr());
+        } else {
+            return;
+        }
+        for (Node child : children) {
+            findRepeatString(child, res, next);
+        }
+        res.add(next);
+    }
+
+    public ArrayList<String> commonString() {
+        List<String> target = new ArrayList<>(count);
+        for (int i = 0; i < count; i++) {
+            target.add(CharNotInAlphabet.values()[i].getDes());
+        }
+        ArrayList<String> res = new ArrayList<>();
+        containTarget(root, target, res);
+        return res;
+    }
+
+    private int containTarget(Node now, List<String> target, ArrayList<String> res) {
+        // TODO: 4/19/16 implement it
+        TreeSet<Integer> set = new TreeSet<>();
+        for (Node node : now.getChildren()) {
+            int i = containTarget(node, target, res);
+            if (i >= 0 && i < count) {
+                set.add(i);
+                if (set.size() == target.size()) {
+
                 }
             }
         }
-        return true;
+        String str = now.getStr();
+        for (int i = 0; i < target.size(); i++) {
+            String s = target.get(i);
+            if (str.contains(s)) {
+                return i;
+            }
+        }
+        return NOT_CONTAIN_END_SYMBOL;
     }
 
     private void initLeaf(Node now) {
@@ -271,6 +407,7 @@ public class SuffixTree {
             } else {// this branch assure activeLen < edgeLength
                 assert now.containsChild(edgeChar);
                 Node child = now.getChild(edgeChar);
+                assert child != null;
                 Node father = now;
                 char nextChar = edgeChar;
                 int activeLen = len;
@@ -320,6 +457,7 @@ public class SuffixTree {
                 len++;
             }
             Node child = now.getChild(edgeChar);
+            assert child != null;
             assert len <= child.edgeLength() : "assured by contains";
         }
 
@@ -382,17 +520,17 @@ public class SuffixTree {
 
     public static void main(String[] args) {
         SuffixTree suffixTree = new SuffixTree();
-        suffixTree.add("cdddcdc");
+//        suffixTree.add("cdddcdc");
         //        StringBuilder sb = new StringBuilder("bacab");
         //        suffixTree.add(sb.toString());
         //        suffixTree.add(sb.reverse().toString());
-//                suffixTree.add("abcabxabcd");
-//                suffixTree.add("abcdefabxybcdmnabcdex");
-//                suffixTree.add("abcadak");
-//                suffixTree.add("dedododeeodo");
-//                suffixTree.add("ooooooooo");
-//                suffixTree.add("mississippi");
-                suffixTree.add("abacad");
+        //                suffixTree.add("abcabxabcd");
+        //                suffixTree.add("abcdefabxybcdmnabcdex");
+        //                suffixTree.add("abcadak");
+        //                suffixTree.add("dedododeeodo");
+                        suffixTree.add("ooooooooo");
+        //                suffixTree.add("mississippi");
+//        suffixTree.add("abacad");
         System.out.println(suffixTree.contain("ab"));
         System.out.println(suffixTree.contain("ba"));
         System.out.println(suffixTree.contain("cd"));
@@ -401,5 +539,54 @@ public class SuffixTree {
         System.out.println(suffixTree.contain("bab"));
         System.out.println(suffixTree.contain("bac"));
         System.out.println(suffixTree.contain("baca"));
+        System.out.println(suffixTree.isSuffix("baca"));
+        System.out.println(suffixTree.longestRepeat());
+    }
+
+    private class Traverse {
+        private boolean find;
+        private String s;
+        private char next;
+
+        Traverse(String s, char next) {
+            this.s = s;
+            this.next = next;
+        }
+
+        boolean find() {
+            return find;
+        }
+
+        char getNext() {
+            return next;
+        }
+
+        Traverse invoke() {
+            Node now = root;
+            char[] aim = s.toCharArray();
+            for (int i = 0; i < aim.length; ) {
+                char c = aim[i];
+                if (!now.containsChild(c)) {
+                    find = false;
+                    return this;
+                }
+                now = now.getChild(c);
+                assert now != null;
+                char[] chars = now.getStr().toCharArray();
+                i++;
+                int j;
+                for (j = 1; i < aim.length && j < chars.length; j++, i++) {
+                    if (aim[i] != chars[j]) {
+                        find = false;
+                        return this;
+                    }
+                }
+                if (j < chars.length) {
+                    next = chars[j];
+                }
+            }
+            find = true;
+            return this;
+        }
     }
 }
