@@ -12,6 +12,8 @@ package thread.lock;
  * Answer: Every time you set `mutex` to `true` or `false`,
  * it will autoboxing the boolean so produce a new object which
  * cause deadlock and exception
+ *
+ * @implNote should not set the obj in synchronized(obj) block
  */
 public class Alternate {
     /**
