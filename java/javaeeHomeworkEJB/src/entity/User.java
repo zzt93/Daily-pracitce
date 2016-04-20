@@ -14,7 +14,7 @@ import java.util.Set;
  * For one-to-one bidirectional relationships, the owning side corresponds to the side that contains the corresponding
  * foreign key. In general, parent class is inverse side, child class is owning side.
  * <p></p>
- * In this case, `User` is inverse side
+ * In this case, `alibaba.User` is inverse side
  * <p>
  * The inverse side of a bidirectional relationship must refer to its owning side
  * by using the mappedBy element of the @OneToOne, @OneToMany, or @ManyToMany annotation
