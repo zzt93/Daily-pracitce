@@ -19,7 +19,7 @@ public class SafePoint {
      * were implemented as this(p.x, p.y) ;
      * this is an example of the private constructor capture idiom
      *
-     * @param a
+     * @param a array
      */
     private SafePoint(int[] a) {
         this(a[0], a[1]);
@@ -35,7 +35,7 @@ public class SafePoint {
     }
 
     /**
-     * safe way to publish x, y at the same time, or the invariant of (x, y)
+     * safe way to publish x, y at the same time, otherwise the invariant of (x, y)
      * may inconsistent when implemented by two separated getter
      * @return point array
      */
