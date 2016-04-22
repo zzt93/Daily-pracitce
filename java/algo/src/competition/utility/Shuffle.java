@@ -11,9 +11,10 @@ import java.util.Random;
  */
 public class Shuffle {
     static Random r = new Random();
+
     public static <T> void shuffle(ArrayList<T> ts) {
         for (int i = 1; i < ts.size(); i++) {
-            int aim = r.nextInt(i+1);
+            int aim = r.nextInt(i + 1);
             Swap.swap(ts, i, aim);
         }
     }
@@ -41,7 +42,7 @@ public class Shuffle {
         }
         if (map.containsKey(aim)) {
             int i = map.get(aim);
-            map.put(aim, i+1);
+            map.put(aim, i + 1);
         } else {
             map.put(aim, 0);
         }

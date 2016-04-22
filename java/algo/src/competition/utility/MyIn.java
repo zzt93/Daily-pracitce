@@ -23,6 +23,7 @@ public class MyIn {
 
     /**
      * read from inputStream
+     *
      * @param inputStream
      */
     public MyIn(InputStream inputStream) {
@@ -31,7 +32,9 @@ public class MyIn {
 
     /**
      * read from file
+     *
      * @param s
+     *
      * @throws FileNotFoundException
      */
     public MyIn(String s) throws FileNotFoundException {
@@ -46,6 +49,7 @@ public class MyIn {
      * Sets this scanner's delimiting pattern to the specified pattern.
      *
      * @param pattern A delimiting pattern
+     *
      * @return this scanner
      */
     public Scanner useDelimiter(Pattern pattern) {
@@ -57,6 +61,7 @@ public class MyIn {
      * the specified <code>String</code>.
      *
      * @param pattern A string specifying a delimiting pattern
+     *
      * @return this scanner
      */
     public Scanner useDelimiter(String pattern) {
@@ -89,15 +94,15 @@ public class MyIn {
 
     /**
      * Resets this scanner.
-     *
+     * <p>
      * <p> Resetting a scanner discards all of its explicit state
      * information which may have been changed by invocations of {@link
      * #useDelimiter}, {@link java.util.Scanner#useLocale}, or {@link java.util.Scanner#useRadix}.
-     *
+     * <p>
      * <p> An invocation of this method of the form
      * <tt>scanner.reset()</tt> behaves in exactly the same way as the
      * invocation
-     *
+     * <p>
      * <blockquote><pre>{@code
      *   scanner.useDelimiter("\\p{javaWhitespace}+")
      *          .useLocale(Locale.getDefault(Locale.Category.FORMAT))
@@ -107,7 +112,7 @@ public class MyIn {
      * @return this scanner
      */
     public Scanner reset() {
-       return scanner.reset();
+        return scanner.reset();
     }
 
 
@@ -116,6 +121,7 @@ public class MyIn {
      * skipping-nextline-after-use-next-nextint-or-other-nextfoo-methods}
      *
      * @param del
+     *
      * @return
      */
     public ArrayList<Integer> oneLineToInt(String del) {

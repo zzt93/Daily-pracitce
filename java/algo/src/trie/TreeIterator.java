@@ -7,6 +7,8 @@ package trie;
  */
 public interface TreeIterator<T> {
     boolean hasChild(T data);
+
     boolean canExit();
+
     void move(T data);
 }

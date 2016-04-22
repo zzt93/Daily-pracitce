@@ -29,6 +29,7 @@ public class Digraph {
 
     /**
      * Test client
+     *
      * @param args
      */
     public static void main(String[] args) {

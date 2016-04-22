@@ -5,13 +5,12 @@ package competition.utility;
  */
 
 
-
 import java.io.*;
 import java.util.Locale;
 
 /**
- *  This class provides methods for writing strings and numbers to
- *  various output streams, including standard output, file, and sockets.
+ * This class provides methods for writing strings and numbers to
+ * various output streams, including standard output, file, and sockets.
  */
 public class MyOut {
 
@@ -30,26 +29,29 @@ public class MyOut {
         try {
             OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
             out = new PrintWriter(osw, true);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        catch (IOException e) { e.printStackTrace(); }
     }
 
     /**
      * Create an Out object using standard output.
      */
-    public MyOut() { this(System.out); }
+    public MyOut() {
+        this(System.out);
+    }
 
-//    /**
-//     * Create an Out object using a Socket.
-//     */
-//    public MyOut(Socket socket) {
-//        try {
-//            OutputStream os = socket.getOutputStream();
-//            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
-//            out = new PrintWriter(osw, true);
-//        }
-//        catch (IOException e) { e.printStackTrace(); }
-//    }
+    //    /**
+    //     * Create an Out object using a Socket.
+    //     */
+    //    public MyOut(Socket socket) {
+    //        try {
+    //            OutputStream os = socket.getOutputStream();
+    //            OutputStreamWriter osw = new OutputStreamWriter(os, CHARSET_NAME);
+    //            out = new PrintWriter(osw, true);
+    //        }
+    //        catch (IOException e) { e.printStackTrace(); }
+    //    }
 
     /**
      * Create an Out object using a file specified by the given name.
@@ -67,8 +69,9 @@ public class MyOut {
     /**
      * Close the output stream.
      */
-    public void close() { out.close(); }
-
+    public void close() {
+        out.close();
+    }
 
 
     /**
@@ -133,7 +136,6 @@ public class MyOut {
     public void println(byte x) {
         out.println(x);
     }
-
 
 
     /**

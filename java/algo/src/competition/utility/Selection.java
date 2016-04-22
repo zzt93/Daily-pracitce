@@ -27,6 +27,7 @@ public class Selection {
      * @param from
      * @param to
      * @param <T>
+     *
      * @return
      */
     private static <T> int partition(ArrayList<T> ts, int from, int to, Comparator<? super T> comparator) {
@@ -67,6 +68,7 @@ public class Selection {
      * @param from inclusive
      * @param to   exclusive
      * @param <T>
+     *
      * @return
      */
     private static <T> T selection(ArrayList<T> ts, int k, int from, int to, Comparator<? super T> comparator) {
@@ -91,6 +93,7 @@ public class Selection {
      * @param ts  -- collection
      * @param k   -- k-th
      * @param <T> -- type
+     *
      * @return type
      */
     public static <T extends Comparable<T>> T selection(ArrayList<T> ts, int k) {
@@ -114,14 +117,11 @@ public class Selection {
     static final class NaturalOrder implements Comparator<Object> {
         @SuppressWarnings("unchecked")
         public int compare(Object first, Object second) {
-            return ((Comparable<Object>)first).compareTo(second);
+            return ((Comparable<Object>) first).compareTo(second);
         }
+
         static final NaturalOrder INSTANCE = new NaturalOrder();
     }
-
-
-
-
 
 
     public static void main(String[] args) {
@@ -140,13 +140,13 @@ public class Selection {
         Arrays.sort(a);
 
         MyOut out = new MyOut(args[1]);
-        for (int i = 1; i < tmp.size(); i*=2) {
+        for (int i = 1; i < tmp.size(); i *= 2) {
             out.print(a[i]);
             out.print("======");
             out.println(selection(tmp, i));
 
         }
         out.close();
-//        out.println(selection(tmp, 64));
+        //        out.println(selection(tmp, 64));
     }
 }

@@ -41,7 +41,7 @@ public class FontSize {
                     lineC += lines % lineInPage;
                     if (lineC >= lineInPage) {
                         lineC -= lineInPage;
-                        pages ++;
+                        pages++;
                     }
                     if (pages > p) {
                         tooLarge = true;

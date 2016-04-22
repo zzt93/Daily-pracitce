@@ -8,6 +8,7 @@ public class TwoSum {
     class IndexedNum implements Comparable<IndexedNum> {
         int n;
         int i;
+
         public IndexedNum(int n, int i) {
             this.n = n;
             this.i = i;
@@ -28,7 +29,7 @@ public class TwoSum {
         for (int i = 0; i < nums.length; i++) {
             int aim = target - nums[i];
             int res = Collections.binarySearch(list, new IndexedNum(aim, -1));
-            if(res > 0) {
+            if (res > 0) {
                 return new int[]{i, list.get(res).i};
             }
         }

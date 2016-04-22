@@ -1,7 +1,5 @@
 package suffixTree;
 
-import org.jetbrains.annotations.Nullable;
-
 /**
  * Created by zzt on 4/6/16.
  * <p>
@@ -10,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
 public class LCSubString {
     public static void main(String[] args) {
         String bcacb = "bcacb";
-//        lcs1(bcacb);
+        //        lcs1(bcacb);
         System.out.println(lcs2(bcacb));
 
         // find a deepest node which have both end symbol

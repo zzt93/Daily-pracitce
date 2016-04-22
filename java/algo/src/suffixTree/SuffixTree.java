@@ -291,12 +291,13 @@ public class SuffixTree {
 
     /**
      * find a substring which appear more than once
-     *
+     * <p>
      * <li>ooooo -> oooo</li>
      * <li>cdddcdc -> cd/dd/dc</li>
-     * @implNote Find the node that has longest path from root and at least 2 leaves under it.
      *
      * @return longest repeat string
+     *
+     * @implNote Find the node that has longest path from root and at least 2 leaves under it.
      */
     public String longestRepeat() {
         ArrayList<String> tmp = repeat();
@@ -520,7 +521,7 @@ public class SuffixTree {
 
     public static void main(String[] args) {
         SuffixTree suffixTree = new SuffixTree();
-//        suffixTree.add("cdddcdc");
+        //        suffixTree.add("cdddcdc");
         //        StringBuilder sb = new StringBuilder("bacab");
         //        suffixTree.add(sb.toString());
         //        suffixTree.add(sb.reverse().toString());
@@ -528,9 +529,9 @@ public class SuffixTree {
         //                suffixTree.add("abcdefabxybcdmnabcdex");
         //                suffixTree.add("abcadak");
         //                suffixTree.add("dedododeeodo");
-                        suffixTree.add("ooooooooo");
+        suffixTree.add("ooooooooo");
         //                suffixTree.add("mississippi");
-//        suffixTree.add("abacad");
+        //        suffixTree.add("abacad");
         System.out.println(suffixTree.contain("ab"));
         System.out.println(suffixTree.contain("ba"));
         System.out.println(suffixTree.contain("cd"));

@@ -25,12 +25,12 @@ public class ArrayUtility {
     }
 
     /**
-     *
      * @param ts
      * @param from -- inclusive
-     * @param end -- exclusive
-     * @param key -- the aim to find
-     * @param <T> -- type
+     * @param end  -- exclusive
+     * @param key  -- the aim to find
+     * @param <T>  -- type
+     *
      * @return -- the index of key or -1
      */
     public static <T extends Comparable<T>> int binarySearch(ArrayList<T> ts, int from, int end, T key) {
@@ -38,7 +38,7 @@ public class ArrayUtility {
             throw new IllegalArgumentException("From index:" + from + " is larger than ending index:" + end);
         }
         while (from < end) {
-            int mid = (from + end)/2;
+            int mid = (from + end) / 2;
             int res = key.compareTo(ts.get(mid));
             if (res == 0) {
                 return mid;
@@ -47,28 +47,28 @@ public class ArrayUtility {
             } else {
                 end = mid;
             }
-//            switch (res) {
-//                case 0:
-//                    return mid;
-//                case 1:
-//                    from = mid + 1;
-//                    break;
-//                case -1:
-//                    end = mid;
-//                    break;
-//                default:
-//                    assert false;
-//            }
+            //            switch (res) {
+            //                case 0:
+            //                    return mid;
+            //                case 1:
+            //                    from = mid + 1;
+            //                    break;
+            //                case -1:
+            //                    end = mid;
+            //                    break;
+            //                default:
+            //                    assert false;
+            //            }
         }
         return -1;
     }
 
     public static <T extends Comparable<T>> boolean isSorted(ArrayList<T> ts, boolean ascending) {
         for (int i = 1; i < ts.size(); i++) {
-            int res = ts.get(i-1).compareTo(ts.get(i));
+            int res = ts.get(i - 1).compareTo(ts.get(i));
             if (ascending) {
                 if (res > 0) {
-                   return false;
+                    return false;
                 }
             } else {
                 if (res < 0) {
