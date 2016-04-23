@@ -10,10 +10,23 @@ import java.util.*;
  * suffix tree implementation chat</a>
  * <li>A single string's suffix tree;</li>
  * <li>A set of string's generalized suffix tree(at most 3 string)</li>
- * <ul>
- * <li>The alternative I used to building a generalised suffix tree is to concatenate
- * the strings, and build a regular suffix tree</li>
- * </ul>
+ * <h3>Functionality</h3>
+ * <ol>
+ * <li>{@link #contain(String)} </li>
+ * <li>{@link #isSuffix(String)}</li>
+ * </ol>
+ * <ol>
+ * <li>{@link #repeatTime(String)}  </li>
+ * <li>{@link #repeat()} </li>
+ * <li>{@link #longestRepeat()} </li>
+ * </ol>
+ * <ol>
+ * <li>{@link #commonString()}</li>
+ * </ol>
+ * <h3>Implementation</h3>
+ * The alternative I used to building a generalised suffix tree
+ * <li>to concatenate the strings(ab ac -> ab#ac$), and build a regular suffix tree</li>
+ * <li>simpler, but more space(ab ac -> abac#)</li>
  */
 public class SuffixTree {
 

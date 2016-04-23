@@ -11,7 +11,6 @@ public class LCSubString {
         //        lcs1(bcacb);
         System.out.println(lcs2(bcacb));
 
-        // find a deepest node which have both end symbol
     }
 
     private static String lcs2(String input) {
@@ -22,6 +21,13 @@ public class LCSubString {
         return suffixTree.longestRepeat();
     }
 
+    /**
+     * find a deepest node which have both end symbol
+     *
+     * @param input
+     *
+     * @return longest common substring
+     */
     private static String lcs1(String input) {
         SuffixTree suffixTree = new SuffixTree();
         StringBuilder sb = new StringBuilder(input);
