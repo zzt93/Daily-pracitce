@@ -3,6 +3,7 @@ package pearls;
 import competition.utility.Swap;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class Permutation {
     private static void Anm(ArrayList<Integer> list, int aim, int remaining) {
         if (remaining == 0) {
             System.out.println(list.subList(0, aim));
+            return;
         }
         int now = aim - remaining;
         for (int i = now; i < list.size(); i++) {
@@ -31,29 +33,31 @@ public class Permutation {
     }
 
     public static void CnmStdout(ArrayList<Integer> list, int m) {
-        //        for (int start = 0; start < list.size(); start++) {
-        //            int next = start + 1;
-        //            for (int j = next; j < list.size() && start + m < list.size(); j++) {
-        //                Swap.swap(list, next, j);
-        //                System.out.println(list.subList(start, start + m));
-        //                Swap.swap(list, next, j);
-        //            }
-        //        }
-        for (int i = 0; i + m <= list.size(); i++) {
-            Cnm(list, i, m, m);
-        }
+        int[] res = new int[m];
+        Cnm(list, 0, 0, m, res);
     }
 
-    private static void Cnm(ArrayList<Integer> list, int start, int aim, int remaining) {
+    /**
+     * @implNote Thought: every element in the array have two fate: selected or not
+     * @param list source
+     * @param resI result index
+     * @param srcI source index
+     * @param remaining to finish
+     * @param res result
+     */
+    private static void Cnm(ArrayList<Integer> list, int resI, int srcI, int remaining, int[] res) {
         if (remaining == 0) {
-            System.out.println(list.subList(start, start + aim));
+            System.out.println(Arrays.toString(res));
+            return;
         }
-        int now = aim - remaining + start + 1;
-        for (int i = now; i < list.size(); i++) {
-            Swap.swap(list, i, now);
-            Cnm(list, start, aim, remaining - 1);
-            Swap.swap(list, i, now);
+        if (srcI >= list.size()) {
+            return;
         }
+        // choose now element
+        res[resI] = list.get(srcI);
+        Cnm(list, resI + 1, srcI + 1, remaining - 1, res);
+        // skip now element
+        Cnm(list, resI, srcI + 1, remaining, res);
     }
 
     public static void main(String[] args) {
@@ -64,5 +68,6 @@ public class Permutation {
         System.out.println("--------------------");
         System.out.println(test);
         Permutation.CnmStdout((ArrayList<Integer>) test, 2);
+        Permutation.CnmStdout((ArrayList<Integer>) test, 0);
     }
 }

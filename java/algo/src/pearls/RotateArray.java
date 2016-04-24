@@ -5,7 +5,8 @@ import java.util.Arrays;
 /**
  * Created by zzt on 4/22/16.
  * <p>
- * Usage:
+ * <h3>Rotation usage</h3>
+ * <li>swapping adjacent blocks of memory of unequal size</li>
  */
 public class RotateArray<T> {
     enum Direction {

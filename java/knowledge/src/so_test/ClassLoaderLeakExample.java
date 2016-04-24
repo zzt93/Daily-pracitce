@@ -81,6 +81,8 @@ public final class ClassLoaderLeakExample {
                 return super.loadClass(name, resolve);
             }
             try {
+                Path cwd = Paths.get(".").toAbsolutePath().normalize();
+
                 Path path = Paths.get(LoadedInChildClassLoader.class.getName()
                         + ".class");
                 byte[] classBytes = Files.readAllBytes(path);
