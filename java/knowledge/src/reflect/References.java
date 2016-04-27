@@ -27,11 +27,11 @@ class VeryBig {
  * Created by zzt on 3/22/16.
  * <p>
  * <h3>Behaviour</h3>
+ * <li>phantom referenced object are just discarded</li>
  * <li>only weakly referenced object are GCed after {@link System#gc()}</li>
- * <li>phantom referenced object are just discarded and enqueued</li>
  * <h3>Question</h3>
- * <li>Why weakly referenced object not enqueued </li>
- * <li></li>
+ * <li>Why not all weakly referenced object enqueued </li>
+ * <li>Why phantom not enqueued? it will be enqueued after finalize() and memory reclaimed</li>
  */
 public class References {
     private static ReferenceQueue<VeryBig> rq =
@@ -40,7 +40,8 @@ public class References {
     public static void checkQueue() {
         Reference<? extends VeryBig> inq = rq.poll();
         if (inq != null)
-            System.out.println("In queue: " + inq.get());
+            System.out.println(inq.getClass().getSimpleName()
+                    + " In queue; referent: " + inq.get());
     }
 
     public static void main(String[] args) {
@@ -57,6 +58,7 @@ public class References {
             System.out.println("Just created: " + sa.getLast());
             checkQueue();
         }
+        System.gc();
         LinkedList<WeakReference<VeryBig>> wa =
                 new LinkedList<>();
         for (int i = 0; i < size; i++) {
