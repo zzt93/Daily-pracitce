@@ -33,7 +33,7 @@ public class UseReferenceQueue {
 
 class ReferenceWithCleanUp<T, V> extends WeakReference<T> {
 
-    private final V v;
+    private V v;
 
     public ReferenceWithCleanUp(T referent, ReferenceQueue<? super T> q, V v) {
         super(referent, q);
@@ -42,5 +42,6 @@ class ReferenceWithCleanUp<T, V> extends WeakReference<T> {
 
     public void cleanUp() {
         // clean up value
+        this.v = null;
     }
 }

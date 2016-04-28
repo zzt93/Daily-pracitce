@@ -1,6 +1,7 @@
 package pearls;
 
 import competition.utility.MyIn;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -10,17 +11,24 @@ import java.util.concurrent.atomic.LongAdder;
 
 /**
  * Created by zzt on 4/24/16.
+ * <h2>Problem: classification</h2>
  * <p>
- * Usage:
+ *     given a dictionary, find all anagram(equivalent class in which words are
+ *     permutations of each other.)
+ * </p>
+ * <h3>Core idea</h3>
+ * make every equivalent class have the same signature so as to reduce the
+ * comparison, i.e. I just need to compare the element have same signature
+ * (in this case, I use the sum of all chars)
  */
 public class Anagrams {
 
     private final Collection<LinkedList<Word>> values;
 
-    private class Word {
+    static class Word {
         private TreeMap<Character, LongAdder> counts
                 = new TreeMap<>();
-        private long value = 0;
+        private long signature = 0;
         private String str;
         private long len = 0;
 
@@ -28,16 +36,19 @@ public class Anagrams {
             str = str.toLowerCase();
             for (char c : str.toCharArray()) {
                 counts.computeIfAbsent(c, k -> new LongAdder()).increment();
-                value += c;
+                signature += c;
             }
             len = str.length();
             this.str = str;
         }
 
         public boolean permutation(Word word) {
-            if (len != word.len) return false;
+            return len == word.len && wordCompare(word);
+        }
+
+        private boolean wordCompare(Word word) {
             if (counts.size() != word.counts.size()) return false;
-            if (value != word.value) return false;
+            if (signature != word.signature) return false;
             Set<Map.Entry<Character, LongAdder>> entries = counts.entrySet();
             Set<Map.Entry<Character, LongAdder>> other = word.counts.entrySet();
             Iterator<Map.Entry<Character, LongAdder>> iterator = entries.iterator();
@@ -53,23 +64,41 @@ public class Anagrams {
             return true;
         }
 
-        public long getValue() {
-            return value;
+        public long getSignature() {
+            return signature;
+        }
+
+        public String getStr() {
+            return str;
+        }
+
+        public boolean lazyCompare(String s) {
+            if (len != s.length()) {
+                return false;
+            }
+            Word tmp = new Word(s);
+            return wordCompare(tmp);
         }
     }
 
     public Anagrams(ArrayList<String> strings) {
-        HashMap<Long, LinkedList<Word>> valueToWords = new HashMap<>();
-        for (String s : strings) {
-            Word word = new Word(s);
-            valueToWords.computeIfAbsent(word.getValue(), w -> new LinkedList<>()).add(word);
-        }
+        HashMap<Long, LinkedList<Word>> valueToWords = processDictionary(strings);
         values = new ArrayList<>();
         for (Long value : valueToWords.keySet()) {
             LinkedList<Word> words = valueToWords.get(value);
             splitList(words, values);
         }
 
+    }
+
+    @NotNull
+    static HashMap<Long, LinkedList<Word>> processDictionary(ArrayList<String> strings) {
+        HashMap<Long, LinkedList<Word>> valueToWords = new HashMap<>();
+        for (String s : strings) {
+            Word word = new Word(s);
+            valueToWords.computeIfAbsent(word.getSignature(), w -> new LinkedList<>()).add(word);
+        }
+        return valueToWords;
     }
 
     private void splitList(LinkedList<Word> words, Collection<LinkedList<Word>> res) {
@@ -92,8 +121,8 @@ public class Anagrams {
 
     public static void main(String[] args) throws FileNotFoundException {
         ArrayList<String> test = new ArrayList<>();
-        Path path = Paths.get(".").toAbsolutePath().normalize();
-        System.out.println(path);
+//        Path path = Paths.get(".").toAbsolutePath().normalize();
+//        System.out.println(path);
         MyIn in = new MyIn("testCase/words");
         int count = 0;
         while (in.hasNext()) {

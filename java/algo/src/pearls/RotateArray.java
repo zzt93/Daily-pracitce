@@ -1,7 +1,5 @@
 package pearls;
 
-import java.util.Arrays;
-
 /**
  * Created by zzt on 4/22/16.
  * <p>
@@ -9,6 +7,10 @@ import java.util.Arrays;
  * <li>swapping adjacent blocks of memory of unequal size</li>
  */
 public class RotateArray<T> {
+
+    public static final int N = 3000;
+    public static final int SIZE = 10000;
+
     enum Direction {
         LEFT {
             @Override
@@ -48,6 +50,7 @@ public class RotateArray<T> {
         }
 
         public Rotation minimize(int len) {
+            assert dis <= len;
             if (len < dis * 2) {
                 return new Rotation(len - dis, dir.reverse());
             }
@@ -63,8 +66,18 @@ public class RotateArray<T> {
 
     public T[] rotate(Direction direction, int n) {
         Rotation rotation = minimizeDistance(array.length, new Rotation(n, direction));
-        rotate(rotation, array);
-        //        reverseRotate(rotation, array);
+        jugglingRotate(rotation, array);
+        return array;
+    }
+
+    public T[] rotate2(Direction direction, int n) {
+        Rotation rotation = minimizeDistance(array.length, new Rotation(n, direction));
+        reverseRotate(rotation, array);
+        return array;
+    }
+
+    public T[] rotate3(Direction direction, int n) {
+        Rotation rotation = minimizeDistance(array.length, new Rotation(n, direction));
         dynamicRotate(rotation, array);
         return array;
     }
@@ -118,10 +131,10 @@ public class RotateArray<T> {
 
     private void recursiveRotate(T[] array, int start, int end, Rotation rotation) {
         int len = end - start;
-        if (len <= 1) {
+        Rotation real = rotation.minimize(len);
+        if (real.getDis() <= 0) {
             return;
         }
-        Rotation real = rotation.minimize(len);
         blockSwap(array, start, end - real.dis, real.dis);
         int nextS;
         int nextE;
@@ -151,7 +164,7 @@ public class RotateArray<T> {
      * @implNote classify the number into n types according to their reminder
      * when divide to n
      */
-    private void rotate(Rotation rotation, T[] array) {
+    private void jugglingRotate(Rotation rotation, T[] array) {
         int length = array.length;
         int n = GCD(length, rotation.dis);
         int dis = rotation.dis;
@@ -188,27 +201,27 @@ public class RotateArray<T> {
         }
     }
 
-//    private T[] leftRotate(T arr[], int d) {
-//        int n = arr.length;
-//        int i, j, k;
-//        T temp;
-//        int gcd = GCD(d, n);
-//        for (i = 0; i < gcd; i++) {
-//            temp = arr[i];
-//            j = i;
-//            while (true) {
-//                k = j + d;
-//                if (k >= n)
-//                    k = k - n;
-//                if (k == i)
-//                    break;
-//                arr[j] = arr[k];
-//                j = k;
-//            }
-//            arr[j] = temp;
-//        }
-//        return arr;
-//    }
+    //    private T[] leftRotate(T arr[], int d) {
+    //        int n = arr.length;
+    //        int i, j, k;
+    //        T temp;
+    //        int gcd = GCD(d, n);
+    //        for (i = 0; i < gcd; i++) {
+    //            temp = arr[i];
+    //            j = i;
+    //            while (true) {
+    //                k = j + d;
+    //                if (k >= n)
+    //                    k = k - n;
+    //                if (k == i)
+    //                    break;
+    //                arr[j] = arr[k];
+    //                j = k;
+    //            }
+    //            arr[j] = temp;
+    //        }
+    //        return arr;
+    //    }
 
     private int GCD(int a, int b) {
         if (b == 0) {
@@ -231,16 +244,38 @@ public class RotateArray<T> {
     }
 
     public static void main(String[] args) {
-        int size = 10;
+        for (int i = 100; i < SIZE; i += 100) {
+            test(i, i / 3);
+        }
+    }
+
+    private static void test(int size, int n) {
         Integer[] integers = new Integer[size];
         for (int i = 0; i < size; i++) {
             integers[i] = i + 1;
         }
         RotateArray<Integer> rotateArray = new RotateArray<>(integers);
-        //        System.out.println(Arrays.toString(rotateArray.leftRotate(integers, 3)));
-//        rotateArray.rotate(Direction.LEFT, 3);
-//        System.out.println(Arrays.toString(rotateArray.array));
-        rotateArray.rotate(Direction.RIGHT, 3);
-        System.out.println(Arrays.toString(rotateArray.array));
+        warmUp(rotateArray);
+        System.out.println(size + ":");
+        long start = System.nanoTime();
+        rotateArray.rotate(Direction.RIGHT, n);
+        System.out.println("juggling " + (System.nanoTime() - start));
+        //        System.out.println(Arrays.toString(rotateArray.array));
+
+        start = System.nanoTime();
+        rotateArray.rotate2(Direction.RIGHT, n);
+        System.out.println("reverse " + (System.nanoTime() - start));
+        //        System.out.println(Arrays.toString(rotateArray.array));
+
+        start = System.nanoTime();
+        rotateArray.rotate3(Direction.RIGHT, n);
+        System.out.println("dynamic " + (System.nanoTime() - start));
+        //        System.out.println(Arrays.toString(rotateArray.array));
+
+        System.out.println("------------");
+    }
+
+    private static void warmUp(RotateArray<Integer> rotateArray) {
+        rotateArray.rotate(Direction.LEFT, 200);
     }
 }
