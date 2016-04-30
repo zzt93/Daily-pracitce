@@ -1,5 +1,8 @@
 package pearls;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 /**
  * Created by zzt on 4/22/16.
  * <p>
@@ -105,12 +108,21 @@ public class RotateArray<T> {
     }
 
     private void reverse(T[] array, int start, int len) {
-        if (len <= 1) {
-            return;
+        reverseFor(array, start, len);
+//        if (len <= 1) {
+//            return;
+//        }
+//        int last = start + len - 1;
+//        swap(array, start, last);
+//        reverse(array, start + 1, len - 2);
+    }
+
+    private void reverseFor(T[] array, int start, int len) {
+        for (int i = 0; i < len / 2; i++) {
+            int f = i + start;
+            int last = start + len - i - 1;
+            swap(array, f, last);
         }
-        int last = start + len - 1;
-        swap(array, start, last);
-        reverse(array, start + 1, len - 2);
     }
 
     private void swap(T[] array, int t, int i) {
@@ -243,7 +255,9 @@ public class RotateArray<T> {
         return new Rotation(n, dir);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        System.in.read();
+
         for (int i = 100; i < SIZE; i += 100) {
             test(i, i / 3);
         }
@@ -265,7 +279,7 @@ public class RotateArray<T> {
         start = System.nanoTime();
         rotateArray.rotate2(Direction.RIGHT, n);
         System.out.println("reverse " + (System.nanoTime() - start));
-        //        System.out.println(Arrays.toString(rotateArray.array));
+//                System.out.println(Arrays.toString(rotateArray.array));
 
         start = System.nanoTime();
         rotateArray.rotate3(Direction.RIGHT, n);
