@@ -1,43 +1,52 @@
-package jcip.cancel;
+package jcip.cancel.test;
 
 import jcip.buildingBlock.Cache;
-import so_test.ClassLoaderLeakExample;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.concurrent.*;
+import java.util.logging.Logger;
 
 /**
  * Created by zzt on 4/29/16.
  * <p>
- * Usage:
+ * Usage: stop a job when it is time-out
  */
 public class TestFramework {
 
-    public static final String SOLUTION = "Solution";
+    private static final String TESTER = "Tester";
     private static ScheduledExecutorService service
-             = Executors.newScheduledThreadPool(10);
+            = Executors.newScheduledThreadPool(10);
 
     /**
      * Load class from a directory then test
      */
-    public void loadAndTest() {
+    public void loadAndTest(String className) {
         // classLoader
-        SolutionClassLoader loader = new SolutionClassLoader();
+        TesterClassLoader loader = new TesterClassLoader();
+        Tester tester;
         try {
-            Class<?> aClass = loader.loadClass(SOLUTION, true);
-            Object solution = aClass.newInstance();
+            Class<?> aClass = loader.loadClass(className, true);
+            tester = (Tester) aClass.newInstance();
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("Can't find this class: " + className);
         } catch (InstantiationException e) {
-            e.printStackTrace();
+            throw new IllegalArgumentException("This class has no default constructor");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
+            throw new IllegalArgumentException("Don't have access right");
         }
+        long start = System.nanoTime();
+        try {
+            timedRun(tester::test, TimeUnit.SECONDS, 1L);
+        } catch (InterruptedException e) {
+            System.out.println("Time limit exceed");
+            return;
+        }
+        System.out.println("class: " + className + ";" + (System.nanoTime() - start));
 
-        // reflect
     }
 
     public static void timedRun(Runnable r, TimeUnit unit,
@@ -53,21 +62,19 @@ public class TestFramework {
         }
     }
 
-    private static final class SolutionClassLoader extends ClassLoader {
-        SolutionClassLoader() {
+    private static final class TesterClassLoader extends ClassLoader {
+        TesterClassLoader() {
             super(TestFramework.class.getClassLoader());
         }
 
         @Override
         protected Class<?> loadClass(String name, boolean resolve)
                 throws ClassNotFoundException {
-            if (!SOLUTION.equals(name)) {
+            if (!TESTER.equals(name)) {
                 return super.loadClass(name, resolve);
             }
             try {
-                Path cwd = Paths.get(".").toAbsolutePath().normalize();
-
-                Path path = Paths.get("Solution.class");
+                Path path = Paths.get(name + ".class");
                 byte[] classBytes = Files.readAllBytes(path);
                 Class<?> c = defineClass(name, classBytes, 0, classBytes.length);
                 if (resolve) {
