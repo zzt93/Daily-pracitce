@@ -32,7 +32,7 @@ public class StaffInfo implements StaffInfoService {
     @Override
     public boolean login(int sid, String pw, int type) {
         Staff staff = em.find(Staff.class, sid);
-        return staff.getPw().equals(pw) && staff.getType() == type;
+        return staff != null && staff.getPw().equals(pw) && staff.getType() == type;
     }
 
     @Override

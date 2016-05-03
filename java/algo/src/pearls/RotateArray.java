@@ -1,7 +1,6 @@
 package pearls;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Created by zzt on 4/22/16.
@@ -30,7 +29,7 @@ public class RotateArray<T> {
         public abstract Direction reverse();
     }
 
-    private class Rotation {
+    static class Rotation {
         private int dis;
         private Direction dir;
 
@@ -125,7 +124,7 @@ public class RotateArray<T> {
         }
     }
 
-    private void swap(T[] array, int t, int i) {
+    private static <T> void swap(T[] array, int t, int i) {
         T tmp = array[t];
         array[t] = array[i];
         array[i] = tmp;
@@ -141,27 +140,27 @@ public class RotateArray<T> {
         recursiveRotate(array, 0, array.length, rotation);
     }
 
-    private void recursiveRotate(T[] array, int start, int end, Rotation rotation) {
-        int len = end - start;
+    static <T> void recursiveRotate(T[] array, int arrayStart, int arrayEnd, Rotation rotation) {
+        int len = arrayEnd - arrayStart;
         Rotation real = rotation.minimize(len);
         if (real.getDis() <= 0) {
             return;
         }
-        blockSwap(array, start, end - real.dis, real.dis);
+        blockSwap(array, arrayStart, arrayEnd - real.dis, real.dis);
         int nextS;
         int nextE;
         if (real.getDir() == Direction.LEFT) {
-            nextS = start;
-            nextE = end - real.getDis();
+            nextS = arrayStart;
+            nextE = arrayEnd - real.getDis();
         } else {
-            nextS = start + real.getDis();
-            nextE = end;
+            nextS = arrayStart + real.getDis();
+            nextE = arrayEnd;
         }
         recursiveRotate(array, nextS, nextE, real);
     }
 
 
-    private void blockSwap(T[] array, int f, int s, int len) {
+    private static <T> void blockSwap(T[] array, int f, int s, int len) {
         assert f + len <= s;
         for (int i = f; i < f + len; i++) {
             swap(array, i, s);

@@ -8,7 +8,7 @@ package pearls;
  * <li>rules must be applied in order in file, i.e. the previous rule have high priority</li>
  *
  * <h3>Solution</h3>
- * <ui>A reversed mapping trie of all rules: suffix map to priority</ui>
+ * <ui>A reversed mapping trie of all rules: suffix => priority</ui>
  * <li>if the word can reach the end: finish</li>
  * <li>if the word can't reach end:find deepest node it can reach</li>
  * <h3>Explanation</h3>

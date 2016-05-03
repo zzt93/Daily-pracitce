@@ -2,11 +2,17 @@ package competition.utility;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 3/30/15.
  */
 public class ArrayUtility {
+
+    private static Random random = new Random();
 
     public static int[] arraylist_to_array_int(ArrayList<Integer> integers) {
         int[] res = new int[integers.size()];
@@ -63,9 +69,14 @@ public class ArrayUtility {
         return -1;
     }
 
-    public static <T extends Comparable<T>> boolean isSorted(ArrayList<T> ts, boolean ascending) {
-        for (int i = 1; i < ts.size(); i++) {
-            int res = ts.get(i - 1).compareTo(ts.get(i));
+    public static <T extends Comparable<T>> boolean isSorted(List<T> ts, boolean ascending) {
+        final ListIterator<T> it = ts.listIterator();
+        it.next();
+        while (it.hasNext()) {
+            final T pre = it.previous();
+            it.next();
+            final T next = it.next();
+            int res = pre.compareTo(next);
             if (ascending) {
                 if (res > 0) {
                     return false;
@@ -77,6 +88,24 @@ public class ArrayUtility {
             }
         }
         return true;
+    }
+
+    public static Integer[] randomInts(long seed, long streamSize, int randomNumberOrigin,
+                                       int randomNumberBound) {
+        random.setSeed(seed);
+        return random
+                .ints(streamSize, randomNumberOrigin, randomNumberBound)
+                .boxed()
+                .collect(Collectors.toList()).toArray(new Integer[0]);
+    }
+
+    public ArrayList<Integer> randomIntList(long seed, long streamSize, int randomNumberOrigin,
+                                            int randomNumberBound) {
+        random.setSeed(seed);
+        return random
+                .ints(streamSize, randomNumberOrigin, randomNumberBound)
+                .boxed()
+                .collect(Collectors.toCollection(ArrayList<Integer>::new));
     }
 
     public static void main(String[] args) {
