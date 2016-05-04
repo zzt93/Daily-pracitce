@@ -21,6 +21,7 @@ import java.nio.file.Paths;
  * <p>This class is implemented using some Java 8 features, mainly for
  * convenience in doing I/O. The same basic mechanism works in any version
  * of Java since 1.2.
+ * 
  */
 public final class ClassLoaderLeakExample {
 
@@ -81,9 +82,12 @@ public final class ClassLoaderLeakExample {
                 return super.loadClass(name, resolve);
             }
             try {
-                Path cwd = Paths.get(".").toAbsolutePath().normalize();
+//                Path cwd = Paths.get(".").toAbsolutePath().normalize();
 
-                Path path = Paths.get(LoadedInChildClassLoader.class.getName()
+                String className = LoadedInChildClassLoader.class.getName();
+                className = className.replace('.', '/');
+                Path path = Paths.get("./out/production/knowledge/" +
+                        className
                         + ".class");
                 byte[] classBytes = Files.readAllBytes(path);
                 Class<?> c = defineClass(name, classBytes, 0, classBytes.length);
@@ -116,6 +120,13 @@ public final class ClassLoaderLeakExample {
 
     /**
      * An innocuous-looking class. Doesn't do anything interesting.
+     *
+     * <h3>Explanation for why can't be GCed</h3>
+     * <li>`-=` represent the reference direction</li>
+     * <pre>
+     * Thread -= ThreadLocalMap -= Entry -= ThreadLocal =---
+     *                                 \                    \
+     *                                  -= LargeClassObj -= LargeClass -= ClassLoader</pre>
      */
     public static final class LoadedInChildClassLoader {
         // Grab a bunch of bytes. This isn't necessary for the leak, it just

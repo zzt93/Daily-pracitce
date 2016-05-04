@@ -38,6 +38,7 @@ public class Sort {
             // now == large or a[large] <= pivot
             if (now == large) {
                 if (a[now - 1].compareTo(pivot) > 0) {
+                    // a[now-1] > pivot, invariant broken, so fix it
                     now--;
                     large--;
                 }

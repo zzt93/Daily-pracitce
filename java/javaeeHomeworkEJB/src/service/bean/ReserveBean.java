@@ -44,6 +44,7 @@ public class ReserveBean implements ReserveService {
                 .setParameter(2, reserveBranchVO.getBdate());
         for (RDBranchVO rdBranchVO : reserveBranchVO.getDetails().values()) {
             int did = rdBranchVO.getDid();
+            // TODO: 5/4/16 duplicate goods make crash ?
             PlanDetail detail = query.setParameter(3, did).getSingleResult();
             map.put(did, detail);
             Integer planNum = detail.getNum();

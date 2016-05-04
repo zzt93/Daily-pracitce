@@ -60,7 +60,7 @@ function initDragDrop() {
     //$('img.dessert').bind('dragstart', handleDragStart);
     var cols = document.querySelectorAll('img.dessert');
     [].forEach.call(cols, function (col) {
-        col.addEventListener('dragstart', handleDragStart, false);
+        col.addEventListener('dragstart', handleDragStart, true);
     });
 
 
