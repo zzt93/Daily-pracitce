@@ -69,6 +69,9 @@ public final class ClassLoaderLeakExample {
      * class each time (instead of reusing the class loaded by the system
      * class loader). If this child class were in a JAR file that wasn't
      * part of the system classpath, we wouldn't need this mechanism.
+     *
+     * @see {@link ClassLoader#loadClass(String, boolean)}
+     * @see {@link java.net.URLClassLoader#findClass(String)}
      */
     static final class ChildOnlyClassLoader extends ClassLoader {
         ChildOnlyClassLoader() {
