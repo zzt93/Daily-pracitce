@@ -1,5 +1,6 @@
 package jcip.threadPools.puzzle;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +11,10 @@ import java.util.Set;
  */
 public class SequentialPuzzleSolver<P, M> implements PuzzleSolver<P, M> {
     private final Puzzle<P, M> puzzle;
-    private final Set<P> visited;
+    private final Set<P> visited = new HashSet<>();
 
-    public SequentialPuzzleSolver(Puzzle<P, M> puzzle, Set<P> visited) {
+    public SequentialPuzzleSolver(Puzzle<P, M> puzzle) {
         this.puzzle = puzzle;
-        this.visited = visited;
     }
 
     @Override
