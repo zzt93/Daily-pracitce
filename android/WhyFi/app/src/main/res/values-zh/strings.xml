@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="action_settings">设置</string>
+    <string name="navigation_drawer_close">关闭</string>
+    <string name="navigation_drawer_open">打开</string>
+    <string name="camera"></string>
+    <string name="app_name" translatable="false"></string>
+    <string name="error_field_required">请输入设备名</string>
+</resources>

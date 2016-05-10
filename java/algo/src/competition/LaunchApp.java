@@ -23,7 +23,7 @@ public class LaunchApp {
             return;
         }
         int trail = in.nextInt();
-        ArrayList<Integer> res;
+        ArrayList<ServerTest> res;
         for (int i = 0; i < trail; i++) {
 
             final int appNum = in.nextInt();
@@ -37,8 +37,8 @@ public class LaunchApp {
         }
     }
 
-    private static ArrayList<Integer> launch(int appNum, ArrayList<ArrayList<Integer>> all) {
-        ArrayList<Integer> res = new ArrayList<>();
+    private static ArrayList<ServerTest> launch(int appNum, ArrayList<ArrayList<Integer>> all) {
+        ArrayList<ServerTest> res = new ArrayList<>();
         ArrayList<Server> tmp = new ArrayList<>(all.size());
         for (ArrayList<Integer> integers : all) {
             final Server e = new Server(integers.get(0));
@@ -50,12 +50,15 @@ public class LaunchApp {
         Collections.sort(tmp);
         HashSet<Integer> count = new HashSet<>();
         for (Server server : tmp) {
-            Integer miniumApp = server.getMiniumApp();
-            while (count.contains(miniumApp)) {
-                miniumApp = server.getMiniumApp();
+            Integer minimumApp = server.getMinimumApp();
+            while (count.contains(minimumApp)) {
+                minimumApp = server.getMinimumApp();
             }
-            res.add(miniumApp);
-            count.addAll(server.tmp);
+            if (minimumApp == null) {
+                continue;
+            }
+            res.add(new ServerTest(server.dis, minimumApp));
+            count.addAll(server.backUp);
             if (count.size() == appNum) {
                 break;
             }
@@ -66,8 +69,8 @@ public class LaunchApp {
     private static class Server implements Comparable<Server>{
 
         private final Integer dis;
-        private TreeSet<Integer> apps = new TreeSet<>();
-        private TreeSet<Integer> tmp = new TreeSet<>();
+        private PriorityQueue<Integer> apps = new PriorityQueue<>();
+        private ArrayList<Integer> backUp = new ArrayList<>();
 
         public Server(Integer dis) {
             this.dis = dis;
@@ -75,18 +78,34 @@ public class LaunchApp {
 
         public void add(Integer app) {
             apps.add(app);
-            tmp.add(app);
+            backUp.add(app);
         }
 
-        public Integer getMiniumApp() {
-            final Integer first = apps.first();
-            apps.remove(first);
-            return first;
+        public Integer getMinimumApp() {
+            return apps.poll();
         }
 
         @Override
         public int compareTo(Server o) {
             return Integer.compare(dis, o.dis);
+        }
+    }
+
+    private static class ServerTest {
+        private final int dis;
+        private final int app;
+
+        public ServerTest(Integer dis, Integer minimumApp) {
+            this.dis = dis;
+            this.app = minimumApp;
+        }
+
+        @Override
+        public String toString() {
+            return "ServerTest{" +
+                    "dis=" + dis +
+                    ", app=" + app +
+                    '}';
         }
     }
 }

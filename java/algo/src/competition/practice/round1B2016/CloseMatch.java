@@ -2,10 +2,13 @@ package competition.practice.round1B2016;
 
 import competition.utility.MyIn;
 import competition.utility.MyOut;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Objects;
 
 /**
  * Created by zzt on 5/7/16.
@@ -27,8 +30,8 @@ public class CloseMatch {
     private static final char QUES = '?';
 
     public static String[] closeMatch(String coder, String jammer) {
-        final char[] c = coder.toCharArray();
-        final char[] j = jammer.toCharArray();
+        char[] c = coder.toCharArray();
+        char[] j = jammer.toCharArray();
         Compare res = Compare.UNKNOWN;
         int index;
         for (index = 0; index < c.length; index++) {
@@ -52,8 +55,8 @@ public class CloseMatch {
             char[] small = j;
             res = Compare.CODER;
             if (c[index] < j[index]) {
-                large = c;
-                small = j;
+                large = j;
+                small = c;
                 res = Compare.JAMMER;
             }
             for (int i = 0; i < index; i++) {
@@ -85,14 +88,13 @@ public class CloseMatch {
                 int mul = 1;
                 for (int i = index; i < c.length; i++) {
                     if (c[i] == QUES || j[i] == QUES) {
+                        mul *= 10;
                         continue;
                     }
                     final int mis = c[i] - j[i];
-                    boolean positive = false;
                     for (ListIterator<Integer> it = gaps.listIterator(); it.hasNext(); ) {
                         int gap = it.next() * 10;
                         gap += mis;
-                        positive = gap > 0;
                         if (Math.abs(gap) <= 5 * mul) {
                             it.set(gap);
                         } else {
@@ -100,17 +102,17 @@ public class CloseMatch {
                         }
                     }
                     assert gaps.size() >= 1;
-//                    if (gaps.size() == 0) {
-//                        if (positive) {
-//                            setUnknown(c, j, index);
-//                        } else {
-//                            setUnknown(j, c, index);
-//                        }
-//                        return new String[]{
-//                                new String(c),
-//                                new String(j)
-//                        };
-//                    } else
+                    //                    if (gaps.size() == 0) {
+                    //                        if (positive) {
+                    //                            setUnknown(c, j, index);
+                    //                        } else {
+                    //                            setUnknown(j, c, index);
+                    //                        }
+                    //                        return new String[]{
+                    //                                new String(c),
+                    //                                new String(j)
+                    //                        };
+                    //                    } else
                     if (gaps.size() == 1) {
                         if (gaps.getFirst() > 0) { // coder win
                             setUnknown(c, j, index);
@@ -125,10 +127,40 @@ public class CloseMatch {
                     mul *= 10;
                 }
                 // gap is equal, choose a small one
-                if (c[index] > j[index]) {
-                    setUnknown(c, j, index);
+                final char[] cCopy = Arrays.copyOf(c, c.length);
+                final char[] cCopy2 = Arrays.copyOf(c, c.length);
+                final char[] jCopy = Arrays.copyOf(j, j.length);
+                final char[] jCopy2 = Arrays.copyOf(j, j.length);
+                setUnknown(cCopy, jCopy, index);
+                setUnknown(jCopy2, cCopy2, index);
+                @NotNull final Integer c1 = getInteger(cCopy);
+                @NotNull final Integer c2 = getInteger(cCopy2);
+                @NotNull final Integer j1 = getInteger(jCopy);
+                @NotNull final Integer j2 = getInteger(jCopy2);
+                if (Math.abs(c1 - j1) < Math.abs(c2 - j2)) {
+                    c = cCopy;
+                    j = jCopy;
+                } else if (Math.abs(c1 - j1) > Math.abs(c2 - j2)) {
+                    c = cCopy;
+                    j = jCopy;
                 } else {
-                    setUnknown(j, c, index);
+                    if (c1 < c2) {
+                        c = cCopy;
+                        j = jCopy;
+                    } else {
+                        if (Objects.equals(c1, c2)) {
+                            if (j1 < j2) {
+                                c = cCopy;
+                                j = jCopy;
+                            } else {
+                                c = cCopy2;
+                                j = jCopy2;
+                            }
+                        } else {
+                            c = cCopy2;
+                            j = jCopy2;
+                        }
+                    }
                 }
                 break;
             }
@@ -140,9 +172,11 @@ public class CloseMatch {
         };
     }
 
-    private static boolean canGetNegative(char[] c, char[] j, int index) {
-        return ((c[index - 1] != QUES) || (j[index - 1] != '0')) && (j[index - 1] != QUES || c[index - 1] != '9');
+    @NotNull
+    private static Integer getInteger(char[] cCopy) {
+        return new Integer(new String(cCopy));
     }
+
 
     private static void setUnknown(char[] large, char[] small, int index) {
         // set [0, index - 1)
@@ -153,9 +187,17 @@ public class CloseMatch {
             large[index - 1] = (char) (MIN + addOn);
             small[index - 1] = MIN;
         } else if (large[index - 1] == QUES) {
-            large[index - 1] = (char) (small[index - 1] + addOn);
+            int i = index - 1;
+            while (addOn == 1 && small[i] == '9') {
+                large[i--] = '0';
+            }
+            large[i] = (char) (small[i] + addOn);
         } else if (small[index - 1] == QUES) {
-            small[index - 1] = (char) (large[index - 1] - addOn);
+            int i = index - 1;
+            while (addOn == 1 && large[i] == '0') {
+                small[i--] = '9';
+            }
+            small[i] = (char) (large[i] - addOn);
         }
         for (int in = index + 1; in < large.length; in++) {
             setQuestion(large, MIN, small, MAX, index + 1);

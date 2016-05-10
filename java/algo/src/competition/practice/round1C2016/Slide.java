@@ -12,15 +12,25 @@ import java.util.LinkedList;
 /**
  * Created by zzt on 5/8/16.
  * <p>
- * Usage:
+ * <h3>Conclusion:</h3>
+ * <li>dynamic thinking in graph</li>
+ * <li>recursive thinking in graph</li>
+ * <p>You know from 1 to B is at most 2^B-2 paths, so 2 to B is 2^B-3, 3 to B is 2^B-4...
+ * Then choose to connect 2 and/or 3 and/or ...
+ * </p>
+ * <p>very much like the thought of minimal spanning tree/ shortest path: divide a large
+ * problem into smaller one. What a little difference is here we merge the latter part
+ * rather than starting part.
+ * </p>
  */
+@Deprecated
 public class Slide {
 
     public static void main(String[] args) {
         MyIn in;
         MyOut out = new MyOut("res");
         try {
-            in = new MyIn("testCase/slide-small-practice.in");//TODO add file name
+            in = new MyIn("testCase/slide-small-practice.in");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
