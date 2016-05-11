@@ -6,7 +6,8 @@ import java.util.function.BiFunction;
 /**
  * Created by zzt on 4/4/16.
  * <p>
- * Usage:
+ * Essence: find a string in another string
+ * <li>relationship with palindrome: bcdaabcd</li>
  */
 public class LCSubstring {
 

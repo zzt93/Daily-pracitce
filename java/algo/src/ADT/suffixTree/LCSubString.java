@@ -7,9 +7,13 @@ package ADT.suffixTree;
  */
 public class LCSubString {
     public static void main(String[] args) {
-        String bcacb = "bcacb";
-        //        lcs1(bcacb);
-        System.out.println(lcs2(bcacb));
+        String src = "src";
+        //        lcs1(src);
+        final String res = lcs2(src);
+        if (src.indexOf(res) != src.lastIndexOf(res)) {
+            System.out.println("not palindrome");
+        }
+        System.out.println(res);
 
     }
 
