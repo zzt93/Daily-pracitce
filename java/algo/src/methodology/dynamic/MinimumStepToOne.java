@@ -23,7 +23,7 @@ import java.util.Arrays;
  * 3.)For n = 7 , output: 3  (  7  -1 = 6   /3 = 2   /2 = 1 )
  * </pre>
  */
-public class MinimumStepOne {
+public class MinimumStepToOne {
 
     private static final int SIZE = 10001;
     /**
@@ -77,7 +77,7 @@ public class MinimumStepOne {
     }
 
     public static void main(String[] args) {
-        final Integer[] integers = ArrayUtility.randomInts(23, 10, 1, 10000);
+        final Integer[] integers = ArrayUtility.randomIntegers(23, 10, 1, 10000);
         for (Integer i : integers) {
             System.out.println(i + ":" + minimumStepMem(i));
         }

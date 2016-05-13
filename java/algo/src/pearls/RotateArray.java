@@ -7,11 +7,15 @@ import java.io.IOException;
  * <p>
  * <h3>Rotation usage</h3>
  * <li>swapping adjacent blocks of memory of unequal size</li>
+ * <h3>Relationship with reverse</h3>
+ * <li>rotation can be implemented by reverse: ab -- a^r b^r -- (a^r b^r)^r -- ba</li>
+ * <li>reverse can also be implemented by rotation: ab -- ba -- recursive with small part
+ * with `b` and `a`</li>
  */
 public class RotateArray<T> {
 
     public static final int N = 3000;
-    public static final int SIZE = 10000;
+    private static final int SIZE = 10000;
 
     enum Direction {
         LEFT {

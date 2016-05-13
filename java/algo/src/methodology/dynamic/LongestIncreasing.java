@@ -1,6 +1,8 @@
 package methodology.dynamic;
 
-import java.util.ArrayList;
+import competition.utility.ArrayUtility;
+
+import java.util.Arrays;
 
 /**
  * Created by zzt on 5/11/16.
@@ -18,15 +20,41 @@ import java.util.ArrayList;
  * not to be the start anymore.
  * </li>
  * <li>Constraint: in the worst case( in reverse order), time complexity is still O(n^2)</li>
+ * <li>Wrong: longer lis is calculated from short one, so can't make this</li>
  * <p>
  * <ul>convert to lcs</ul>
  * <li>sort the input to produce an increasing sequence</li>
  * <li>compute the lcs of this two sequence</li>
+ *
+ * <ul>dynamic way</ul>
+ * <li>provided lis[0...i], lis[i+1] can be computed by try to become the last
+ * element of all previous lis
+ * </li>
  */
 public class LongestIncreasing {
 
-    public static ArrayList<Integer> lis(int[] se) {
-        ArrayList<Integer> res = new ArrayList<>();
+    public static int lis(Integer[] se) {
+        int res = 0;
+        int[] lis = new int[se.length];
+        lis[0] = 1;
+        for (int last = 1; last < se.length; last++) {
+            for (int j = 0; j < last; j++) {
+                if (se[last] > se[j] && lis[last] < lis[j] + 1) {
+                    lis[last] = lis[j] + 1;
+                }
+            }
+        }
+        for (int i : lis) {
+            if (res < i) {
+                res = i;
+            }
+        }
         return res;
+    }
+
+    public static void main(String[] args) {
+        final Integer[] ints = ArrayUtility.randomIntegers(23, 10, 0, 1000);
+        System.out.println(Arrays.toString(ints));
+        System.out.println(lis(ints));
     }
 }

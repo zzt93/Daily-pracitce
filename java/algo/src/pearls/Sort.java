@@ -90,7 +90,7 @@ public class Sort {
 
     public static void main(String[] args) {
         //        splitTest();
-        final Integer[] a = ArrayUtility.randomInts(12, 100, 0, 1000);
+        final Integer[] a = ArrayUtility.randomIntegers(12, 100, 0, 1000);
         System.out.println(Arrays.toString(a));
         mergeSortLoop(a);
         System.out.println(Arrays.toString(a));
@@ -104,7 +104,7 @@ public class Sort {
         Integer[] t2 = {7, 6, 5, 4, 3, 2, 1};
         System.out.println(split(t2, 0, t2.length));
         System.out.println(Arrays.toString(t2));
-        Integer[] t3 = ArrayUtility.randomInts(32, 10, 0, 10);
+        Integer[] t3 = ArrayUtility.randomIntegers(32, 10, 0, 10);
         System.out.println(split(t3, 0, t3.length));
         System.out.println(Arrays.toString(t3));
     }

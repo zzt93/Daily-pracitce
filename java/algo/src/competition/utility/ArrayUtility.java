@@ -90,13 +90,21 @@ public class ArrayUtility {
         return true;
     }
 
-    public static Integer[] randomInts(long seed, long streamSize, int randomNumberOrigin,
-                                       int randomNumberBound) {
+    public static Integer[] randomIntegers(long seed, long streamSize, int randomNumberOrigin,
+                                           int randomNumberBound) {
         random.setSeed(seed);
         return random
                 .ints(streamSize, randomNumberOrigin, randomNumberBound)
                 .boxed()
                 .collect(Collectors.toList()).toArray(new Integer[0]);
+    }
+
+    public static int[] randomInts(long seed, long streamSize, int randomNumberOrigin,
+                                   int randomNumberBound) {
+        random.setSeed(seed);
+        return random
+                .ints(streamSize, randomNumberOrigin, randomNumberBound)
+                .toArray();
     }
 
     public ArrayList<Integer> randomIntList(long seed, long streamSize, int randomNumberOrigin,

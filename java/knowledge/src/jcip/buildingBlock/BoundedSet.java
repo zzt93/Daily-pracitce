@@ -7,7 +7,8 @@ import java.util.concurrent.Semaphore;
 /**
  * Created by zzt on 4/25/16.
  * <p>
- * Usage:
+ * Usage: A bounded set with <b>only one semaphore</b> to coordinate producer and consumer
+ * @see jcip.test.BoundedBuffer
  */
 public class BoundedSet<T> {
     private Set<T> set;
@@ -20,6 +21,17 @@ public class BoundedSet<T> {
 
     public boolean add(T t) throws InterruptedException {
         semaphore.acquire();
+        /**
+         * if context switch happen here, another thread try to
+         * remove this element, it will fail to remove it.
+         * But due to the following check, invariant is still hold.
+         * <pre>
+            if (res) {
+                semaphore.release();
+            }
+         * </pre>
+         *
+         */
         boolean res = false;
         try {
             res = set.add(t);
@@ -31,7 +43,7 @@ public class BoundedSet<T> {
         return res;
     }
 
-    public boolean remove(Object o) {
+    public boolean remove(T o) {
         boolean res = set.remove(o);
         if (res) {
             semaphore.release();
