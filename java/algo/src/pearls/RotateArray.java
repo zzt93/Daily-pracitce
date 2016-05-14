@@ -258,15 +258,15 @@ public class RotateArray<T> {
         return new Rotation(n, dir);
     }
 
-    public static void main(String[] args) throws IOException {
-        System.in.read();
+    public static void main(String[] args) throws IOException, InterruptedException {
+//        System.in.read();
 
         for (int i = 100; i < SIZE; i += 100) {
-            test(i, i / 3);
+            timeTest(i, i / 3);
         }
     }
 
-    private static void test(int size, int n) {
+    private static void timeTest(int size, int n) throws InterruptedException {
         Integer[] integers = new Integer[size];
         for (int i = 0; i < size; i++) {
             integers[i] = i + 1;
@@ -279,20 +279,33 @@ public class RotateArray<T> {
         System.out.println("juggling " + (System.nanoTime() - start));
         //        System.out.println(Arrays.toString(rotateArray.array));
 
+        /**
+         * split program execution
+         */
+        Thread.sleep(100);
+
         start = System.nanoTime();
         rotateArray.rotate2(Direction.RIGHT, n);
-        System.out.println("reverse " + (System.nanoTime() - start));
+        System.out.println("reverse  " + (System.nanoTime() - start));
 //                System.out.println(Arrays.toString(rotateArray.array));
+
+        Thread.sleep(100);
 
         start = System.nanoTime();
         rotateArray.rotate3(Direction.RIGHT, n);
-        System.out.println("dynamic " + (System.nanoTime() - start));
+        System.out.println("dynamic  " + (System.nanoTime() - start));
         //        System.out.println(Arrays.toString(rotateArray.array));
 
         System.out.println("------------");
     }
 
     private static void warmUp(RotateArray<Integer> rotateArray) {
+        /**
+         * make every code path have a chance to run,
+         * make dynamic compilation not to make difference
+         */
         rotateArray.rotate(Direction.LEFT, 200);
+        rotateArray.rotate2(Direction.LEFT, 200);
+        rotateArray.rotate3(Direction.LEFT, 200);
     }
 }
