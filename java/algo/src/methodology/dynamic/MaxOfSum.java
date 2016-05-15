@@ -1,136 +1,162 @@
 package methodology.dynamic;
 
+import competition.utility.ArrayUtility;
 import methodology.maxOfSum.MaxSumOfSubset;
 import methodology.maxOfSum.MaxSumOfSubset2;
 import methodology.maxOfSum.MaxSumOfSubset3;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Random;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
- * Created by zzt on 4/4/16.
+ * Created by zzt on 5/15/16.
  * <p>
- * Problem description:
- * find the maximum of sum of a successive subset in a set;
- * <p>
- * Input:
- * e.g.{21, -9, -4, 28, -29, 45, 83}
- * <p>
- * Output:
+ * <h3></h3>
  */
 public class MaxOfSum {
 
-    private class Outcome {
+    private static class Sum {
+        private int sum;
+        /**
+         * exclusive
+         */
         private int endIndex;
-        int sum;
-        boolean reachEnd;
+        private ArrayList<Integer> possibleStart = new ArrayList<>();
 
-        public Outcome(int sum, boolean reachEnd, int endIndex) {
+        Sum(int sum, int endIndex) {
             this.sum = sum;
-            this.reachEnd = reachEnd;
             this.endIndex = endIndex;
+        }
+
+        boolean reachEnd(int nowEnd) {
+            return endIndex == nowEnd;
+        }
+
+        public Sum setSum(int sum) {
+            this.sum = sum;
+            return this;
+        }
+
+        public boolean isEmpty() {
+            assert sum >= 0;
+            return sum == 0;
+        }
+
+        void updateEnd(int end) {
+            endIndex = end;
+        }
+
+        void addSumAndUpdateEnd(int last, int end) {
+            sum += last;
+            updateEnd(end);
+        }
+
+
+        void tryPossibleStart(int[] nums, int end) {
+            int max = 0;
+            int endI = end;
+            int previousSum = 0;
+            for (int i = possibleStart.size() - 1; i >= 0; i--) {
+                final Integer start = possibleStart.get(i);
+                final int sum = Arrays.stream(nums, start, endI).sum() + previousSum;
+                if (max < sum) {
+                    max = sum;
+                }
+                endI = start;
+                previousSum = sum;
+            }
+            if (max > this.sum) {
+                sum = max;
+                endIndex = end;
+            }
+        }
+
+        Sum tryAddStart(int[] nums, int i) {
+            assert nums[i] > 0;
+            if (((i > 0) && (nums[i - 1] < 0)) || (i == 0)) {
+                possibleStart.add(i);
+            }
+            return this;
         }
 
         public int getSum() {
             return sum;
         }
 
-        public void setEndIndex(int endIndex) {
-            this.endIndex = endIndex;
-        }
-
-        public boolean isReachEnd() {
-            return reachEnd;
-        }
-
-        public Outcome setSum(int sum) {
-            this.sum = sum;
-            return this;
-        }
-
-        public void setReachEnd(boolean reachEnd) {
-            this.reachEnd = reachEnd;
-        }
-
-        public Outcome addSum(Integer last) {
-            sum += last;
-            return this;
-        }
-
         @Override
         public String toString() {
-            return "Outcome{" +
-                    "endIndex=" + endIndex +
-                    ", sum=" + sum +
-                    ", reachEnd=" + reachEnd +
+            return "Sum{" +
+                    "sum=" + sum +
+                    ", endIndex=" + endIndex +
+                    ", possibleStart=" + possibleStart +
                     '}';
         }
     }
 
-    public Outcome compute(List<Integer> integers, int start, int end) {
-        Integer last = integers.get(end - 1);
+    public static Sum compute(int[] nums, int end, Sum lastOutCome) {
+        // base case
+        final int last = nums[end - 1];
         if (end == 1) {
-            Outcome outcome = new Outcome(last, true, 1);
-            return last > 0 ? outcome : outcome.setSum(0);
+            Sum outCome = new Sum(last, 1);
+            return last > 0 ?
+                    outCome.tryAddStart(nums, 0) : outCome.setSum(0);
         }
-        Outcome outcome = compute(integers, 0, end - 1);
-        if (last <= 0) {
-            if (outcome.getSum() > 0) {
-                outcome.setReachEnd(false);
-            } else {
-                assert outcome.getSum() == 0;
-                outcome.setReachEnd(true);
-                outcome.setEndIndex(end);
+
+        if (last > 0) {
+            lastOutCome.tryAddStart(nums, end - 1);
+            if (lastOutCome.reachEnd(end - 1)) {
+                lastOutCome.addSumAndUpdateEnd(last, end);
+            } else { // subset in the middle
+                lastOutCome.tryPossibleStart(nums, end);
             }
-            return outcome;
-        } else {// last > 0
-            if (outcome.isReachEnd()) {
-                // update subset end bound
-                outcome.setEndIndex(end);
-                return outcome.addSum(last);
-            } else {// max subset is in the middle
-                int sum = integers.subList(outcome.endIndex, end)
-                        .stream().mapToInt(Integer::intValue).sum();
-                if (sum > 0) {// this value deserve to add
-                    outcome.setEndIndex(end);
-                    outcome.setReachEnd(true);
-                    return outcome.addSum(sum);
-                } else {
-                    int fn_1 = outcome.getSum();
-                    if (fn_1 < last) {
-                        outcome.setReachEnd(true);
-                        outcome.setEndIndex(end);
-                        return outcome.setSum(last);
-                    } else {
-                        return outcome;
-                    }
-                }
+        } else {
+            if (lastOutCome.isEmpty()) {
+                lastOutCome.updateEnd(end);
             }
         }
+        return lastOutCome;
+    }
+
+    private static Sum compute(int[] integers) {
+        Sum lastOutCome = null;
+        for (int i = 1; i <= integers.length; i++) {
+            lastOutCome = compute(integers, i, lastOutCome);
+        }
+        return lastOutCome;
     }
 
     public static void main(String[] args) {
         //        testAll();
-        Random random = new Random();
+//        int[] t = {-35, -44, -29, 38, -44, -28, -49, -16, 30, 33, 24, 11, 29, -16, -6, 24, -39, -7, 17, 45,};
+//        showTest(t);
+        randomTest();
+    }
+
+    private static void randomTest() {
         for (int j = 0; j < 100; j++) {
-            List<Integer> integers = random.ints(5, -20, 20).boxed().collect(Collectors.toList());
-            Outcome out = new MaxOfSum().compute(integers, 0, integers.size());
-            System.out.println("Input: ");
-            integers.stream().forEach(i -> {
-                System.out.print(i + ", ");
-            });
-            System.out.println("\nOutput: ");
-            System.out.println(out);
+            int[] integers = ArrayUtility.randomInts(123 + j, 20, -50, 50);
+            showTest(integers);
         }
+    }
+
+    private static void showTest(int[] integers) {
+        final Sum sum = compute(integers);
+        final int compute = MaxOfSumOpt.compute(integers);
+        System.out.println("Input: ");
+        IntStream.of(integers).forEach(i -> System.out.print(i + ", "));
+        System.out.println("\nOutput: ");
+        System.out.println(sum);
+        assert sum.getSum() == compute;
     }
 
     private static void testAll() {
         Random random = new Random();
         for (int j = 0; j < 100; j++) {
-            List<Integer> integers = random.ints(5, -20, 20).boxed().collect(Collectors.toList());
-            Outcome out = new MaxOfSum().compute(integers, 0, integers.size());
+
+            int[] integers = ArrayUtility.randomInts(23 + j, 20, -50, 50);
+            Sum out = compute(integers);
 
             ArrayList<Double> doubles = new ArrayList<>();
             for (Integer integer : integers) {
@@ -143,13 +169,12 @@ public class MaxOfSum {
             if (p1 != p2 || p2 != p3 || p1 != out.getSum()) {
                 System.out.println("loop: " + j);
                 System.out.println("Input: ");
-                integers.stream().forEach(i -> {
-                    System.out.print(i + ", ");
-                });
+                IntStream.of(integers).forEach(i -> System.out.print(i + ", "));
                 System.out.println("\nOutput: ");
                 System.out.println(p1 + " " + p2 + " " + p3);
                 System.out.println(out);
             }
         }
     }
+
 }

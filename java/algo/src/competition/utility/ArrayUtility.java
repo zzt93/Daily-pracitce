@@ -14,7 +14,7 @@ public class ArrayUtility {
 
     private static Random random = new Random();
 
-    public static int[] arraylist_to_array_int(ArrayList<Integer> integers) {
+    public static int[] arrayListToArrayInt(ArrayList<Integer> integers) {
         int[] res = new int[integers.size()];
         for (int i = 0; i < integers.size(); i++) {
             res[i] = integers.get(i);
@@ -22,7 +22,7 @@ public class ArrayUtility {
         return res;
     }
 
-    public static double[] arraylist_to_array_double(ArrayList<Double> doubles) {
+    public static double[] arrayListToArrayDouble(ArrayList<Double> doubles) {
         double[] res = new double[doubles.size()];
         for (int i = 0; i < doubles.size(); i++) {
             res[i] = doubles.get(i);
@@ -107,7 +107,7 @@ public class ArrayUtility {
                 .toArray();
     }
 
-    public ArrayList<Integer> randomIntList(long seed, long streamSize, int randomNumberOrigin,
+    public static ArrayList<Integer> randomIntList(long seed, long streamSize, int randomNumberOrigin,
                                             int randomNumberBound) {
         random.setSeed(seed);
         return random
