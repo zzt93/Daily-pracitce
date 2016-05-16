@@ -75,7 +75,7 @@ public class MaxOfSum {
 
         Sum tryAddStart(int[] nums, int i) {
             assert nums[i] > 0;
-            if (((i > 0) && (nums[i - 1] < 0)) || (i == 0)) {
+            if (((i > 0) && (nums[i - 1] <= 0)) || (i == 0)) {
                 possibleStart.add(i);
             }
             return this;
@@ -128,10 +128,10 @@ public class MaxOfSum {
     }
 
     public static void main(String[] args) {
-        //        testAll();
-//        int[] t = {-35, -44, -29, 38, -44, -28, -49, -16, 30, 33, 24, 11, 29, -16, -6, 24, -39, -7, 17, 45,};
+//        int[] t = {-8, 0, 16, 15, 48, -24, 14, -34, 33, -1, 30, -11, 4, 30, 27, -30, 3, 33, -6, -7, };
 //        showTest(t);
         randomTest();
+        //        testAll();
     }
 
     private static void randomTest() {
