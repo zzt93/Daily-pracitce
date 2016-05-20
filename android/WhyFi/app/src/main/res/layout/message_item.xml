@@ -1,34 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <include layout="@layout/nav_header_drawer"/>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageView"
-        android:src="@android:drawable/sym_def_app_icon"
-        android:contentDescription="@string/user_avatar" />
+        android:text="New Text"
+        android:id="@+id/messageContent"
+        android:layout_margin="@dimen/activity_horizontal_margin" />
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nick"
-            android:textSize="@dimen/large_font"
-            android:id="@+id/userName"
-            android:layout_marginStart="@dimen/abc_edit_text_inset_horizontal_material"
-            android:layout_marginTop="@dimen/abc_edit_text_inset_top_material" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/messageContent"
-            android:layout_marginStart="@dimen/abc_edit_text_inset_horizontal_material" />
-    </LinearLayout>
 </LinearLayout>

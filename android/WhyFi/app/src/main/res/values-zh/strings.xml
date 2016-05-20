@@ -6,4 +6,5 @@
     <string name="camera"></string>
     <string name="app_name" translatable="false"></string>
     <string name="error_field_required">请输入设备名</string>
+    <string name="say_something">说点什么吧</string>
 </resources>

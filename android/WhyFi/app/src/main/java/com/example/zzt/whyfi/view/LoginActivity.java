@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -25,6 +26,8 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
+import com.example.zzt.whyfi.model.Device;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +81,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+        // set data binding
+        ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
+        binding.setDevice(new Device());
     }
 
     private void populateAutoComplete() {
