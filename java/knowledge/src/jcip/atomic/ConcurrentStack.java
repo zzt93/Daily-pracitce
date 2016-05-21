@@ -16,12 +16,15 @@ public class ConcurrentStack<E> {
         private E e;
         private Node<E> next;
 
-        public Node(E e, Node<E> next) {
+        Node(E e, Node<E> next) {
             this.e = e;
             this.next = next;
         }
     }
 
+    /**
+     * The only variable to update atomically
+     */
     private AtomicReference<Node<E>> top = new AtomicReference<>();
 
     public void push(E item) {

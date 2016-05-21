@@ -14,7 +14,16 @@ package methodology.dynamic;
  */
 public class MaxOfSumOpt {
 
-    public static int compute(int[] nums) {
+    /**
+     * <p>Suppose that we've solved the problem for x[0, n-1]; how can we extend that to
+     * include x[i]?</p>
+     * <p>the maximum-sum is either in x[0, n-1] or it ends at x[i]</p>
+     *
+     * @param nums input array
+     *
+     * @return max sum
+     */
+    public static int maxSumDynamic(int[] nums) {
         int max = 0;
         int maxEndHere = 0;
         for (int num : nums) {
@@ -24,5 +33,37 @@ public class MaxOfSumOpt {
             max = Math.max(maxEndHere, max);
         }
         return max;
+    }
+
+    /**
+     * Suppose we have solved sub-problem x[0, n/2], x[n/2 + 1, n],
+     * how can we get max sum of x[0, n]:
+     * the maximum-sum is max(first half, second half, cross the middle)
+     * @param nums input array
+     *
+     * @return max sum
+     */
+    public static int maxSumDivideConquer(int[] nums) {
+        return maxSumDivideConquer(nums, 0, nums.length);
+    }
+
+    private static int maxSumDivideConquer(int[] nums, int start, int end) {
+        if (start == end) {// empty
+            return 0;
+        }
+        int half = (start + end) / 2;
+        int lmax = maxSumDivideConquer(nums, start, half);
+        int rmax = maxSumDivideConquer(nums, half, end);
+
+        int left = 0, partSum = 0;
+        for (int i = start; i < half; i++) {
+            left = Math.max(partSum + nums[i], left);
+        }
+        int right = 0;
+        partSum = 0;
+        for (int i = half; i < end; i++) {
+            right = Math.max(partSum + nums[i], right);
+        }
+        return Math.max(lmax, Math.max(rmax, left + right));
     }
 }

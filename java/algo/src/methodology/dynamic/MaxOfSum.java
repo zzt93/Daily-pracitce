@@ -143,7 +143,7 @@ public class MaxOfSum {
 
     private static void showTest(int[] integers) {
         final Sum sum = compute(integers);
-        final int compute = MaxOfSumOpt.compute(integers);
+        final int compute = MaxOfSumOpt.maxSumDynamic(integers);
         System.out.println("Input: ");
         IntStream.of(integers).forEach(i -> System.out.print(i + ", "));
         System.out.println("\nOutput: ");
