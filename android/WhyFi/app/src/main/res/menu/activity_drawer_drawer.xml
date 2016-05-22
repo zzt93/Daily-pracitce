@@ -33,4 +33,8 @@
         </menu>
     </item>
 
+    <item
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/ic_menu_setting"
+        android:title="@string/action_settings" />
 </menu>

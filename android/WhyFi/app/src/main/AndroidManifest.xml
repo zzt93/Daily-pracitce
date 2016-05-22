@@ -9,6 +9,7 @@
 
     <application
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -36,8 +37,13 @@
         </activity>
         <activity
             android:name=".view.EditMsgActivity"
-            android:parentActivityName=".view.Drawer"></activity>
-        <activity android:name=".view.DeviceInfoActivity"></activity>
+            android:parentActivityName=".view.Drawer">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.zzt.whyfi.view.Drawer" />
+        </activity>
+        <activity android:name=".view.DeviceInfoActivity" />
+
     </application>
 
 </manifest>
