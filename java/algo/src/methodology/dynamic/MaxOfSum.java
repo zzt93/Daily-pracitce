@@ -95,7 +95,7 @@ public class MaxOfSum {
         }
     }
 
-    public static Sum compute(int[] nums, int end, Sum lastOutCome) {
+    private static Sum compute(int[] nums, int end, Sum lastOutCome) {
         // base case
         final int last = nums[end - 1];
         if (end == 1) {
@@ -125,6 +125,10 @@ public class MaxOfSum {
             lastOutCome = compute(integers, i, lastOutCome);
         }
         return lastOutCome;
+    }
+
+    public static int myMaxSum(int[] ints) {
+        return compute(ints).sum;
     }
 
     public static void main(String[] args) {

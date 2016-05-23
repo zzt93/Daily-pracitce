@@ -116,6 +116,15 @@ public class ArrayUtility {
                 .collect(Collectors.toCollection(ArrayList<Integer>::new));
     }
 
+
+    public static double[] randomDoubles(long seed, long streamSize, int randomNumberOrigin,
+                                         int randomNumberBound) {
+        random.setSeed(seed);
+        return random
+                .doubles(streamSize, randomNumberOrigin, randomNumberBound)
+                .toArray();
+    }
+
     public static void main(String[] args) {
         MyIn in;
         try {
@@ -137,4 +146,5 @@ public class ArrayUtility {
         }
 
     }
+
 }

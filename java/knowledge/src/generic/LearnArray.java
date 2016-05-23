@@ -1,5 +1,6 @@
 package generic;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 /**
@@ -16,10 +17,18 @@ public class LearnArray {
 
     public void b() {
         int[] ints = new int[3];
-//        String[] strings = (String[]) ints;
+        /**
+         * compiler error
+         */
+        //        String[] strings = (String[]) ints;
     }
 
     public static void main(String[] args) {
+        /**
+         * java.lang.ClassCastException: [Ljava.lang.Object; cannot be cast to [Ljava.lang.Integer;
+         */
         Integer[] a = new LearnArray().<Integer>a();
+        a[0] = 1;
+        System.out.println(Arrays.toString(a));
     }
 }

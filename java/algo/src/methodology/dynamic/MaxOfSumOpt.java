@@ -27,9 +27,23 @@ public class MaxOfSumOpt {
         int max = 0;
         int maxEndHere = 0;
         for (int num : nums) {
-            // update now state from last max
+            /**
+             * update now state from last max:
+             */
             maxEndHere = Math.max(0, maxEndHere + num);
-            // remember the max
+            /**
+             * verification:
+             * i == 0, maxEndHere is max sum end at 0
+             * suppose i == k-1, maxEndHere is max sum end at i-1
+             * when i == k, suppose the the sum([x, i]) larger than
+             * max(0, maxEndHere + num), so
+             * - if maxEndHere + num < 0 (i.e num < 0) and sum([x, i-1]) + num > 0,
+             * so sum([x, i-1]) must larger than maxEndHere -- contradiction
+             * - if maxEndHere + num >= 0 and sum([x, i-1]) + num > maxEndHere + num
+             * so sum([x, i-1]) must larger than maxEndHere -- contradiction
+             * In conclusion, max(0, maxEndHere + num) is maxEndHere
+             */
+            // choose the max from all sum
             max = Math.max(maxEndHere, max);
         }
         return max;
@@ -48,6 +62,12 @@ public class MaxOfSumOpt {
     }
 
     private static int maxSumDivideConquer(int[] nums, int start, int end) {
+        if (start == end - 1) {// one element
+            /**
+             * Invariant: always return the max sum of nums[start, end)
+             */
+            return Math.max(0, nums[start]);
+        }
         if (start == end) {// empty
             return 0;
         }
@@ -55,14 +75,26 @@ public class MaxOfSumOpt {
         int lmax = maxSumDivideConquer(nums, start, half);
         int rmax = maxSumDivideConquer(nums, half, end);
 
+        /**
+         * Invariant:
+         * partSum -- sum end at nums[half - 1]
+         * left -- max of partSum
+         */
         int left = 0, partSum = 0;
-        for (int i = start; i < half; i++) {
-            left = Math.max(partSum + nums[i], left);
+        for (int i = half - 1; i >= start; i--) {
+            partSum += nums[i];
+            left = Math.max(partSum, left);
         }
+        /**
+         * Invariant:
+         * partSum -- sum start at nums[half]
+         * right -- max of partSum
+         */
         int right = 0;
         partSum = 0;
         for (int i = half; i < end; i++) {
-            right = Math.max(partSum + nums[i], right);
+            partSum += nums[i];
+            right = Math.max(partSum, right);
         }
         return Math.max(lmax, Math.max(rmax, left + right));
     }
