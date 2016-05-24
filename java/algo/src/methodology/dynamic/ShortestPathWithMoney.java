@@ -2,9 +2,7 @@ package methodology.dynamic;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.PriorityQueue;
-import java.util.Random;
+import java.util.*;
 
 /**
  * Created by zzt on 5/16/16.
@@ -22,14 +20,24 @@ import java.util.Random;
  * </p>
  * Restrictions: 1< N<=100 ; 0<=M<=100 ; for each i, 0<=S[i]<=100.
  * <p>
- * <h3>Thought:</h3>
- * <li>identify the sub-state of this problem</li>
+ * <h3>Critical Thought:</h3>
+ * <li>identify the sub-state of this problem: shortest sub-graph</li>
+ * <p>
+ * <h3>More</h3>
+ * <p>Verification of single source (positive edge) shortest path algo</p>
+ * <p>(1) at the start point, choose the shortest out edge, we find the shortest path
+ * from source to node0. so we include node0 in determined set</p>
+ * <p>(2) now, source ... node1 -- node2, is a short. First,
+ * distance from source to any node in determined set are shorter than to nodes outside
+ * determined set. Second,
+ * <li>another out edge can directly reach node1</li></p>
  */
 public class ShortestPathWithMoney {
 
     private static final int MONEY_BOUND = 100;
-    private static final int NUM_BOUND = 10;
+    private static final int NUM_BOUND = 11;
     private static final int WEIGHT_BOUND = 10;
+    private static final int NO_EDGE = 0;
 
     public static void main(String[] args) {
         Random r = new Random(13);
@@ -39,76 +47,97 @@ public class ShortestPathWithMoney {
         for (int i = 0; i < numOfV; i++) {
             graph[i] = new int[numOfV];
             money[i] = r.nextInt(MONEY_BOUND);
-            for (int j = 0; j < graph[i].length; j++) {
-                if (i == j) {
-                    continue;
-                }
+            for (int j = i + 1; j < graph[i].length; j++) {
                 // add edge with 25% possibility
-                if (r.nextInt() % 4 == 0) {
+                if (r.nextInt() % 2 == 0) {
                     graph[i][j] = r.nextInt(WEIGHT_BOUND);
+                } else {
+                    graph[i][j] = NO_EDGE;
                 }
             }
+            System.out.println(Arrays.toString(graph[i]));
         }
-        shortest(graph, money, r.nextInt(500) + MONEY_BOUND);
+        System.out.println(Arrays.toString(money));
+        final int sum = r.nextInt(500) + MONEY_BOUND;
+        System.out.println(sum);
+        System.out.println(shortest(graph, money, sum));
     }
 
-    private static ArrayList<Integer> shortest(int[][] graph, int[] money, int sum) {
-        // construction
+    private static ArrayList<String> shortest(int[][] graph, int[] money, int sum) {
+        // construction of graph
         final int numOfV = graph.length;
         Vertex[] vertices = new Vertex[numOfV];
         for (int i = 0; i < vertices.length; i++) {
-            vertices[i] = new Vertex(money[i]);
+            vertices[i] = new Vertex(money[i], "" + i);
         }
         for (int i = 0; i < numOfV; i++) {
             final int[] edges = graph[i];
-            for (int j = 0; j < edges.length; j++) {
+            for (int j = i + 1; j < edges.length; j++) {
                 final int edge = edges[j];
-                if (edge != 0) {
+                if (edge != NO_EDGE) {
                     vertices[i].addEdge(vertices[j], edge);
                 }
             }
         }
 
+        ArrayList<String> res = new ArrayList<>();
         // compute
-        PriorityQueue<Edge> nextEdge = new PriorityQueue<>();
+        PriorityQueue<Edge> nowOutEdges = new PriorityQueue<>();
         // visit start point
-        vertices[0].includeHere(sum, nextEdge, null, null);
-        while (!nextEdge.isEmpty()) {
-            final Edge min = nextEdge.poll();
+        if (vertices[0].tryIncludeThis(Vertex.vertexBeforeStart, Edge.edgeBeforeStart, sum, nowOutEdges)) {
+            res.add("0");
+        }
+        while (!nowOutEdges.isEmpty()) {
+            Vertex min = new Vertex(0, Integer.MAX_VALUE);
+            Edge minBy = new Edge(null, null, 0);
+
             // update other out edge
-            for (Edge edge : nextEdge) {
+            for (Iterator<Edge> it = nowOutEdges.iterator(); it.hasNext(); ) {
+                final Edge edge = it.next();
+                if (edge.visited()) {
+                    it.remove();
+                }
                 final Vertex[] fromTo = edge.getFromTo();
-                fromTo[0].updateDis(vertices[1], edge);
+                fromTo[0].updateDis(fromTo[1], edge);
+                if (min.further(fromTo[1], edge)) {
+                    min = fromTo[1];
+                    minBy = edge;
+                }
             }
             // update min one
-            final Vertex[] fromTo = min.getFromTo();
-            fromTo[0].includeHere(sum, nextEdge, fromTo[1], min);
-        }
-        ArrayList<Integer> res = new ArrayList<>();
-        if (vertices[numOfV - 1].visited()) {
-
-            return res;
+            final Vertex[] fromTo = minBy.getFromTo();
+            assert fromTo[1] == min;
+            // remove the min edge no matter if it can use
+            nowOutEdges.remove(minBy);
+            if (fromTo[0].tryIncludeThis(min, minBy, sum, nowOutEdges)) {
+                res.add(min.name);
+                if (min == vertices[numOfV - 1]) { // meet the target
+                    break;
+                }
+            }
         }
         return res;
     }
 
     private static class Edge implements Comparable<Edge> {
-        private int weight;
+        private static Edge edgeBeforeStart = new Edge(Vertex.vertexBeforeStart, null, 0);
+
+        private int len;
         private Vertex one;
         private Vertex another;
 
-        public Edge(Vertex vertex, Vertex other, int weight) {
+        Edge(Vertex vertex, Vertex other, int len) {
             one = vertex;
             another = other;
-            this.weight = weight;
+            this.len = len;
         }
 
         @Override
         public int compareTo(@NotNull Edge o) {
-            return Integer.compare(weight, o.weight);
+            return Integer.compare(len, o.len);
         }
 
-        public Vertex[] getFromTo() {
+        Vertex[] getFromTo() {
             if (one.visited()) {
                 assert !another.visited();
                 return new Vertex[]{one, another};
@@ -117,58 +146,75 @@ public class ShortestPathWithMoney {
                 return new Vertex[]{another, one};
             }
         }
+
+        boolean visited() {
+            return one.visited() && another.visited();
+        }
     }
 
     private static class Vertex {
+        private static Vertex vertexBeforeStart = new Vertex(0, 0);
+
         private ArrayList<Edge> edges = new ArrayList<>();
 
         private int money;
         private int minDis = Integer.MAX_VALUE;
         private int minMoney = Integer.MAX_VALUE;
         private boolean visited = false;
+        String name;
 
-        public Vertex(int i) {
+        Vertex(int i) {
             money = i;
         }
 
-        public void addEdge(Vertex vertex, int weight) {
+        private Vertex(int money, int dis) {
+            this(money);
+            this.minDis = dis;
+        }
+
+        Vertex(int money, String name) {
+            this(money);
+            this.name = name;
+        }
+
+        void addEdge(Vertex vertex, int weight) {
             edges.add(new Edge(this, vertex, weight));
         }
 
-        public void includeHere(final int sum, PriorityQueue<Edge> nextEdge, Vertex from, Edge by) {
-            if (from == null || sum > from.minMoney + money) {
+        boolean tryIncludeThis(Vertex from, Edge by, final int limit, PriorityQueue<Edge> nowOutEdges) {
+            if (limit > from.minMoney + money) {
                 updateMinDis(from, by);
                 updateMinMoney(from);
-                nextEdge.addAll(edges);
+                nowOutEdges.addAll(edges);
+                return true;
             }
+            return false;
         }
 
         private void updateMinMoney(Vertex from) {
-            if (from == null) {
-                minMoney = money;
-            } else {
-                minMoney = from.minMoney + money;
-            }
+            assert from != null;
+            minMoney = from.minMoney + money;
         }
 
         private void updateMinDis(Vertex from, Edge by) {
-            if (from == null) { // start vertex
-                assert by == null;
-                minDis = 0;
-            } else {
-                minDis = from.minDis + by.weight;
-            }
+            assert from != null && by != null;
+            minDis = from.minDis + by.len;
             visited = true;
         }
 
-        public boolean visited() {
+        boolean visited() {
             return visited;
         }
 
-        public void updateDis(Vertex vertex, Edge edge) {
-            if (minDis < vertex.minDis + edge.weight) {
-                minDis = vertex.minDis + edge.weight;
+        void updateDis(Vertex vertex, Edge edge) {
+            if (minDis > vertex.minDis + edge.len) {
+                minDis = vertex.minDis + edge.len;
             }
+        }
+
+        boolean further(Vertex vertex, Edge edge) {
+            assert vertex.minDis != Integer.MAX_VALUE;
+            return minDis > vertex.minDis + edge.len;
         }
     }
 }

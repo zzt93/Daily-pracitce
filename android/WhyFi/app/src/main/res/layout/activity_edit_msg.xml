@@ -16,18 +16,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <EditText
-            android:id="@+id/editText"
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/say_something"
-            android:inputType="textMultiLine" />
+            android:id="@+id/scrollView2"
+            android:minHeight="@dimen/msg_input_height"
+            >
+
+            <EditText
+                android:id="@+id/editText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/say_something"
+                android:inputType="textMultiLine"
+                android:maxHeight="@dimen/msg_input_height"
+                />
+        </ScrollView>
 
     </FrameLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -35,15 +46,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="New Button"
-            android:id="@+id/button" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Medium Text"
-            android:id="@+id/textView4"
-            android:labelFor="@id/button" />
+            android:id="@+id/button"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 
@@ -51,11 +55,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
-        <DatePicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/datePicker" />
 
     </LinearLayout>
 
