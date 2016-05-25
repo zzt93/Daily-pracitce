@@ -6,9 +6,8 @@
         <import type="java.util.List"/>
         <variable name="sentList" type="List&lt;Message>"/>
         <variable name="receivedList" type="List&lt;Message>"/>
-        <variable
-            name="device"
-            type="com.example.zzt.whyfi.model.Device" />
+        <variable name="index" type="int"/>
+
     </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -52,7 +51,8 @@
                         <ListView
                             android:id="@+id/listView"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            />
                     </LinearLayout>
 
                     <LinearLayout

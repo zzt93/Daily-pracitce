@@ -9,15 +9,17 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * Usage:
  */
-public class Lock {
+public class UseFileLock {
     public static void main(String[] args) throws Exception {
         FileOutputStream fos = new FileOutputStream("file.txt");
         FileLock fl = fos.getChannel().tryLock();
         if (fl != null) {
             System.out.println("Locked File");
-            TimeUnit.MILLISECONDS.sleep(100);
+            TimeUnit.MILLISECONDS.sleep(10000);
             fl.release();
             System.out.println("Released Lock");
+        } else {
+            System.out.println("Fail to acquire lock");
         }
         fos.close();
     }

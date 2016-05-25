@@ -35,20 +35,22 @@ import java.util.*;
 public class ShortestPathWithMoney {
 
     private static final int MONEY_BOUND = 100;
-    private static final int NUM_BOUND = 11;
+    private static final int NUM_BOUND = 15;
     private static final int WEIGHT_BOUND = 10;
-    private static final int NO_EDGE = 0;
+    private static final int NO_EDGE = -1;
+    private static final Vertex MIN_VERTEX = new Vertex(0, Integer.MAX_VALUE);
+    private static final Edge MIN_EDGE = new Edge(null, null, 0);
 
     public static void main(String[] args) {
         Random r = new Random(13);
         final int numOfV = r.nextInt(NUM_BOUND);
-        int[][] graph = new int[numOfV][numOfV];
+        int[][] graph = new int[numOfV][];
         int[] money = new int[numOfV];
         for (int i = 0; i < numOfV; i++) {
-            graph[i] = new int[numOfV];
+            graph[i] = new int[i];
             money[i] = r.nextInt(MONEY_BOUND);
-            for (int j = i + 1; j < graph[i].length; j++) {
-                // add edge with 25% possibility
+            for (int j = 0; j < graph[i].length; j++) {
+                // add edge with 50% possibility
                 if (r.nextInt() % 2 == 0) {
                     graph[i][j] = r.nextInt(WEIGHT_BOUND);
                 } else {
@@ -72,7 +74,7 @@ public class ShortestPathWithMoney {
         }
         for (int i = 0; i < numOfV; i++) {
             final int[] edges = graph[i];
-            for (int j = i + 1; j < edges.length; j++) {
+            for (int j = 0; j < edges.length; j++) {
                 final int edge = edges[j];
                 if (edge != NO_EDGE) {
                     vertices[i].addEdge(vertices[j], edge);
@@ -88,18 +90,19 @@ public class ShortestPathWithMoney {
             res.add("0");
         }
         while (!nowOutEdges.isEmpty()) {
-            Vertex min = new Vertex(0, Integer.MAX_VALUE);
-            Edge minBy = new Edge(null, null, 0);
+            Vertex min = MIN_VERTEX;
+            Edge minBy = MIN_EDGE;
 
             // update other out edge
             for (Iterator<Edge> it = nowOutEdges.iterator(); it.hasNext(); ) {
                 final Edge edge = it.next();
                 if (edge.visited()) {
                     it.remove();
+                    continue;
                 }
                 final Vertex[] fromTo = edge.getFromTo();
-                fromTo[0].updateDis(fromTo[1], edge);
-                if (min.further(fromTo[1], edge)) {
+                fromTo[1].updateDisMoney(fromTo[0], edge);
+                if (min.further(fromTo[1])) {
                     min = fromTo[1];
                     minBy = edge;
                 }
@@ -109,7 +112,7 @@ public class ShortestPathWithMoney {
             assert fromTo[1] == min;
             // remove the min edge no matter if it can use
             nowOutEdges.remove(minBy);
-            if (fromTo[0].tryIncludeThis(min, minBy, sum, nowOutEdges)) {
+            if (min.tryIncludeThis(fromTo[0], minBy, sum, nowOutEdges)) {
                 res.add(min.name);
                 if (min == vertices[numOfV - 1]) { // meet the target
                     break;
@@ -168,7 +171,7 @@ public class ShortestPathWithMoney {
         }
 
         private Vertex(int money, int dis) {
-            this(money);
+            this.minMoney = money;
             this.minDis = dis;
         }
 
@@ -178,7 +181,9 @@ public class ShortestPathWithMoney {
         }
 
         void addEdge(Vertex vertex, int weight) {
-            edges.add(new Edge(this, vertex, weight));
+            final Edge e = new Edge(this, vertex, weight);
+            edges.add(e);
+            vertex.edges.add(e);
         }
 
         boolean tryIncludeThis(Vertex from, Edge by, final int limit, PriorityQueue<Edge> nowOutEdges) {
@@ -206,15 +211,19 @@ public class ShortestPathWithMoney {
             return visited;
         }
 
-        void updateDis(Vertex vertex, Edge edge) {
-            if (minDis > vertex.minDis + edge.len) {
-                minDis = vertex.minDis + edge.len;
+        void updateDisMoney(Vertex from, Edge by) {
+            if (minDis > from.minDis + by.len) {
+                minDis = from.minDis + by.len;
+            }
+            if (minMoney > from.minMoney + money) {
+                minMoney = from.minMoney + money;
             }
         }
 
-        boolean further(Vertex vertex, Edge edge) {
+        boolean further(Vertex vertex) {
             assert vertex.minDis != Integer.MAX_VALUE;
-            return minDis > vertex.minDis + edge.len;
+            return minDis > vertex.minDis
+                    || (minDis == vertex.minDis && minMoney > vertex.minMoney);
         }
     }
 }
