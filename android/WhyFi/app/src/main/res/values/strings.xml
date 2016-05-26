@@ -87,4 +87,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="say_something">say something…</string>
+    <string name="sent_tab">Sent</string>
+    <string name="received_tab">Received</string>
+    <string name="sent_tab_indicator">The message you sent</string>
+    <string name="received_tab_indicator">The message you received</string>
 </resources>

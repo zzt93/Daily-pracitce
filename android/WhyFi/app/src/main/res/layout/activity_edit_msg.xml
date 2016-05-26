@@ -1,61 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".view.Drawer">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
 
-    <FrameLayout
-        android:orientation="vertical"
+        <variable
+            name="handlers"
+            type="com.example.zzt.whyfi.vm.MsgHandler" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        tools:context=".view.Drawer">
 
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/scrollView2"
-            android:minHeight="@dimen/msg_input_height"
-            >
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editText"
+
+            <ScrollView
+                android:id="@+id/scrollView2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/say_something"
-                android:inputType="textMultiLine"
-                android:maxHeight="@dimen/msg_input_height"
-                />
-        </ScrollView>
+                android:minHeight="@dimen/msg_input_height">
 
-    </FrameLayout>
+                <EditText
+                    android:id="@+id/msg_to_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/say_something"
+                    android:inputType="textMultiLine"
+                    android:maxHeight="@dimen/msg_input_height" />
+            </ScrollView>
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        </FrameLayout>
 
-        <Button
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New Button"
-            android:id="@+id/button"
-            android:layout_gravity="center" />
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/msg_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:onClick="@{handlers.onClickSend}"
+                android:text="New Button" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-    </LinearLayout>
-
-</LinearLayout>
+</layout>

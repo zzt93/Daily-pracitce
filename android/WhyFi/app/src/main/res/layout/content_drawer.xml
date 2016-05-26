@@ -43,26 +43,26 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/linearLayout"
+                        android:id="@+id/sentTab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ListView
-                            android:id="@+id/listView"
+                            android:id="@+id/sentList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/linearLayout2"
+                        android:id="@+id/receivedTab"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
                         <ListView
-                            android:id="@+id/listView2"
+                            android:id="@+id/receivedList"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content" />
                     </LinearLayout>

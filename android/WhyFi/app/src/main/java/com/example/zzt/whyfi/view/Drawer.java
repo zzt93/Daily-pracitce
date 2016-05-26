@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TabHost;
 
 import com.example.zzt.whyfi.R;
 
@@ -22,6 +25,7 @@ public class Drawer extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -42,7 +46,45 @@ public class Drawer extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        assert navigationView != null;
         navigationView.setNavigationItemSelectedListener(this);
+
+        setMsgList();
+        setTabHost();
+    }
+
+    private void setTabHost() {
+        TabHost host = (TabHost)findViewById(R.id.tabHost);
+        assert host != null;
+        host.setup();
+        //Tab 1
+        TabHost.TabSpec spec = host.newTabSpec(getString(R.string.sent_tab));
+        spec.setContent(R.id.sentTab);
+        spec.setIndicator(getString(R.string.sent_tab));
+        host.addTab(spec);
+
+        //Tab 2
+        spec = host.newTabSpec(getString(R.string.received_tab));
+        spec.setContent(R.id.receivedTab);
+        spec.setIndicator(getString(R.string.received_tab));
+        host.addTab(spec);
+    }
+
+    private void setMsgList() {
+//        LinearLayout sentTab = (LinearLayout) findViewById(R.id.sentTab);
+//        MessageItemBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.message_item, sentTab, false);
+
+        ListView received = (ListView) findViewById(R.id.receivedList);
+        String[] received_msg = getResources().getStringArray(R.array.received_msg);
+        assert received != null;
+        received.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, received_msg));
+
+        ListView sent = (ListView) findViewById(R.id.sentList);
+        String[] sent_msg = getResources().getStringArray(R.array.sent_msg);
+        assert sent != null;
+        sent.setAdapter(new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, sent_msg));
     }
 
     private void jumpToEdit() {
