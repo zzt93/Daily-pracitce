@@ -7,4 +7,9 @@
     <string name="app_name" translatable="false"></string>
     <string name="error_field_required">请输入设备名</string>
     <string name="say_something">说点什么吧…</string>
+    <string name="sent_tab">发送</string>
+    <string name="received_tab">接收</string>
+    <string name="title_activity_device_settings">设置</string>
+    <string name="user_avatar">用户头像</string>
+    <string name="send">发送</string>
 </resources>

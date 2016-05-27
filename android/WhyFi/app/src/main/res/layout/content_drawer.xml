@@ -1,14 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-        <import type="com.example.zzt.whyfi.model.Message"/>
-        <import type="java.util.List"/>
-        <variable name="sentList" type="List&lt;Message>"/>
-        <variable name="receivedList" type="List&lt;Message>"/>
-        <variable name="index" type="int"/>
-
-    </data>
 
     <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -48,9 +40,9 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ListView
+                        <android.support.v7.widget.RecyclerView
                             android:id="@+id/sentList"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             />
                     </LinearLayout>
@@ -61,9 +53,9 @@
                         android:layout_height="match_parent"
                         android:orientation="vertical">
 
-                        <ListView
+                        <android.support.v7.widget.RecyclerView
                             android:id="@+id/receivedList"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content" />
                     </LinearLayout>
 

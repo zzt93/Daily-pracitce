@@ -1,6 +1,7 @@
 package com.example.zzt.whyfi.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -8,15 +9,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.databinding.NavHeaderDrawerBinding;
+import com.example.zzt.whyfi.model.Device;
+import com.example.zzt.whyfi.vm.MsgHistory;
+import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +57,13 @@ public class Drawer extends AppCompatActivity
 
         setMsgList();
         setTabHost();
+        setNavHeader();
+    }
+
+    private void setNavHeader() {
+        ViewGroup parent = (ViewGroup) findViewById(R.id.drawer_layout);
+        NavHeaderDrawerBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header_drawer, parent, false);
+        binding.setThisDevice(Device.now);
     }
 
     private void setTabHost() {
@@ -71,20 +84,21 @@ public class Drawer extends AppCompatActivity
     }
 
     private void setMsgList() {
-//        LinearLayout sentTab = (LinearLayout) findViewById(R.id.sentTab);
-//        MessageItemBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.message_item, sentTab, false);
+        setRecycler(R.id.sentList, new MsgRecyclerAdapter(MsgHistory.getSent()));
+        setRecycler(R.id.receivedList, new MsgRecyclerAdapter(MsgHistory.getReceived()));
+    }
 
-        ListView received = (ListView) findViewById(R.id.receivedList);
-        String[] received_msg = getResources().getStringArray(R.array.received_msg);
-        assert received != null;
-        received.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, received_msg));
+    private void setRecycler(int id, MsgRecyclerAdapter adapter) {
+        RecyclerView sentRecycler = (RecyclerView) findViewById(id);
+        assert sentRecycler != null;
+        // use this setting to improve performance if you know that changes
+        // in content do not change the layout size of the RecyclerView
+        sentRecycler.setHasFixedSize(true);
 
-        ListView sent = (ListView) findViewById(R.id.sentList);
-        String[] sent_msg = getResources().getStringArray(R.array.sent_msg);
-        assert sent != null;
-        sent.setAdapter(new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, sent_msg));
+        // use a linear layout manager
+        sentRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        sentRecycler.setAdapter(adapter);
     }
 
     private void jumpToEdit() {
@@ -148,6 +162,7 @@ public class Drawer extends AppCompatActivity
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        assert drawer != null;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
