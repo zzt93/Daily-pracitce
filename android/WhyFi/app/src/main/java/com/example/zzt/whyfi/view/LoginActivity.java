@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         // Set the Activity's content view to the given layout and return the associated binding.
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
-        binding.setDevice(new Device());
+        binding.setDevice(Device.now);
 
 //        setContentView(R.layout.activity_login);
 

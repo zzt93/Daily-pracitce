@@ -16,7 +16,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ActivityDeviceInfoBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_device_info);
         Intent intent = getIntent();
-        String stringExtra = intent.getStringExtra(getString(R.string.device_name));
-        binding.setOtherDevice(new Device(stringExtra));
+        Device fromIntent = Device.getFromIntent(intent);
+        binding.setOtherDevice(fromIntent);
     }
 }

@@ -23,7 +23,7 @@ public class EditMsgActivity extends AppCompatActivity {
         EditText text = (EditText) findViewById(R.id.msg_to_send);
         assert text != null;
         String msg = text.getText().toString();
-        // sent by network
+        // TODO sent by network
         // add to sent storage and update list view
         MsgHistory.addSent(new Message(Device.now, msg));
         // jump back
