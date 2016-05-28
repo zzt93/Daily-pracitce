@@ -15,11 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TabHost;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.databinding.NavHeaderDrawerBinding;
+import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.MsgHistory;
 import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
@@ -30,7 +29,8 @@ public class Drawer extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer);
+        ActivityDrawerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drawer);
+        binding.setThisDevice(Device.now);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,14 +57,8 @@ public class Drawer extends AppCompatActivity
 
         setMsgList();
         setTabHost();
-        setNavHeader();
     }
 
-    private void setNavHeader() {
-        ViewGroup parent = (ViewGroup) findViewById(R.id.drawer_layout);
-        NavHeaderDrawerBinding binding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.nav_header_drawer, parent, false);
-        binding.setThisDevice(Device.now);
-    }
 
     private void setTabHost() {
         TabHost host = (TabHost)findViewById(R.id.tabHost);
