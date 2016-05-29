@@ -16,7 +16,7 @@ public class Device extends BaseObservable {
 
     private static final String model = Build.MODEL;
     public static final int SYM_DEF_APP_ICON = android.R.drawable.sym_def_app_icon;
-    public static final Device now = new Device("this phone:" + model, SYM_DEF_APP_ICON,
+    public static final Device now = new Device("this phone: " + model, SYM_DEF_APP_ICON,
             "a boy want to make success by his hand");
     private static final String intentName = "device name";
     private static final String intentAvatar = "device avatar";

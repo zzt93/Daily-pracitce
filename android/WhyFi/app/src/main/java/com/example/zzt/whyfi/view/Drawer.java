@@ -15,11 +15,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TabHost;
 
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
+import com.example.zzt.whyfi.vm.AvatarBindingAdapters;
 import com.example.zzt.whyfi.vm.MsgHistory;
 import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
 
@@ -169,4 +171,13 @@ public class Drawer extends AppCompatActivity
         binding.getThisDevice().addToIntent(intent);
         startActivity(intent);
     }
+
+    public void onClickMsgAvatar(View view) {
+        Intent intent = new Intent(this, DeviceInfoActivity.class);
+        Device device = AvatarBindingAdapters.getDevice((ImageView) view);
+        device.addToIntent(intent);
+        startActivity(intent);
+    }
+
+
 }

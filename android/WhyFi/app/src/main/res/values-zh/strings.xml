@@ -12,4 +12,5 @@
     <string name="title_activity_device_settings">设置</string>
     <string name="user_avatar">用户头像</string>
     <string name="send">发送</string>
+    <string name="error_invalid_name">该设备名已被使用</string>
 </resources>

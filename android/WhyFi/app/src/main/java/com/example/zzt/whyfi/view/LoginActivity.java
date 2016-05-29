@@ -22,6 +22,9 @@ import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
 import com.example.zzt.whyfi.model.Device;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -58,8 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         ActivityLoginBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
         binding.setDevice(Device.now);
 
-//        setContentView(R.layout.activity_login);
-
         // Set up the login form.
         mUserNameView = (EditText) findViewById(R.id.user_name);
 
@@ -75,6 +76,12 @@ public class LoginActivity extends AppCompatActivity {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        collectSurroundingNames();
+    }
+
+    Set<String> names = new HashSet<>();
+    private void collectSurroundingNames() {
     }
 
     private void populateAutoComplete() {
@@ -135,6 +142,9 @@ public class LoginActivity extends AppCompatActivity {
 
         // Store values at the time of the login attempt.
         String userName = mUserNameView.getText().toString();
+        if (userName.isEmpty()) {
+            userName = mUserNameView.getHint().toString();
+        }
 //        String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -153,7 +163,7 @@ public class LoginActivity extends AppCompatActivity {
             focusView = mUserNameView;
             cancel = true;
         } else if (!isUserNameValid(userName)) {
-            mUserNameView.setError(getString(R.string.error_invalid_email));
+            mUserNameView.setError(getString(R.string.error_invalid_name));
             focusView = mUserNameView;
             cancel = true;
         }
@@ -171,9 +181,8 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isUserNameValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
+    private boolean isUserNameValid(String name) {
+        return !names.contains(name);
     }
 
 
@@ -223,8 +232,8 @@ public class LoginActivity extends AppCompatActivity {
         private final String mName;
         private final String mPassword;
 
-        UserLoginTask(String email, String password) {
-            mName = email;
+        UserLoginTask(String name, String password) {
+            mName = name;
             mPassword = password;
         }
 
@@ -257,6 +266,9 @@ public class LoginActivity extends AppCompatActivity {
 //            showProgress(false);
 
             if (success) {
+                // update user name
+                Device.now.setName(mName);
+                // start next
                 finish();
                 Intent intent = new Intent(LoginActivity.this, Drawer.class);
                 startActivity(intent);

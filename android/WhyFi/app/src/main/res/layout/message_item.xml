@@ -28,7 +28,8 @@
                 android:contentDescription="@string/user_avatar"
                 app:imageResource="@{msg.device.avatar}"
                 app:imageError="@{android.R.drawable.sym_def_app_icon}"
-                android:onClick="onClickAvatar"
+                app:device="@{msg.device}"
+                android:onClick="onClickMsgAvatar"
                 android:layout_gravity="top" />
 
             <LinearLayout
