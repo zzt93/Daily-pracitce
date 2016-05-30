@@ -46,7 +46,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.zzt.whyfi.view.Drawer" />
         </activity>
-
+        <activity android:name=".view.EditNameActivity"
+            android:parentActivityName=".view.DeviceInfoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.zzt.whyfi.view.DeviceInfoActivity" />
+        </activity>
+        <activity android:name=".view.EditDesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.zzt.whyfi.view.DeviceInfoActivity" />
+        </activity>
+        <activity android:name=".view.OthersInfoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.zzt.whyfi.view.Drawer" />
+        </activity>
     </application>
 
 </manifest>

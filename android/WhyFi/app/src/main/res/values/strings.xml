@@ -92,4 +92,7 @@
     <string name="sent_tab_indicator">The message you sent</string>
     <string name="received_tab_indicator">The message you received</string>
     <string name="device_name">device name</string>
+    <string name="title_activity_edit_name">EditNameActivity</string>
+    <string name="update_name">good name make friends to find you</string>
+    <string name="save">save</string>
 </resources>

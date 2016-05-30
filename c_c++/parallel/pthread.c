@@ -7,6 +7,7 @@ void *thread_function(void *f);
 
 char message[] = "hello";
 
+// gcc pthread.c -lpthread
 int main(int argc, char *argv[]){
 	int res;
 	pthread_t a_thread;

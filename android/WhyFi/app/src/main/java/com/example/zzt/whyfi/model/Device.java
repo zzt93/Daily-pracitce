@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Build;
+import android.os.Bundle;
 
 import com.example.zzt.whyfi.BR;
 
@@ -18,9 +19,9 @@ public class Device extends BaseObservable {
     public static final int SYM_DEF_APP_ICON = android.R.drawable.sym_def_app_icon;
     public static final Device now = new Device("this phone: " + model, SYM_DEF_APP_ICON,
             "a boy want to make success by his hand");
-    private static final String intentName = "device name";
-    private static final String intentAvatar = "device avatar";
-    private static final String intentDes = "device des";
+    public static final String intentName = "device name";
+    public static final String intentAvatar = "device avatar";
+    public static final String intentDes = "device des";
 
     private String name;
     private int avatar;
@@ -77,5 +78,17 @@ public class Device extends BaseObservable {
         return new Device(intent.getStringExtra(intentName),
                 intent.getIntExtra(intentAvatar, SYM_DEF_APP_ICON),
                 intent.getStringExtra(intentDes));
+    }
+
+    public void addToBundle(Bundle bundle) {
+        bundle.putString(intentName, name);
+        bundle.putInt(intentAvatar, avatar);
+        bundle.putString(intentDes, des);
+    }
+
+    public static Device getFromBundle(Bundle bundle) {
+        return new Device(bundle.getString(intentName),
+                bundle.getInt(intentAvatar),
+                bundle.getString(intentDes));
     }
 }

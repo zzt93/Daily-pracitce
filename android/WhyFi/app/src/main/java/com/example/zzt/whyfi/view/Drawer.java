@@ -28,12 +28,10 @@ import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private ActivityDrawerBinding binding;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_drawer);
+        ActivityDrawerBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_drawer);
         binding.setThisDevice(Device.now);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -166,14 +164,13 @@ public class Drawer extends AppCompatActivity
     }
 
 
-    public void onClickAvatar(View view) {
+    public void onClickNavHeader(View view) {
         Intent intent = new Intent(this, DeviceInfoActivity.class);
-        binding.getThisDevice().addToIntent(intent);
         startActivity(intent);
     }
 
     public void onClickMsgAvatar(View view) {
-        Intent intent = new Intent(this, DeviceInfoActivity.class);
+        Intent intent = new Intent(this, OthersInfoActivity.class);
         Device device = AvatarBindingAdapters.getDevice((ImageView) view);
         device.addToIntent(intent);
         startActivity(intent);

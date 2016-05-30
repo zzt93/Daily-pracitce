@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="thisDevice"
+            name="otherDevice"
             type="com.example.zzt.whyfi.model.Device" />
     </data>
 
@@ -26,9 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             app:imageError="@{android.R.drawable.sym_def_app_icon}"
-            app:imageResource="@{thisDevice.avatar}"
+            app:imageResource="@{otherDevice.avatar}"
             android:layout_gravity="center_horizontal"
-            android:onClick="chooseAvatar"
             android:contentDescription="@string/user_avatar" />
 
         <TextView
@@ -36,19 +35,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="45dp"
-            android:text="@{thisDevice.name}"
+            android:text="@{otherDevice.name}"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:onClick="editName"
             android:layout_gravity="center_horizontal" />
 
         <TextView
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{thisDevice.des}"
+            android:text="@{otherDevice.des}"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:layout_gravity="center_horizontal"
-            android:onClick="editDes"
             android:layout_marginTop="@dimen/activity_vertical_margin" />
 
     </LinearLayout>
