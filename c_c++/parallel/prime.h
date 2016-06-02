@@ -23,4 +23,10 @@ void output(int *has, int n) {
     puts("");
 }
 
+#define false 0
+#define true 1
+
+// can't (void *)(*)(void *)?
+typedef void *(*Thread_Funcition)(void *);
+
 #endif /* __PRIME_H__ */

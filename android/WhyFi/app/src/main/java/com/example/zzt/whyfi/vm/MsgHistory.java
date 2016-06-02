@@ -39,4 +39,8 @@ public class MsgHistory {
     public static void addSent(Message message) {
         sent.addFirst(message);
     }
+
+    public static void addReceived(Message message) {
+        received.addFirst(message);
+    }
 }

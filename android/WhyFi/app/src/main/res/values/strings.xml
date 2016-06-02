@@ -95,4 +95,6 @@
     <string name="title_activity_edit_name">EditNameActivity</string>
     <string name="update_name">good name make friends to find you</string>
     <string name="save">save</string>
+    <string name="ble_not_supported">bluetooth low energy not support</string>
+    <string name="bl_not_enabled">bluetooth not enabled</string>
 </resources>

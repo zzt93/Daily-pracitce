@@ -28,7 +28,7 @@ void *find_prime(void *arg) {
             }
         }
     }
-    pthread_exit(NULL);
+    return NULL;
 }
 
 void *find_prime2(void *arg) {
@@ -46,7 +46,7 @@ void *find_prime2(void *arg) {
             }
         }
     }
-    pthread_exit(NULL);
+    return NULL;
 }
 
 pthread_mutex_t work_mutex =
@@ -96,7 +96,35 @@ void *find_prime_locked(void *arg) {
         }
         pthread_mutex_unlock(&work_mutex);
     }
-    pthread_exit(NULL);
+    return NULL;
+}
+
+int is_prime(int aim) {
+    if ((aim & 1) == 0) {
+        return false;
+    }
+    int i;
+    int limit = sqrt(aim) + 1;
+    for (i = 3; i < limit; i+=2) {
+        if (aim % i == 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+void *another_algo(void *arg) {
+    arg_type *tmp = (arg_type *)arg;
+    int start = tmp->start;
+    int num_cpus = tmp->num_cpus;
+    int *has = tmp->has;
+    int i;
+    for (i = start + 2; i < n; i+=num_cpus) {
+        if (!is_prime(i)) {
+            has[i] = NOT_PRIME;
+        }
+    }
+    return NULL;
 }
 
 void prime_pthread() {
@@ -109,19 +137,27 @@ void prime_pthread() {
 	pthread_t a_thread[num_cpus];
     arg_type *arg = calloc(num_cpus, sizeof(arg_type));
 
-    for (i = 0; i < num_cpus; i++) {
+	Thread_Funcition thread_f = another_algo;
+
+    for (i = 1; i < num_cpus; i++) {
         arg[i].has = has;
         arg[i].num_cpus = num_cpus;
         arg[i].start = i + START;
         // argument will be sent to thread directly,
         // so use malloc or static
-        res = pthread_create(&a_thread[i], NULL, find_prime, arg+i);
+        res = pthread_create(&a_thread[i], NULL, thread_f, arg+i);
         if (res != 0) {
             perror("");
             exit(EXIT_FAILURE);
         }
     }
-    for (i = 0; i < num_cpus; i++) {
+	i = 0;
+	arg[i].has = has;
+	arg[i].num_cpus = num_cpus;
+    arg[i].start = i + START;
+	thread_f(arg+i);
+
+    for (i = 1; i < num_cpus; i++) {
         pthread_join(a_thread[i], NULL);
     }
     //output(has, n);
