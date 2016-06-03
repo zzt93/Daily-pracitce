@@ -3,6 +3,7 @@ package com.example.zzt.whyfi.view;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;

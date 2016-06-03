@@ -5,6 +5,7 @@
 #define MAY_BE_PRIME 0
 
 #define START 2
+#define START_OPT 3
 
 typedef struct {
     int *has;

@@ -66,35 +66,36 @@ void *find_prime_locked(void *arg) {
                 //printf("d%d ", j);
                 has[j] = NOT_PRIME;
             }
-        }
-        /**
-           Failed trial to simulate cyclic barrier:
-           if the fourth thread run immediately to
-           reach here again, other thread will not wake,
-           cause deadlock
-        status = pthread_mutex_lock(&work_mutex);
-        reach_count++;
-        if (reach_count != num_cpus) {
-            while (reach_count != num_cpus || reach_count != 0) {
-                pthread_cond_wait(&cond, &work_mutex);
+            /**
+               Failed trial to simulate cyclic barrier:
+               if the fourth thread run immediately to
+               reach here again, other thread will not wake,
+               cause deadlock
+
+               pthread_mutex_lock(&work_mutex);
+               reach_count++;
+               if (reach_count != num_cpus) {
+               while (reach_count != num_cpus || reach_count != 0) {
+               pthread_cond_wait(&cond, &work_mutex);
+               }
+               } else {
+               pthread_cond_broadcast(&cond);
+               reach_count = 0;
+               }
+               pthread_mutex_unlock(&work_mutex);
+            */
+            pthread_mutex_lock(&work_mutex);
+            reach_count++;
+            if (reach_count != num_cpus) {
+                if (reach_count != num_cpus || reach_count != 0) {
+                    pthread_cond_wait(&cond, &work_mutex);
+                }
+            } else {
+                pthread_cond_broadcast(&cond);
+                reach_count = 0;
             }
-        } else {
-            pthread_cond_broadcast(&cond);
-            reach_count = 0;
+            pthread_mutex_unlock(&work_mutex);
         }
-        pthread_mutex_unlock(&work_mutex);
-         */
-        pthread_mutex_lock(&work_mutex);
-        reach_count++;
-        if (reach_count != num_cpus) {
-            if (reach_count != num_cpus || reach_count != 0) {
-                pthread_cond_wait(&cond, &work_mutex);
-            }
-        } else {
-            pthread_cond_broadcast(&cond);
-            reach_count = 0;
-        }
-        pthread_mutex_unlock(&work_mutex);
     }
     return NULL;
 }
@@ -128,16 +129,17 @@ void *another_algo(void *arg) {
 }
 
 void prime_pthread() {
-	int res;
-    int has[n + 1];
-    memset(has, MAY_BE_PRIME, sizeof has);
+    int res;
+    size_t mem = sizeof(int)*(n + 1);
+    int *has = malloc(mem);
+    memset(has, MAY_BE_PRIME, mem);
 
     int num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
     int i;
-	pthread_t a_thread[num_cpus];
+    pthread_t a_thread[num_cpus];
     arg_type *arg = calloc(num_cpus, sizeof(arg_type));
 
-	Thread_Funcition thread_f = another_algo;
+    Thread_Funcition thread_f = find_prime2;
 
     for (i = 1; i < num_cpus; i++) {
         arg[i].has = has;
@@ -151,11 +153,11 @@ void prime_pthread() {
             exit(EXIT_FAILURE);
         }
     }
-	i = 0;
-	arg[i].has = has;
-	arg[i].num_cpus = num_cpus;
+    i = 0;
+    arg[i].has = has;
+    arg[i].num_cpus = num_cpus;
     arg[i].start = i + START;
-	thread_f(arg+i);
+    thread_f(arg+i);
 
     for (i = 1; i < num_cpus; i++) {
         pthread_join(a_thread[i], NULL);
@@ -175,5 +177,5 @@ void set_argu_prime(long long num) {
 //        return 0;
 //    }
 //    set_argu_prime(atoll(argv[1]));
-//  	return 0;
+//      return 0;
 //}

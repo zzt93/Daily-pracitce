@@ -7,18 +7,20 @@
 
 void prime(long long n) {
     // too large n cause stack overflow
-    int has[n + 1];
-    memset(has, MAY_BE_PRIME, sizeof has);
+    size_t mem = sizeof(int)*(n + 1);
+    int *odd = malloc(mem);
+    memset(odd, MAY_BE_PRIME, mem);
+
     int size = sqrt(n) + 1;
     int i, j;
     for (i = 2; i < size; i++) {
-        if (has[i] == MAY_BE_PRIME) {
+        if (odd[i] == MAY_BE_PRIME) {
             for (j = i * i; j < n; j+=i) {
-                has[j] = NOT_PRIME;
+                odd[j] = NOT_PRIME;
             }
         }
     }
-    //output(has, n);
+    //output(odd, n);
 }
 
 //int main(int argc, char *argv[]) {
