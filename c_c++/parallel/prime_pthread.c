@@ -54,6 +54,39 @@ pthread_mutex_t work_mutex =
 pthread_cond_t cond =
     PTHREAD_COND_INITIALIZER;
 long long reach_count = 0;
+void wait_or_notify(int num_cpus) {
+    /**
+       Failed trial to simulate cyclic barrier:
+       if the fourth thread run immediately to
+       reach here again, other thread will not wake,
+       cause deadlock
+
+       pthread_mutex_lock(&work_mutex);
+       reach_count++;
+       if (reach_count != num_cpus) {
+       while (reach_count != num_cpus || reach_count != 0) {
+       pthread_cond_wait(&cond, &work_mutex);
+       }
+       } else {
+       pthread_cond_broadcast(&cond);
+       reach_count = 0;
+       }
+       pthread_mutex_unlock(&work_mutex);
+    */
+    pthread_mutex_lock(&work_mutex);
+    reach_count++;
+    if (reach_count != num_cpus) {
+        if (reach_count != num_cpus || reach_count != 0) {
+            pthread_cond_wait(&cond, &work_mutex);
+        }
+    } else {
+        pthread_cond_broadcast(&cond);
+        reach_count = 0;
+    }
+    pthread_mutex_unlock(&work_mutex);
+
+}
+
 void *find_prime_locked(void *arg) {
     arg_type *tmp = (arg_type *)arg;
     int gap = tmp->start - START;
@@ -66,35 +99,7 @@ void *find_prime_locked(void *arg) {
                 //printf("d%d ", j);
                 has[j] = NOT_PRIME;
             }
-            /**
-               Failed trial to simulate cyclic barrier:
-               if the fourth thread run immediately to
-               reach here again, other thread will not wake,
-               cause deadlock
-
-               pthread_mutex_lock(&work_mutex);
-               reach_count++;
-               if (reach_count != num_cpus) {
-               while (reach_count != num_cpus || reach_count != 0) {
-               pthread_cond_wait(&cond, &work_mutex);
-               }
-               } else {
-               pthread_cond_broadcast(&cond);
-               reach_count = 0;
-               }
-               pthread_mutex_unlock(&work_mutex);
-            */
-            pthread_mutex_lock(&work_mutex);
-            reach_count++;
-            if (reach_count != num_cpus) {
-                if (reach_count != num_cpus || reach_count != 0) {
-                    pthread_cond_wait(&cond, &work_mutex);
-                }
-            } else {
-                pthread_cond_broadcast(&cond);
-                reach_count = 0;
-            }
-            pthread_mutex_unlock(&work_mutex);
+            wait_or_notify(num_cpus);
         }
     }
     return NULL;

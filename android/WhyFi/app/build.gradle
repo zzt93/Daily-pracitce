@@ -32,4 +32,5 @@ dependencies {
     compile 'com.android.databinding:adapters:1.1'
     compile 'com.android.databinding:library:1.1'
     compile 'com.android.support:support-v4:23.4.0'
+//    androidTestCompile fileTree(dir: 'libs', include: ['robotium-solo-5.5.4.jar'])
 }
