@@ -1,6 +1,5 @@
 package com.example.zzt.whyfi.vm;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -8,10 +7,10 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.view.LoginActivity;
 
 import java.util.Set;
 
@@ -21,15 +20,13 @@ import java.util.Set;
  * Usage:
  */
 public class Network {
-    private static final int REQUEST_ENABLE_BT = 1;
     private Set<String> names;
 
     public Network(Set<String> names) {
         this.names = names;
     }
 
-    @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-    public void enableBluetooth(Activity activity) {
+    public static void enableBluetooth(Activity activity) {
 
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(activity, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
@@ -45,10 +42,9 @@ public class Network {
         // displays a dialog requesting user permission to enable Bluetooth.
         if (mBluetoothAdapter == null || !mBluetoothAdapter.isEnabled()) {
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            activity.startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
+            activity.startActivityForResult(enableBtIntent, LoginActivity.REQUEST_ENABLE_BT);
         }
 
-        queryPaired(mBluetoothAdapter);
     }
 
     private void queryPaired(BluetoothAdapter mBluetoothAdapter) {
@@ -62,4 +58,5 @@ public class Network {
             }
         }
     }
+
 }

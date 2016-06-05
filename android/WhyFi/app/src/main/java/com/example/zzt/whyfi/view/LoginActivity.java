@@ -3,7 +3,6 @@ package com.example.zzt.whyfi.view;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.AsyncTask;
@@ -20,16 +19,23 @@ import android.widget.Toast;
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
 import com.example.zzt.whyfi.model.Device;
+import com.example.zzt.whyfi.vm.BLE;
 import com.example.zzt.whyfi.vm.Network;
+import com.polidea.rxandroidble.RxBleClient;
+import com.polidea.rxandroidble.RxBleScanResult;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import rx.Subscription;
+import rx.functions.Action1;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
 
+    public static final int REQUEST_ENABLE_BT = 1;
     /**
      * Id to identity READ_CONTACTS permission request.
      */
@@ -89,9 +95,18 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean setUpNetwork() {
         // check network support
-
+        Network.enableBluetooth(this);
         // broadcast this device's info
-
+        RxBleClient client = BLE.getInstance(this);
+        Subscription subscribe = client.scanBleDevices().subscribe(new Action1<RxBleScanResult>() {
+            @Override
+            public void call(RxBleScanResult rxBleScanResult) {
+                rxBleScanResult
+                        .getBleDevice()
+                        .establishConnection(LoginActivity.this, false)
+                        .subscribe();
+            }
+        });
         // set up listener/receiver
         return true;
     }
@@ -103,13 +118,22 @@ public class LoginActivity extends AppCompatActivity {
      */
     private void collectSurroundingInfo() {
         // collect surrounding name
-        new Network(names).enableBluetooth(this);
         /**
          collect surrounding message and add to
          {@link com.example.zzt.whyfi.vm.MsgHistory}
          */
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_ENABLE_BT:
+                if (resultCode == RESULT_CANCELED) {
+                    Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_LONG).show();
+                }
+        }
+    }
 
     /**
      * Attempts to sign in or register the account specified by the login form.
@@ -269,5 +293,6 @@ public class LoginActivity extends AppCompatActivity {
             showProgress(false);
         }
     }
+
 }
 

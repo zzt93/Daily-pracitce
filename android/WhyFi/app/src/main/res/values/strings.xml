@@ -96,5 +96,5 @@
     <string name="update_name">good name make friends to find you</string>
     <string name="save">save</string>
     <string name="ble_not_supported">bluetooth low energy not support</string>
-    <string name="bl_not_enabled">bluetooth not enabled</string>
+    <string name="bl_not_enabled">bluetooth not enabled, you may not use some function</string>
 </resources>

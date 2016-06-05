@@ -15,4 +15,6 @@
     <string name="error_invalid_name">该设备名已被使用</string>
     <string name="update_name">好的名字让朋友更好的发现你</string>
     <string name="save">保存</string>
+    <string name="bl_not_enabled">蓝牙设备未开启，您可能不能使用部分功能</string>
+    <string name="ble_not_supported">蓝牙设备不支持</string>
 </resources>
