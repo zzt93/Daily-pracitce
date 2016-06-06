@@ -119,6 +119,7 @@ void prime_opt(long long num) {
         pthread_join(a_thread[i], NULL);
     }
     //special_output(odd, count);
+    free(odd);
 }
 
 // int main(int argc, char *argv[]){

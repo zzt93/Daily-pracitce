@@ -7,6 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 
 import com.example.zzt.whyfi.BR;
+import com.example.zzt.whyfi.common.BytesSetting;
+
+import java.io.UnsupportedEncodingException;
 
 /**
  * Created by zzt on 5/20/16.
@@ -90,5 +93,31 @@ public class Device extends BaseObservable {
         return new Device(bundle.getString(intentName),
                 bundle.getInt(intentAvatar),
                 bundle.getString(intentDes));
+    }
+
+    public static Device getFromBytes(byte[] bytes) throws UnsupportedEncodingException {
+        int nameLen = 0;
+        for (int i = 0; i < bytes.length; i++) {
+            if (bytes[i] == BytesSetting.SPLIT_BYTE) {
+                nameLen = i;
+                break;
+            }
+        }
+        String name = new String(bytes, 0, nameLen, BytesSetting.UTF_8);
+        String des = new String(bytes, nameLen + 1, bytes.length - nameLen - 1, BytesSetting.UTF_8);
+        return new Device(name, SYM_DEF_APP_ICON, des);
+    }
+
+    public byte[] getBytes() throws UnsupportedEncodingException {
+        int nameLen = name.length();
+        int desLen = des.length();
+        byte[] bytes = new byte[nameLen + 1 + desLen];
+
+        System.arraycopy(name.getBytes(BytesSetting.UTF_8), 0, bytes, 0, nameLen);
+        bytes[nameLen] = BytesSetting.SPLIT_BYTE;
+
+        System.arraycopy(des.getBytes(BytesSetting.UTF_8), 0, bytes, nameLen + 1, desLen);
+
+        return bytes;
     }
 }

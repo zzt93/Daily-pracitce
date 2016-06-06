@@ -168,6 +168,7 @@ void prime_pthread() {
         pthread_join(a_thread[i], NULL);
     }
     //output(has, n);
+    free(has);
 }
 
 void set_argu_prime(long long num) {

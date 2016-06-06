@@ -21,6 +21,7 @@ void prime(long long n) {
         }
     }
     //output(odd, n);
+    free(odd);
 }
 
 //int main(int argc, char *argv[]) {

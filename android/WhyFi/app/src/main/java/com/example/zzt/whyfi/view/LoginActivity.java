@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -22,13 +23,16 @@ import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.BLE;
 import com.example.zzt.whyfi.vm.Network;
 import com.polidea.rxandroidble.RxBleClient;
+import com.polidea.rxandroidble.RxBleConnection;
 import com.polidea.rxandroidble.RxBleScanResult;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import rx.Observable;
 import rx.Subscription;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 /**
  * A login screen that offers login via email/password.
@@ -57,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserNameView;
     private View mProgressView;
     private View mLoginFormView;
+    private Subscription subscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,48 +86,66 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        if (setUpNetwork()) {
-            collectSurroundingInfo();
-        } else {
+        if (!setUpNetwork()) {
             Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     protected void onDestroy() {
+        subscribe.unsubscribe();
         super.onDestroy();
     }
 
     private boolean setUpNetwork() {
         // check network support
         Network.enableBluetooth(this);
-        // broadcast this device's info
+        // broadcast this device's info and receive others'
         RxBleClient client = BLE.getInstance(this);
-        Subscription subscribe = client.scanBleDevices().subscribe(new Action1<RxBleScanResult>() {
+        /**
+         collect surrounding message and add to
+         {@link com.example.zzt.whyfi.vm.MsgHistory}
+         */
+        subscribe = client.scanBleDevices().subscribe(new Action1<RxBleScanResult>() {
             @Override
             public void call(RxBleScanResult rxBleScanResult) {
-                rxBleScanResult
+                Observable<RxBleConnection> connection = rxBleScanResult
                         .getBleDevice()
-                        .establishConnection(LoginActivity.this, false)
+                        .establishConnection(LoginActivity.this, false);
+
+                /**
+                 collect surrounding message and add to
+                 {@link com.example.zzt.whyfi.vm.MsgHistory}
+                 */
+                connection
+                        .flatMap(new Func1<RxBleConnection, Observable<byte[]>>() {
+                            @Override
+                            public Observable<byte[]> call(RxBleConnection rxBleConnection) {
+                                return rxBleConnection.readCharacteristic(BLE.BLE_CHAT_UUID)
+                                        .doOnNext(new Action1<byte[]>() {
+                                            @Override
+                                            public void call(byte[] bytes) {
+                                                Log.d("why flat map", new String(bytes));
+                                            }
+                                        })
+                                        .flatMap(new Func1<byte[], Observable<byte[]>>() {
+                                            @Override
+                                            public Observable<byte[]> call(byte[] bytes) {
+                                                return null;
+                                            }
+
+                                        });
+                            }
+                        })
                         .subscribe();
+
             }
         });
-        // set up listener/receiver
         return true;
     }
 
     Set<String> names = new HashSet<>();
 
-    /**
-     * collect surrounding device's broadcast info
-     */
-    private void collectSurroundingInfo() {
-        // collect surrounding name
-        /**
-         collect surrounding message and add to
-         {@link com.example.zzt.whyfi.vm.MsgHistory}
-         */
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
