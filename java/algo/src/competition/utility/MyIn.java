@@ -132,7 +132,7 @@ public class MyIn {
 
         ArrayList<Integer> res = new ArrayList<Integer>();
         for (String s : line.split(del)) {
-            if (s.equals("")) {
+            if (s.isEmpty()) {
                 continue;
             }
             res.add(Integer.parseInt(s));
@@ -142,8 +142,14 @@ public class MyIn {
 
     public ArrayList<Double> oneLineToDouble(String del) {
         String line = scanner.nextLine();
+        if (line.isEmpty()) {
+            line = scanner.nextLine();
+        }
         ArrayList<Double> res = new ArrayList<Double>();
         for (String s : line.split(del)) {
+            if (s.isEmpty()) {
+                continue;
+            }
             res.add(Double.parseDouble(s));
         }
         return res;

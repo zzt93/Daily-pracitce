@@ -109,15 +109,27 @@ public class LoginActivity extends AppCompatActivity {
         subscribe = client.scanBleDevices().subscribe(new Action1<RxBleScanResult>() {
             @Override
             public void call(RxBleScanResult rxBleScanResult) {
-                Observable<RxBleConnection> connection = rxBleScanResult
+                // connection made event source
+                Observable<RxBleConnection> connectionSrc = rxBleScanResult
                         .getBleDevice()
                         .establishConnection(LoginActivity.this, false);
 
+                connectionSrc.map(new Func1<RxBleConnection, Observable<byte[]>>() {
+                    @Override
+                    public Observable<byte[]> call(RxBleConnection rxBleConnection) {
+                        return null;
+                    }
+                }).subscribe(new Action1<Observable<byte[]>>() {
+                    @Override
+                    public void call(Observable<byte[]> observable) {
+
+                    }
+                });
                 /**
                  collect surrounding message and add to
                  {@link com.example.zzt.whyfi.vm.MsgHistory}
                  */
-                connection
+                connectionSrc
                         .flatMap(new Func1<RxBleConnection, Observable<byte[]>>() {
                             @Override
                             public Observable<byte[]> call(RxBleConnection rxBleConnection) {
@@ -137,7 +149,12 @@ public class LoginActivity extends AppCompatActivity {
                                         });
                             }
                         })
-                        .subscribe();
+                        .subscribe(new Action1<byte[]>() {
+                            @Override
+                            public void call(byte[] bytes) {
+
+                            }
+                        });
 
             }
         });
