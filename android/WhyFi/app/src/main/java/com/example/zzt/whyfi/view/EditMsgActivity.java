@@ -9,6 +9,7 @@ import android.widget.EditText;
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
+import com.example.zzt.whyfi.common.BLE;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
 public class EditMsgActivity extends AppCompatActivity {
@@ -23,7 +24,8 @@ public class EditMsgActivity extends AppCompatActivity {
         EditText text = (EditText) findViewById(R.id.msg_to_send);
         assert text != null;
         String msg = text.getText().toString();
-        // TODO sent by network
+        // sent by network
+        BLE.writeReadMsg(new Message(Device.now, msg));
         // add to sent storage and update list view
         MsgHistory.addSent(new Message(Device.now, msg));
         // jump back

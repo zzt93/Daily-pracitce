@@ -61,6 +61,14 @@ public class Device extends BaseObservable {
         notifyPropertyChanged(BR.name);
     }
 
+    public byte[] getNameByte() throws UnsupportedEncodingException {
+        return name.getBytes(BytesSetting.UTF_8);
+    }
+
+    public static String getNameFromByte(byte[] bytes) throws UnsupportedEncodingException {
+        return new String(bytes, BytesSetting.UTF_8);
+    }
+
     public void setAvatar(int avatar) {
         this.avatar = avatar;
         notifyPropertyChanged(BR.avatar);
@@ -108,7 +116,7 @@ public class Device extends BaseObservable {
         return new Device(name, SYM_DEF_APP_ICON, des);
     }
 
-    public byte[] getBytes() throws UnsupportedEncodingException {
+    public byte[] toBytes() throws UnsupportedEncodingException {
         int nameLen = name.length();
         int desLen = des.length();
         byte[] bytes = new byte[nameLen + 1 + desLen];

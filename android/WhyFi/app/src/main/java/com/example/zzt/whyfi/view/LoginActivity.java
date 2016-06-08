@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -20,24 +19,21 @@ import android.widget.Toast;
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
 import com.example.zzt.whyfi.model.Device;
-import com.example.zzt.whyfi.vm.BLE;
-import com.example.zzt.whyfi.vm.Network;
-import com.polidea.rxandroidble.RxBleClient;
-import com.polidea.rxandroidble.RxBleConnection;
-import com.polidea.rxandroidble.RxBleScanResult;
+import com.example.zzt.whyfi.common.BLE;
+import com.example.zzt.whyfi.common.Network;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import rx.Observable;
 import rx.Subscription;
-import rx.functions.Action1;
-import rx.functions.Func1;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity {
+
+    static {
+    }
 
     public static final int REQUEST_ENABLE_BT = 1;
     /**
@@ -47,11 +43,11 @@ public class LoginActivity extends AppCompatActivity {
 
     /**
      * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+    public static final String CANONICAL_NAME = LoginActivity.class.getCanonicalName();
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -100,64 +96,12 @@ public class LoginActivity extends AppCompatActivity {
     private boolean setUpNetwork() {
         // check network support
         Network.enableBluetooth(this);
-        // broadcast this device's info and receive others'
-        RxBleClient client = BLE.getInstance(this);
         /**
          collect surrounding message and add to
          {@link com.example.zzt.whyfi.vm.MsgHistory}
          */
-        subscribe = client.scanBleDevices().subscribe(new Action1<RxBleScanResult>() {
-            @Override
-            public void call(RxBleScanResult rxBleScanResult) {
-                // connection made event source
-                Observable<RxBleConnection> connectionSrc = rxBleScanResult
-                        .getBleDevice()
-                        .establishConnection(LoginActivity.this, false);
-
-                connectionSrc.map(new Func1<RxBleConnection, Observable<byte[]>>() {
-                    @Override
-                    public Observable<byte[]> call(RxBleConnection rxBleConnection) {
-                        return null;
-                    }
-                }).subscribe(new Action1<Observable<byte[]>>() {
-                    @Override
-                    public void call(Observable<byte[]> observable) {
-
-                    }
-                });
-                /**
-                 collect surrounding message and add to
-                 {@link com.example.zzt.whyfi.vm.MsgHistory}
-                 */
-                connectionSrc
-                        .flatMap(new Func1<RxBleConnection, Observable<byte[]>>() {
-                            @Override
-                            public Observable<byte[]> call(RxBleConnection rxBleConnection) {
-                                return rxBleConnection.readCharacteristic(BLE.BLE_CHAT_UUID)
-                                        .doOnNext(new Action1<byte[]>() {
-                                            @Override
-                                            public void call(byte[] bytes) {
-                                                Log.d("why flat map", new String(bytes));
-                                            }
-                                        })
-                                        .flatMap(new Func1<byte[], Observable<byte[]>>() {
-                                            @Override
-                                            public Observable<byte[]> call(byte[] bytes) {
-                                                return null;
-                                            }
-
-                                        });
-                            }
-                        })
-                        .subscribe(new Action1<byte[]>() {
-                            @Override
-                            public void call(byte[] bytes) {
-
-                            }
-                        });
-
-            }
-        });
+        BLE.init(this);
+        subscribe = BLE.readMsg();
         return true;
     }
 
@@ -305,7 +249,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
 
-            // TODO: register the new account here.
+            // register the new account here.
             return true;
         }
 

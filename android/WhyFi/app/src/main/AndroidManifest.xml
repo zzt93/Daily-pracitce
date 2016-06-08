@@ -5,8 +5,8 @@
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
     <application
         android:allowBackup="true"
@@ -48,7 +48,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.zzt.whyfi.view.Drawer" />
         </activity>
-        <activity android:name=".view.EditNameActivity"
+        <activity
+            android:name=".view.EditNameActivity"
             android:parentActivityName=".view.DeviceInfoActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -64,6 +65,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.zzt.whyfi.view.Drawer" />
         </activity>
+
+        <service
+            android:name=".vm.ReceiveMsgService"
+            android:enabled="false"
+            android:exported="false"></service>
     </application>
 
 </manifest>

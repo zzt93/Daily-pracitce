@@ -59,8 +59,15 @@ public class Drawer extends AppCompatActivity
 
         setMsgList();
         setTabHost();
+
+        Intent ser = new Intent();
+        startService(ser);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
     private void setTabHost() {
         TabHost host = (TabHost)findViewById(R.id.tabHost);
