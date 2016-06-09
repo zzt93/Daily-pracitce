@@ -60,8 +60,6 @@ public class Drawer extends AppCompatActivity
         setMsgList();
         setTabHost();
 
-        Intent ser = new Intent();
-        startService(ser);
     }
 
     @Override

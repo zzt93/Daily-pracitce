@@ -17,15 +17,14 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.common.Network;
 import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
 import com.example.zzt.whyfi.model.Device;
-import com.example.zzt.whyfi.common.BLE;
-import com.example.zzt.whyfi.common.Network;
+import com.example.zzt.whyfi.vm.ReceiveMsgService;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import rx.Subscription;
 
 /**
  * A login screen that offers login via email/password.
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
     private EditText mUserNameView;
     private View mProgressView;
     private View mLoginFormView;
-    private Subscription subscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,21 +85,16 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        subscribe.unsubscribe();
-        super.onDestroy();
-    }
 
     private boolean setUpNetwork() {
         // check network support
-        Network.enableBluetooth(this);
-        /**
-         collect surrounding message and add to
-         {@link com.example.zzt.whyfi.vm.MsgHistory}
-         */
-        BLE.init(this);
-        subscribe = BLE.readMsg();
+        if (!Network.enableBluetooth(this)) {
+            return false;
+        }
+
+
+        Intent ser = new Intent(this, ReceiveMsgService.class);
+        startService(ser);
         return true;
     }
 

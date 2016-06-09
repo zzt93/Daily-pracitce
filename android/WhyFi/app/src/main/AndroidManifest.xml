@@ -68,7 +68,7 @@
 
         <service
             android:name=".vm.ReceiveMsgService"
-            android:enabled="false"
+            android:enabled="true"
             android:exported="false"></service>
     </application>
 

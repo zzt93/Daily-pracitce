@@ -22,6 +22,7 @@ import rx.Subscription;
 
 public class ReceiveMsgService extends Service {
     public static final int PERIOD = 30;
+    private static final String CANONICAL_NAME = ReceiveMsgService.class.getCanonicalName();
     private NotificationManager mNM;
     private ScheduledExecutorService scheduler;
 
@@ -50,6 +51,8 @@ public class ReceiveMsgService extends Service {
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
 
+        BLE.init(this);
+
         scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
@@ -75,6 +78,7 @@ public class ReceiveMsgService extends Service {
     public void onDestroy() {
         // Cancel the persistent notification.
         mNM.cancel(NOTIFICATION);
+        scheduler.shutdown();
 
         // Tell the user we stopped.
         Toast.makeText(this, R.string.local_service_stopped, Toast.LENGTH_SHORT).show();
@@ -102,7 +106,7 @@ public class ReceiveMsgService extends Service {
 
         // Set the info for the views that show in the notification panel.
         Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.drawable.ic_menu_setting)  // the status icon
+                .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
                 .setTicker(text)  // the status text
                 .setWhen(System.currentTimeMillis())  // the time stamp
                 .setContentTitle(getText(R.string.msg_received_label))  // the label of the entry

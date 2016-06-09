@@ -26,10 +26,11 @@ public class Network {
         this.names = names;
     }
 
-    public static void enableBluetooth(Activity activity) {
+    public static boolean enableBluetooth(Activity activity) {
 
         if (!activity.getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(activity, R.string.ble_not_supported, Toast.LENGTH_SHORT).show();
+            return false;
         }
         BluetoothAdapter mBluetoothAdapter;
 
@@ -45,6 +46,7 @@ public class Network {
             activity.startActivityForResult(enableBtIntent, LoginActivity.REQUEST_ENABLE_BT);
         }
 
+        return true;
     }
 
     private void queryPaired(BluetoothAdapter mBluetoothAdapter) {
