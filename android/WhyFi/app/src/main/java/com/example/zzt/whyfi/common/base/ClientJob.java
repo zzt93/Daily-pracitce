@@ -3,6 +3,7 @@ package com.example.zzt.whyfi.common.base;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.util.Log;
 
 import com.example.zzt.whyfi.common.BlueToothMsg;
 
@@ -13,11 +14,12 @@ import java.io.IOException;
  * <p/>
  * Usage:
  */
-public class ClientRead implements Runnable {
+public class ClientJob implements Runnable {
+    private static final String TAG = ClientJob.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
     private BluetoothAdapter mBluetoothAdapter;
 
-    public ClientRead(BluetoothDevice device, BluetoothAdapter mBluetoothAdapter) {
+    public ClientJob(BluetoothDevice device, BluetoothAdapter mBluetoothAdapter) {
         this.mBluetoothAdapter = mBluetoothAdapter;
         // Use a temporary object that is later assigned to mmSocket,
         // because mmSocket is final
@@ -28,6 +30,7 @@ public class ClientRead implements Runnable {
             // MY_UUID is the app's UUID string, also used by the server code
             tmp = device.createRfcommSocketToServiceRecord(BlueToothMsg.BLE_CHAT_UUID);
         } catch (IOException e) {
+            Log.e(TAG, "Socket Type: create() failed", e);
         }
         mmSocket = tmp;
     }
@@ -45,11 +48,13 @@ public class ClientRead implements Runnable {
             try {
                 mmSocket.close();
             } catch (IOException closeException) {
+                Log.e(TAG, "unable to close() socket during connection failure", closeException);
             }
             return;
         }
 
-        new ConnectedBT(mmSocket).read();
+        BlueToothMsg.clientJob(mmSocket);
+
     }
 
     /**
@@ -59,6 +64,7 @@ public class ClientRead implements Runnable {
         try {
             mmSocket.close();
         } catch (IOException e) {
+            Log.e(TAG, "close() of connect socket failed", e);
         }
     }
 }

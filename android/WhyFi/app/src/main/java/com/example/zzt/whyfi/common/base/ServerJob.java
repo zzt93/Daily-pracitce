@@ -3,6 +3,7 @@ package com.example.zzt.whyfi.common.base;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
+import android.util.Log;
 
 import com.example.zzt.whyfi.common.BlueToothMsg;
 
@@ -13,8 +14,8 @@ import java.io.IOException;
  * <p/>
  * Usage:
  */
-public class ServerWrite implements Runnable {
-    private static final String NAME = "chat";
+public class ServerJob implements Runnable {
+    private static final String NAME = "ServerWriteChat";
     /**
      * You should usually close your BluetoothServerSocket
      * as soon as you are done listening for incoming connections.
@@ -22,7 +23,7 @@ public class ServerWrite implements Runnable {
      */
     private final BluetoothServerSocket mmServerSocket;
 
-    public ServerWrite(BluetoothAdapter mBluetoothAdapter) {
+    public ServerJob(BluetoothAdapter mBluetoothAdapter) {
         // Use a temporary object that is later assigned to mmServerSocket,
         // because mmServerSocket is final
         BluetoothServerSocket tmp = null;
@@ -30,6 +31,7 @@ public class ServerWrite implements Runnable {
             // MY_UUID is the app's UUID string, also used by the client code
             tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(NAME, BlueToothMsg.BLE_CHAT_UUID);
         } catch (IOException e) {
+            Log.e(NAME, "listen() failed", e);
         }
         mmServerSocket = tmp;
     }
@@ -41,29 +43,25 @@ public class ServerWrite implements Runnable {
             try {
                 socket = mmServerSocket.accept();
             } catch (IOException e) {
-                break;
+                Log.e(NAME, "accept() failed", e);
             }
             // If a connection was accepted
             if (socket != null) {
-                // Do work to manage the connection (in a separate thread)
-                BlueToothMsg.write(new ConnectedBT(socket));
-                try {
-                    mmServerSocket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
+                BlueToothMsg.serverJob(mmServerSocket, socket);
             }
         }
+
     }
 
     /**
      * Will cancel the listening socket, and cause the thread to finish
      */
     public void cancel() {
+        Log.d(NAME, "cancel " + this);
         try {
             mmServerSocket.close();
         } catch (IOException e) {
+            Log.e(NAME, "close() of server failed", e);
         }
     }
 }

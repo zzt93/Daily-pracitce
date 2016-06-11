@@ -35,4 +35,5 @@ dependencies {
     compile "com.polidea.rxandroidble:rxandroidble:1.0.1"
 
 //    compile 'co.lujun:lmbluetoothsdk:1.0.2'
+    compile 'net.jcip:jcip-annotations:1.0'
 }

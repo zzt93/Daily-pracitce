@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.example.zzt.whyfi.common.BlueToothMsg;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
@@ -19,8 +20,9 @@ import java.util.Arrays;
  * <p/>
  * Usage:
  */
-public class ConnectedBT {
+public class ConnectedBT implements Runnable {
     private static final String CANONICAL_NAME = ConnectedBT.class.getCanonicalName();
+    private static final String TAG = ConnectedBT.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
@@ -36,20 +38,27 @@ public class ConnectedBT {
         try {
             tmpIn = socket.getInputStream();
             tmpOut = socket.getOutputStream();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            Log.e(TAG, "disconnected", e);
+        }
 
         mmInStream = tmpIn;
         mmOutStream = tmpOut;
     }
 
     public void read() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            Log.e(TAG, "should not be main looper", new Exception());
+        }
+
         byte[] buffer = new byte[1024];  // buffer store for the stream
         int bytes; // bytes returned from read()
 
         // Keep listening to the InputStream until an exception occurs
-        while (true) {
+        while (BlueToothMsg.isConnected()) {
             try {
                 // Read from the InputStream
+                Log.d(TAG, "trying reading");
                 bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
                 final byte[] copyOf = Arrays.copyOf(buffer, bytes);
@@ -78,14 +87,22 @@ public class ConnectedBT {
         try {
             mmOutStream.write(bytes);
             mmOutStream.flush();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+            Log.e(TAG, "Exception during write", e);
+        }
     }
 
     /* Call this from the main activity to shutdown the connection */
     public void cancel() {
         try {
             mmSocket.close();
-        } catch (IOException e) { }
+        } catch (IOException e) {
+        }
     }
 
+    @Override
+    public void run() {
+        BTMsgWriter.performWrite(this);
+        read();
+    }
 }

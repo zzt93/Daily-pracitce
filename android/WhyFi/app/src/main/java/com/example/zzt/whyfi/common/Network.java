@@ -1,8 +1,6 @@
 package com.example.zzt.whyfi.common;
 
 import android.app.Activity;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
@@ -16,10 +14,8 @@ import java.util.Set;
  * Usage:
  */
 public class Network {
-    private Set<String> names;
 
     public Network(Set<String> names) {
-        this.names = names;
     }
 
     public static boolean enableDiscoverable(Activity activity) {
@@ -34,16 +30,6 @@ public class Network {
         return true;
     }
 
-    private void queryPaired(BluetoothAdapter mBluetoothAdapter) {
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        // If there are paired devices
-        if (pairedDevices.size() > 0) {
-            // Loop through paired devices
-            for (BluetoothDevice device : pairedDevices) {
-                // Add the name and address to an array adapter to show in a ListView
-                names.add(device.getName() + "\n" + device.getAddress());
-            }
-        }
-    }
+
 
 }

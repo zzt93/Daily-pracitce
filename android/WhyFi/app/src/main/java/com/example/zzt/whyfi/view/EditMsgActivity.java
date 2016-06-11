@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.BlueToothMsg;
+import com.example.zzt.whyfi.common.base.BTMsgWriter;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
@@ -24,9 +24,13 @@ public class EditMsgActivity extends AppCompatActivity {
         EditText text = (EditText) findViewById(R.id.msg_to_send);
         assert text != null;
         String msg = text.getText().toString();
+        if (msg.isEmpty()) {
+            text.setError(getString(R.string.empty_msg));
+            return;
+        }
         // sent by network
         Message message = new Message(Device.now, msg);
-        BlueToothMsg.writeMsg(message);
+        BTMsgWriter.writeMsg(message);
         // add to sent storage and update list view
         MsgHistory.addSent(message);
         // jump back

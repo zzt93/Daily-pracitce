@@ -1,5 +1,7 @@
 package com.example.zzt.whyfi.vm;
 
+import android.support.annotation.UiThread;
+
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
 
@@ -12,6 +14,7 @@ import java.util.List;
  * <p/>
  * Usage:
  */
+@UiThread
 public class MsgHistory {
 
     private static LinkedList<Message> sent = new LinkedList<>();
