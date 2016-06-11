@@ -88,7 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private boolean setUpNetwork() {
         // check network support
-        if (!Network.enableBluetooth(this)) {
+        if (!Network.enableDiscoverable(this)) {
             return false;
         }
 

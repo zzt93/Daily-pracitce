@@ -11,14 +11,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.BLE;
+import com.example.zzt.whyfi.common.BlueToothMsg;
 import com.example.zzt.whyfi.view.Drawer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import rx.Subscription;
 
 public class ReceiveMsgService extends Service {
     public static final int PERIOD = 30;
@@ -51,19 +49,19 @@ public class ReceiveMsgService extends Service {
         // Display a notification about us starting.  We put an icon in the status bar.
         showNotification();
 
-        BLE.init(this);
+//        BlueToothMsg.init(ReceiveMsgService.this);
 
         scheduler = Executors.newScheduledThreadPool(1);
         scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                Subscription subscription = BLE.readMsg();
+                BlueToothMsg.start();
                 try {
-                    TimeUnit.SECONDS.sleep(5);
+                    TimeUnit.SECONDS.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                subscription.unsubscribe();
+                BlueToothMsg.stopConnection();
             }
         }, 0, PERIOD, TimeUnit.SECONDS);
     }

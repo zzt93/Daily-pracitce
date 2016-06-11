@@ -34,5 +34,5 @@ dependencies {
     compile 'com.android.support:support-v4:23.4.0'
     compile "com.polidea.rxandroidble:rxandroidble:1.0.1"
 
-//    androidTestCompile fileTree(dir: 'libs', include: ['robotium-solo-5.5.4.jar'])
+//    compile 'co.lujun:lmbluetoothsdk:1.0.2'
 }

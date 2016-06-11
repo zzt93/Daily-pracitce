@@ -25,6 +25,7 @@ import rx.subscriptions.CompositeSubscription;
  * <p>
  * Usage:
  */
+@Deprecated
 public class BLE {
 
     private static final String CANONICAL_NAME = BLE.class.getCanonicalName();

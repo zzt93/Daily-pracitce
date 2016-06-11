@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.common.BlueToothMsg;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
-import com.example.zzt.whyfi.common.BLE;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
 public class EditMsgActivity extends AppCompatActivity {
@@ -25,9 +25,10 @@ public class EditMsgActivity extends AppCompatActivity {
         assert text != null;
         String msg = text.getText().toString();
         // sent by network
-        BLE.writeReadMsg(new Message(Device.now, msg));
+        Message message = new Message(Device.now, msg);
+        BlueToothMsg.writeMsg(message);
         // add to sent storage and update list view
-        MsgHistory.addSent(new Message(Device.now, msg));
+        MsgHistory.addSent(message);
         // jump back
         NavUtils.navigateUpFromSameTask(this);
     }
