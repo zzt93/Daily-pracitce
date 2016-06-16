@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common.base;
+package com.example.zzt.whyfi.common;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

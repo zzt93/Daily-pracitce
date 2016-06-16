@@ -2,6 +2,8 @@ package com.example.zzt.whyfi.vm;
 
 import android.support.annotation.UiThread;
 
+import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.common.NotificationHelper;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
 
@@ -44,6 +46,7 @@ public class MsgHistory {
     }
 
     public static void addReceived(Message message) {
+        new NotificationHelper().showFixedNotification(R.string.msg_received_label);
         received.addFirst(message);
     }
 }

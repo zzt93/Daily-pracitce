@@ -17,10 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.Network;
 import com.example.zzt.whyfi.databinding.ActivityLoginBinding;
 import com.example.zzt.whyfi.model.Device;
-import com.example.zzt.whyfi.vm.ReceiveMsgService;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -80,23 +78,8 @@ public class LoginActivity extends AppCompatActivity {
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
-        if (!setUpNetwork()) {
-            Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_SHORT).show();
-        }
     }
 
-
-    private boolean setUpNetwork() {
-        // check network support
-        if (!Network.enableDiscoverable(this)) {
-            return false;
-        }
-
-
-        Intent ser = new Intent(this, ReceiveMsgService.class);
-        startService(ser);
-        return true;
-    }
 
     Set<String> names = new HashSet<>();
 

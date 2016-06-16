@@ -101,4 +101,5 @@
     <string name="local_service_stopped">stop</string>
     <string name="msg_received_label">you received some message</string>
     <string name="empty_msg">can\'t send empty message</string>
+    <string name="drawer">drawer</string>
 </resources>

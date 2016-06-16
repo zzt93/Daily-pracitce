@@ -1,11 +1,10 @@
-package com.example.zzt.whyfi.common.base;
+package com.example.zzt.whyfi.common.net;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
-import com.example.zzt.whyfi.common.BlueToothMsg;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
@@ -22,7 +21,6 @@ import java.util.Arrays;
  */
 public class ConnectedBT implements Runnable {
     private static final String CANONICAL_NAME = ConnectedBT.class.getCanonicalName();
-    private static final String TAG = ConnectedBT.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
     private final OutputStream mmOutStream;
@@ -39,7 +37,7 @@ public class ConnectedBT implements Runnable {
             tmpIn = socket.getInputStream();
             tmpOut = socket.getOutputStream();
         } catch (IOException e) {
-            Log.e(TAG, "disconnected", e);
+            Log.e(CANONICAL_NAME, "disconnected", e);
         }
 
         mmInStream = tmpIn;
@@ -48,7 +46,7 @@ public class ConnectedBT implements Runnable {
 
     public void read() {
         if (Looper.getMainLooper() == Looper.myLooper()) {
-            Log.e(TAG, "should not be main looper", new Exception());
+            Log.e(CANONICAL_NAME, "should not be main looper", new Exception());
         }
 
         byte[] buffer = new byte[1024];  // buffer store for the stream
@@ -58,7 +56,7 @@ public class ConnectedBT implements Runnable {
         while (BlueToothMsg.isConnected()) {
             try {
                 // Read from the InputStream
-                Log.d(TAG, "trying reading");
+                Log.d(CANONICAL_NAME, "trying reading");
                 bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
                 final byte[] copyOf = Arrays.copyOf(buffer, bytes);
@@ -66,17 +64,19 @@ public class ConnectedBT implements Runnable {
                         new Runnable() {
                             @Override
                             public void run() {
-                                Log.d("read byte", "read ");
+                                Log.d(CANONICAL_NAME, "update received message");
                                 try {
                                     MsgHistory.addReceived(Message.getFromBytes(copyOf));
                                 } catch (UnsupportedEncodingException e) {
-                                    e.printStackTrace();
+                                    Log.e(CANONICAL_NAME, "Exception during message conversion", e);
                                 }
                             }
                         }
                 );
                 Log.d(CANONICAL_NAME, new String(copyOf));
             } catch (IOException e) {
+                cancel();
+                Log.e(CANONICAL_NAME, "Exception during read", e);
                 break;
             }
         }
@@ -88,7 +88,7 @@ public class ConnectedBT implements Runnable {
             mmOutStream.write(bytes);
             mmOutStream.flush();
         } catch (IOException e) {
-            Log.e(TAG, "Exception during write", e);
+            Log.e(CANONICAL_NAME, "Exception during write", e);
         }
     }
 
@@ -97,6 +97,7 @@ public class ConnectedBT implements Runnable {
         try {
             mmSocket.close();
         } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during close", e);
         }
     }
 

@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common;
+package com.example.zzt.whyfi.common.net;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -14,18 +14,17 @@ import android.support.annotation.WorkerThread;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.zzt.whyfi.common.base.BTMsgWriter;
-import com.example.zzt.whyfi.common.base.ClientJob;
-import com.example.zzt.whyfi.common.base.ConnectedBT;
-import com.example.zzt.whyfi.common.base.ServerJob;
-import com.example.zzt.whyfi.common.base.ToGuard;
+import com.example.zzt.whyfi.common.ToGuard;
 
 import net.jcip.annotations.GuardedBy;
 
 import java.io.IOException;
+import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by zzt on 6/10/16.
@@ -54,8 +53,12 @@ public class BlueToothMsg {
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 Toast.makeText(context, "find: " + device, Toast.LENGTH_SHORT).show();
-                stopScan();
-                connect(device);
+                synchronized (BlueToothMsg.class) {
+                    if (!mBluetoothAdapter.getBondedDevices().contains(device)) {
+                        stopScan();
+                        connect(device);
+                    }
+                }
             }
         }
     };
@@ -67,20 +70,6 @@ public class BlueToothMsg {
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
 
-
-    @ToGuard(values = {"mState", "client", "mBluetoothAdapter"})
-    @WorkerThread
-    private static synchronized void connect(BluetoothDevice device) {
-        setMState(STATE_CONNECTING);
-
-        client = new ClientJob(device, mBluetoothAdapter);
-        executorService.execute(client);
-    }
-
-    private static synchronized void runServer() {
-        ServerJob server = new ServerJob(mBluetoothAdapter);
-        executorService.execute(server);
-    }
 
     @GuardedBy("thisClass")
     @ToGuard(values = {"mBluetoothAdapter", "context"})
@@ -105,22 +94,53 @@ public class BlueToothMsg {
         context.getApplicationContext().registerReceiver(mReceiver, filter);
     }
 
-    @ToGuard("mBluetoothAdapter")
+    @ToGuard(values = {"mState", "client", "mBluetoothAdapter"})
+    @WorkerThread
+    private static synchronized void connect(BluetoothDevice device) {
+        setMState(STATE_CONNECTING);
+
+        client = new ClientJob(device, mBluetoothAdapter);
+        executorService.submit(client);
+    }
+
+    @UiThread
+    private static synchronized void runServer() {
+        ServerJob server = new ServerJob(mBluetoothAdapter);
+        executorService.execute(server);
+    }
+
+    @ToGuard(values = {"mBluetoothAdapter", "mState"})
     @WorkerThread
     public static synchronized void start() {
-        setMState(STATE_LISTEN);
 
+        setMState(STATE_LISTEN);
+        Set<BluetoothDevice> bondedDevices = mBluetoothAdapter.getBondedDevices();
+        if (!bondedDevices.isEmpty()) {
+            setMState(STATE_CONNECTING);
+        }
+
+        for (BluetoothDevice device : bondedDevices) {
+            Log.d(CANONICAL_NAME, "mac: " + device.getAddress());
+            Future<Boolean> res = executorService.submit(new ClientJob(device, mBluetoothAdapter));
+            try {
+                res.get();
+            } catch (InterruptedException | ExecutionException e) {
+                Log.d(CANONICAL_NAME, "mac: " + device.getAddress(), e);
+            }
+        }
         if (!mBluetoothAdapter.startDiscovery()) {
             Log.d(CANONICAL_NAME, "can't start scan");
         }
-        for (BluetoothDevice device : mBluetoothAdapter.getBondedDevices()) {
-            connect(device);
-        }
     }
 
+    @ToGuard("client")
     @WorkerThread
     public static synchronized void stopConnection() {
-        client.cancel();
+        mBluetoothAdapter.cancelDiscovery();
+        if (client != null) {
+            client.cancel();
+        }
+        setMState(STATE_NONE);
 //        server.cancel();
     }
 
@@ -159,7 +179,7 @@ public class BlueToothMsg {
             case STATE_LISTEN:
             case STATE_CONNECTING:
                 // Do work to manage the connection (in a separate thread)
-                BlueToothMsg.setConnected();
+                setConnected();
                 if (client != null) {
                     client.cancel();
                 }
@@ -195,13 +215,14 @@ public class BlueToothMsg {
 
     @UiThread
     @WorkerThread
-    @GuardedBy("this")
+    @GuardedBy("BlutToothMsg")
     public static synchronized void setMState(int state) {
         Log.d(CANONICAL_NAME, "setMState() " + mState + " -> " + state);
 
         BlueToothMsg.mState = state;
     }
 
+    @WorkerThread
     public static void setConnected() {
         setMState(STATE_CONNECTED);
     }

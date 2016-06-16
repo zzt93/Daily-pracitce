@@ -1,11 +1,9 @@
-package com.example.zzt.whyfi.common.base;
+package com.example.zzt.whyfi.common.net;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.util.Log;
-
-import com.example.zzt.whyfi.common.BlueToothMsg;
 
 import java.io.IOException;
 

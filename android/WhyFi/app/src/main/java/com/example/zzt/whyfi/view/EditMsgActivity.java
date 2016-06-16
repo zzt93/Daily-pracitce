@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.base.BTMsgWriter;
+import com.example.zzt.whyfi.common.net.BTMsgWriter;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;

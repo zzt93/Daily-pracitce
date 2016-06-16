@@ -1,9 +1,10 @@
-package com.example.zzt.whyfi.common.base;
+package com.example.zzt.whyfi.common.net;
 
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
 import android.util.Log;
 
+import com.example.zzt.whyfi.common.ToGuard;
 import com.example.zzt.whyfi.model.Message;
 
 import java.io.UnsupportedEncodingException;
@@ -39,7 +40,7 @@ public class BTMsgWriter {
             for (byte[] message : messages) {
                 connectedBT.writeln(message);
             }
-            messages.clear();
+            //messages.clear();
         }
     }
 }

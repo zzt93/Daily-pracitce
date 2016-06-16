@@ -1,5 +1,12 @@
 #include "omp.h"
 
+/**
+lock: nested, simple
+
+critical
+ordered
+barrier
+*/
 void main() {
 	float res;
 	#pragma omp parallel

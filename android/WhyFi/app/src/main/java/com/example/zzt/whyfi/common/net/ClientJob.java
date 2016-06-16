@@ -1,21 +1,21 @@
-package com.example.zzt.whyfi.common.base;
+package com.example.zzt.whyfi.common.net;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.os.Looper;
 import android.util.Log;
 
-import com.example.zzt.whyfi.common.BlueToothMsg;
-
 import java.io.IOException;
+import java.util.concurrent.Callable;
 
 /**
  * Created by zzt on 6/10/16.
  * <p/>
  * Usage:
  */
-public class ClientJob implements Runnable {
-    private static final String TAG = ClientJob.class.getCanonicalName();
+public class ClientJob implements Callable<Boolean> {
+    private static final String CANONICAL_NAME = ClientJob.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
     private BluetoothAdapter mBluetoothAdapter;
 
@@ -30,15 +30,17 @@ public class ClientJob implements Runnable {
             // MY_UUID is the app's UUID string, also used by the server code
             tmp = device.createRfcommSocketToServiceRecord(BlueToothMsg.BLE_CHAT_UUID);
         } catch (IOException e) {
-            Log.e(TAG, "Socket Type: create() failed", e);
+            Log.e(CANONICAL_NAME, "Socket Type: create() failed", e);
         }
         mmSocket = tmp;
     }
 
-    public void run() {
+    public Boolean call() {
         // Cancel discovery because it will slow down the connection
         mBluetoothAdapter.cancelDiscovery();
-
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            Log.e(CANONICAL_NAME, "impossible");
+        }
         try {
             // Connect the device through the socket. This will block
             // until it succeeds or throws an exception
@@ -48,13 +50,14 @@ public class ClientJob implements Runnable {
             try {
                 mmSocket.close();
             } catch (IOException closeException) {
-                Log.e(TAG, "unable to close() socket during connection failure", closeException);
+                Log.e(CANONICAL_NAME, "unable to close() socket during connection failure", closeException);
             }
-            return;
+            cancel();
+            return false;
         }
 
         BlueToothMsg.clientJob(mmSocket);
-
+        return true;
     }
 
     /**
@@ -64,7 +67,7 @@ public class ClientJob implements Runnable {
         try {
             mmSocket.close();
         } catch (IOException e) {
-            Log.e(TAG, "close() of connect socket failed", e);
+            Log.e(CANONICAL_NAME, "close() of client socket failed", e);
         }
     }
 }

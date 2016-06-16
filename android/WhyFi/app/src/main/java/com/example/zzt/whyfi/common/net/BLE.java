@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common;
+package com.example.zzt.whyfi.common.net;
 
 import android.content.Context;
 import android.os.Handler;

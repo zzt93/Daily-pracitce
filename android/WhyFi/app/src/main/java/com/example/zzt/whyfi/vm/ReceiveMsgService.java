@@ -1,8 +1,5 @@
 package com.example.zzt.whyfi.vm;
 
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
@@ -11,8 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.BlueToothMsg;
-import com.example.zzt.whyfi.view.Drawer;
+import com.example.zzt.whyfi.common.net.BlueToothMsg;
+import com.example.zzt.whyfi.common.NotificationHelper;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -21,12 +18,10 @@ import java.util.concurrent.TimeUnit;
 public class ReceiveMsgService extends Service {
     public static final int PERIOD = 30;
     private static final String CANONICAL_NAME = ReceiveMsgService.class.getCanonicalName();
-    private NotificationManager mNM;
     private ScheduledExecutorService scheduler;
 
     // Unique Identification Number for the Notification.
     // We use it on Notification start, and to cancel it.
-    private int NOTIFICATION = R.string.local_service_started;
 
     public ReceiveMsgService() {
     }
@@ -44,38 +39,39 @@ public class ReceiveMsgService extends Service {
 
     @Override
     public void onCreate() {
-        mNM = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        Log.i(CANONICAL_NAME, "in on create");
 
-        // Display a notification about us starting.  We put an icon in the status bar.
-        showNotification();
-
+        NotificationHelper.init(this);
 //        BlueToothMsg.init(ReceiveMsgService.this);
 
         scheduler = Executors.newScheduledThreadPool(1);
-        scheduler.scheduleAtFixedRate(new Runnable() {
-            @Override
-            public void run() {
-                BlueToothMsg.start();
-                try {
-                    TimeUnit.SECONDS.sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                BlueToothMsg.stopConnection();
-            }
-        }, 0, PERIOD, TimeUnit.SECONDS);
+        scheduler.scheduleWithFixedDelay(new MsgJob(), 0, PERIOD, TimeUnit.SECONDS);
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("LocalService", "Received start id " + startId + ": " + intent);
+        Log.i(CANONICAL_NAME, "Received start id " + startId + ": " + intent);
+        if (scheduler == null) {
+            Log.e(CANONICAL_NAME, "impossible");
+        }
         return START_NOT_STICKY;
+    }
+
+    private class MsgJob implements Runnable {
+        @Override
+        public void run() {
+            BlueToothMsg.start();
+            try {
+                TimeUnit.SECONDS.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            BlueToothMsg.stopConnection();
+        }
     }
 
     @Override
     public void onDestroy() {
-        // Cancel the persistent notification.
-        mNM.cancel(NOTIFICATION);
         scheduler.shutdown();
 
         // Tell the user we stopped.
@@ -91,29 +87,6 @@ public class ReceiveMsgService extends Service {
     // RemoteService for a more complete example.
     private final IBinder mBinder = new LocalBinder();
 
-    /**
-     * Show a notification while this service is running.
-     */
-    private void showNotification() {
-        // In this sample, we'll use the same text for the ticker and the expanded notification
-        CharSequence text = getText(R.string.local_service_started);
 
-        // The PendingIntent to launch our activity if the user selects this notification
-        PendingIntent contentIntent = PendingIntent.getActivity(this, 0,
-                new Intent(this, Drawer.class), 0);
-
-        // Set the info for the views that show in the notification panel.
-        Notification notification = new Notification.Builder(this)
-                .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
-                .setTicker(text)  // the status text
-                .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle(getText(R.string.msg_received_label))  // the label of the entry
-                .setContentText(text)  // the contents of the entry
-                .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
-                .build();
-
-        // Send the notification.
-        mNM.notify(NOTIFICATION, notification);
-    }
 
 }

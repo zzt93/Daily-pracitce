@@ -17,13 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TabHost;
+import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.common.Network;
 import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.AvatarBindingAdapters;
 import com.example.zzt.whyfi.vm.MsgHistory;
 import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
+import com.example.zzt.whyfi.vm.ReceiveMsgService;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -60,6 +63,21 @@ public class Drawer extends AppCompatActivity
         setMsgList();
         setTabHost();
 
+
+        if (!setUpNetwork()) {
+            Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean setUpNetwork() {
+        // check network support
+        if (!Network.enableDiscoverable(this)) {
+            return false;
+        }
+
+        Intent ser = new Intent(this, ReceiveMsgService.class);
+        startService(ser);
+        return true;
     }
 
     @Override
