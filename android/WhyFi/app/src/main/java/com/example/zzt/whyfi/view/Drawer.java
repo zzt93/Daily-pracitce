@@ -1,7 +1,9 @@
 package com.example.zzt.whyfi.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,16 +22,18 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.Network;
+import com.example.zzt.whyfi.common.net.wifi.WiFiDirectBroadcastReceiver;
 import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.AvatarBindingAdapters;
 import com.example.zzt.whyfi.vm.MsgHistory;
 import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
-import com.example.zzt.whyfi.vm.ReceiveMsgService;
 
 public class Drawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private WiFiDirectBroadcastReceiver mReceiver;
+    private android.content.IntentFilter mIntentFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,20 +74,34 @@ public class Drawer extends AppCompatActivity
     }
 
     private boolean setUpNetwork() {
-        // check network support
-        if (!Network.enableDiscoverable(this)) {
-            return false;
-        }
+//        if (!Network.enableDiscoverable(this)) {
+//            return false;
+//        }
+//        Intent ser = new Intent(this, ReceiveMsgService.class);
+//        startService(ser);
 
-        Intent ser = new Intent(this, ReceiveMsgService.class);
-        startService(ser);
+        WifiP2pManager mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
+        WifiP2pManager.Channel mChannel = mManager.initialize(this, getMainLooper(), null);
+
+        mReceiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this);
+        mIntentFilter = WiFiDirectBroadcastReceiver.wifiP2PIntentFilter();
+        mReceiver.discover();
+
         return true;
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(mReceiver, mIntentFilter);
     }
+    /* unregister the broadcast receiver */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(mReceiver);
+    }
+
 
     private void setTabHost() {
         TabHost host = (TabHost)findViewById(R.id.tabHost);

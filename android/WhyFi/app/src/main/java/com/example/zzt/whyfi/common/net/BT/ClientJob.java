@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common.net;
+package com.example.zzt.whyfi.common.net.BT;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

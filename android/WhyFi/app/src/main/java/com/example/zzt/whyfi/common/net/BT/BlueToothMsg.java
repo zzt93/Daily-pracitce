@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common.net;
+package com.example.zzt.whyfi.common.net.BT;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -31,6 +31,7 @@ import java.util.concurrent.Future;
  * <p>
  * Usage:
  */
+@Deprecated
 public class BlueToothMsg {
 
     private static final String CANONICAL_NAME = BlueToothMsg.class.getCanonicalName();

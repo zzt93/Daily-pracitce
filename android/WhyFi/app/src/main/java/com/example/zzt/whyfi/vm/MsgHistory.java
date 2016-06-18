@@ -1,5 +1,7 @@
 package com.example.zzt.whyfi.vm;
 
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.UiThread;
 
 import com.example.zzt.whyfi.R;
@@ -7,8 +9,8 @@ import com.example.zzt.whyfi.common.NotificationHelper;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
 
-import java.util.LinkedList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -16,11 +18,11 @@ import java.util.List;
  * <p/>
  * Usage:
  */
-@UiThread
 public class MsgHistory {
 
     private static LinkedList<Message> sent = new LinkedList<>();
     private static LinkedList<Message> received = new LinkedList<>();
+    private static Handler handler = new Handler(Looper.getMainLooper());
 
     static {
         // TODO: 5/27/16 load from file/db
@@ -41,12 +43,18 @@ public class MsgHistory {
         return Collections.unmodifiableList(received);
     }
 
+    @UiThread
     public static void addSent(Message message) {
         sent.addFirst(message);
     }
 
-    public static void addReceived(Message message) {
-        new NotificationHelper().showFixedNotification(R.string.msg_received_label);
-        received.addFirst(message);
+    public static void addReceived(final Message message) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                new NotificationHelper().showFixedNotification(R.string.msg_received_label);
+                received.addFirst(message);
+            }
+        });
     }
 }

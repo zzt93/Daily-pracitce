@@ -12,27 +12,27 @@ import com.example.zzt.whyfi.view.Drawer;
 
 /**
  * Created by zzt on 6/12/16.
- * <p/>
+ * <p>
  * Usage:
  */
 @UiThread
 public class NotificationHelper {
 
-    private static Context context;
-    private int NOTIFICATION = R.string.local_service_started;
+    private static Context context = App.getContext();
+    // Unique Identification Number for the Notification.
+    // We use it on Notification start, and to cancel it.
+    private static int NOTIFICATION = R.string.local_service_started;
     private NotificationManager mNM;
 
-    public static void init(Context context) {
-        NotificationHelper.context = context;
-    }
 
-    public NotificationHelper(){
+    public NotificationHelper() {
         mNM = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
     }
 
     /**
      * Show a notification while this service is running.
-     * @param msg_received_label
+     *
+     * @param msg_received_label string resource id
      */
     public void showFixedNotification(int msg_received_label) {
         // In this sample, we'll use the same text for the ticker and the expanded notification

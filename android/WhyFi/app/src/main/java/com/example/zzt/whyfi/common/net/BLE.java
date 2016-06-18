@@ -30,7 +30,7 @@ public class BLE {
 
     private static final String CANONICAL_NAME = BLE.class.getCanonicalName();
     public static UUID BLE_CHAT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-//    public static UUID BLE_NAME_UUID = UUID.fromString("ble name uuid");
+    //    public static UUID BLE_NAME_UUID = UUID.fromString("ble name uuid");
     private static Context context;
     private static Handler handler = new Handler(Looper.getMainLooper());
 
@@ -81,18 +81,11 @@ public class BLE {
                                 .subscribe(new Action1<byte[]>() {
                                     @Override
                                     public void call(final byte[] bytes) {
-                                        handler.post(
-                                                new Runnable() {
-                                                    @Override
-                                                    public void run() {
-                                                        try {
-                                                            MsgHistory.addReceived(Message.getFromBytes(bytes));
-                                                        } catch (UnsupportedEncodingException e) {
-                                                            e.printStackTrace();
-                                                        }
-                                                    }
-                                                }
-                                        );
+                                        try {
+                                            MsgHistory.addReceived(Message.getFromBytes(bytes));
+                                        } catch (UnsupportedEncodingException e) {
+                                            e.printStackTrace();
+                                        }
                                         Log.d(CANONICAL_NAME, new String(bytes));
                                     }
                                 });
@@ -105,6 +98,7 @@ public class BLE {
 
     /**
      * calling from ui-thread
+     *
      * @return scan result subscription
      */
     public static Subscription writeReadMsg(final Message message) {

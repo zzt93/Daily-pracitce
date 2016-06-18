@@ -5,7 +5,6 @@ import android.content.pm.PackageManager;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.net.BlueToothMsg;
 
 import java.util.Set;
 
@@ -26,8 +25,8 @@ public class Network {
             return false;
         }
 
-        BlueToothMsg.init(activity);
-        BlueToothMsg.enableBT();
+//        BlueToothMsg.init(activity);
+//        BlueToothMsg.enableBT();
         return true;
     }
 

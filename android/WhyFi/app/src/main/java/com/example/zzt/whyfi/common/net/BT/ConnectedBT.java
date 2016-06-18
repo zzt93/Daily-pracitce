@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common.net;
+package com.example.zzt.whyfi.common.net.BT;
 
 import android.bluetooth.BluetoothSocket;
 import android.os.Handler;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 
 /**
  * Created by zzt on 6/10/16.
- * <p/>
+ * <p>
  * Usage:
  */
 public class ConnectedBT implements Runnable {
@@ -60,19 +60,12 @@ public class ConnectedBT implements Runnable {
                 bytes = mmInStream.read(buffer);
                 // Send the obtained bytes to the UI activity
                 final byte[] copyOf = Arrays.copyOf(buffer, bytes);
-                mHandler.post(
-                        new Runnable() {
-                            @Override
-                            public void run() {
-                                Log.d(CANONICAL_NAME, "update received message");
-                                try {
-                                    MsgHistory.addReceived(Message.getFromBytes(copyOf));
-                                } catch (UnsupportedEncodingException e) {
-                                    Log.e(CANONICAL_NAME, "Exception during message conversion", e);
-                                }
-                            }
-                        }
-                );
+                Log.d(CANONICAL_NAME, "update received message");
+                try {
+                    MsgHistory.addReceived(Message.getFromBytes(copyOf));
+                } catch (UnsupportedEncodingException e) {
+                    Log.e(CANONICAL_NAME, "Exception during message conversion", e);
+                }
                 Log.d(CANONICAL_NAME, new String(copyOf));
             } catch (IOException e) {
                 cancel();
