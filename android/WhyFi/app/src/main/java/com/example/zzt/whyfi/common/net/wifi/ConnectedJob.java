@@ -1,0 +1,165 @@
+package com.example.zzt.whyfi.common.net.wifi;
+
+import android.os.Looper;
+import android.support.annotation.WorkerThread;
+import android.util.Log;
+
+import com.example.zzt.whyfi.common.BytesSetting;
+import com.example.zzt.whyfi.common.net.ConnectedChannel;
+import com.example.zzt.whyfi.common.net.MsgStrWriter;
+import com.example.zzt.whyfi.model.Message;
+import com.example.zzt.whyfi.vm.MsgHistory;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
+import java.net.Socket;
+import java.util.Arrays;
+
+/**
+ * Created by zzt on 6/19/16.
+ * <p/>
+ * Usage:
+ */
+public class ConnectedJob implements Runnable, ConnectedChannel {
+    private static final String CANONICAL_NAME = ConnectedJob.class.getCanonicalName();
+    private final InputStream mmInStream;
+    private final OutputStream mmOutStream;
+    private final Socket mmSocket;
+    private OutputStreamWriter out;
+    private BufferedReader reader;
+
+    public ConnectedJob(Socket socket, boolean server) {
+        mmSocket = socket;
+        InputStream tmpIn = null;
+        OutputStream tmpOut = null;
+
+        // Get the input and output streams, using temp objects because
+        // member streams are final
+        try {
+            tmpIn = socket.getInputStream();
+            tmpOut = socket.getOutputStream();
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "disconnected", e);
+        }
+
+        mmInStream = tmpIn;
+        mmOutStream = tmpOut;
+        try {
+            out = new OutputStreamWriter(mmOutStream, BytesSetting.UTF_8);
+            reader = new BufferedReader(new InputStreamReader(
+                    socket.getInputStream(), "UTF-8"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @WorkerThread
+    public void read() {
+        if (Looper.getMainLooper() == Looper.myLooper()) {
+            Log.e(CANONICAL_NAME, "should not be main looper", new Exception());
+        }
+
+        byte[] buffer = new byte[1024];  // buffer store for the stream
+        int len; // len returned from read()
+
+        // Keep listening to the InputStream until an exception occurs
+        try {
+            // Read from the InputStream
+            len = mmInStream.read(buffer);
+            if (len == -1) {
+                return;
+            }
+            // Send the obtained len to the UI activity
+            final byte[] copyOf = Arrays.copyOf(buffer, len);
+            Log.d(CANONICAL_NAME, "update received message");
+            try {
+                MsgHistory.addReceived(Message.getFromBytes(copyOf));
+            } catch (UnsupportedEncodingException e) {
+                Log.e(CANONICAL_NAME, "Exception during message conversion", e);
+            }
+            Log.d(CANONICAL_NAME, new String(copyOf, "UTF-8"));
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during read", e);
+        }
+    }
+
+    @WorkerThread
+    public void readStr() {
+
+
+        char[] buffer = new char[1024];  // buffer store for the stream
+        int len; // len returned from read()
+
+        // Keep listening to the InputStream until an exception occurs
+        try {
+            // Read from the InputStream
+            len = reader.read(buffer);
+
+            if (len == -1) {
+                return;
+            }
+            // Send the obtained len to the UI activity
+            final char[] copyOf = Arrays.copyOf(buffer, len);
+            Log.d(CANONICAL_NAME, "update received message");
+            try {
+                MsgHistory.addReceived(Message.getFromChars(copyOf));
+            } catch (UnsupportedEncodingException e) {
+                Log.e(CANONICAL_NAME, "Exception during message conversion", e);
+            }
+            Log.d(CANONICAL_NAME, new String(copyOf));
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during read", e);
+        }
+    }
+
+    @WorkerThread
+    @Override
+    public void writeln(byte[] bytes) {
+        try {
+            mmOutStream.write(bytes);
+            mmOutStream.flush();
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during write", e);
+        }
+    }
+
+    @Override
+    public void cancel() {
+        try {
+            mmSocket.close();
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during close", e);
+        }
+    }
+
+    @WorkerThread
+    @Override
+    public void write(String message) {
+        try {
+            out.write(message + "\n");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @WorkerThread
+    @Override
+    public void run() {
+        new MsgStrWriter().performWrite(this);
+        readStr();
+//        read();
+        try {
+            mmSocket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+}

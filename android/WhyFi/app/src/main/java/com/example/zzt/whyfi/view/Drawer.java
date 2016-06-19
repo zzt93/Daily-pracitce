@@ -1,16 +1,13 @@
 package com.example.zzt.whyfi.view;
 
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.wifi.p2p.WifiP2pManager;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -22,14 +19,16 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.common.net.wifi.WifiMsg;
 import com.example.zzt.whyfi.common.net.wifi.WiFiDirectBroadcastReceiver;
+import com.example.zzt.whyfi.common.net.wifi.WifiActivity;
 import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.AvatarBindingAdapters;
 import com.example.zzt.whyfi.vm.MsgHistory;
 import com.example.zzt.whyfi.vm.MsgRecyclerAdapter;
 
-public class Drawer extends AppCompatActivity
+public class Drawer extends WifiActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private WiFiDirectBroadcastReceiver mReceiver;
@@ -68,39 +67,11 @@ public class Drawer extends AppCompatActivity
         setTabHost();
 
 
-        if (!setUpNetwork()) {
-            Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_SHORT).show();
+        if (!WifiMsg.setUpWifi(this)) {
+            Toast.makeText(this, R.string.net_not_enabled, Toast.LENGTH_SHORT).show();
         }
     }
 
-    private boolean setUpNetwork() {
-//        if (!Network.enableDiscoverable(this)) {
-//            return false;
-//        }
-//        Intent ser = new Intent(this, ReceiveMsgService.class);
-//        startService(ser);
-
-        WifiP2pManager mManager = (WifiP2pManager) getSystemService(Context.WIFI_P2P_SERVICE);
-        WifiP2pManager.Channel mChannel = mManager.initialize(this, getMainLooper(), null);
-
-        mReceiver = new WiFiDirectBroadcastReceiver(mManager, mChannel, this);
-        mIntentFilter = WiFiDirectBroadcastReceiver.wifiP2PIntentFilter();
-        mReceiver.discover();
-
-        return true;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        registerReceiver(mReceiver, mIntentFilter);
-    }
-    /* unregister the broadcast receiver */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        unregisterReceiver(mReceiver);
-    }
 
 
     private void setTabHost() {
@@ -218,4 +189,13 @@ public class Drawer extends AppCompatActivity
     }
 
 
+    @Override
+    public void setReceiver(WiFiDirectBroadcastReceiver receiver) {
+        mReceiver = receiver;
+    }
+
+    @Override
+    public WiFiDirectBroadcastReceiver getReceiver() {
+        return mReceiver;
+    }
 }

@@ -15,6 +15,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.common.ToGuard;
+import com.example.zzt.whyfi.common.net.MsgByteWriter;
 
 import net.jcip.annotations.GuardedBy;
 
@@ -210,7 +211,7 @@ public class BlueToothMsg {
         setConnected();
 
         ConnectedBT connectedBT = new ConnectedBT(mmSocket);
-        BTMsgWriter.performWrite(connectedBT);
+        MsgByteWriter.performWrite(connectedBT);
         connectedBT.read();
     }
 

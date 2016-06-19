@@ -128,4 +128,10 @@ public class Device extends BaseObservable {
 
         return bytes;
     }
+
+    public static Device getFromChars(char[] copyOf) {
+        String name;
+        String des;
+        return new Device(name, SYM_DEF_APP_ICON, des);
+    }
 }

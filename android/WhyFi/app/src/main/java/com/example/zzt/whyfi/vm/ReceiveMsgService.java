@@ -11,11 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.net.BT.BlueToothMsg;
 import com.example.zzt.whyfi.model.Message;
 
 import java.io.UnsupportedEncodingException;
-import java.util.concurrent.TimeUnit;
 
 public class ReceiveMsgService extends Service {
     public static final int PERIOD = 30;
@@ -81,18 +79,18 @@ public class ReceiveMsgService extends Service {
     // RemoteService for a more complete example.
     private final IBinder mBinder = new LocalBinder();
 
-    private class BluetoothMsg implements Runnable {
-        @Override
-        public void run() {
-            BlueToothMsg.start();
-            try {
-                TimeUnit.SECONDS.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            BlueToothMsg.stopConnection();
-        }
-    }
+//    private class BluetoothMsg implements Runnable {
+//        @Override
+//        public void run() {
+//            BlueToothMsg.start();
+//            try {
+//                TimeUnit.SECONDS.sleep(10);
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            BlueToothMsg.stopConnection();
+//        }
+//    }
 
 
 

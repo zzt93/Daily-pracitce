@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQUEST_ENABLE_BT:
                 if (resultCode == RESULT_CANCELED) {
-                    Toast.makeText(this, R.string.bl_not_enabled, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, R.string.net_not_enabled, Toast.LENGTH_LONG).show();
                 }
         }
     }

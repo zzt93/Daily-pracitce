@@ -5,6 +5,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.example.zzt.whyfi.common.net.ConnectedChannel;
+import com.example.zzt.whyfi.common.net.MsgByteWriter;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
@@ -19,7 +21,7 @@ import java.util.Arrays;
  * <p>
  * Usage:
  */
-public class ConnectedBT implements Runnable {
+public class ConnectedBT implements Runnable, ConnectedChannel {
     private static final String CANONICAL_NAME = ConnectedBT.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
     private final InputStream mmInStream;
@@ -95,8 +97,13 @@ public class ConnectedBT implements Runnable {
     }
 
     @Override
+    public void write(String message) {
+
+    }
+
+    @Override
     public void run() {
-        BTMsgWriter.performWrite(this);
+        new MsgByteWriter().performWrite(this);
         read();
     }
 }

@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.common.net.BT;
+package com.example.zzt.whyfi.common.net;
 
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
@@ -15,14 +15,15 @@ import java.util.ArrayList;
  * <p/>
  * Usage:
  */
-public class BTMsgWriter {
+public class MsgByteWriter implements MsgWriter {
     private static final ArrayList<byte[]> messages = new ArrayList<>();
-    private static final String CANONICAL_NAME = BTMsgWriter.class.getCanonicalName();
+    private static final String CANONICAL_NAME = MsgByteWriter.class.getCanonicalName();
 
 
+    @Override
     @ToGuard("messages")
     @UiThread
-    public static void writeMsg(Message message) {
+    public void writeMsg(Message message) {
         synchronized (messages) {
             try {
                 messages.add(message.toBytes());
@@ -32,13 +33,14 @@ public class BTMsgWriter {
         }
     }
 
+    @Override
     @ToGuard("messages")
     @WorkerThread
-    public static void performWrite(ConnectedBT connectedBT) {
+    public void performWrite(ConnectedChannel channel) {
         synchronized (messages) {
             Log.d(CANONICAL_NAME, "write message");
             for (byte[] message : messages) {
-                connectedBT.writeln(message);
+                channel.writeln(message);
             }
             //messages.clear();
         }

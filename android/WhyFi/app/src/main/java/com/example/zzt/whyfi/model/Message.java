@@ -57,4 +57,16 @@ public class Message {
         System.arraycopy(message.getBytes(BytesSetting.UTF_8), 0, res, devLen + 1, message.length());
         return res;
     }
+
+    @Override
+    public String toString() {
+        return device.toString() +
+                BytesSetting.SPLIT_BYTE + message + BytesSetting.SPLIT_BYTE +
+                 time + BytesSetting.SPLIT_BYTE;
+    }
+
+    public static Message getFromChars(char[] copyOf) throws UnsupportedEncodingException {
+        Device.getFromChars(copyOf);
+        return null;
+    }
 }

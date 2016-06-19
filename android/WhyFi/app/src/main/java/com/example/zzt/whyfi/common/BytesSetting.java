@@ -6,6 +6,6 @@ package com.example.zzt.whyfi.common;
  * Usage:
  */
 public class BytesSetting {
-    public static final int SPLIT_BYTE = 0x00;
+    public static final byte SPLIT_BYTE = 0x00;
     public static final String UTF_8 = "utf-8";
 }

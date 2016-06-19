@@ -22,6 +22,14 @@ android {
         enabled = true
     }
 
+    sourceSets {
+        main {
+            java {
+                exclude '**/BLE.java'
+                exclude 'com/example/zzt/whyfi/common/net/BT/**'
+            }
+        }
+    }
 }
 
 dependencies {
@@ -32,7 +40,7 @@ dependencies {
     compile 'com.android.databinding:adapters:1.1'
     compile 'com.android.databinding:library:1.1'
     compile 'com.android.support:support-v4:23.4.0'
-    compile "com.polidea.rxandroidble:rxandroidble:1.0.1"
+//    compile "com.polidea.rxandroidble:rxandroidble:1.0.1"
 
 //    compile 'co.lujun:lmbluetoothsdk:1.0.2'
     compile 'net.jcip:jcip-annotations:1.0'

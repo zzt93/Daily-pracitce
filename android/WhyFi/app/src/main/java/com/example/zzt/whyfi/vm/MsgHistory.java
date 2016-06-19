@@ -30,9 +30,11 @@ public class MsgHistory {
         sent.add(new Message(new Device("hch"), "hello, world"));
         sent.add(new Message(new Device("hcw"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
 
-        received.add(new Message(new Device("xiao"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
-        received.add(new Message(new Device("cwr"), "hello, thank you"));
-        received.add(new Message(new Device("bh"), "hello, bh"));
+        synchronized (MsgHistory.class) {
+            received.add(new Message(new Device("xiao"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
+            received.add(new Message(new Device("cwr"), "hello, thank you"));
+            received.add(new Message(new Device("bh"), "hello, bh"));
+        }
     }
 
     public static List<Message> getSent() {
@@ -49,11 +51,13 @@ public class MsgHistory {
     }
 
     public static void addReceived(final Message message) {
+        synchronized (MsgHistory.class) {
+            received.addFirst(message);
+        }
         handler.post(new Runnable() {
             @Override
             public void run() {
                 new NotificationHelper().showFixedNotification(R.string.msg_received_label);
-                received.addFirst(message);
             }
         });
     }
