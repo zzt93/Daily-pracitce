@@ -6,5 +6,5 @@ package com.example.zzt.whyfi.common.net.wifi;
  * Usage:
  */
 public class WifiSetting {
-    public static int DEFAULT = 6666;
+    public static int DEFAULT_PORT = 6666;
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import com.example.zzt.whyfi.BR;
 import com.example.zzt.whyfi.common.BytesSetting;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
 /**
@@ -16,7 +17,7 @@ import java.io.UnsupportedEncodingException;
  * <p>
  * Usage:
  */
-public class Device extends BaseObservable {
+public class Device extends BaseObservable implements Serializable {
 
     private static final String model = Build.MODEL;
     public static final int SYM_DEF_APP_ICON = android.R.drawable.sym_def_app_icon;
@@ -130,8 +131,9 @@ public class Device extends BaseObservable {
     }
 
     public static Device getFromChars(char[] copyOf) {
-        String name;
-        String des;
-        return new Device(name, SYM_DEF_APP_ICON, des);
+        throw new UnsupportedOperationException();
+//        String name = null;
+//        String des = null;
+//        return new Device(name, SYM_DEF_APP_ICON, des);
     }
 }

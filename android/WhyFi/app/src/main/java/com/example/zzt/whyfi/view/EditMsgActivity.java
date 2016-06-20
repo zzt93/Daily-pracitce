@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.net.MsgByteWriter;
 import com.example.zzt.whyfi.common.net.wifi.WiFiDirectBroadcastReceiver;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
@@ -15,6 +14,8 @@ import com.example.zzt.whyfi.vm.MsgHistory;
 
 public class EditMsgActivity extends AppCompatActivity {
     private WiFiDirectBroadcastReceiver mReceiver;
+    private MsgHistory msgHistory = new MsgHistory();
+
     //    NfcAdapter mNfcAdapter;
 
     @Override
@@ -37,9 +38,8 @@ public class EditMsgActivity extends AppCompatActivity {
         }
         // sent by network
         Message message = new Message(Device.now, msg);
-        MsgByteWriter.writeMsg(message);
         // add to sent storage and update list view
-        MsgHistory.addSent(message);
+        msgHistory.writeMsg(message);
         // jump back
         NavUtils.navigateUpFromSameTask(this);
     }
@@ -52,4 +52,5 @@ public class EditMsgActivity extends AppCompatActivity {
     public WiFiDirectBroadcastReceiver getReceiver() {
         return mReceiver;
     }
+
 }

@@ -7,17 +7,18 @@ import android.support.v7.app.AppCompatActivity;
  * <p/>
  * Usage:
  */
-public abstract class WifiActivity extends AppCompatActivity{
+public abstract class WifiActivity extends AppCompatActivity {
 
     public abstract void setReceiver(WiFiDirectBroadcastReceiver receiver);
+
     public abstract WiFiDirectBroadcastReceiver getReceiver();
+
 
     @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(getReceiver(), WiFiDirectBroadcastReceiver.mIntentFilter);
         getReceiver().discover();
-
     }
 
     /* unregister the broadcast receiver */
@@ -31,5 +32,20 @@ public abstract class WifiActivity extends AppCompatActivity{
     protected void onDestroy() {
         getReceiver().cleanUp();
         super.onDestroy();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
     }
 }

@@ -12,11 +12,9 @@ import com.example.zzt.whyfi.model.Message;
  * Usage:
  */
 public interface MsgWriter {
-    @ToGuard("messages")
     @UiThread
     void writeMsg(Message message);
 
-    @ToGuard("messages")
     @WorkerThread
     void performWrite(ConnectedChannel channel);
 }

@@ -18,9 +18,10 @@ import java.util.Arrays;
 
 /**
  * Created by zzt on 6/10/16.
- * <p>
+ * <p/>
  * Usage:
  */
+@Deprecated
 public class ConnectedBT implements Runnable, ConnectedChannel {
     private static final String CANONICAL_NAME = ConnectedBT.class.getCanonicalName();
     private final BluetoothSocket mmSocket;
@@ -78,13 +79,23 @@ public class ConnectedBT implements Runnable, ConnectedChannel {
     }
 
     /* Call this from the main activity to send data to the remote device */
-    public void writeln(byte[] bytes) {
+    public void writeByte(byte[] bytes) {
         try {
             mmOutStream.write(bytes);
             mmOutStream.flush();
         } catch (IOException e) {
             Log.e(CANONICAL_NAME, "Exception during write", e);
         }
+    }
+
+    @Override
+    public void readStr() {
+
+    }
+
+    @Override
+    public void readObj() {
+
     }
 
     /* Call this from the main activity to shutdown the connection */
@@ -99,6 +110,11 @@ public class ConnectedBT implements Runnable, ConnectedChannel {
     @Override
     public void write(String message) {
 
+    }
+
+    @Override
+    public boolean write(Message message) {
+        return false;
     }
 
     @Override

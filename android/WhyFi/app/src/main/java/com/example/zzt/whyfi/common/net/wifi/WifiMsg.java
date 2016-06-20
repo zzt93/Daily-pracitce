@@ -10,7 +10,6 @@ import android.net.wifi.p2p.WifiP2pManager;
  */
 public class WifiMsg {
 
-
     public static boolean setUpWifi(WifiActivity activity) {
 
         WifiP2pManager mManager = (WifiP2pManager) activity.getSystemService(Context.WIFI_P2P_SERVICE);

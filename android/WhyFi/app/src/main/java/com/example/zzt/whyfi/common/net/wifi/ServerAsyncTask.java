@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.support.annotation.UiThread;
 import android.util.Log;
 
+import com.example.zzt.whyfi.common.ToGuard;
+
 import net.jcip.annotations.GuardedBy;
 
 import java.io.IOException;
@@ -23,18 +25,20 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
 
     public static final String CANONICAL_NAME = ServerAsyncTask.class.getCanonicalName();
     private static final ExecutorService service = Executors.newCachedThreadPool();
+    private final WiFiDirectBroadcastReceiver receiver;
     private volatile boolean cancel = false;
     private final ServerSocket serverSocket;
 
 
-    public ServerAsyncTask() {
+    public ServerAsyncTask(WiFiDirectBroadcastReceiver wiFiDirectBroadcastReceiver) {
         ServerSocket serverSocket = null;
         try {
-            serverSocket = new ServerSocket(WifiSetting.DEFAULT);
+            serverSocket = new ServerSocket(WifiSetting.DEFAULT_PORT);
         } catch (IOException e) {
             e.printStackTrace();
         }
         this.serverSocket = serverSocket;
+        this.receiver = wiFiDirectBroadcastReceiver;
     }
 
     @Override
@@ -49,6 +53,7 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
             while (!cancel) {
                 Socket client = serverSocket.accept();
 
+                receiver.setState(ConnectionState.SERVER_CONNECTED);
                 Log.d(CANONICAL_NAME, "server connected");
                 ConnectedJob command = new ConnectedJob(client, true);
                 list.add(command);
@@ -59,13 +64,20 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
             }
             service.shutdownNow();
         } catch (IOException e) {
-            Log.e(CANONICAL_NAME, e.getMessage());
+            Log.e(CANONICAL_NAME, "accept fail", e);
+            receiver.resetServerState();
+            try {
+                serverSocket.close();
+            } catch (IOException e1) {
+                Log.e(CANONICAL_NAME, "server socket close fail", e);
+            }
         }
         return null;
     }
 
     @UiThread
     @GuardedBy("volatile")
+    @ToGuard(values = {"cancel", "serverSocket"})
     public void stopListen() {
         cancel = true;
         try {

@@ -2,17 +2,18 @@ package com.example.zzt.whyfi.model;
 
 import com.example.zzt.whyfi.common.BytesSetting;
 
+import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.Date;
 
 /**
  * Created by zzt on 5/10/16.
- * <p/>
+ * <p>
  * Usage:
  * The abstraction of content send/receive between devices
  */
-public class Message {
+public class Message implements Serializable {
 
     private final Device device;
     private final String message;
@@ -36,6 +37,7 @@ public class Message {
         return time;
     }
 
+    @Deprecated
     public static Message getFromBytes(byte[] bytes) throws UnsupportedEncodingException {
         int i;
         for (i = bytes.length - 1; i >= 0; i--) {
@@ -48,6 +50,7 @@ public class Message {
         return new Message(device, msg);
     }
 
+    @Deprecated
     public byte[] toBytes() throws UnsupportedEncodingException {
         byte[] bytes = device.toBytes();
         int devLen = bytes.length;
@@ -62,11 +65,18 @@ public class Message {
     public String toString() {
         return device.toString() +
                 BytesSetting.SPLIT_BYTE + message + BytesSetting.SPLIT_BYTE +
-                 time + BytesSetting.SPLIT_BYTE;
+                time + BytesSetting.SPLIT_BYTE;
     }
 
-    public static Message getFromChars(char[] copyOf) throws UnsupportedEncodingException {
-        Device.getFromChars(copyOf);
-        return null;
+    public static Message getFromChars(char[] chars) throws UnsupportedEncodingException {
+        int i;
+        for (i = chars.length - 1; i >= 0; i--) {
+            if (chars[i] == BytesSetting.SPLIT_BYTE) {
+                break;
+            }
+        }
+        Device device = Device.getFromChars(Arrays.copyOf(chars, i));
+        String msg = new String(chars, i, chars.length - i);
+        return new Message(device, msg);
     }
 }

@@ -40,7 +40,7 @@ public class MsgByteWriter implements MsgWriter {
         synchronized (messages) {
             Log.d(CANONICAL_NAME, "write message");
             for (byte[] message : messages) {
-                channel.writeln(message);
+                channel.writeByte(message);
             }
             //messages.clear();
         }

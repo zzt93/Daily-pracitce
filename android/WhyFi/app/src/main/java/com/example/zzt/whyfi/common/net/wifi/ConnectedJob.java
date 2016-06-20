@@ -6,7 +6,6 @@ import android.util.Log;
 
 import com.example.zzt.whyfi.common.BytesSetting;
 import com.example.zzt.whyfi.common.net.ConnectedChannel;
-import com.example.zzt.whyfi.common.net.MsgStrWriter;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
 
@@ -14,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -22,9 +23,10 @@ import java.util.Arrays;
 
 /**
  * Created by zzt on 6/19/16.
- * <p/>
+ * <p>
  * Usage:
  */
+@WorkerThread
 public class ConnectedJob implements Runnable, ConnectedChannel {
     private static final String CANONICAL_NAME = ConnectedJob.class.getCanonicalName();
     private final InputStream mmInStream;
@@ -32,6 +34,9 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
     private final Socket mmSocket;
     private OutputStreamWriter out;
     private BufferedReader reader;
+    private ObjectInputStream objectInputStream;
+    private ObjectOutputStream objectOutputStream;
+    private MsgHistory msgHistory = new MsgHistory();
 
     public ConnectedJob(Socket socket, boolean server) {
         mmSocket = socket;
@@ -53,11 +58,14 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
             out = new OutputStreamWriter(mmOutStream, BytesSetting.UTF_8);
             reader = new BufferedReader(new InputStreamReader(
                     socket.getInputStream(), "UTF-8"));
+            objectInputStream = new ObjectInputStream(mmInStream);
+            objectOutputStream = new ObjectOutputStream(mmOutStream);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(CANONICAL_NAME, "error create ", e);
         }
     }
 
+    @Override
     @WorkerThread
     public void read() {
         if (Looper.getMainLooper() == Looper.myLooper()) {
@@ -88,10 +96,21 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         }
     }
 
+
+    @WorkerThread
+    @Override
+    public void writeByte(byte[] bytes) {
+        try {
+            mmOutStream.write(bytes);
+            mmOutStream.flush();
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during write", e);
+        }
+    }
+
+    @Override
     @WorkerThread
     public void readStr() {
-
-
         char[] buffer = new char[1024];  // buffer store for the stream
         int len; // len returned from read()
 
@@ -117,14 +136,13 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         }
     }
 
-    @WorkerThread
     @Override
-    public void writeln(byte[] bytes) {
+    public void readObj() {
         try {
-            mmOutStream.write(bytes);
-            mmOutStream.flush();
-        } catch (IOException e) {
-            Log.e(CANONICAL_NAME, "Exception during write", e);
+            Message message = (Message) objectInputStream.readObject();
+            MsgHistory.addReceived(message);
+        } catch (ClassNotFoundException | IOException e) {
+            Log.e(CANONICAL_NAME, "Exception during read", e);
         }
     }
 
@@ -147,13 +165,25 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         }
     }
 
+    @Override
+    public boolean write(Message message) {
+        try {
+            objectOutputStream.writeObject(message);
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "error write", e);
+            return false;
+        }
+        return true;
+    }
+
 
     @WorkerThread
     @Override
     public void run() {
-        new MsgStrWriter().performWrite(this);
-        readStr();
-//        read();
+        Log.d(CANONICAL_NAME, "before write");
+        msgHistory.performWrite(this);
+        Log.d(CANONICAL_NAME, "before read");
+        readObj();
         try {
             mmSocket.close();
         } catch (IOException e) {

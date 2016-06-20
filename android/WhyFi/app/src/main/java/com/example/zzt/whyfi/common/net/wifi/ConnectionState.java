@@ -6,5 +6,6 @@ package com.example.zzt.whyfi.common.net.wifi;
  * Usage:
  */
 public enum ConnectionState {
-    NONE, FOUND_PEER, CONNECTING, CONNECT_SUCC, GROUP_CREATED
+    NONE, FOUND_PEER, CONNECTING, CONNECT_SUCC, GROUP_CREATED,
+    CLIENT_CONNECTED, SERVER_CONNECTED,
 }
