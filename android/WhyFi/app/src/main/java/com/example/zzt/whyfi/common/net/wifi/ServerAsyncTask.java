@@ -11,22 +11,18 @@ import net.jcip.annotations.GuardedBy;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 /**
  * Created by zzt on 6/18/16.
- * <p>
+ * <p/>
  * Usage:
  */
 public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
 
     public static final String CANONICAL_NAME = ServerAsyncTask.class.getCanonicalName();
-    private static final ExecutorService service = Executors.newCachedThreadPool();
+    //    private static final ExecutorService service = Executors.newCachedThreadPool();
     private final WiFiDirectBroadcastReceiver receiver;
-    private volatile boolean cancel = false;
+//    private volatile boolean cancel = false;
     private final ServerSocket serverSocket;
 
 
@@ -35,7 +31,7 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
         try {
             serverSocket = new ServerSocket(WifiSetting.DEFAULT_PORT);
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(CANONICAL_NAME, "error start server socket", e);
         }
         this.serverSocket = serverSocket;
         this.receiver = wiFiDirectBroadcastReceiver;
@@ -49,27 +45,31 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
              * Create a server socket and wait for client connections. This
              * call blocks until a connection is accepted from a client
              */
-            List<ConnectedJob> list = new ArrayList<>();
-            while (!cancel) {
-                Socket client = serverSocket.accept();
+//            List<ConnectedJob> list = new ArrayList<>();
+//            while (!cancel) {
+            Log.d(CANONICAL_NAME, "server started");
+            Socket client = serverSocket.accept();
 
-                receiver.setState(ConnectionState.SERVER_CONNECTED);
-                Log.d(CANONICAL_NAME, "server connected");
-                ConnectedJob command = new ConnectedJob(client, true);
-                list.add(command);
-                service.execute(command);
-            }
-            for (ConnectedJob connectedJob : list) {
-                connectedJob.cancel();
-            }
-            service.shutdownNow();
+            receiver.setState(ConnectionState.SERVER_CONNECTED);
+            Log.d(CANONICAL_NAME, "server connected");
+            ConnectedJob command = new ConnectedJob(client, true);
+            command.run();
+
+//                list.add(command);
+//                service.execute(command);
+//            }
+//            for (ConnectedJob connectedJob : list) {
+//                connectedJob.cancel();
+//            }
+//            service.shutdownNow();
         } catch (IOException e) {
             Log.e(CANONICAL_NAME, "accept fail", e);
+        } finally {
             receiver.resetServerState();
             try {
                 serverSocket.close();
             } catch (IOException e1) {
-                Log.e(CANONICAL_NAME, "server socket close fail", e);
+                Log.e(CANONICAL_NAME, "server socket close fail", e1);
             }
         }
         return null;
@@ -79,7 +79,7 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
     @GuardedBy("volatile")
     @ToGuard(values = {"cancel", "serverSocket"})
     public void stopListen() {
-        cancel = true;
+//        cancel = true;
         try {
             serverSocket.close();
         } catch (IOException e) {

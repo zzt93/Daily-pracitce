@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.NetworkInfo;
+import android.net.wifi.WpsInfo;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
 import android.net.wifi.p2p.WifiP2pDeviceList;
@@ -21,6 +22,9 @@ import com.example.zzt.whyfi.common.App;
 
 import java.net.InetAddress;
 import java.util.Collection;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zzt on 6/16/16.
@@ -39,8 +43,10 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     /**
      * this task will run as long as this activity alive
      */
-    private ServerAsyncTask serverAsyncTask;
+//    private ServerAsyncTask serverAsyncTask;
     public final static IntentFilter mIntentFilter = new IntentFilter();
+    private ExecutorService exec = Executors.newCachedThreadPool();
+    private ServerAsyncTask serverAsyncTask;
 
     public WiFiDirectBroadcastReceiver(WifiP2pManager manager, WifiP2pManager.Channel channel
             , Activity activity) {
@@ -62,6 +68,10 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     public void setState(ConnectionState state) {
         Log.d(CANONICAL_NAME, "" + this.state + "->" + state);
         this.state = state;
+    }
+
+    public WifiP2pManager getmManager() {
+        return mManager;
     }
 
     @UiThread
@@ -88,18 +98,18 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
 
         } else if (WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION.equals(action)) {
             // Call WifiP2pManager.requestPeers() to get a list of current peers
-            if (state != ConnectionState.NONE) {
-                tryConnect();
-                return;
+            switch (state) {
+                case NONE:
+                    setState(ConnectionState.FOUND_PEER);
+                    WifiP2pDeviceList list = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST);
+                    handleDeviceList(list);
+                    break;
+                case FOUND_PEER:
+                    tryConnect();
+                    break;
+                default:
+                    break;
             }
-            setState(ConnectionState.FOUND_PEER);
-            WifiP2pDeviceList list = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST);
-            handleDeviceList(list);
-//            if (mManager != null) {
-//                WifiP2pManager.PeerListListener myPeerListListener = new ConnectAllPeer(mManager, mChannel);
-//                mManager.requestPeers(mChannel, myPeerListListener);
-//                mManager.stopPeerDiscovery(mChannel, null);
-//            }
 
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             // Respond to new connection or disconnections
@@ -123,12 +133,13 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     }
 
     private void handleDeviceList(WifiP2pDeviceList list) {
+//        startServer();
         App application = (App) mActivity.getApplication();
         if (application.getList().size() == list.getDeviceList().size()) {
             return;
         }
         application.setList(list);
-        tryConnect();
+//        tryConnect();
     }
 
     private boolean tryConnect() {
@@ -138,13 +149,16 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
         for (final WifiP2pDevice device : deviceList) {
             WifiP2pConfig config = new WifiP2pConfig();
             config.deviceAddress = device.deviceAddress;
+            config.wps.setup = WpsInfo.PBC;
+
             setState(ConnectionState.CONNECTING);
             mManager.connect(mChannel, config, new WifiP2pManager.ActionListener() {
 
                 @Override
                 public void onSuccess() {
-                    Log.d(CANONICAL_NAME, "succeed to connect peer: " + device.deviceAddress);
-                    setState(ConnectionState.CONNECT_SUCC);
+//                    Log.d(CANONICAL_NAME, "start server: " + device.deviceAddress);
+//                    startServer();
+//                    setState(ConnectionState.CONNECT_SUCC);
                 }
 
                 @Override
@@ -158,27 +172,33 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     }
 
     public void discover() {
-        startServer();
+        switch (state) {
+            case NONE:
+            case FOUND_PEER:
+                if (!tryConnect()) {
+                    /**
+                     * The discovery remains active until a connection is initiated or a p2p group is formed
+                     */
+                    mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
+                        @Override
+                        public void onSuccess() {
+                            Log.d(CANONICAL_NAME, "Discovery initiate");
+                        }
 
-        if (!tryConnect()) {
-            /**
-             * The discovery remains active until a connection is initiated or a p2p group is formed
-             */
-            mManager.discoverPeers(mChannel, new WifiP2pManager.ActionListener() {
-                @Override
-                public void onSuccess() {
-                    Log.d(CANONICAL_NAME, "succeed to find peer");
+                        @Override
+                        public void onFailure(int reasonCode) {
+                            Log.d(CANONICAL_NAME, "Discovery Failed: " + reasonCode);
+                        }
+                    });
                 }
-
-                @Override
-                public void onFailure(int reasonCode) {
-                    Log.d(CANONICAL_NAME, "fail to find peer");
-                }
-            });
+                break;
+            default:
+                break;
         }
     }
 
     private volatile boolean serverStarted = false;
+    private volatile boolean clientStarted = false;
 
     public void onConnectionInfoAvailable(WifiP2pInfo info) {
         // InetAddress from WifiP2pInfo struct.
@@ -191,23 +211,32 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
             // Do whatever tasks are specific to the group owner.
             // One common case is creating a server thread and accepting
             // incoming connections.
+
             startServer();
         } else if (info.groupFormed) {
-            Log.d(CANONICAL_NAME, "group client: " + groupOwnerAddress.getHostAddress());
+            Log.d(CANONICAL_NAME, "group client: owner " + groupOwnerAddress.getHostAddress());
 
             // The other device acts as the client. In this case,
             // you'll want to create a client thread that connects to the group
             // owner.
-            new ClientAsyncTask(this, groupOwnerAddress.getHostAddress()).execute((Void[]) null);
+            startClient(groupOwnerAddress);
         } else {
             Log.e(CANONICAL_NAME, "group not formed");
         }
     }
 
+    private void startClient(InetAddress groupOwnerAddress) {
+        if (!clientStarted) {
+            clientStarted = true;
+            new ClientAsyncTask(this, groupOwnerAddress.getHostAddress()).executeOnExecutor(exec, (Void[]) null);
+        }
+    }
+
     private void startServer() {
+//        closeClient();
         if (!serverStarted) {
             serverAsyncTask = new ServerAsyncTask(this);
-            serverAsyncTask.execute((Void[]) null);
+            serverAsyncTask.executeOnExecutor(exec, (Void[]) null);
             serverStarted = true;
         }
     }
@@ -217,8 +246,14 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
      */
     @UiThread
     public void cleanUp() {
+        exec.shutdown();
         if (serverStarted) {
             serverAsyncTask.stopListen();
+        }
+        try {
+            exec.awaitTermination(5, TimeUnit.SECONDS);
+        } catch (InterruptedException e) {
+            Log.e(CANONICAL_NAME, "error close", e);
         }
     }
 
@@ -226,6 +261,7 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
     public void resetServerState() {
         setState(ConnectionState.NONE);
         serverStarted = false;
+        serverAsyncTask = null;
     }
 }
 

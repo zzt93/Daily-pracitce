@@ -94,7 +94,7 @@ public class ConnectedBT implements Runnable, ConnectedChannel {
     }
 
     @Override
-    public void readObj() {
+    public void readMsg() {
 
     }
 

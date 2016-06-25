@@ -4,17 +4,17 @@
 
     <header
         android:fragment="com.example.zzt.whyfi.view.DeviceSettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
+        android:icon="@drawable/icon"
         android:title="@string/pref_header_general" />
 
     <header
         android:fragment="com.example.zzt.whyfi.view.DeviceSettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_launcher"
         android:title="@string/pref_header_notifications" />
 
     <header
         android:fragment="com.example.zzt.whyfi.view.DeviceSettingsActivity$DataSyncPreferenceFragment"
-        android:icon="@drawable/ic_sync_black_24dp"
+        android:icon="@drawable/ic_action_on_off"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

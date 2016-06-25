@@ -16,8 +16,13 @@ public class MaxOfSumOpt {
 
     /**
      * <p>Suppose that we've solved the problem for x[0, n-1]; how can we extend that to
-     * include x[i]?</p>
+     * include x[n]?</p>
      * <p>the maximum-sum is either in x[0, n-1] or it ends at x[i]</p>
+     *
+     * <p>Suppose that we have found that max-sum end at x[n-1],
+     * how can we extend that to include x[n]</p>
+     * <p>choose in (x[n], maxEndHere + x[n], 0), for maxEndHere >= 0,
+     * so change to (maxEndHere + x[n], 0)</p>
      *
      * @param nums input array
      *

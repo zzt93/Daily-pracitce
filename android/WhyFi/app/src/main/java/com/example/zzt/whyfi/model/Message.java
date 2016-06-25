@@ -18,6 +18,7 @@ public class Message implements Serializable {
     private final Device device;
     private final String message;
     private final String time;
+    public static final Message EMPTY = new Message(Device.now, "?");
 
     public Message(Device device, String message) {
         this.device = device;

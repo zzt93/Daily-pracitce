@@ -1,4 +1,4 @@
-package com.example.zzt.whyfi.vm;
+package com.example.zzt.whyfi.common.net;
 
 import android.app.Service;
 import android.content.Intent;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.model.Message;
+import com.example.zzt.whyfi.vm.MsgHistory;
 
 import java.io.UnsupportedEncodingException;
 

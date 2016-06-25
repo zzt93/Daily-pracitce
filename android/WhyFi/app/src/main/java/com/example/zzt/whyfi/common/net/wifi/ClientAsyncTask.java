@@ -40,11 +40,12 @@ public class ClientAsyncTask extends AsyncTask<Void, Void, Void> {
              * Create a client socket with the host,
              * port, and timeout information.
              */
+            Log.d(CANONICAL_NAME, "client started");
             socket.bind(null);
-            socket.connect(inetSocketAddress, 1000);
+            socket.connect(inetSocketAddress, 5000);
 
             receiver.setState(ConnectionState.CLIENT_CONNECTED);
-            // notice here we not run it in another thread,
+            // notice here we do not run it in another thread,
             // for this is already in a worker thread
             Log.d(CANONICAL_NAME, "client connected");
             new ConnectedJob(socket, false).run();

@@ -4,7 +4,6 @@ import android.os.Looper;
 import android.support.annotation.WorkerThread;
 import android.util.Log;
 
-import com.example.zzt.whyfi.common.BytesSetting;
 import com.example.zzt.whyfi.common.net.ConnectedChannel;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.vm.MsgHistory;
@@ -12,7 +11,6 @@ import com.example.zzt.whyfi.vm.MsgHistory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -20,10 +18,11 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created by zzt on 6/19/16.
- * <p>
+ * <p/>
  * Usage:
  */
 @WorkerThread
@@ -55,10 +54,9 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         mmInStream = tmpIn;
         mmOutStream = tmpOut;
         try {
-            out = new OutputStreamWriter(mmOutStream, BytesSetting.UTF_8);
-            reader = new BufferedReader(new InputStreamReader(
-                    socket.getInputStream(), "UTF-8"));
-            objectInputStream = new ObjectInputStream(mmInStream);
+//            out = new OutputStreamWriter(mmOutStream, BytesSetting.UTF_8);
+//            reader = new BufferedReader(new InputStreamReader(
+//                    socket.getInputStream(), "UTF-8"));
             objectOutputStream = new ObjectOutputStream(mmOutStream);
         } catch (IOException e) {
             Log.e(CANONICAL_NAME, "error create ", e);
@@ -137,9 +135,19 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
     }
 
     @Override
-    public void readObj() {
+    public void readMsg() {
+//        try {
+//            Message message = (Message) objectInputStream.readObject();
+//            MsgHistory.addReceived(message);
+//        } catch (ClassNotFoundException | IOException e) {
+//            Log.e(CANONICAL_NAME, "Exception during read", e);
+//        }
+    }
+
+    @Override
+    public void readList() {
         try {
-            Message message = (Message) objectInputStream.readObject();
+            List<Message> message = (List<Message>) objectInputStream.readObject();
             MsgHistory.addReceived(message);
         } catch (ClassNotFoundException | IOException e) {
             Log.e(CANONICAL_NAME, "Exception during read", e);
@@ -176,18 +184,35 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         return true;
     }
 
+    @Override
+    public boolean write(List<Message> messages) {
+        try {
+            objectOutputStream.writeObject(messages);
+        } catch (IOException e) {
+            Log.e(CANONICAL_NAME, "error write", e);
+            return false;
+        }
+        return true;
+    }
+
 
     @WorkerThread
     @Override
     public void run() {
         Log.d(CANONICAL_NAME, "before write");
-        msgHistory.performWrite(this);
-        Log.d(CANONICAL_NAME, "before read");
-        readObj();
         try {
+            msgHistory.performWrite(this);
+            objectOutputStream.flush();
+
+            Log.d(CANONICAL_NAME, "before read");
+            objectInputStream = new ObjectInputStream(mmInStream);
+
+            readList();
+            objectOutputStream.close();
+            objectInputStream.close();
             mmSocket.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.e(CANONICAL_NAME, "error ", e);
         }
     }
 

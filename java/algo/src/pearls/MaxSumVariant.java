@@ -17,6 +17,8 @@ public class MaxSumVariant {
         for (int anInt : ints) {
             maxEndHere = Math.max(anInt, maxEndHere + anInt);
             /**
+             * @see methodology.dynamic.MaxOfSumOpt
+             *
              * verification:
              * i == 0, maxEndHere is max sum end at 0 -- ints[0]
              * suppose i == k-1, maxEndHere is max sum end at i-1
