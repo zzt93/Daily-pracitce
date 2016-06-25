@@ -99,7 +99,7 @@
     <string name="net_not_enabled">network not enabled, you may not use some function</string>
     <string name="local_service_started">start</string>
     <string name="local_service_stopped">stop</string>
-    <string name="msg_received_label">you received some message</string>
+    <string name="msg_received_label">You have received some message</string>
     <string name="empty_msg">can\'t send empty message</string>
     <string name="drawer">drawer</string>
     <string name="WIFI_not_enable">Wi_Fi P2P not enabled</string>

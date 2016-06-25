@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Vibrator;
 import android.support.annotation.UiThread;
 
 import com.example.zzt.whyfi.R;
@@ -37,6 +38,10 @@ public class NotificationHelper {
     public void showFixedNotification(int msg_received_label) {
         // In this sample, we'll use the same text for the ticker and the expanded notification
         CharSequence text = context.getText(R.string.app_name);
+        showNotification(text, text, context.getText(msg_received_label));
+    }
+
+    public void showNotification(CharSequence ticker, CharSequence title, CharSequence text) {
 
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
@@ -45,16 +50,22 @@ public class NotificationHelper {
         // Set the info for the views that show in the notification panel.
         Notification notification = new Notification.Builder(context)
                 .setSmallIcon(R.mipmap.ic_launcher)  // the status icon
-                .setTicker(text)  // the status text
+                .setTicker(ticker)  // the status text
                 .setWhen(System.currentTimeMillis())  // the time stamp
-                .setContentTitle(text)  // the label of the entry
-                .setContentText(context.getText(msg_received_label))  // the contents of the entry
+                .setContentTitle(title)  // the label of the entry
+                .setContentText(text)  // the contents of the entry
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
                 .build();
 
         // Send the notification.
         mNM.notify(NOTIFICATION, notification);
+
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(500);
     }
+
+
 
     public void cancel() {
         mNM.cancel(NOTIFICATION);

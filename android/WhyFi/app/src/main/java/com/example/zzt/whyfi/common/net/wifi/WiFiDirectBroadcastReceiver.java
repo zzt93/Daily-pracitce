@@ -91,7 +91,6 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                     @Override
                     public void run() {
                         Toast.makeText(mActivity, mActivity.getString(R.string.WIFI_not_enable), Toast.LENGTH_SHORT).show();
-                        mActivity.finish();
                     }
                 });
             }
@@ -107,6 +106,10 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
                 case FOUND_PEER:
                     tryConnect();
                     break;
+                case CLIENT_CONNECTED:
+                case SERVER_CONNECTED:
+                    onConnect(intent);
+                    break;
                 default:
                     break;
             }
@@ -114,21 +117,25 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
         } else if (WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION.equals(action)) {
             // Respond to new connection or disconnections
 
-            NetworkInfo networkInfo = intent
-                    .getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
-            WifiP2pInfo info = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
-            Log.d(CANONICAL_NAME, "connected: " + networkInfo.isConnected() + ";" + info.toString());
-            if (networkInfo.isConnected()) {
-                setState(ConnectionState.GROUP_CREATED);
-                // We are connected with the other device, request connection
-                // info to find group owner IP
-//                mManager.requestConnectionInfo(mChannel, this);
-                onConnectionInfoAvailable(info);
-            }
+            onConnect(intent);
 
         } else if (WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION.equals(action)) {
             // Respond to this device's wifi state changing
             Log.d(CANONICAL_NAME, intent.toString());
+        }
+    }
+
+    private void onConnect(Intent intent) {
+        NetworkInfo networkInfo = intent
+                .getParcelableExtra(WifiP2pManager.EXTRA_NETWORK_INFO);
+        WifiP2pInfo info = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_INFO);
+        if (networkInfo == null || info == null) {
+            return;
+        }
+        Log.d(CANONICAL_NAME, "connected: " + networkInfo.isConnected() + ";" + info.toString());
+        if (networkInfo.isConnected()) {
+            setState(ConnectionState.GROUP_CREATED);
+            onConnectionInfoAvailable(info);
         }
     }
 
@@ -262,6 +269,20 @@ public class WiFiDirectBroadcastReceiver extends BroadcastReceiver {
         setState(ConnectionState.NONE);
         serverStarted = false;
         serverAsyncTask = null;
+    }
+
+    @WorkerThread
+    public void resetClient() {
+        setState(ConnectionState.NONE);
+        clientStarted = false;
+    }
+
+    public void setServerStarted(boolean serverStarted) {
+        this.serverStarted = serverStarted;
+    }
+
+    public void setClientStarted(boolean clientStarted) {
+        this.clientStarted = clientStarted;
     }
 }
 

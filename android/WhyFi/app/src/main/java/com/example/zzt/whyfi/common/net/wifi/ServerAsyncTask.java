@@ -22,7 +22,7 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
     public static final String CANONICAL_NAME = ServerAsyncTask.class.getCanonicalName();
     //    private static final ExecutorService service = Executors.newCachedThreadPool();
     private final WiFiDirectBroadcastReceiver receiver;
-//    private volatile boolean cancel = false;
+    //    private volatile boolean cancel = false;
     private final ServerSocket serverSocket;
 
 
@@ -45,8 +45,7 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
              * Create a server socket and wait for client connections. This
              * call blocks until a connection is accepted from a client
              */
-//            List<ConnectedJob> list = new ArrayList<>();
-//            while (!cancel) {
+
             Log.d(CANONICAL_NAME, "server started");
             Socket client = serverSocket.accept();
 
@@ -54,21 +53,15 @@ public class ServerAsyncTask extends AsyncTask<Void, Void, String> {
             Log.d(CANONICAL_NAME, "server connected");
             ConnectedJob command = new ConnectedJob(client, true);
             command.run();
-
-//                list.add(command);
-//                service.execute(command);
-//            }
-//            for (ConnectedJob connectedJob : list) {
-//                connectedJob.cancel();
-//            }
-//            service.shutdownNow();
+            receiver.setServerStarted(false);
         } catch (IOException e) {
             Log.e(CANONICAL_NAME, "accept fail", e);
-        } finally {
             receiver.resetServerState();
+        } finally {
             try {
                 serverSocket.close();
             } catch (IOException e1) {
+                receiver.resetServerState();
                 Log.e(CANONICAL_NAME, "server socket close fail", e1);
             }
         }

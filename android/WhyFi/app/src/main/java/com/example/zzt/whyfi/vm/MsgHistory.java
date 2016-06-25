@@ -27,7 +27,7 @@ public class MsgHistory implements MsgWriter {
 
     @ThreadConfinement
     private static final LinkedList<Message> sent = new LinkedList<>();
-    private static final LinkedList<Message> sending = new LinkedList<>();
+    private static final LinkedList<Message> oneTimeSending = new LinkedList<>();
     private static final LinkedList<Message> received = new LinkedList<>();
     private static Handler handler = new Handler(Looper.getMainLooper());
 
@@ -66,41 +66,46 @@ public class MsgHistory implements MsgWriter {
     }
 
     public static void addReceived(final List<Message> messages) {
+        if (messages.isEmpty()) {
+            return;
+        }
         synchronized (received) {
             received.addAll(0, messages);
         }
         handler.post(new Runnable() {
             @Override
             public void run() {
-                new NotificationHelper().showFixedNotification(R.string.msg_received_label);
+                Message message = messages.get(0);
+                String text = message.getDevice().getName() + ": " + message.getMessage();
+                new NotificationHelper().showNotification(text, "WhyFi", text);
             }
         });
     }
 
     @Override
     @UiThread
-    @ToGuard("sending")
+    @ToGuard("oneTimeSending")
     public void writeMsg(Message message) {
         sent.addFirst(message);
-        synchronized (sending) {
-            sending.addFirst(message);
+        synchronized (oneTimeSending) {
+            oneTimeSending.addFirst(message);
         }
     }
 
     @WorkerThread
     @Override
-    @ToGuard("sending")
+    @ToGuard("oneTimeSending")
     public void performWrite(ConnectedChannel channel) {
         LinkedList<Message> tmp;
-        synchronized (sending) {
-            tmp = new LinkedList<>(sending);
+        synchronized (oneTimeSending) {
+            tmp = new LinkedList<>(oneTimeSending);
         }
 
 
         channel.write(tmp);
 
-//        synchronized (sending) {
-//            sending.retainAll(tmp);
+//        synchronized (oneTimeSending) {
+//            oneTimeSending.retainAll(tmp);
 //        }
     }
 }

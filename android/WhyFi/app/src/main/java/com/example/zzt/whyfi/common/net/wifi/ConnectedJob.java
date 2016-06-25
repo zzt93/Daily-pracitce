@@ -202,9 +202,23 @@ public class ConnectedJob implements Runnable, ConnectedChannel {
         Log.d(CANONICAL_NAME, "before write");
         try {
             msgHistory.performWrite(this);
+            //  which cause StreamCorruptedException
+            /**
+             * can't close OOS before init OIS??? java.net.SocketException: recvfrom failed: EBADF (Bad file number)
+             */
             objectOutputStream.flush();
 
             Log.d(CANONICAL_NAME, "before read");
+            /**
+             *  init OIS is blocking!!!
+             */
+            /**
+             *  EOFException when before init OOS
+             * -- reason:
+             * The most likely cause is that the remote client did not open an ObjectOutputStream.
+             * It might have written some other kind of data,
+             * or it might have closed its output stream or simply exited.
+             */
             objectInputStream = new ObjectInputStream(mmInStream);
 
             readList();

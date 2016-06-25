@@ -49,15 +49,17 @@ public class ClientAsyncTask extends AsyncTask<Void, Void, Void> {
             // for this is already in a worker thread
             Log.d(CANONICAL_NAME, "client connected");
             new ConnectedJob(socket, false).run();
+            receiver.setClientStarted(false);
         } catch (IOException e) {
             Log.e(CANONICAL_NAME, "error connect", e);
+            receiver.resetClient();
         } finally {
             try {
                 socket.close();
             } catch (IOException e) {
                 Log.e(CANONICAL_NAME, "error close client", e);
+                receiver.resetClient();
             }
-            receiver.setState(ConnectionState.NONE);
         }
         return null;
     }

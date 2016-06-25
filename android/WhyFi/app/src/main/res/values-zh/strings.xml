@@ -3,8 +3,7 @@
     <string name="action_settings">设置</string>
     <string name="navigation_drawer_close">关闭</string>
     <string name="navigation_drawer_open">打开</string>
-    <string name="camera"></string>
-    <string name="app_name" translatable="false"></string>
+    <string name="camera">相机</string>
     <string name="error_field_required">请输入设备名</string>
     <string name="say_something">说点什么吧…</string>
     <string name="sent_tab">发送</string>
@@ -17,4 +16,5 @@
     <string name="save">保存</string>
     <string name="net_not_enabled">蓝牙设备未开启，您可能不能使用部分功能</string>
     <string name="ble_not_supported">蓝牙设备不支持</string>
+    <string name="WIFI_not_enable">WiFi未开启，检查网络</string>
 </resources>
