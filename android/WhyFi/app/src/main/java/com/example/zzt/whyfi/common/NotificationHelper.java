@@ -5,15 +5,19 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Vibrator;
+import android.content.SharedPreferences;
+import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.support.annotation.UiThread;
+import android.text.TextUtils;
 
 import com.example.zzt.whyfi.R;
+import com.example.zzt.whyfi.view.DeviceSettingsActivity;
 import com.example.zzt.whyfi.view.Drawer;
 
 /**
  * Created by zzt on 6/12/16.
- * <p>
+ * <p/>
  * Usage:
  */
 @UiThread
@@ -43,6 +47,22 @@ public class NotificationHelper {
 
     public void showNotification(CharSequence ticker, CharSequence title, CharSequence text) {
 
+        SharedPreferences notificationPref = PreferenceManager.getDefaultSharedPreferences(context);
+        boolean notify = notificationPref.getBoolean(DeviceSettingsActivity.NOTIFICATIONS_NEW_MESSAGE, true);
+        if (!notify) {
+            return;
+        }
+        String ring = notificationPref.getString(DeviceSettingsActivity.NOTIFICATIONS_NEW_MESSAGE_RINGTONE, "");
+        if (TextUtils.isEmpty(ring)) {
+            return;
+        }
+        Uri ringUri = Uri.parse(ring);
+
+        boolean vibrate = notificationPref.getBoolean(DeviceSettingsActivity.NOTIFICATIONS_NEW_MESSAGE_VIBRATE, true);
+        if (!vibrate) {
+            return;
+        }
+
         // The PendingIntent to launch our activity if the user selects this notification
         PendingIntent contentIntent = PendingIntent.getActivity(context, 0,
                 new Intent(context, Drawer.class), 0);
@@ -55,16 +75,15 @@ public class NotificationHelper {
                 .setContentTitle(title)  // the label of the entry
                 .setContentText(text)  // the contents of the entry
                 .setContentIntent(contentIntent)  // The intent to send when the entry is clicked
+                .setSound(ringUri)
+                .setVibrate(new long[]{1000, 1000, 1000, 1000, 1000})
                 .build();
 
         // Send the notification.
         mNM.notify(NOTIFICATION, notification);
 
-        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        v.vibrate(500);
-    }
 
+    }
 
 
     public void cancel() {

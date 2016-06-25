@@ -3,6 +3,7 @@ package com.example.zzt.whyfi.view;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,9 +20,9 @@ import android.widget.TabHost;
 import android.widget.Toast;
 
 import com.example.zzt.whyfi.R;
-import com.example.zzt.whyfi.common.net.wifi.WifiMsg;
 import com.example.zzt.whyfi.common.net.wifi.WiFiDirectBroadcastReceiver;
 import com.example.zzt.whyfi.common.net.wifi.WifiActivity;
+import com.example.zzt.whyfi.common.net.wifi.WifiMsg;
 import com.example.zzt.whyfi.databinding.ActivityDrawerBinding;
 import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.vm.AvatarBindingAdapters;
@@ -67,6 +68,7 @@ public class Drawer extends WifiActivity
         setTabHost();
 
 
+        PreferenceManager.setDefaultValues(this, R.xml.pref_notification, false);
         if (!WifiMsg.setUpWifi(this)) {
             Toast.makeText(this, R.string.net_not_enabled, Toast.LENGTH_SHORT).show();
         }

@@ -37,6 +37,9 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class DeviceSettingsActivity extends AppCompatPreferenceActivity {
+    public static final String NOTIFICATIONS_NEW_MESSAGE = "notifications_new_message";
+    public static final String NOTIFICATIONS_NEW_MESSAGE_RINGTONE = "notifications_new_message_ringtone";
+    public static final String NOTIFICATIONS_NEW_MESSAGE_VIBRATE = "notifications_new_message_vibrate";
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -223,7 +226,8 @@ public class DeviceSettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
+            bindPreferenceSummaryToValue(findPreference(NOTIFICATIONS_NEW_MESSAGE_RINGTONE));
+//            bindPreferenceSummaryToValue(findPreference(NOTIFICATIONS_NEW_MESSAGE_VIBRATE));
         }
 
         @Override

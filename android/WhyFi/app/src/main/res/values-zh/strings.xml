@@ -16,5 +16,22 @@
     <string name="save">保存</string>
     <string name="net_not_enabled">蓝牙设备未开启，您可能不能使用部分功能</string>
     <string name="ble_not_supported">蓝牙设备不支持</string>
-    <string name="WIFI_not_enable">WiFi未开启，检查网络</string>
+    <string name="WIFI_not_enable">WiFi未开启，请检查网络</string>
+    <string name="title_activity_edit_name">更改昵称</string>
+    <string name="tools">工具</string>
+    <string name="share">分享</string>
+    <string name="pref_header_general">通用</string>
+    <string name="pref_header_notifications">通知</string>
+    <string name="pref_ringtone_silent">静音</string>
+    <string name="pref_title_display_name">昵称</string>
+    <string name="pref_title_new_message_notifications">新消息提醒</string>
+    <string name="pref_title_sync_frequency">更新频率</string>
+    <string name="pref_title_system_sync_settings">系统同步设置</string>
+    <string name="pref_title_vibrate">震动</string>
+    <string name="pref_title_ringtone">默认铃声</string>
+    <string name="pref_title_social_recommendations">允许</string>
+    <string name="pref_header_data_sync">数据与同步</string>
+    <string name="empty_msg">请输入信息</string>
+    <string name="gallery">图库</string>
+    <string name="device_name">设备名</string>
 </resources>

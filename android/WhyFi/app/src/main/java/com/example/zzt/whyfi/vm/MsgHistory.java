@@ -5,7 +5,6 @@ import android.os.Looper;
 import android.support.annotation.UiThread;
 import android.support.annotation.WorkerThread;
 
-import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.common.NotificationHelper;
 import com.example.zzt.whyfi.common.ThreadConfinement;
 import com.example.zzt.whyfi.common.ToGuard;
@@ -52,17 +51,17 @@ public class MsgHistory implements MsgWriter {
         return Collections.unmodifiableList(received);
     }
 
-
+    @Deprecated
     public static void addReceived(final Message msg) {
         synchronized (received) {
             received.addFirst(msg);
         }
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                new NotificationHelper().showFixedNotification(R.string.msg_received_label);
-            }
-        });
+//        handler.post(new Runnable() {
+//            @Override
+//            public void run() {
+//                new NotificationHelper().showFixedNotification(R.string.msg_received_label);
+//            }
+//        });
     }
 
     public static void addReceived(final List<Message> messages) {
