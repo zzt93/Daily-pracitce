@@ -10,8 +10,8 @@ import com.example.zzt.whyfi.common.ThreadConfinement;
 import com.example.zzt.whyfi.common.ToGuard;
 import com.example.zzt.whyfi.common.net.ConnectedChannel;
 import com.example.zzt.whyfi.common.net.MsgWriter;
-import com.example.zzt.whyfi.model.Device;
 import com.example.zzt.whyfi.model.Message;
+import com.example.zzt.whyfi.model.db.MsgDbHelper;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -30,16 +30,22 @@ public class MsgHistory implements MsgWriter {
     private static final LinkedList<Message> received = new LinkedList<>();
     private static Handler handler = new Handler(Looper.getMainLooper());
 
+    private static MsgDbHelper msgDbHelper = new MsgDbHelper();
+
     static {
+
+        LinkedList<Message> received1 = msgDbHelper.getReceived();
         // TODO: 5/27/16 load from file/db
-        sent.add(new Message(new Device("zzt"), "hello"));
-        sent.add(new Message(new Device("hch"), "hello, world"));
-        sent.add(new Message(new Device("hcw"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
+        sent.addAll(msgDbHelper.getSent());
+//        sent.add(new Message(new Device("zzt"), "hello"));
+//        sent.add(new Message(new Device("hch"), "hello, world"));
+//        sent.add(new Message(new Device("hcw"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
 
         synchronized (received) {
-            received.add(new Message(new Device("xiao"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
-            received.add(new Message(new Device("cwr"), "hello, thank you"));
-            received.add(new Message(new Device("bh"), "hello, bh"));
+            received.addAll(received1);
+//            received.add(new Message(new Device("xiao"), "we declared app:imageUrl in the layout and we passed the book image URL to it. Now we need to load the image URL, which can be done using the @BindingAdapter annotation. To do that,  we need to declare a static method annotated with @BindingAdapter and provide it with a parameter that corresponds to the custom attribute that we declared in the layout, i.e., imageURL. This method will be called as soon as the binding occurs."));
+//            received.add(new Message(new Device("cwr"), "hello, thank you"));
+//            received.add(new Message(new Device("bh"), "hello, bh"));
         }
     }
 
@@ -53,24 +59,16 @@ public class MsgHistory implements MsgWriter {
 
     @Deprecated
     public static void addReceived(final Message msg) {
-        synchronized (received) {
-            received.addFirst(msg);
-        }
-//        handler.post(new Runnable() {
-//            @Override
-//            public void run() {
-//                new NotificationHelper().showFixedNotification(R.string.msg_received_label);
-//            }
-//        });
+//        synchronized (received) {
+//            received.addFirst(msg);
+//        }
     }
 
     public static void addReceived(final List<Message> messages) {
         if (messages.isEmpty()) {
             return;
         }
-        synchronized (received) {
-            received.addAll(0, messages);
-        }
+        addReceivedLocked(messages);
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -81,14 +79,28 @@ public class MsgHistory implements MsgWriter {
         });
     }
 
+    private static void addReceivedLocked(List<Message> messages) {
+        synchronized (received) {
+            for (Message message : messages) {
+                msgDbHelper.insertMsg(message, false);
+            }
+            received.addAll(0, messages);
+        }
+    }
+
     @Override
     @UiThread
     @ToGuard("oneTimeSending")
     public void writeMsg(Message message) {
-        sent.addFirst(message);
+        addSent(message);
         synchronized (oneTimeSending) {
             oneTimeSending.addFirst(message);
         }
+    }
+
+    private void addSent(Message message) {
+        msgDbHelper.insertMsg(message, true);
+        sent.addFirst(message);
     }
 
     @WorkerThread
@@ -100,11 +112,10 @@ public class MsgHistory implements MsgWriter {
             tmp = new LinkedList<>(oneTimeSending);
         }
 
-
         channel.write(tmp);
 
-//        synchronized (oneTimeSending) {
-//            oneTimeSending.retainAll(tmp);
-//        }
+        synchronized (oneTimeSending) {
+            oneTimeSending.retainAll(tmp);
+        }
     }
 }

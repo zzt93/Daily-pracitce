@@ -4,12 +4,14 @@ import com.example.zzt.whyfi.common.BytesSetting;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 
 /**
  * Created by zzt on 5/10/16.
- * <p>
+ * <p/>
  * Usage:
  * The abstraction of content send/receive between devices
  */
@@ -18,12 +20,15 @@ public class Message implements Serializable {
     private final Device device;
     private final String message;
     private final String time;
-    public static final Message EMPTY = new Message(Device.now, "?");
 
     public Message(Device device, String message) {
+        this(device, message, getCurrentTimeStamp());
+    }
+
+    public Message(Device device, String msg, String time) {
         this.device = device;
-        this.message = message;
-        time = new Date().toString();
+        this.message = msg;
+        this.time = time;
     }
 
     public Device getDevice() {
@@ -36,6 +41,12 @@ public class Message implements Serializable {
 
     public String getTime() {
         return time;
+    }
+
+    public static String getCurrentTimeStamp() {
+        DateFormat sdfDate = SimpleDateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+        Date now = new Date();
+        return sdfDate.format(now);
     }
 
     @Deprecated
@@ -69,6 +80,7 @@ public class Message implements Serializable {
                 time + BytesSetting.SPLIT_BYTE;
     }
 
+    @Deprecated
     public static Message getFromChars(char[] chars) throws UnsupportedEncodingException {
         int i;
         for (i = chars.length - 1; i >= 0; i--) {

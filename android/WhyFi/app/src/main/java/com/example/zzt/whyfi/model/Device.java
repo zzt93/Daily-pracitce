@@ -1,38 +1,58 @@
 package com.example.zzt.whyfi.model;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.example.zzt.whyfi.BR;
+import com.example.zzt.whyfi.common.App;
 import com.example.zzt.whyfi.common.BytesSetting;
+import com.example.zzt.whyfi.common.DeviceUuidFactory;
+import com.example.zzt.whyfi.view.DeviceSettingsActivity;
 
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 
 /**
  * Created by zzt on 5/20/16.
- * <p>
+ * <p/>
  * Usage:
  */
 public class Device extends BaseObservable implements Serializable {
 
     private static final String model = Build.MODEL;
     public static final int SYM_DEF_APP_ICON = android.R.drawable.sym_def_app_icon;
-    public static final Device now = new Device("this phone: " + model, SYM_DEF_APP_ICON,
-            "a boy want to make success by his hand");
+
+    public static final Device now;
+
+    private static final String nowDid;
+
+    static {
+        DeviceUuidFactory factory = new DeviceUuidFactory();
+        nowDid = factory.getDeviceUuid().toString();
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        String name = preferences.getString(DeviceSettingsActivity.NAME, "");
+        now = new Device(name, SYM_DEF_APP_ICON,
+                "a boy want to make success by his hand");
+    }
+
     public static final String intentName = "device name";
     public static final String intentAvatar = "device avatar";
     public static final String intentDes = "device des";
 
+
+    private String did;
     private String name;
     private int avatar;
     private String des;
 
     public Device(String name) {
         this.name = name;
+        did = nowDid;
     }
 
 
@@ -59,12 +79,11 @@ public class Device extends BaseObservable implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(App.getContext());
+        preferences.edit().putString(DeviceSettingsActivity.NAME, name).apply();
         notifyPropertyChanged(BR.name);
     }
 
-    public byte[] getNameByte() throws UnsupportedEncodingException {
-        return name.getBytes(BytesSetting.UTF_8);
-    }
 
     public static String getNameFromByte(byte[] bytes) throws UnsupportedEncodingException {
         return new String(bytes, BytesSetting.UTF_8);
@@ -80,8 +99,12 @@ public class Device extends BaseObservable implements Serializable {
         notifyPropertyChanged(BR.des);
     }
 
+    public String getDid() {
+        return did;
+    }
+
     public void addToIntent(Intent intent) {
-        intent.putExtra(intentName, name);
+        intent.putExtra(intentName, getName());
         intent.putExtra(intentAvatar, avatar);
         intent.putExtra(intentDes, des);
     }
@@ -93,7 +116,7 @@ public class Device extends BaseObservable implements Serializable {
     }
 
     public void addToBundle(Bundle bundle) {
-        bundle.putString(intentName, name);
+        bundle.putString(intentName, getName());
         bundle.putInt(intentAvatar, avatar);
         bundle.putString(intentDes, des);
     }
@@ -104,6 +127,7 @@ public class Device extends BaseObservable implements Serializable {
                 bundle.getString(intentDes));
     }
 
+    @Deprecated
     public static Device getFromBytes(byte[] bytes) throws UnsupportedEncodingException {
         int nameLen = 0;
         for (int i = 0; i < bytes.length; i++) {
@@ -117,12 +141,13 @@ public class Device extends BaseObservable implements Serializable {
         return new Device(name, SYM_DEF_APP_ICON, des);
     }
 
+    @Deprecated
     public byte[] toBytes() throws UnsupportedEncodingException {
-        int nameLen = name.length();
+        int nameLen = getName().length();
         int desLen = des.length();
         byte[] bytes = new byte[nameLen + 1 + desLen];
 
-        System.arraycopy(name.getBytes(BytesSetting.UTF_8), 0, bytes, 0, nameLen);
+        System.arraycopy(getName().getBytes(BytesSetting.UTF_8), 0, bytes, 0, nameLen);
         bytes[nameLen] = BytesSetting.SPLIT_BYTE;
 
         System.arraycopy(des.getBytes(BytesSetting.UTF_8), 0, bytes, nameLen + 1, desLen);
@@ -130,6 +155,7 @@ public class Device extends BaseObservable implements Serializable {
         return bytes;
     }
 
+    @Deprecated
     public static Device getFromChars(char[] copyOf) {
         throw new UnsupportedOperationException();
 //        String name = null;

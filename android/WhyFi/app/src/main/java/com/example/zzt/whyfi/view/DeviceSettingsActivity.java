@@ -40,6 +40,7 @@ public class DeviceSettingsActivity extends AppCompatPreferenceActivity {
     public static final String NOTIFICATIONS_NEW_MESSAGE = "notifications_new_message";
     public static final String NOTIFICATIONS_NEW_MESSAGE_RINGTONE = "notifications_new_message_ringtone";
     public static final String NOTIFICATIONS_NEW_MESSAGE_VIBRATE = "notifications_new_message_vibrate";
+    public static final String NAME = "example_text";
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.
@@ -195,7 +196,7 @@ public class DeviceSettingsActivity extends AppCompatPreferenceActivity {
             // to their values. When their values change, their summaries are
             // updated to reflect the new value, per the Android Design
             // guidelines.
-            bindPreferenceSummaryToValue(findPreference("example_text"));
+            bindPreferenceSummaryToValue(findPreference(NAME));
             bindPreferenceSummaryToValue(findPreference("example_list"));
         }
 
