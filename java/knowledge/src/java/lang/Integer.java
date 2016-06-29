@@ -16,9 +16,9 @@ package java.lang;
  * }
  * </pre>
  */
-public class Integer {
-
-    public static void main(String[] args) {
-        Integer integer = new Integer();
-    }
-}
+//public class Integer {
+//
+//    public static void main(String[] args) {
+//        Integer integer = new Integer();
+//    }
+//}

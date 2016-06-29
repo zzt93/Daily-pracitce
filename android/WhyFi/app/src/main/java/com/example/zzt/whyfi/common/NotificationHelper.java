@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.annotation.UiThread;
 import android.text.TextUtils;
+import android.widget.ListView;
 
 import com.example.zzt.whyfi.R;
 import com.example.zzt.whyfi.view.DeviceSettingsActivity;

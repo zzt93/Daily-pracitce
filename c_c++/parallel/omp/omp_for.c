@@ -1,4 +1,5 @@
 #include "omp.h"
+#include <stdio.h>
 
 /*
 work sharing has implicit barrier at the end of 
@@ -27,18 +28,21 @@ schedule(dynamic [,chunk])
 schedule(guided [,chunk])
 schedule(runtime [,chunk])
 */
-void some() {
+void some(int num, int i) {
+    printf("%d, %d\n", num, i);
 }
 
-int big(){}
+int big(int i){
+    return 1;
+}
 
 void main() {
 	int n = 10;
 	#pragma omp parallel
 	{
 		#pragma omp for
-		for(i = 0; i < n; i++) {
-			some();
+		for(int i = 0; i < n; i++) {
+			some(omp_get_thread_num(), i);
 		}
 	}
 
@@ -55,16 +59,17 @@ void main() {
 	#pragma omp parallel for
 	for(i = 0; i < 10; i++) {
 		int new_j = 5 + 2*i;
+        printf("%d, %d\n", omp_get_thread_num(), i);
 		A[i] = big(new_j);
 	}
 
-	/*
-	invalid usage
+	//invalid usage
 	int size;
-	scanf("%d\n", &size);
+	scanf("%d", &size);
 	#pragma omp parallel for
 	for(i = 0; i < size; i++) {
-		printf("%d\n", i);
+        printf("%d, %d\n", omp_get_thread_num(), i);
 	}
+	/*
 	*/
 }

@@ -41,7 +41,7 @@ dependencies {
     compile 'com.android.databinding:library:1.1'
     compile 'com.android.support:support-v4:23.4.0'
 //    compile "com.polidea.rxandroidble:rxandroidble:1.0.1"
-
+//    androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
 //    compile 'co.lujun:lmbluetoothsdk:1.0.2'
     compile 'net.jcip:jcip-annotations:1.0'
 }

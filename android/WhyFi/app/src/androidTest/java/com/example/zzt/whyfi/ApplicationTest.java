@@ -13,7 +13,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {
         super(Application.class);
         for (int i = 0; i < 10; i++) {
-            DeviceUuidFactory factory = new DeviceUuidFactory(getContext());
+            DeviceUuidFactory factory = new DeviceUuidFactory(getSystemContext());
             Log.i(this.getName(), factory.getDeviceUuid().toString());
         }
     }
