@@ -29,14 +29,14 @@ public class MsgDbHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "messages";
 
     // Table Names
-    private static final String TABLE_MSG = "msg";
+    public static final String TABLE_MSG = "msg";
     private static final String TABLE_DEV = "device";
 
 
     // msg Table - column names
     private static final String KEY_CONTENT = "content";
     private static final String KEY_TIME = "time";
-    private static final String KEY_SELF = "self";
+    public static final String KEY_SELF = "self";
     private static final String KEY_DID = "did";
 
     // DEVICE Table - column names

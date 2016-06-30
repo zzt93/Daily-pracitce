@@ -1,5 +1,6 @@
 package com.example.zzt.whyfi;
 
+import com.example.zzt.whyfi.common.BytesSetting;
 import com.example.zzt.whyfi.model.Message;
 import com.example.zzt.whyfi.model.db.Dev;
 
@@ -13,7 +14,7 @@ import static org.junit.Assert.*;
 public class UnitTest {
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        assertTrue(!Character.isSpaceChar(BytesSetting.SPLIT_BYTE));
     }
 
 
