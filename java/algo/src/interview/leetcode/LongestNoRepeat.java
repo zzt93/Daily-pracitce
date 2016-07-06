@@ -17,7 +17,7 @@ package interview.leetcode;
  * <li>LinkedHashMap to find and count</li>
  * </p>
  */
-public class LongestSubString {
+public class LongestNoRepeat {
 
     public int lengthOfLongestSubstring(String s) {
         char[] chars = s.toCharArray();
@@ -42,6 +42,6 @@ public class LongestSubString {
     }
 
     public static void main(String[] args) {
-        System.out.println(new LongestSubString().lengthOfLongestSubstring("bbbbabb"));
+        System.out.println(new LongestNoRepeat().lengthOfLongestSubstring("bbbbabb"));
     }
 }

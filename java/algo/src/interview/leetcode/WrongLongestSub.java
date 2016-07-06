@@ -1,11 +1,15 @@
 package interview.leetcode;
 
+import competition.utility.RandomStr;
+
 /**
  * Created by zzt on 4/11/16.
  * <p>
  * Usage:
+ * find longest palindromic string by finding the longest common sub-string
  */
-public class LongestSub {
+@Deprecated
+public class WrongLongestSub {
 
     class Res {
         int count;
@@ -22,7 +26,11 @@ public class LongestSub {
         }
     }
 
-    private Res lcs(String f, int fs, String s) {
+    /**
+     * plain way: String f, s; find s[0] in f, then try find s[1] in adjacent position;
+     * if fail, find s[1] in f, find s[2] in adjacent position ...
+     */
+    private Res mylcs(String f, int fs, String s) {
         char ch = f.charAt(fs);
         int first = s.indexOf(ch);
         Res tmp = new Res();
@@ -52,17 +60,17 @@ public class LongestSub {
         return max;
     }
 
-    private String LCS(String f, String s) {
+    private String myLCS(String f, String s) {
         int fSize = f.length();
         Res max = new Res();
         for (int i = 0; i < fSize; i++) {
-            Res tmp = lcs(f, i, s);
+            Res tmp = mylcs(f, i, s);
             if (max.count < tmp.count) {
                 max = tmp;
             }
         }
         for (int i = 0; i < s.length(); i++) {
-            Res tmp = lcs(s, i, f);
+            Res tmp = mylcs(s, i, f);
             if (max.count < tmp.count) {
                 max = tmp;
             }
@@ -70,12 +78,18 @@ public class LongestSub {
         return max.getString();
     }
 
+    /**
+     * directly using longest common substring is incorrect: abcdba
+     * <p></p>
+     * To rectify this, each time we find a longest common substring candidate,
+     * we check if the substring’s indices are the same
+     * as the reversed substring’s original indices, i.e.
+     * for string [i, j] and reversed [ii, jj]
+     * i + jj == len && j + ii == len
+     */
     public String longestPalindrome(String s) {
         StringBuilder sb = new StringBuilder(s);
-        return LCS(s, sb.reverse().toString());
+        return myLCS(s, sb.reverse().toString());
     }
 
-    public static void main(String[] args) {
-        System.out.println(new LongestSub().longestPalindrome("abb"));
-    }
 }
