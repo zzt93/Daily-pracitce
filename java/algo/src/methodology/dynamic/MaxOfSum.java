@@ -139,7 +139,7 @@ public class MaxOfSum {
     }
 
     private static void randomTest() {
-        for (int j = 0; j < 100; j++) {
+        for (int j = 0; j < 1000; j++) {
             int[] integers = ArrayUtility.randomInts(123 + j, 20, -50, 50);
             showTest(integers);
         }
@@ -148,11 +148,13 @@ public class MaxOfSum {
     private static void showTest(int[] integers) {
         final Sum sum = compute(integers);
         final int compute = MaxOfSumOpt.maxSumDynamic(integers);
+        final int res = MaxOfSumOpt.maxSumPreCompute(integers);
         System.out.println("Input: ");
         IntStream.of(integers).forEach(i -> System.out.print(i + ", "));
         System.out.println("\nOutput: ");
         System.out.println(sum);
         assert sum.getSum() == compute;
+        assert compute == res;
     }
 
     private static void testAll() {

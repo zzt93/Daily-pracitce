@@ -27,8 +27,13 @@ int sra(int x, int k) {
     return xsrl & (msb << (bits - k));
 }
 
-/* Return 1 when x contains an odd number of 1s; 0 otherwise.
-Assume w=32. */
+/* 
+Return 1 when x contains an odd number of 1s; 0 otherwise.
+Assume w=32. 
+GET: 
+1. xor keep 1's number still odd/even
+2. bit manipulate can work like following recusive way.
+*/
 int odd_ones(unsigned x) {
     x = x ^ (x >> 16);
     x = x ^ (x >> 8);
@@ -52,6 +57,26 @@ int leftmost_one(unsigned x) {
     return x ^ (x >> 1);
 }
 
+/*
+* Do rotating left shift. Assume 0 <= n < w
+* Examples when x = 0x12345678 and w = 32:
+* n=4 -> 0x23456781, n=20 -> 0x67812345
+*/
+unsigned rotate_left(unsigned x, int n) {
+    int w = sizeof x * 8;
+    return (x >> (w - n - 1) >> 1) | (x << n);
+}
+
+/*
+* Return 1 when x can be represented as an n-bit, 2’s complement
+* number; 0 otherwise
+* Assume 1 <= n <= w
+*/
+int fits_bits(int x, int n) {
+    int res = (x >> (n - 1));
+    // res should be -1 or 0
+    return !(~res) || !res;
+}
 
 int main() {
 }

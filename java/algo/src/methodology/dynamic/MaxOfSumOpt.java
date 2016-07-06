@@ -18,7 +18,7 @@ public class MaxOfSumOpt {
      * <p>Suppose that we've solved the problem for x[0, n-1]; how can we extend that to
      * include x[n]?</p>
      * <p>the maximum-sum is either in x[0, n-1] or it ends at x[i]</p>
-     *
+     * <p>
      * <p>Suppose that we have found that max-sum end at x[n-1],
      * how can we extend that to include x[n]</p>
      * <p>choose in (x[n], maxEndHere + x[n], 0), for maxEndHere >= 0,
@@ -58,6 +58,7 @@ public class MaxOfSumOpt {
      * Suppose we have solved sub-problem x[0, n/2], x[n/2 + 1, n],
      * how can we get max sum of x[0, n]:
      * the maximum-sum is max(first half, second half, cross the middle)
+     *
      * @param nums input array
      *
      * @return max sum
@@ -102,5 +103,52 @@ public class MaxOfSumOpt {
             right = Math.max(partSum, right);
         }
         return Math.max(lmax, Math.max(rmax, left + right));
+    }
+
+    public static int maxSumPreCompute(int[] nums) {
+        // set up pre computed array
+        int[] pre = new int[nums.length + 1];
+        int now = 0;
+        // a state for no element, which prepare for start from beginning
+        pre[0] = 0;
+        for (int i = 0; i < nums.length; i++) {
+            int num = nums[i];
+            now += num;
+            pre[i + 1] = now;
+        }
+
+        /**
+         * special case for test:
+         * <li>empty</li>
+         * <li>1 1 1</li>
+         * <li>-1 -1 -1</li>
+         * <li>1 1 -1 -1</li>
+         * <li>-1 -1 1 1</li>
+         *
+         */
+        // find max of sum of sub-vector by finding max gap(maxI >= minI)
+        // TODO: 7/6/16 make it clear
+        int min = Integer.MAX_VALUE, minI = -1;
+        int max = Integer.MIN_VALUE, maxI = -1;
+        int maxOf = 0;
+        for (int i = 0; i < pre.length; i++) {
+            int n = pre[i];
+            if (min > n) {
+                min = n;
+                minI = i;
+            }
+            if (max < n) {
+                max = n;
+                maxI = i;
+            }
+            if (maxI >= minI) {
+                if (max - min > maxOf) {
+                    maxOf = max - min;
+                }
+            } else { // reset max when minI is ahead of maxI
+                max = min;
+            }
+        }
+        return maxOf;
     }
 }

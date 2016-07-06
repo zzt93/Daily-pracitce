@@ -44,13 +44,4 @@ public class WrongClosestSum {
         return closestEndHere;
     }
 
-    public static void main(String[] args) {
-        double[] tmp = {1, 8, 2};
-        System.out.println(closestDynamic(tmp, 10));
-        for (int i = 0; i < 10; i++) {
-            final double[] nums = ArrayUtility.randomDoubles(12 + i, 5, -50, 50);
-            System.out.println(Arrays.toString(nums));
-            System.out.println(closestDynamic(nums, 0));
-        }
-    }
 }
