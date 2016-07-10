@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="some" class="reflect.spring.SomeBean">
+        <property name="bean" ref="another"/>
+    </bean>
+
+    <bean id="another" class="reflect.spring.AnotherBean">
+        <property name="value" ref="1"/>
+        <property name="str"
+                  value="some string"/>
+    </bean>
+
+</beans>
