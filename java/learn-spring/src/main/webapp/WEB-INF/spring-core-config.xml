@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+    <context:component-scan base-package="com.zzt.learnspring.service"/>
+
+    <aop:aspectj-autoproxy/>
+
+    <!-- Aspect -->
+    <bean id="logAspect" class="com.zzt.aspect.LoggingAspect"/>
+
+    <bean id="retryStrategy" class="com.zzt.aspect.DefaultRetryStrategy">
+        <constructor-arg index="0" value="3"/>
+        <constructor-arg index="1" value="100"/>
+    </bean>
+
+</beans>

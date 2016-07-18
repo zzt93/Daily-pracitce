@@ -1,0 +1,28 @@
+group 'com.zzt.learnspring'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'war'
+
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    ajc
+    aspects
+}
+
+dependencies {
+    compile 'org.springframework:spring-webmvc:4.1.6.RELEASE'
+    compile 'javax.servlet:jstl:1.2'
+    compile 'ch.qos.logback:logback-classic:1.1.3'
+
+    ajc 'org.aspectj:aspectjtools:1.7.3'
+    aspects 'org.springframework:spring-aspects:3.2.4.RELEASE'
+    compile 'org.aspectj:aspectjrt:1.7.3'
+    compile 'org.aspectj:aspectjweaver:1.7.4'
+
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+}
