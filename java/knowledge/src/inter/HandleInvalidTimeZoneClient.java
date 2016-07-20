@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
  * Description:
  */
 public interface HandleInvalidTimeZoneClient extends DefaultMethod {
-    default public ZonedDateTime getZonedDateTime(String zoneString) {
+    default ZonedDateTime getZonedDateTime(String zoneString) {
         try {
             return ZonedDateTime.of(getLocalDateTime(), ZoneId.of(zoneString));
         } catch (DateTimeException e) {
