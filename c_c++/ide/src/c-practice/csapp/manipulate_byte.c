@@ -1,5 +1,28 @@
 #include <stdio.h>
 
+/**
+   Assumptions
+   Integers are represented in two’s-complement form.
+   Right shifts of signed data are performed arithmetically.
+   Data type int is w bits long. For some of the problems, you will be given a
+   specific value for w, but otherwise your code should work as long as w is a
+   multiple of 8. You can use the expression sizeof(int)<<3 to compute w.
+
+   Forbidden
+   Conditionals (if or ?:), loops, switch statements, function calls, and macro
+   invocations.
+   Division, modulus, and multiplication.
+   Relative comparison operators (<, >, <=, and >=).
+   Casting, either explicit or implicit.
+
+   Allowed operations
+   All bit-level and logic operations.
+   Left and right shifts, but only with shift amounts between 0 and w − 1.
+   Addition and subtraction.
+   Equality (==) and inequality (!=) tests. (Some of the problems do not allow
+   these.)
+   Integer constants INT_MIN and INT_MAX.
+ */
 
 unsigned replace_byte(unsigned x, int i, unsigned char b) {
     int bytes = sizeof x;
@@ -27,10 +50,10 @@ int sra(int x, int k) {
     return xsrl & (msb << (bits - k));
 }
 
-/* 
+/*
 Return 1 when x contains an odd number of 1s; 0 otherwise.
-Assume w=32. 
-GET: 
+Assume w=32.
+GET:
 1. xor keep 1's number still odd/even
 2. bit manipulate can work like following recusive way.
 */
@@ -78,5 +101,44 @@ int fits_bits(int x, int n) {
     return !(~res) || !res;
 }
 
+#define packed_t unsigned
+int xbyte(packed_t word, int bytenum) {
+    signed char b = (word >> (bytenum << 3)) & 0xFF;
+    return b;
+}
+int wrong_xbyte(packed_t word, int bytenum) {
+    return (word >> (bytenum << 3)) & 0xFF;
+}
+
+/* 2.73 Addition that saturates to TMin or TMax
+   Your function should follow the bit-level integer coding rules
+ */
+int saturating_add(int x, int y){
+    int sum = x + y;
+    int bits = sizeof x << 3;
+    int xmsb = x >> (bits - 1)
+        , ymsb = y >> (bits - 1)
+        , smsb = sum >> (bits - 1);
+    int p_o = !xmsb & !ymsb & smsb;
+    int n_o = xmsb & ymsb & !smsb;
+    int no_o = !p_o & !n_o;
+    return (p_o & TMAX) | (n_o & TMIN) | (no_o & sum);
+}
+
+/* 2.74 Determine whether arguments can be subtracted without overflow */
+int tsub_ok(int x, int y) {
+    int res = x - y;
+        int bits = sizeof x << 3;
+    int xmsb = x >> (bits - 1)
+        , ymsb = y >> (bits - 1)
+        , rmsb = res >> (bits - 1);
+    return !xmsb & ymsb & rmsb | xmsb & !ymsb & !rmsb;
+}
+
 int main() {
+    int i;
+    for (i = 0; i < 4; i++) {
+        printf("%d ", xbyte(-1, i));
+        printf("%d ", wrong_xbyte(-1, i));
+    }
 }
