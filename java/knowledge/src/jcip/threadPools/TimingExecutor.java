@@ -1,10 +1,11 @@
 package jcip.threadPools;
 
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 /**
  * Created by zzt on 5/5/16.
@@ -24,12 +25,16 @@ public class TimingExecutor extends ThreadPoolExecutor {
 
     public TimingExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+//        ConsoleHandler handler = new ConsoleHandler();
+//        handler.setFormatter(new SimpleFormatter());
+//        handler.setLevel(Level.ALL);
+//        logger.addHandler(handler);
     }
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         assert t == Thread.currentThread();
-        logger.fine(String.format("Thread: %s, run: %s", t, r));
+        logger.info(String.format("Thread: %s, run: %s", t, r));
         startTime.set(System.nanoTime());
     }
 
@@ -37,7 +42,7 @@ public class TimingExecutor extends ThreadPoolExecutor {
     protected void afterExecute(Runnable r, Throwable t) {
         final Long start = startTime.get();
         long time = System.nanoTime() - start;
-        logger.fine(String.format("Thread %s, time: %d", Thread.currentThread(), time));
+        logger.info(String.format("Thread %s, time: %d", Thread.currentThread(), time));
         num.incrementAndGet();
         totalTime.addAndGet(time);
     }
@@ -50,5 +55,14 @@ public class TimingExecutor extends ThreadPoolExecutor {
         } finally {
             super.terminated();
         }
+    }
+
+    public static void main(String[] args) {
+        final TimingExecutor timingExecutor = new TimingExecutor(4, 10, 60L, TimeUnit.SECONDS, new LinkedBlockingDeque<>());
+        timingExecutor.submit(() -> false);
+//        timingExecutor.submit(() -> {
+//            System.out.println("...");
+//        });
+        timingExecutor.shutdown();
     }
 }
