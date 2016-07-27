@@ -24,6 +24,10 @@ public class LoggingAspect {
         this.retryStrategy = retryStrategy;
     }
 
+    /**
+     * http://howtodoinjava.com/spring/spring-aop/writing-spring-aop-aspectj-pointcut-expressions-with-examples/
+     *         public/protected any-return-type package.class.method(any args)
+     */
     @Before("execution(* com.zzt.learnspring.service.HelloWorldService+.*(..))")
     public void logBefore(JoinPoint joinPoint) {
 
