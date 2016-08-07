@@ -26,7 +26,7 @@ public class LoggingAspect {
 
     /**
      * http://howtodoinjava.com/spring/spring-aop/writing-spring-aop-aspectj-pointcut-expressions-with-examples/
-     *         public/protected any-return-type package.class.method(any args)
+     * public/protected any-return-type package.class.method(any args)
      */
     @Before("execution(* com.zzt.learnspring.service.HelloWorldService+.*(..))")
     public void logBefore(JoinPoint joinPoint) {
@@ -42,6 +42,7 @@ public class LoggingAspect {
         int count = 1;
 
         while (true) {
+            System.out.println("retry");
             try {
                 Object response = joinPoint.proceed();
                 final Object[] input = joinPoint.getArgs();

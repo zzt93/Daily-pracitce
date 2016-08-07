@@ -53,7 +53,7 @@ public class WelcomeController {
 
         model.addObject("title", helloWorldService.getTitle(name));
         model.addObject("msg", helloWorldService.getDesc());
-        updateService.update(new Random().nextInt(10) - 5);
+        updateService.update(new Random(1).nextInt(10) - 5);
 
         return model;
     }

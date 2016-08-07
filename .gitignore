@@ -56,13 +56,17 @@ hs_err_pid*
 *.png
 *.jpg
 *.s
-
+*.zoom
 
 
 python/hw/distribute/build/
 python/hw/hw_scrape/Scrape_data/
 *.txt
-java/**/out/
+java/
+android/
+c_c++/leetcode/
+c_c++/csapp/
+web_app/
 
 *.img
 

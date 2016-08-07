@@ -3,7 +3,6 @@ package pearls.sort;
 import com.google.common.collect.Ordering;
 import competition.utility.ArrayUtility;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 /**
@@ -36,12 +35,33 @@ public class ShellSort {
         }
     }
 
+    public static void performanceWithSelection() {
+        for (int i = 0; i < 100; i++) {
+            final Integer[] integers = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000, 200000);
+
+            long start = System.nanoTime();
+            SelectionSort.selectionSort(integers);
+            System.out.println("selection: " + (System.nanoTime() - start));
+
+            final Integer[] integers2 = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000, 200000);
+
+            start = System.nanoTime();
+            shell(integers2);
+            System.out.println("shell: " + (System.nanoTime() - start));
+        }
+    }
+
     public static void main(String[] args) {
+        performanceWithSelection();
+//        correctionTest();
+    }
+
+    private static void correctionTest() {
         for (int i = 0; i < 10; i++) {
             final Integer[] integers = ArrayUtility.randomIntegers(i, 100, -100, 200);
             System.out.println(Arrays.toString(integers));
             shell(integers);
-//            System.out.println(Arrays.toString(integers));
+            //            System.out.println(Arrays.toString(integers));
             assert Ordering.natural().isOrdered(Arrays.asList(integers));
         }
     }

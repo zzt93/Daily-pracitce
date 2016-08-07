@@ -2,6 +2,7 @@ package pearls.sort;
 
 import com.google.common.collect.Ordering;
 import competition.utility.ArrayUtility;
+import competition.utility.Swap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,24 +17,24 @@ import static java.util.Collections.swap;
  */
 public class SelectionSort {
 
-    public static void selectionSort(ArrayList<Integer> ints) {
-        for (int i = 0; i < ints.size(); i++) {
-            int min = ints.get(i), minI = i;
-            for (int inner = i; inner < ints.size(); inner++) {
-                if (min > ints.get(inner)) {
-                    min = ints.get(inner);
+    public static void selectionSort(Integer[] ints) {
+        for (int i = 0; i < ints.length; i++) {
+            int min = ints[i], minI = i;
+            for (int inner = i; inner < ints.length; inner++) {
+                if (min > ints[inner]) {
+                    min = ints[inner];
                     minI = inner;
                 }
             }
-            swap(ints, i, minI);
+            Swap.swap(ints, i, minI);
         }
     }
 
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
-            final ArrayList<Integer> integers = ArrayUtility.randomIntList(i, 1000, 0, 10000);
+            final Integer[] integers = ArrayUtility.randomIntegers(i, 1000, 0, 10000);
             selectionSort(integers);
-            assert Ordering.natural().isOrdered(integers);
+            assert Ordering.natural().isOrdered(Arrays.asList(integers));
         }
     }
 }

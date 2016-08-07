@@ -18,7 +18,13 @@
     <!-- Aspect -->
     <bean id="logAspect" class="com.zzt.aspect.LoggingAspect"/>
 
+    <!--autowire by id -->
     <bean id="retryStrategy" class="com.zzt.aspect.DefaultRetryStrategy">
+        <constructor-arg index="0" value="4"/>
+        <constructor-arg index="1" value="100"/>
+    </bean>
+
+    <bean id="retryStrategy2" class="com.zzt.aspect.DefaultRetryStrategy">
         <constructor-arg index="0" value="3"/>
         <constructor-arg index="1" value="100"/>
     </bean>
