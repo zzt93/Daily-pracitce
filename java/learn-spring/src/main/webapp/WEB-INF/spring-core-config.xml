@@ -29,4 +29,10 @@
         <constructor-arg index="1" value="100"/>
     </bean>
 
+    <bean id="retryStrategy3" class="com.zzt.aspect.DefaultRetryStrategy"
+          autowire="no" autowire-candidate="false">
+        <constructor-arg index="0" value="3"/>
+        <constructor-arg index="1" value="100"/>
+    </bean>
+
 </beans>
