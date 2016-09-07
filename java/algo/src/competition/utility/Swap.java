@@ -17,4 +17,10 @@ public class Swap {
         ts[i] = ts[j];
         ts[j] = tmp;
     }
+
+    public static void swap(int[] ts, int i, int j) {
+        int tmp = ts[i];
+        ts[i] = ts[j];
+        ts[j] = tmp;
+    }
 }
