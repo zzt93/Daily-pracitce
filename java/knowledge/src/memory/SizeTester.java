@@ -2,6 +2,8 @@ package memory;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by zzt on 9/8/16.
@@ -21,10 +23,15 @@ public class SizeTester {
         private Object object = new Object();
     }
 
+    private static class JustList {
+        private List<Object> objects = new ArrayList<>();
+    }
+
     public static void main(String[] args) throws InstantiationException, IllegalAccessException, InvocationTargetException {
         printSize(JustString.class);
         printSize(ByteArray.class);
         printSize(JustObject.class);
+        printSize(JustList.class);
     }
 
     private static void printSize(Class<?> clazz) throws IllegalAccessException, InstantiationException, InvocationTargetException {

@@ -2,9 +2,7 @@ package pearls;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Created by zzt on 4/30/16.
@@ -18,7 +16,7 @@ import java.util.LinkedList;
  */
 public class TransposeMatrix {
 
-    public static void oldTranspose(LinkedList<Integer> matrix, int n) {
+    public static void oldTranspose(List<Integer> matrix, int n) {
         checkMatrix(matrix, n);
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -32,7 +30,7 @@ public class TransposeMatrix {
         print(matrix, n);
     }
 
-    private static void print(LinkedList<?> matrix, int n) {
+    private static void print(List<?> matrix, int n) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
@@ -44,12 +42,12 @@ public class TransposeMatrix {
     }
 
 
-    private static void sortTranspose(LinkedList<Integer> matrix, int n) {
+    private static void sortTranspose(List<Integer> matrix, int n) {
         checkMatrix(matrix, n);
-        linkedListSort(process(matrix, n), n);
+        sort(process(matrix, n), n);
     }
 
-    private static LinkedList<IntIJ> process(LinkedList<Integer> matrix, int n) {
+    private static List<IntIJ> process(List<Integer> matrix, int n) {
         LinkedList<IntIJ> res = new LinkedList<>();
         Iterator<Integer> iterator = matrix.iterator();
         for (int i = 0; i < matrix.size(); i++) {
@@ -59,12 +57,12 @@ public class TransposeMatrix {
         return res;
     }
 
-    private static void linkedListSort(LinkedList<IntIJ> matrix, int n) {
+    private static void sort(List<IntIJ> matrix, int n) {
         Collections.sort(matrix);
         print(matrix, n);
     }
 
-    private static void checkMatrix(LinkedList<Integer> matrix, int n) {
+    private static void checkMatrix(List<Integer> matrix, int n) {
         if (matrix.size() != n * n) {
             throw new IllegalArgumentException();
         }
@@ -96,22 +94,27 @@ public class TransposeMatrix {
     }
 
     public static void main(String[] args) {
-        correctnessTest();
+//        correctnessTest();
         timeTest();
     }
 
     private static void correctnessTest() {
-        test(10);
+        testList(10);
+        testArray(10);
     }
 
     private static void timeTest() {
         int n = 100;
-        test(n);
+        System.out.println("-----------------------");
+//        testList(n);
+        System.out.println("-----------------------");
+        testArray(n * 10);
     }
 
-    private static void test(int n) {
+    private static void testList(int n) {
         LinkedList<Integer> matrix = new LinkedList<>();
-        for (int i = 0; i < n * n; i++) {
+        final int size = n * n;
+        for (int i = 0; i < size; i++) {
             matrix.add(i);
         }
         long start = System.nanoTime();
@@ -121,4 +124,19 @@ public class TransposeMatrix {
         sortTranspose(matrix, n);
         System.out.println(System.nanoTime() - start);
     }
+
+    private static void testArray(int n) {
+        ArrayList<Integer> matrix = new ArrayList<>(n);
+        final int size = n * n;
+        for (int i = 0; i < size; i++) {
+            matrix.add(i);
+        }
+        long start = System.nanoTime();
+        oldTranspose(matrix, n);
+        System.out.println(System.nanoTime() - start);
+        start = System.nanoTime();
+        sortTranspose(matrix, n);
+        System.out.println(System.nanoTime() - start);
+    }
+
 }

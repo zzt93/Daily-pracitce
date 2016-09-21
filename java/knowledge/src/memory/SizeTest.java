@@ -7,9 +7,9 @@ import java.util.List;
  * Created by zzt on 7/20/16.
  * <p>
  * <h3></h3>
- *  java -javaagent:./out/artifacts/unnamed/unnamed.jar memory.Test
+ *  java -javaagent:./out/artifacts/unnamed/unnamed.jar memory.SizeTest
  */
-public class Test {
+public class SizeTest {
 
     private static final long serialVersionUID = 2514272864020277197L;
 
@@ -55,6 +55,6 @@ public class Test {
 
 
     public static void main(String [] args) {
-        System.out.println(ObjectSizeFetcher.getObjectSize(new Test()));
+        System.out.println(ObjectSizeFetcher.getObjectSize(new SizeTest()));
     }
 }
