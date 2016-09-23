@@ -106,9 +106,9 @@ public class TransposeMatrix {
     private static void timeTest() {
         int n = 100;
         System.out.println("-----------------------");
-//        testList(n);
+        testList(n);
         System.out.println("-----------------------");
-        testArray(n * 10);
+//        testArray(n * 10);
     }
 
     private static void testList(int n) {

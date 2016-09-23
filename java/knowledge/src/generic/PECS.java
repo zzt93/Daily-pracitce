@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 7/6/15.
@@ -19,10 +20,10 @@ public class PECS {
     }
 
     //TODO why this doesn't work
-//    public <T> List<T> getNew(List<? extends T> src) {
-//        return src.stream()
-//                .collect(Collectors.toList());
-//    }
+    public <T> List<T> getNew(List<? extends T> src) {
+        return src.stream()
+                .collect(Collectors.toList());
+    }
 
     /**
      * This is illustration of signature of sort method
