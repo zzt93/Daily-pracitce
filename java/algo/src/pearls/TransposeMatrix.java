@@ -89,11 +89,11 @@ public class TransposeMatrix {
 
     private static class IntIJ implements Comparable<IntIJ> {
         private final int content;
-        private final int value;
+        private final int weight;
 
         IntIJ(int content, int r, int c, int n) {
             this.content = content;
-            this.value = c * n + r;
+            this.weight = c * n + r;
         }
 
         @Override
@@ -103,9 +103,9 @@ public class TransposeMatrix {
 
         @Override
         public int compareTo(@NotNull IntIJ o) {
-            if (o.value < value) {
+            if (o.weight < weight) {
                 return 1;
-            } else if (value < o.value) {
+            } else if (weight < o.weight) {
                 return -1;
             }
             return 0;
