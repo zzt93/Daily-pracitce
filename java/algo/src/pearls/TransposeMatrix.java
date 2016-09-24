@@ -16,7 +16,7 @@ import java.util.*;
  */
 public class TransposeMatrix {
 
-    public static void oldTranspose(List<Integer> matrix, int n) {
+    public static void oldTranspose(List<Integer> matrix, int n, boolean print) {
         checkMatrix(matrix, n);
         for (int i = 0; i < n; i++) {
             for (int j = i + 1; j < n; j++) {
@@ -27,7 +27,28 @@ public class TransposeMatrix {
                 matrix.set(sym, f);
             }
         }
-        print(matrix, n);
+        if (print) {
+            print(matrix, n);
+        }
+    }
+
+    public static void oldTransposeOpt(List<Integer> matrix, int n, boolean print) {
+        checkMatrix(matrix, n);
+        final ListIterator<Integer> it = matrix.listIterator();
+        for (int i = 0; i < n; i++) {
+            for (int i1 = 0; i1 < i + 1; i1++) {
+                it.next();
+            }
+            for (int j = i + 1; j < n; j++) {
+                final int sym = j * n + i;
+                Integer f = it.next();
+                it.set(matrix.get(sym));
+                matrix.set(sym, f);
+            }
+        }
+        if (print) {
+            print(matrix, n);
+        }
     }
 
     private static void print(List<?> matrix, int n) {
@@ -42,9 +63,12 @@ public class TransposeMatrix {
     }
 
 
-    private static void sortTranspose(List<Integer> matrix, int n) {
+    private static void sortTranspose(List<Integer> matrix, int n, boolean print) {
         checkMatrix(matrix, n);
-        sort(process(matrix, n), n);
+        Collections.sort(process(matrix, n));
+        if (print) {
+            print(matrix, n);
+        }
     }
 
     private static List<IntIJ> process(List<Integer> matrix, int n) {
@@ -55,11 +79,6 @@ public class TransposeMatrix {
             res.add(new IntIJ(content, i / n, i % n, n));
         }
         return res;
-    }
-
-    private static void sort(List<IntIJ> matrix, int n) {
-        Collections.sort(matrix);
-        print(matrix, n);
     }
 
     private static void checkMatrix(List<Integer> matrix, int n) {
@@ -95,47 +114,50 @@ public class TransposeMatrix {
 
     public static void main(String[] args) {
 //        correctnessTest();
-        timeTest();
+                timeTest();
     }
 
     private static void correctnessTest() {
-        testList(10);
-        testArray(10);
+        testList(10, true);
+//        testArray(10, true);
     }
 
     private static void timeTest() {
-        int n = 100;
-        System.out.println("-----------------------");
-        testList(n);
-        System.out.println("-----------------------");
-//        testArray(n * 10);
+        int n = 200;
+        System.out.println("-----------list------------");
+        testList(n, false);
+        System.out.println("-----------array------------");
+        testArray(n * 10, false);
     }
 
-    private static void testList(int n) {
+    private static void testList(int n, boolean print) {
         LinkedList<Integer> matrix = new LinkedList<>();
-        final int size = n * n;
-        for (int i = 0; i < size; i++) {
-            matrix.add(i);
-        }
-        long start = System.nanoTime();
-        oldTranspose(matrix, n);
-        System.out.println(System.nanoTime() - start);
-        start = System.nanoTime();
-        sortTranspose(matrix, n);
-        System.out.println(System.nanoTime() - start);
+        test(n, matrix, print);
     }
 
-    private static void testArray(int n) {
+    private static void testArray(int n, boolean print) {
         ArrayList<Integer> matrix = new ArrayList<>(n);
+        test(n, matrix, print);
+    }
+
+    private static void test(int n, List<Integer> matrix, boolean print) {
         final int size = n * n;
         for (int i = 0; i < size; i++) {
             matrix.add(i);
         }
+        System.out.println("index transpose");
         long start = System.nanoTime();
-        oldTranspose(matrix, n);
+        oldTranspose(matrix, n, print);
         System.out.println(System.nanoTime() - start);
+
+        System.out.println("iterator transpose");
         start = System.nanoTime();
-        sortTranspose(matrix, n);
+        oldTransposeOpt(matrix, n, print);
+        System.out.println(System.nanoTime() - start);
+
+        System.out.println("sort transpose");
+        start = System.nanoTime();
+        sortTranspose(matrix, n, print);
         System.out.println(System.nanoTime() - start);
     }
 
