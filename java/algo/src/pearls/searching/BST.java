@@ -7,6 +7,16 @@ package pearls.searching;
  */
 public class BST {
 
+    private static class Node {
+        private int val;
+        private Node l;
+        private Node r;
+
+        public Node(int val) {
+            this.val = val;
+        }
+    }
+
     public void insert(int t) {
 
     }
