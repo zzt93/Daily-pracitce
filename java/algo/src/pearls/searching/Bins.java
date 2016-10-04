@@ -3,8 +3,8 @@ package pearls.searching;
 /**
  * Created by zzt on 9/7/16.
  * <p>
- *     number range [0, maxval)
- *     HashMap like container
+ * number range [0, maxval)
+ * HashMap like container for Integer
  * <h3></h3>
  */
 public class Bins {
@@ -16,10 +16,10 @@ public class Bins {
     private int loadFactor = 2;
 
     public Bins(int maxval) {
-        this.capacity = getIndex(maxval);
+        this.capacity = getIndex(maxval) + 1;
         this.maxval = maxval;
         bin = new ListNode[capacity];
-        sentinel = new ListNode(capacity, null);
+        sentinel = new ListNode(maxval, null);
         initBin(bin);
     }
 
@@ -34,10 +34,33 @@ public class Bins {
     }
 
     public void insert(int t) {
+        ListNode next = getBin(t);
+        ListNode last = null;
+        while (next.getVal() < t) {
+            last = next;
+            next = next.getNext();
+        }
+        final ListNode node = new ListNode(t, next);
+        if (last == null) {
+            setBin(node);
+        } else {
+            last.setNext(node);
+        }
+    }
 
+    private void setBin(ListNode node) {
+        final int i = getIndex(node.getVal());
+        bin[i] = node;
+    }
+
+    private ListNode getBin(int t) {
+        final int i = getIndex(t);
+        return bin[i];
     }
 
     public void recursiveInsert(int t) {
 
     }
+
+
 }
