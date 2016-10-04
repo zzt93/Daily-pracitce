@@ -12,6 +12,7 @@ import java.util.List;
 public class Container<T extends Comparable<? super T>> {
     private List<T> list = new ArrayList<T>();
 
+
     public void swap(int i, int j) {
         final T t = get(i);
         set(i, get(j));
@@ -67,17 +68,59 @@ public class Container<T extends Comparable<? super T>> {
 //        l.set(j, t);
 //    }
 
+
+    public static void swapAgain(List<Object> l, int i, int j) {
+        Object t = l.get(i);
+        l.set(i, l.get(j));
+        l.set(j, t);
+    }
+
     public static <T> void swap(List<T> l, int i, int j) {
         T t = l.get(i);
         l.set(i, l.get(j));
         l.set(j, t);
     }
 
+    public static void swapAgain(Object[] ts, int i, int j) {
+        Object tmp = ts[i];
+        ts[i] = ts[j];
+        ts[j] = tmp;
+    }
+
+    public static <T extends Integer> void swap(T[] ts, int i, int j) {
+        T tmp = ts[i];
+        ts[i] = ts[j];
+        ts[j] = tmp;
+    }
+
+    public static <T> void swap(T[] ts, int i, int j) {
+        T tmp = ts[i];
+        ts[i] = ts[j];
+        ts[j] = tmp;
+    }
+
     public static void main(String[] args) {
+        genericCast();
+
+        wildSuper();
+
+        chooseWhich();
+    }
+
+    private static void chooseWhich() {
+        Integer[] integers = new Integer[2];
+        swap(integers, 0, 1);
+    }
+
+    private static void wildSuper() {
+        Container<Sub> s = new Container<>();
+    }
+
+    private static void genericCast() {
+//        ArrayList<Base> sl = new ArrayList<Sub>();
+
         final Container<Integer> integerContainer = new Container<>();
         integerContainer.add(1);
         final Integer integer = integerContainer.get(0);
-
-        Container<Sub> s = new Container<>();
     }
 }

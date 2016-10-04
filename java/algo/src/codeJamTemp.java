@@ -22,7 +22,8 @@ public class codeJamTemp {
             return;
         }
         int trail = in.nextInt();
-        int res;
+        in.nextLine();
+        long res;
         for (int i = 0; i < trail; i++) {
 
             res = 0;//TODO invoke some function
