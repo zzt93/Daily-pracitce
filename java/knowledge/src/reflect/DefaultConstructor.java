@@ -7,9 +7,21 @@ package reflect;
  */
 public class DefaultConstructor {
 
-    private static class B {
-        private int a;
+    private static class A {
+        private int b;
+
+//        public A(Object o) {
+//        }
+    }
+
+    private static class B extends A {
         private String b;
+        private int a;
+        private float f;
+
+//        public B() {
+//            super(null);
+//        }
     }
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException {
