@@ -1,4 +1,4 @@
-package nio;
+package java.lang;
 
 import java.util.Arrays;
 
@@ -20,9 +20,7 @@ public class LearnChar {
         System.out.println(s1 + ": " + s1.length());
         System.out.println(Arrays.toString(s.toCharArray()));
         System.out.println(Arrays.toString(s1.toCharArray()));
-        final char c2 = '鱀';
-        System.out.println(c2);
-        System.out.println('c');
+
     }
 
 }
