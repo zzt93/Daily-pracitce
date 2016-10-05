@@ -1,6 +1,6 @@
 package thread.old.monitor;
 
-import thread.old.pv.Semaphore;
+import thread.old.pv.MySemaphore;
 
 /**
  * Created by zzt on 7/14/15.
@@ -17,11 +17,11 @@ import thread.old.pv.Semaphore;
  * The buffer has a condition that all space are empty and consumer has to wait;<br>
  */
 public class Monitor {
-    private final Semaphore conditionV = new Semaphore(0);
+    private final MySemaphore conditionV = new MySemaphore(0);
     /**
      * The protector of resource that the monitor represented
      */
-    private Semaphore mutex = new Semaphore(1);
+    private MySemaphore mutex = new MySemaphore(1);
 
     public Monitor() {
     }

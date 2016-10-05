@@ -26,9 +26,9 @@ import java.util.concurrent.Executors;
 public class Sleepy {
     public static final int NUM_SEATS = 10;
 //    private Semaphore barber = new Semaphore(1);
-    private Semaphore customer = new Semaphore(0);
+    private MySemaphore customer = new MySemaphore(0);
     private int cusCount = 0;
-    private Semaphore count = new Semaphore(1);
+    private MySemaphore count = new MySemaphore(1);
 
 
     public static void main(String[] args) {

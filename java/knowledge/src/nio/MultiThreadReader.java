@@ -1,6 +1,8 @@
 package nio;
 
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -8,7 +10,23 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * <h3></h3>
  */
-public class ThreadReadJob implements Runnable{
+public class MultiThreadReader {
+
+    private static ExecutorService service = Executors.newFixedThreadPool(4);
+
+
+    public MultiThreadReader() {
+        for (int i = 0; i < 4; i++) {
+            service.submit(new ThreadReadJob(i));
+        }
+    }
+
+    public static void main(String[] args) {
+        new MultiThreadReader();
+    }
+}
+
+class ThreadReadJob implements Runnable{
 
     private final int order;
     private final Scanner scanner;

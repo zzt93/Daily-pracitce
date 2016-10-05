@@ -31,11 +31,11 @@ package thread.old.pv;
  * And in os, P&V itself is lock, so using closing interrupt in order to avoid
  * 'recursive' lock.
  */
-public class Semaphore {
+public class MySemaphore {
     private int value;
 //    private ArrayList<Thread> list = new ArrayList<>();
 
-    public Semaphore(int value) {
+    public MySemaphore(int value) {
         this.value = value;
     }
 

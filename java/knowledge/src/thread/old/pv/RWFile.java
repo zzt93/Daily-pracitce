@@ -19,8 +19,8 @@ import java.util.concurrent.Executors;
  *
  */
 public class RWFile {
-    private Semaphore filew = new Semaphore(1);
-    private Semaphore readCountSem = new Semaphore(1);
+    private MySemaphore filew = new MySemaphore(1);
+    private MySemaphore readCountSem = new MySemaphore(1);
     private int readCount = 0;
 
     public void read_i() {

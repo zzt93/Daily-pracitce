@@ -17,16 +17,16 @@ import java.util.function.Supplier;
  */
 public class ProCon<T> {
     public static final int BOUND = 1000;
-    private Semaphore mutex = new Semaphore(1);
-    private Semaphore full = new Semaphore(0);
-    private Semaphore empty;
+    private MySemaphore mutex = new MySemaphore(1);
+    private MySemaphore full = new MySemaphore(0);
+    private MySemaphore empty;
     private ArrayList<T> buffer;
     private Consumer<T> consumer;
     private Supplier<T> producer;
     private static Random random = new Random(23);
 
     public ProCon(int capacity) {
-        empty = new Semaphore(capacity);
+        empty = new MySemaphore(capacity);
         buffer = new ArrayList<>(capacity);
     }
 

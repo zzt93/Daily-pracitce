@@ -1,6 +1,6 @@
 package thread.old.monitor;
 
-import thread.old.pv.Semaphore;
+import thread.old.pv.MySemaphore;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -13,13 +13,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  *
  */
 public class MonitorBook {
-    private Semaphore mutex;
-    private Semaphore notified;
+    private MySemaphore mutex;
+    private MySemaphore notified;
     private int notifyCount;
 
-    public MonitorBook(Semaphore conditionV) {
-        mutex = new Semaphore(1);
-        notified = new Semaphore(0);
+    public MonitorBook(MySemaphore conditionV) {
+        mutex = new MySemaphore(1);
+        notified = new MySemaphore(0);
         notifyCount = 0;
     }
 
@@ -35,14 +35,14 @@ public class MonitorBook {
         }
     }
 
-    public void waiton(Semaphore condition, AtomicInteger wantResource) {
+    public void waiton(MySemaphore condition, AtomicInteger wantResource) {
         wantResource.getAndIncrement();
         leave();
         condition.P();
         wantResource.getAndDecrement();
     }
 
-    public void notifyWith(Semaphore condition, AtomicInteger wantResource) {
+    public void notifyWith(MySemaphore condition, AtomicInteger wantResource) {
         if (wantResource.get() > 0) {
             notifyCount++;
             condition.V();
