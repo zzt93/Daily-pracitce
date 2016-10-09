@@ -8,23 +8,29 @@ package reflect;
 public class DefaultConstructor {
 
     private static class A {
-        private int b;
-
-//        public A(Object o) {
-//        }
-    }
-
-    private static class B extends A {
-        private String b;
         private int a;
-        private float f;
-
-//        public B() {
-//            super(null);
-//        }
     }
+
+    //    private static class B extends A {
+    //    }
+
+//    static class C {
+//    }
+//
+//    protected static class D {
+//    }
+//
+//    private class Inner {
+//    }
+//
+//    class InnerB {
+//    }
+//
+//    protected class InnerC {
+//    }
 
     public static void main(String[] args) throws IllegalAccessException, InstantiationException {
-        B.class.newInstance();
+        //        B.class.newInstance();
+        int b = new A().a;
     }
 }
