@@ -45,12 +45,12 @@ public class SortedList {
     }
 
     public void recursiveInsert(int t) {
+        size++;
         head = insertAndReturnHead(head, t);
     }
 
-    private ListNode insertAndReturnHead(ListNode listNode, int t) {
+    static ListNode insertAndReturnHead(ListNode listNode, int t) {
         if (t <= listNode.getVal()) {
-            size++;
             return new ListNode(t, listNode);
         }
         listNode.setNext(insertAndReturnHead(listNode.getNext(), t));
@@ -71,15 +71,15 @@ public class SortedList {
     }
 
     public static void main(String[] args) {
-        testLoop(l -> {
+        testInsert(l -> {
             l.insert(random.nextInt(100));
         });
-        testLoop(l -> {
+        testInsert(l -> {
             l.recursiveInsert(random.nextInt(100));
         });
     }
 
-    private static void testLoop(Consumer<SortedList> consumer) {
+    private static void testInsert(Consumer<SortedList> consumer) {
         final SortedList list = new SortedList(Integer.MAX_VALUE);
         for (int i = 0; i < 10; i++) {
             consumer.accept(list);

@@ -1,30 +1,34 @@
 package pearls.searching;
 
+import java.util.Random;
+import java.util.function.Consumer;
+
 /**
  * Created by zzt on 9/7/16.
  * <p>
- * number range [0, maxval)
+ * number range [0, maxVal)
  * HashMap like container for Integer
  * <h3></h3>
  */
 public class Bins {
 
-    private int capacity;
-    private int maxval;
+    private static final int MAX_VAL = 100;
+    private int maxVal;
     private ListNode[] bin;
     private ListNode sentinel;
-    private int loadFactor = 2;
+    private static final int loadFactor = 8;
+    private int size;
 
-    public Bins(int maxval) {
-        this.capacity = getIndex(maxval) + 1;
-        this.maxval = maxval;
+    public Bins(int maxVal) {
+        int capacity = getIndex(maxVal) + 1;
+        this.maxVal = maxVal;
         bin = new ListNode[capacity];
-        sentinel = new ListNode(maxval, null);
+        sentinel = new ListNode(maxVal, null);
         initBin(bin);
     }
 
-    private int getIndex(int maxval) {
-        return maxval / loadFactor;
+    private int getIndex(int val) {
+        return val / loadFactor;
     }
 
     private void initBin(ListNode[] bin) {
@@ -34,6 +38,8 @@ public class Bins {
     }
 
     public void insert(int t) {
+        size++;
+        assert t < maxVal;
         ListNode next = getBin(t);
         ListNode last = null;
         while (next.getVal() < t) {
@@ -59,8 +65,41 @@ public class Bins {
     }
 
     public void recursiveInsert(int t) {
-
+        size++;
+        final ListNode bin = getBin(t);
+        final ListNode node = SortedList.insertAndReturnHead(bin, t);
+        setBin(node);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder builder = new StringBuilder().append("Bins(").append(size).append("):\n");
+        for (ListNode head : bin) {
+            for (ListNode p = head; p != sentinel; p = p.getNext()) {
+                builder.append(p.getVal()).append("->");
+            }
+            builder.append("\n");
+        }
+        builder.append("-------------------------\n");
+        return builder.toString();
+    }
 
+    private static Random random = new Random(12);
+
+    public static void main(String[] args) {
+        testInsert(l -> {
+            l.insert(random.nextInt(MAX_VAL));
+        });
+        testInsert(l -> {
+            l.recursiveInsert(random.nextInt(MAX_VAL));
+        });
+    }
+
+    private static void testInsert(Consumer<Bins> consumer) {
+        final Bins bins = new Bins(MAX_VAL);
+        for (int i = 0; i < 30; i++) {
+            consumer.accept(bins);
+            System.out.println(bins);
+        }
+    }
 }
