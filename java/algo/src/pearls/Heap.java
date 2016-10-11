@@ -14,12 +14,12 @@ import java.util.Random;
  */
 public class Heap {
 
-    private static final int HEAD_START = 1;
+    private static final int HEAP_START = 1;
     private int[] a;
     private int size = 0;
 
     public Heap(int maxSize) {
-        this.a = new int[maxSize + HEAD_START];
+        this.a = new int[maxSize + HEAP_START];
         a[0] = Integer.MAX_VALUE;
     }
 
@@ -37,7 +37,7 @@ public class Heap {
 
     private void shiftUp() {
         int i = size;
-        while (i >= HEAD_START) {
+        while (i > HEAP_START) {
             final int pi = parent(i);
             if (a[i] <= a[pi]) {
                 break;
@@ -49,13 +49,13 @@ public class Heap {
     }
 
     private void shiftDown() {
-        int i = HEAD_START;
-        while (i <= size) {
+        int i = HEAP_START;
+        while (true) {
             final int lChildI = lChild(i);
             final int rChildI = rChild(i);
-            if (lChildI >= size) {
+            if (lChildI > size) {
                 break;
-            } else if (rChildI >= size) {
+            } else if (rChildI > size) {
                 break;
             } else {
                 int lc = a[lChildI];
@@ -86,12 +86,12 @@ public class Heap {
     }
 
     public int max() {
-        return a[HEAD_START];
+        return a[HEAP_START];
     }
 
     public int pop() {
         int max = max();
-        a[HEAD_START] = a[size];
+        a[HEAP_START] = a[size];
         size--;
         shiftDown();
         return max;
