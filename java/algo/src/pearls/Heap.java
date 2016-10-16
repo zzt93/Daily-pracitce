@@ -1,8 +1,10 @@
 package pearls;
 
+import com.google.common.collect.Ordering;
 import competition.utility.ArrayUtility;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -15,11 +17,13 @@ import java.util.Random;
 public class Heap {
 
     private static final int HEAP_START = 1;
+    private final int maxSize;
     private int[] a;
     private int size = 0;
 
     public Heap(int maxSize) {
-        this.a = new int[maxSize + HEAP_START];
+        this.maxSize = maxSize;
+        this.a = new int[this.maxSize + HEAP_START];
         a[0] = Integer.MAX_VALUE;
     }
 
@@ -35,8 +39,8 @@ public class Heap {
         return i * 2 + 1;
     }
 
-    private void shiftUp() {
-        int i = size;
+    private void shiftUp(int start) {
+        int i = start;
         while (i > HEAP_START) {
             final int pi = parent(i);
             if (a[i] <= a[pi]) {
@@ -48,8 +52,8 @@ public class Heap {
         }
     }
 
-    private void shiftDown() {
-        int i = HEAP_START;
+    private void shiftDown(int start) {
+        int i = start;
         while (true) {
             final int lChildI = lChild(i);
             final int rChildI = rChild(i);
@@ -60,13 +64,14 @@ public class Heap {
             } else {
                 int lc = a[lChildI];
                 int rc = a[rChildI];
-                if (lc > a[i]) {
-                    swap(i, lChildI);
-                    i = lChildI;
-                } else if (rc > a[i]) {
-                    swap(i, rChildI);
-                    i = rChildI;
-                } else {
+                int ti = lChildI;
+                if (lc < rc) {
+                    ti = rChildI;
+                }
+                if (a[ti] > a[i]) {
+                    swap(i, ti);
+                    i = ti;
+                }  else {
                     break;
                 }
             }
@@ -80,9 +85,12 @@ public class Heap {
     }
 
     public void insert(int t) {
+        if (size >= maxSize) {
+            throw new IllegalStateException("too many element");
+        }
         size++;
         a[size] = t;
-        shiftUp();
+        shiftUp(size);
     }
 
     public int max() {
@@ -90,10 +98,13 @@ public class Heap {
     }
 
     public int pop() {
+        if (size == 0) {
+            throw new IllegalStateException("empty heap");
+        }
         int max = max();
         a[HEAP_START] = a[size];
         size--;
-        shiftDown();
+        shiftDown(HEAP_START);
         return max;
     }
 
@@ -124,6 +135,6 @@ public class Heap {
         for (int i = 0; i < 100; i++) {
             list.add(heap.pop());
         }
-        assert ArrayUtility.isSorted(list, true);
+        assert Ordering.natural().reverse().isOrdered(list);
     }
 }

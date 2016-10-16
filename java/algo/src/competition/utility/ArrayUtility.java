@@ -69,7 +69,7 @@ public class ArrayUtility {
         return -1;
     }
 
-    public static <T extends Comparable<T>> boolean isSorted(List<T> ts, boolean ascending) {
+    public static <T extends Comparable<? super T>> boolean isSorted(List<T> ts, boolean ascending) {
         final ListIterator<T> it = ts.listIterator();
         it.next();
         while (it.hasNext()) {
