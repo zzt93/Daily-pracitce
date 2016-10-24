@@ -10,8 +10,11 @@ import java.util.TreeSet;
 /**
  * Created by zzt on 10/2/16.
  * <p>
- * <h3></h3>
+ * <h3>Solution</h3>
+ * 从结论推到条件：choose largest both in x, y -- win; largest in x or y -- lose;
+ *
  */
+@Deprecated
 public class Soldiers {
 
     public static void main(String[] args) {
