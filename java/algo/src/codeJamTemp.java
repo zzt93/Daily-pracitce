@@ -22,7 +22,6 @@ public class codeJamTemp {
             return;
         }
         int trail = in.nextInt();
-        in.nextLine();
         long res;
         for (int i = 0; i < trail; i++) {
 
