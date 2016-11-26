@@ -67,7 +67,7 @@ public class Bins {
     public void recursiveInsert(int t) {
         size++;
         final ListNode bin = getBin(t);
-        final ListNode node = SortedList.insertAndReturnHead(bin, t);
+        final ListNode node = SortedList1.insertAndReturnHead(bin, t);
         setBin(node);
     }
 

@@ -1,89 +1,16 @@
 package pearls.searching;
 
-
-import java.util.List;
-import java.util.Random;
-import java.util.function.Consumer;
-
 /**
- * Created by zzt on 9/7/16.
+ * Created by zzt on 11/23/16.
  * <p>
  * <h3></h3>
  */
-public class SortedList {
-
-    private static Random random = new Random(12);
-
-    private int size;
-    private ListNode head, sentinel;
-
-    public SortedList(int max) {
-        sentinel = head = new ListNode(max, null);
-        size = 0;
-    }
-
-    public void report(List<Integer> list) {
-        for (ListNode p = head; p != sentinel; p = p.getNext()) {
-            list.add(p.getVal());
-        }
-    }
-
-    public void insert(int t) {
-        ListNode succ = head, prev = null;
-        while (succ.getVal() < t) {
-            prev = succ;
-            succ = succ.getNext();
-        }
-        final ListNode listNode = new ListNode(t, succ);
-        if (prev == null) {
-            head = listNode;
-        } else {
-            prev.setNext(listNode);
-            assert t <= succ.getVal() && t > prev.getVal();
-        }
-        size++;
-    }
-
-    public void recursiveInsert(int t) {
-        size++;
-        head = insertAndReturnHead(head, t);
-    }
-
-    static ListNode insertAndReturnHead(ListNode listNode, int t) {
-        if (t <= listNode.getVal()) {
-            return new ListNode(t, listNode);
-        }
-        listNode.setNext(insertAndReturnHead(listNode.getNext(), t));
-        return listNode;
-    }
+public interface SortedList {
+    void insert(int t);
 
     @Override
-    public String toString() {
-        final StringBuilder builder = new StringBuilder().append("SortedList(").append(size).append("):");
-        for (ListNode p = head; p != sentinel; p = p.getNext()) {
-            builder.append(p.getVal()).append("->");
-        }
-        return builder.toString();
-    }
+    String toString();
 
-    public int getSize() {
-        return size;
-    }
-
-    public static void main(String[] args) {
-        testInsert(l -> {
-            l.insert(random.nextInt(100));
-        });
-        testInsert(l -> {
-            l.recursiveInsert(random.nextInt(100));
-        });
-    }
-
-    private static void testInsert(Consumer<SortedList> consumer) {
-        final SortedList list = new SortedList(Integer.MAX_VALUE);
-        for (int i = 0; i < 10; i++) {
-            consumer.accept(list);
-            System.out.println(list);
-        }
+    default void recursiveInsert(int i) {
     }
 }
