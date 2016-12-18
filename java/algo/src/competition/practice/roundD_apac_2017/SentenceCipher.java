@@ -11,6 +11,16 @@ import java.util.*;
  * <p>
  * <h3>DP: </h3>
  * <p>sub-problem!!!: sentence = words + sentence</p>
+ * <p>
+ *     then the crucial part now is to divide the sentence to word,
+ *     which can be done by reverse visiting.
+ * </p>
+ * <code>    e.g. 'isthisa' [this, is, a]
+ * at 4: w[1, 4] can in a 'this', can't split;
+ * at 6: w[5, 6] make no word, split between 5 and 6
+ *
+ * </code>
+ *
  * <h3>Similar:</h3>
  * <p>pinyin => word: separate pinyin, count possibility</p>
  */
@@ -34,11 +44,11 @@ public class SentenceCipher {
             final int v = in.nextInt();
             final int s = in.nextInt();
             in.nextLine();
-            TreeMap<Counter, String> vo = new TreeMap<>();
+            TreeMap<Counter, Integer> vo = new TreeMap<>();
             for (int j = 0; j < v; j++) {
                 final String s1 = in.nextLine();
                 Counter counter = new Counter(s1);
-                vo.put(counter, s1);
+                vo.compute(counter, (k, val) -> val == null ? 1 : val + 1);
             }
             final ArrayList<String> test = new ArrayList<>(s);
             for (int j = 0; j < s; j++) {
@@ -53,7 +63,7 @@ public class SentenceCipher {
         }
     }
 
-    private static List<Long> solve(TreeMap<Counter, String> vo, ArrayList<String> test) {
+    private static List<Long> solve(TreeMap<Counter, Integer> vo, ArrayList<String> test) {
         List<Long> res = new ArrayList<>();
         for (String s : test) {
             map.put(s.length(), 1L);
@@ -64,6 +74,7 @@ public class SentenceCipher {
     }
 
     private static class Counter implements Comparable<Counter> {
+        public static final int SUPER_SET = 1;
         private TreeMap<Character, Integer> map = new TreeMap<>();
         private int count = 0;
 
@@ -81,8 +92,8 @@ public class SentenceCipher {
             map.compute(c, (k, v) -> v == null ? 1 : v + 1);
         }
 
-        State canFinish(TreeMap<Counter, String> vo) {
-            final SortedMap<Counter, String> tail = vo.tailMap(this);
+        State canFinish(TreeMap<Counter, Integer> vo) {
+            final SortedMap<Counter, Integer> tail = vo.tailMap(this);
             if (tail.isEmpty()) {
                 return State.Invalid;
             }
@@ -90,7 +101,7 @@ public class SentenceCipher {
                 final Iterator<Counter> iterator = tail.keySet().iterator();
                 while (iterator.hasNext()) {
                     final Counter counter = iterator.next();
-                    if (counter.compareTo(this) == 1) {
+                    if (counter.compareTo(this) == SUPER_SET) {
                         return State.NotFinish;
                     }
                 }
@@ -98,13 +109,11 @@ public class SentenceCipher {
             } else {
                 final Iterator<Counter> iterator = tail.keySet().iterator();
                 iterator.next();
-                int i = 1;
+                int i = vo.get(this);
                 while (iterator.hasNext()) {
                     final Counter counter = iterator.next();
                     final int compareTo = counter.compareTo(this);
-                    if (compareTo == 0) {
-                        i++;
-                    } else if (compareTo == 1) {
+                    if (compareTo == SUPER_SET) {
                         return State.More.setCount(i);
                     }
                 }
@@ -208,7 +217,7 @@ public class SentenceCipher {
 
     private static Map<Integer, Long> map = new HashMap<>(4000);
 
-    private static long count(char[] s, int start, TreeMap<Counter, String> vo, Counter counter) {
+    private static long count(char[] s, int start, TreeMap<Counter, Integer> vo, Counter counter) {
         Counter c = counter;
         int key = start;
         if (counter == null) {
