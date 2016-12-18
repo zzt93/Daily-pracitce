@@ -63,6 +63,7 @@ public final class ClassLoaderLeakExample {
     }
 
     /**
+     *
      * A simple ClassLoader implementation that is only able to load one
      * class, the {@link LoadedInChildClassLoader}. We have to jump through
      * some hoops here because we explicitly want to ensure we get a new
@@ -70,8 +71,10 @@ public final class ClassLoaderLeakExample {
      * class loader). If this child class were in a JAR file that wasn't
      * part of the system classpath, we wouldn't need this mechanism.
      *
-     * @see {@link ClassLoader#loadClass(String, boolean)}
-     * @see {@link java.net.URLClassLoader#findClass(String)}
+     * class loader is like the shell of os, which to find the executable to load/init/run
+     * @see ClassLoader#loadClass(String, boolean)
+     * @see java.net.URLClassLoader#findClass(String)
+     * @see ClassNotFoundException -- file not found; file can't be read, permission problem
      */
     static final class ChildOnlyClassLoader extends ClassLoader {
         ChildOnlyClassLoader() {

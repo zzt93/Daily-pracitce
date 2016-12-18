@@ -3,6 +3,7 @@ package thread;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.*;
 import java.util.function.Consumer;
 
@@ -14,19 +15,25 @@ import java.util.function.Consumer;
 public class Wait {
 
     private static ExecutorService service = Executors.newCachedThreadPool();
+    private final Object[] objects;
+
+    public Wait(Object... objects) {
+        this.objects = objects;
+    }
 
     /**
-     * @param objects objects that to be notified
-     *
      * @return index of object that is first notified
      */
-    public static int waitForAny(Object... objects) {
+    public synchronized int waitForAny() {
         Semaphore semaphore = new Semaphore(objects.length);
-//        service.submit()
         return 0;
     }
 
-    public static void waitForAll(Object... objects) throws InterruptedException {
+    public synchronized void notify(Object o) {
+
+    }
+
+    public synchronized void waitForAll() throws InterruptedException {
         List<Future<Void>> res = new ArrayList<>(objects.length);
         for (Object object : objects) {
             res.add(service.submit(() -> {
@@ -47,7 +54,7 @@ public class Wait {
         }
     }
 
-    public static void waitForAllInvoke(Object... objects) throws InterruptedException {
+    public void waitForAllInvoke() throws InterruptedException {
         waitForInvoke((tasks) -> {
             try {
                 service.invokeAll(tasks);
@@ -57,7 +64,7 @@ public class Wait {
         }, objects);
     }
 
-    public static void waitForAnyInvoke(Object... objects) throws InterruptedException {
+    public void waitForAnyInvoke() throws InterruptedException {
         waitForInvoke((tasks) -> {
             try {
                 service.invokeAny(tasks);
@@ -67,7 +74,7 @@ public class Wait {
         }, objects);
     }
 
-    public static void waitForInvoke(Consumer<List<Callable<Void>>> consumer, Object[] objects) throws InterruptedException {
+    public void waitForInvoke(Consumer<List<Callable<Void>>> consumer, Object[] objects) throws InterruptedException {
         List<Callable<Void>> jobs = new ArrayList<>(objects.length);
         for (Object object : objects) {
             jobs.add(() -> {
