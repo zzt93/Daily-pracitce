@@ -9,7 +9,13 @@ import java.util.Arrays;
  */
 public class BinaryPalindrome {
 
-    private static final long[] indexRange = new long[62];
+    public static final int LONG_BITS = 64;
+    /**
+     * except the surrounding '1'
+     * e.g. '1' '00' '1'
+     */
+    private static final int MAX_MID_LEN = LONG_BITS - 2;
+    private static final long[] indexRange = new long[MAX_MID_LEN];
 
     static {
         indexRange[0] = 0;
@@ -64,6 +70,10 @@ public class BinaryPalindrome {
         for (int i = 0; i < 100; i++) {
             System.out.println(Long.toBinaryString(magical(i)));
         }
-        System.out.println(Long.toBinaryString(magical(Long.MAX_VALUE)));
+        //        System.out.println(Long.toBinaryString(magical(Long.MAX_VALUE)));
+        long i = (long) (Long.MAX_VALUE + 1.1);
+        long i2 = Long.MAX_VALUE + 1;
+        System.out.println(i);
+        System.out.println(i2);
     }
 }
