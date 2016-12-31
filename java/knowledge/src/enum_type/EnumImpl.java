@@ -40,3 +40,18 @@ abstract class Cmp {
         //        int a = A.a;
     }
 }
+
+//final class enum_type.EnumImpl$1 extends enum_type.EnumImpl {
+//        enum_type.EnumImpl$1(java.lang.String, int);
+//        Code:
+//        0: aload_0
+//        1: aload_1
+//        2: iload_2
+//        3: aconst_null
+//        4: invokespecial #1                  // Method enum_type/EnumImpl."<init>":(Ljava/lang/String;ILenum_type/EnumImpl$1;)V
+//        7: return
+//
+//public void method();
+//        Code:
+//        0: return
+//        }
