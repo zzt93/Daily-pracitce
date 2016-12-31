@@ -9,7 +9,7 @@ import java.util.Arrays;
  */
 public class BinaryPalindrome {
 
-    private static final long[] indexRange = new long[128];
+    private static final long[] indexRange = new long[62];
 
     static {
         indexRange[0] = 0;
@@ -42,6 +42,9 @@ public class BinaryPalindrome {
             midLen = -midLen - 2;
         }
         long remaining = N - indexRange[midLen];
+        if (remaining > indexRange[midLen]) {
+            throw new IllegalArgumentException("too large N: " + (N + 2));
+        }
         String mid = mirror(remaining, midLen);
         return '1' + mid + '1';
     }
@@ -61,5 +64,6 @@ public class BinaryPalindrome {
         for (int i = 0; i < 100; i++) {
             System.out.println(Long.toBinaryString(magical(i)));
         }
+        System.out.println(Long.toBinaryString(magical(Long.MAX_VALUE)));
     }
 }
