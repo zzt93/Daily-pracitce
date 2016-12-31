@@ -21,8 +21,7 @@ public class BinaryPalindrome {
         indexRange[0] = 0;
         for (int i = 1; i < indexRange.length; i++) {
             indexRange[i] = (long) (indexRange[i - 1] + Math.pow(2, Math.ceil((i - 1) * 1.0 / 2)));
-            if (indexRange[i] < 0) {
-                indexRange[i] = Long.MAX_VALUE;
+            if (indexRange[i] == Long.MAX_VALUE) {
                 System.out.println("Out of range at: " + i);
                 break;
             }
@@ -71,9 +70,5 @@ public class BinaryPalindrome {
             System.out.println(Long.toBinaryString(magical(i)));
         }
         //        System.out.println(Long.toBinaryString(magical(Long.MAX_VALUE)));
-        long i = (long) (Long.MAX_VALUE + 1.1);
-        long i2 = Long.MAX_VALUE + 1;
-        System.out.println(i);
-        System.out.println(i2);
     }
 }
