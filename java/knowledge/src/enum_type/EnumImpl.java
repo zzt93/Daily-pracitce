@@ -19,8 +19,8 @@ public enum EnumImpl {
         }
     };
 
-    //    abstract void method();
     private int s;
+    //        abstract void method();
 }
 
 abstract class Cmp {
@@ -38,6 +38,17 @@ abstract class Cmp {
 
     public static void main(String[] args) {
         //        int a = A.a;
+    }
+
+    private int s;
+
+    static {
+        class Bclass extends Cmp {
+            public void method() {
+                //                System.out.println(s);
+            }
+            //            private static int b;
+        }
     }
 }
 
