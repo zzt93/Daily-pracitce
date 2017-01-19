@@ -28,8 +28,8 @@ public class StrangeBehaviour {
     static boolean functionB(int recursionDepth, int recursionSwitch) {
         for (int i = 0; i < 16; i++) {
             if (StrangeBehaviour.recursionFlag) {
-                int a = 1;
-                int b = 1;
+                //                int a = 1;
+                //                int b = 1;
                 if (recursionSwitch == 0) {
                     if (functionA(recursionDepth - 1, 1 - recursionSwitch)) return true;
                 } else {
