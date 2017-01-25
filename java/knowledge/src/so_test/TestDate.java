@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
  * <p>
  * Description:
  */
-public class Date {
+public class TestDate {
     public static void main(String[] args) {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
