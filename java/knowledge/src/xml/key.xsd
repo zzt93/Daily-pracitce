@@ -1,36 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
 
-    <!--<xs:element name="Winery">-->
-    <!--<xs:complexType>-->
-    <!--<xs:sequence>-->
-    <!--<xs:element name="Wines" type="wines" maxOccurs="unbounded"/>-->
-    <!--</xs:sequence>-->
-    <!--<xs:attribute name="id" type="xs:string"/>-->
-    <!--</xs:complexType>-->
-    <!--</xs:element>-->
-
-    <!--<xs:complexType name="wine">-->
-    <!--<xs:sequence>-->
-    <!--<xs:element name="chara" type="xs:string"/>-->
-    <!--</xs:sequence>-->
-    <!--<xs:attribute name="wineryRef" type="xs:string"/>-->
-    <!--</xs:complexType>-->
-
-
-    <!--<xs:key name="aKey">-->
-    <!--<xs:selector xpath="Winery" />-->
-    <!--<xs:field xpath="@id" />-->
-    <!--</xs:key>-->
-    <!--<xs:keyref name="aKeyRef" refer="aKey">-->
-    <!--<xs:selector xpath="wine" />-->
-    <!--<xs:field xpath="@wineryRef" />-->
-    <!--</xs:keyref>-->
-    <!--<xs:complexType name="wines">-->
-    <!--<xs:sequence>-->
-    <!--<xs:element name="wine" type="wine" maxOccurs="unbounded"/>-->
-    <!--</xs:sequence>-->
-    <!--</xs:complexType>-->
 
     <xs:element name="vehicle">
         <xs:complexType>
@@ -61,13 +31,13 @@
             </xs:sequence>
         </xs:complexType>
 
-        <xs:key name="state">
+        <xs:key name="vehicleState">
             <!-- states are keyed by their code -->
             <xs:selector xpath=".//state"/>
             <xs:field xpath="code"/>
         </xs:key>
 
-        <xs:keyref name="vehicleState" refer="state">
+        <xs:keyref name="vehicleStateRef" refer="vehicleState">
             <!-- every vehicle refers to its state -->
             <xs:selector xpath=".//vehicle"/>
             <xs:field xpath="@state"/>
