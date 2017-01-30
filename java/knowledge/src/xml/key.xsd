@@ -1,26 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
-    <xs:element name="Root" type="Root"/>
-    <xs:complexType name="Root">
-        <xs:sequence>
-            <xs:element name="Value" type="xs:anyType" minOccurs="0"/>
-            <xs:element name="Metadata" type="xs:string" minOccurs="0"/>
-        </xs:sequence>
-    </xs:complexType>
-
-    <xs:element name="propertySet">
-        <xs:complexType>
-            <xs:all>
-                <xs:element ref="CORproperties"/>
-                <xs:element name="LIBuserNotice" type="xs:string" minOccurs="0" maxOccurs="1"/>
-            </xs:all>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="CORproperties"/>
-    <xs:element name="SUPorganisationId" type="xs:integer" substitutionGroup="CORproperties"/>
-    <xs:element name="SUPdataCategory" type="xs:integer" substitutionGroup="CORproperties"/>
-    <xs:element name="SUPguId" type="xs:string" substitutionGroup="CORproperties"/>
 
     <!--<xs:element name="Winery">-->
     <!--<xs:complexType>-->
