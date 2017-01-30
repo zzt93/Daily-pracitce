@@ -1,4 +1,4 @@
-package so_test;
+package so_test.xml;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

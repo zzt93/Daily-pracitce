@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="t.xsd">
+    <state>
+        <code>12</code>
+        <vehicle state="12" plateNumber="34"/>
+        <person>
+            <car regState="12" regPlate="34"/>
+        </person>
+    </state>
+</root>
+

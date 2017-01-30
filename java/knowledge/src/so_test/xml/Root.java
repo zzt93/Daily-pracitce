@@ -1,4 +1,4 @@
-package so_test;
+package so_test.xml;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;

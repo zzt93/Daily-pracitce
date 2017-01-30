@@ -1,10 +1,130 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
-    <xs:element name="root" type="Root"/>
+    <xs:element name="Root" type="Root"/>
     <xs:complexType name="Root">
         <xs:sequence>
             <xs:element name="Value" type="xs:anyType" minOccurs="0"/>
             <xs:element name="Metadata" type="xs:string" minOccurs="0"/>
         </xs:sequence>
     </xs:complexType>
+
+    <xs:element name="propertySet">
+        <xs:complexType>
+            <xs:all>
+                <xs:element ref="CORproperties"/>
+                <xs:element name="LIBuserNotice" type="xs:string" minOccurs="0" maxOccurs="1"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="CORproperties"/>
+    <xs:element name="SUPorganisationId" type="xs:integer" substitutionGroup="CORproperties"/>
+    <xs:element name="SUPdataCategory" type="xs:integer" substitutionGroup="CORproperties"/>
+    <xs:element name="SUPguId" type="xs:string" substitutionGroup="CORproperties"/>
+
+    <!--<xs:element name="Winery">-->
+    <!--<xs:complexType>-->
+    <!--<xs:sequence>-->
+    <!--<xs:element name="Wines" type="wines" maxOccurs="unbounded"/>-->
+    <!--</xs:sequence>-->
+    <!--<xs:attribute name="id" type="xs:string"/>-->
+    <!--</xs:complexType>-->
+    <!--</xs:element>-->
+
+    <!--<xs:complexType name="wine">-->
+    <!--<xs:sequence>-->
+    <!--<xs:element name="chara" type="xs:string"/>-->
+    <!--</xs:sequence>-->
+    <!--<xs:attribute name="wineryRef" type="xs:string"/>-->
+    <!--</xs:complexType>-->
+
+
+    <!--<xs:key name="aKey">-->
+    <!--<xs:selector xpath="Winery" />-->
+    <!--<xs:field xpath="@id" />-->
+    <!--</xs:key>-->
+    <!--<xs:keyref name="aKeyRef" refer="aKey">-->
+    <!--<xs:selector xpath="wine" />-->
+    <!--<xs:field xpath="@wineryRef" />-->
+    <!--</xs:keyref>-->
+    <!--<xs:complexType name="wines">-->
+    <!--<xs:sequence>-->
+    <!--<xs:element name="wine" type="wine" maxOccurs="unbounded"/>-->
+    <!--</xs:sequence>-->
+    <!--</xs:complexType>-->
+
+    <xs:element name="vehicle">
+        <xs:complexType>
+            <xs:attribute name="plateNumber" type="xs:integer"/>
+            <xs:attribute name="state" type="twoLetterCode"/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="state">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="code" type="twoLetterCode"/>
+                <xs:element ref="vehicle" maxOccurs="unbounded"/>
+                <xs:element ref="person" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:key name="reg"> <!-- vehicles are keyed by their plate within states -->
+            <xs:selector xpath=".//vehicle"/>
+            <xs:field xpath="@plateNumber"/>
+        </xs:key>
+    </xs:element>
+
+    <xs:element name="root">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element ref="state" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:key name="state">
+            <!-- states are keyed by their code -->
+            <xs:selector xpath=".//state"/>
+            <xs:field xpath="code"/>
+        </xs:key>
+
+        <xs:keyref name="vehicleState" refer="state">
+            <!-- every vehicle refers to its state -->
+            <xs:selector xpath=".//vehicle"/>
+            <xs:field xpath="@state"/>
+        </xs:keyref>
+
+        <xs:key name="vehicleKey">
+            <!-- vehicles are keyed by a pair of state and plate -->
+            <xs:selector xpath=".//vehicle"/>
+            <xs:field xpath="@state"/>
+            <xs:field xpath="@plateNumber"/>
+        </xs:key>
+
+        <xs:keyref name="carRef" refer="vehicleKey">
+            <!-- people's cars are a reference -->
+            <xs:selector xpath=".//car"/>
+            <xs:field xpath="@regState"/>
+            <xs:field xpath="@regPlate"/>
+        </xs:keyref>
+
+    </xs:element>
+
+    <xs:element name="person">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="car">
+                    <xs:complexType>
+                        <xs:attribute name="regState" type="twoLetterCode"/>
+                        <xs:attribute name="regPlate" type="xs:integer"/>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:simpleType name="twoLetterCode">
+        <xs:restriction base="xs:string">
+            <xs:length value="2"/>
+        </xs:restriction>
+    </xs:simpleType>
 </xs:schema>
