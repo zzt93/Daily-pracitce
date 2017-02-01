@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0">
-    <xs:element name="Root" type="Root"/>
+    <xs:element name="root" type="Root">
+        <xs:key name="aKey">
+            <xs:selector xpath=".//Winery"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:keyref name="aKeyRef" refer="aKey">
+            <xs:selector xpath=".//wine"/>
+            <xs:field xpath="@wineryRef"/>
+        </xs:keyref>
+    </xs:element>
     <xs:complexType name="Root">
         <xs:sequence>
             <xs:element name="Value" type="xs:anyType" minOccurs="0"/>
             <xs:element name="Metadata" type="xs:string" minOccurs="0"/>
+            <xs:element ref="Winery"/>
         </xs:sequence>
+
     </xs:complexType>
 
     <xs:element name="propertySet">
@@ -22,13 +33,15 @@
     <xs:element name="SUPdataCategory" type="xs:integer" substitutionGroup="CORproperties"/>
     <xs:element name="SUPguId" type="xs:string" substitutionGroup="CORproperties"/>
 
+
     <xs:element name="Winery">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Wines" type="wines" maxOccurs="unbounded"/>
             </xs:sequence>
-            <xs:attribute name="id" type="xs:string"/>
+            <xs:attribute name="id" type="xs:string" use="required"/>
         </xs:complexType>
+
     </xs:element>
 
     <xs:complexType name="wine">
@@ -39,14 +52,6 @@
     </xs:complexType>
 
 
-    <xs:key name="aKey">
-        <xs:selector xpath="Winery"/>
-        <xs:field xpath="@id"/>
-    </xs:key>
-    <xs:keyref name="aKeyRef" refer="aKey">
-        <xs:selector xpath="wine"/>
-        <xs:field xpath="@wineryRef"/>
-    </xs:keyref>
     <xs:complexType name="wines">
         <xs:sequence>
             <xs:element name="wine" type="wine" maxOccurs="unbounded"/>

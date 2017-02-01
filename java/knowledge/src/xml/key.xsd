@@ -18,7 +18,8 @@
             </xs:sequence>
         </xs:complexType>
 
-        <xs:key name="reg"> <!-- vehicles are keyed by their plate within states -->
+        <xs:key name="reg">
+            <!-- vehicles are keyed by their plate within states -->
             <xs:selector xpath=".//vehicle"/>
             <xs:field xpath="@plateNumber"/>
         </xs:key>
