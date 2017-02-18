@@ -8,15 +8,35 @@ package str;
 public class Intern {
 
     public static void main(String[] args) {
+        //        String s = "1" + "2";
+        //        String s2 = "1" + 3;
+        //        String s3 = "1" + new String("4");
+        //        test(s);
+        //        test(s2);
+        //        test(s3);
         //        String s1 = new StringBuilder("aaa").append("a").toString();
         //        test(s1);
-        //        String s4 = new String("1") + new String("1");
-        //        test(s4);
-        //        test(new String("5"));
+        //                String s4 = new String("s") + new String("1");
+        //                test(s4);
+        //                test(new String("s2"));
+        //                test("1");
         //        test("" + new String("6"));
         //        String special = new String(new char[]{'a', 'z'});
         //        test(special);
-        allTwoChar();
+        //        allTwoChar();
+        blogCode();
+    }
+
+    private static void blogCode() {
+        String s1 = new String("s1");
+        // notice this is `==`, is to compare address
+        System.out.println(s1.intern() == s1);
+        String s2 = new String("s") + new String("2");
+        // notice this is `==`, is to compare address
+        System.out.println(s2.intern() == s2);
+        String s3 = "s3";
+        // notice this is `==`, is to compare address
+        System.out.println(s3.intern() == s3);
     }
 
     private static void allTwoChar() {
