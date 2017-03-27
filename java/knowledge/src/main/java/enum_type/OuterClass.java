@@ -1,4 +1,4 @@
-package reflect;
+package main.java.enum_type;
 
 /**
  * Created by zzt on 10/9/16.
