@@ -15,6 +15,7 @@ import java.util.concurrent.Executors;
  */
 public class UdpServer {
 
+    public static final String END_SYMBOL = "\r\n\r\n";
     DatagramSocket server = new DatagramSocket(9000);
     private static final int SIZE = 100;
 
@@ -22,15 +23,21 @@ public class UdpServer {
     }
 
     public void simpleReply() {
-        byte[] bytes = new byte[SIZE];
-        DatagramPacket packet = new DatagramPacket(bytes, SIZE);
-        try {
-            server.receive(packet);
-            System.out.println("server receive: " + Arrays.toString(bytes));
-            byte[] data = Bytes.concat("server received:".getBytes(), packet.getData());
-            server.send(new DatagramPacket(data, packet.getLength(), packet.getAddress(), packet.getPort()));
-        } catch (IOException e) {
-            e.printStackTrace();
+        byte[] buffer = new byte[SIZE];
+        DatagramPacket packet = new DatagramPacket(buffer, SIZE);
+        while (true) {
+            try {
+                server.receive(packet);
+                byte[] bytes = Arrays.copyOf(buffer, packet.getLength());
+                System.out.println("server receive: " + new String(bytes));
+                byte[] data = Bytes.concat("server received: ".getBytes(), bytes);
+                server.send(new DatagramPacket(data, data.length, packet.getAddress(), packet.getPort()));
+                if (Arrays.equals(bytes, END_SYMBOL.getBytes())) {
+                    return;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
