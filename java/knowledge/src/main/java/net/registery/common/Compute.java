@@ -1,4 +1,4 @@
-package net.common;
+package net.registery.common;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

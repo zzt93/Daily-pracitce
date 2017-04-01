@@ -1,4 +1,4 @@
-package net.common;
+package net.registery.common;
 
 /**
  * Created by zzt on 12/27/15.

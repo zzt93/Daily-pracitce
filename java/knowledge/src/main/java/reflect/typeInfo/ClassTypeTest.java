@@ -1,4 +1,4 @@
-package main.java.reflect;
+package reflect.typeInfo;
 
 import java.lang.reflect.TypeVariable;
 

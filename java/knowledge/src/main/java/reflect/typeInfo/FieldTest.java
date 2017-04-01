@@ -1,4 +1,4 @@
-package reflect.test;
+package reflect.typeInfo;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -7,7 +7,7 @@ import java.lang.reflect.InvocationTargetException;
  * <p>
  * <h3></h3>
  */
-public class SimpleTest {
+public class FieldTest {
 
     public static int test(String[] args) {
         int pass = 0;

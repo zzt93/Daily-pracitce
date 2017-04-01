@@ -1,4 +1,4 @@
-package reflect;
+package reference;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;

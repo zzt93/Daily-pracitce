@@ -1,6 +1,6 @@
-package net.client;
+package net.registery.client;
 
-import net.common.Task;
+import net.registery.common.Task;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

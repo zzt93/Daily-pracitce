@@ -1,7 +1,7 @@
-package net.server;
+package net.registery.server;
 
-import net.common.Compute;
-import net.common.Task;
+import net.registery.common.Compute;
+import net.registery.common.Task;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
