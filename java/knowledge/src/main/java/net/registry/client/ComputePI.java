@@ -1,6 +1,6 @@
-package net.registery.client;
+package net.registry.client;
 
-import net.registery.common.Compute;
+import net.registry.common.Compute;
 
 import java.math.BigDecimal;
 import java.rmi.NotBoundException;
