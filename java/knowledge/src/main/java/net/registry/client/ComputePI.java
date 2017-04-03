@@ -21,7 +21,8 @@ public class ComputePI {
         }
         String name = "compute";
         try {
-            Registry registry = LocateRegistry.getRegistry(args[0]);
+            String host = args[0];
+            Registry registry = LocateRegistry.getRegistry(host);
             Compute comp = (Compute) registry.lookup(name);
             Pi task = new Pi(Integer.parseInt(args[1]));
             BigDecimal pi = comp.compute(task);
