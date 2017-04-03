@@ -1,10 +1,9 @@
 package net;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.InetAddress;
-import java.net.MulticastSocket;
-import java.net.SocketException;
+import java.net.*;
+import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zzt on 17/3/27.
@@ -26,8 +25,14 @@ public class Multicast {
             for (int i = 0; i < 3; i++) { // get messages from others in group
                 DatagramPacket messageIn =
                         new DatagramPacket(buffer, buffer.length);
-                s.receive(messageIn);
-                System.out.println("Received:" + new String(messageIn.getData()));
+                s.setSoTimeout((int) TimeUnit.MILLISECONDS.convert(1, TimeUnit.SECONDS));
+                try {
+                    s.receive(messageIn);
+                } catch (SocketTimeoutException e) {
+                    System.err.println("Fail to receive from a peer: " + i);
+                    continue;
+                }
+                System.out.println("Received: " + new String(Arrays.copyOf(messageIn.getData(), messageIn.getLength())));
             }
             s.leaveGroup(group);
         } catch (SocketException e) {
