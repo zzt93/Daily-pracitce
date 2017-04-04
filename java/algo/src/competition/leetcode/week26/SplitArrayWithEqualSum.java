@@ -26,22 +26,22 @@ public class SplitArrayWithEqualSum {
         }
 
         int i = 1, kPlusOne = len - 1;
+        int tmpK = kPlusOne;
         while (i <= kPlusOne - 5) {
-            int tmpK = kPlusOne;
             while (i <= tmpK - 5 && l2r[i] != r2l[tmpK]) {
                 tmpK--;
             }
             if (i > tmpK - 5) {
                 i++;
-                continue;
-            }
-            if (l2r[i] == r2l[tmpK]) {
+                tmpK = kPlusOne;
+            } else if (l2r[i] == r2l[tmpK]) {
                 if (existsK(l2r, r2l, i, tmpK - 1)) {
                     System.out.printf("i: %d; k: %d\n", i, tmpK - 1);
                     return true;
+                } else {
+                    tmpK--;
                 }
             }
-            i++;
         }
         return false;
     }
@@ -64,11 +64,12 @@ public class SplitArrayWithEqualSum {
         return r2l[j + 1] - r2l[k];
     }
 
+
     public static void main(String[] args) {
         SplitArrayWithEqualSum sum = new SplitArrayWithEqualSum();
-        System.out.println(sum.splitArray(new int[]{-1, 2, -1, 2, -1, 2, -1}));
-        System.out.println(sum.splitArray(new int[]{1, 2, 1, 2, 1, 2, 1, 2}));
         System.out.println(sum.splitArray(new int[]{2, 4, 3, 10, 3, 2, 4, 4, 9, 3, 5, 8, 8, 9, 3, 0, 4, 3, 3, 9, 4, 3, 4, 1, 9, 7, 2, 9, 1, 9, 10, 5, 5, 5, 5, 3, 3, 10, 9, 3, 7, 6, 6, 2, 7, 7, 9, 8, 3, 7, 2, 4, 4, 9, 4, 5, 10, 7, -1, 0, 5, 1, 9, 4, 2, 3, 0, 5, 0, 2, 8, 1, 0, 7, 10, 4, 8, 3, 6, 0, 4, 3, 3, 8, 4}));
+        System.out.println(sum.splitArray(new int[]{-1, 2, 2, 1, 3, -2, 3, 4, 1}));
+        System.out.println(sum.splitArray(new int[]{1, 2, 1, 2, 1, 2, 1, 2}));
         System.out.println(sum.splitArray(new int[]{0, 0, 0, 0, 0, 0, 0}));
     }
 }
