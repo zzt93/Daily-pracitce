@@ -15,4 +15,26 @@ public class SerializedField {
         this.fieldClass = fieldClass;
         this.name = name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SerializedField that = (SerializedField) o;
+
+        return fieldClass.equals(that.fieldClass) && name.equals(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = fieldClass.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return fieldClass.getName() + " " + name + ";\n";
+    }
 }

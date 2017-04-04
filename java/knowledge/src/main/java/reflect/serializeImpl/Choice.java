@@ -31,4 +31,8 @@ public class Choice<F, S> {
         Preconditions.checkNotNull(s);
         return s;
     }
+
+    public boolean isFirst() {
+        return f != null;
+    }
 }

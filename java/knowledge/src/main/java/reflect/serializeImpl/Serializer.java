@@ -2,11 +2,12 @@ package reflect.serializeImpl;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
-import java.util.Collection;
 import java.util.HashMap;
 
 /**
  * Created by zzt on 17/3/31.
+ * <p>
+ * <h3></h3>
  */
 public class Serializer {
 
@@ -27,7 +28,7 @@ public class Serializer {
             serializedObj = new SerializedObj(serializedClass, o);
             map.put(o, serializedObj);
             return serializedObj;
-        } else if (Iterable.class.isAssignableFrom(aClass)) {
+        } else if (aClass.isArray()) {
             serializedObj = new SerializedObj(serializedClass);
             map.put(o, serializedObj);
             int i = 0;
@@ -45,7 +46,6 @@ public class Serializer {
                 continue;
             }
             SerializedField type = serializedClass.getField(field);
-
             field.setAccessible(true);
             Object value = field.get(o);
             serializedObj.put(type, getSerializedObj(value));
@@ -61,29 +61,24 @@ public class Serializer {
             return classes.get(aClass);
         }
         SerializedClass serializedClass;
-        if (isSystemClass(aClass)) {
+        if (aClass.isPrimitive()) {
             serializedClass = new SerializedClass(aClass);
             classes.put(aClass, serializedClass);
             return serializedClass;
+        } else if (aClass.isArray()) {
+            serializedClass = new SerializedClass(getSerializedClass(aClass.getComponentType()));
+            classes.put(aClass, serializedClass);
+            return serializedClass;
         }
-        serializedClass = new SerializedClass();
+        serializedClass = new SerializedClass(aClass.getName());
         classes.put(aClass, serializedClass);
 
         for (Field field : aClass.getDeclaredFields()) {
             SerializedField type = new SerializedField(
                     getSerializedClass(field.getType()), field.getName());
-            serializedClass.add(type);
+            serializedClass.put(field, type);
         }
         return serializedClass;
     }
 
-    /**
-     * simple way to test whether the class is a jdk class
-     * test whether this class is loaded by bootstrap classloader
-     *
-     * @return whether the class is a jdk class
-     */
-    private boolean isSystemClass(Class aClass) {
-        return aClass.getClassLoader() == null;
-    }
 }

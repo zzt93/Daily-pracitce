@@ -33,4 +33,8 @@ public class TriChoice<F, S, T> extends Choice<F, S> {
         setFirst(null);
         setSecond(null);
     }
+
+    public boolean isThird() {
+        return third == null;
+    }
 }
