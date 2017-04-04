@@ -8,16 +8,11 @@ import java.util.Collection;
  */
 public class SerializedField {
 
-    private SerializedClass serializedClass;
+    private SerializedClass fieldClass;
     private String name;
 
-    public SerializedField(Field field) {
-        Class<?> declaringClass = field.getDeclaringClass();
-
-        if (declaringClass.isPrimitive()) {
-        } else if (declaringClass.isArray() || Collection.class.isAssignableFrom(declaringClass)) {
-        } else {
-
-        }
+    public SerializedField(SerializedClass fieldClass, String name) {
+        this.fieldClass = fieldClass;
+        this.name = name;
     }
 }

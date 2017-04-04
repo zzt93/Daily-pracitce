@@ -1,5 +1,6 @@
 package reflect.serializeImpl;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,10 +9,22 @@ import java.util.List;
  */
 public class SerializedClass {
 
-    private List<SerializedField> fields = new ArrayList<>();
+    private Choice<Class, List<SerializedField>> choice = new Choice<>();
+
+    SerializedClass(Class<?> aClass) {
+        choice.setFirst(aClass);
+    }
+
+    SerializedClass() {
+        choice.setSecond(new ArrayList<>());
+    }
 
 
     public void add(SerializedField serializedField) {
-        fields.add(serializedField);
+        choice.getSecond().add(serializedField);
+    }
+
+    public SerializedField getField(Field field) {
+        return null;
     }
 }
