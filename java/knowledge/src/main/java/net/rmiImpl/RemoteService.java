@@ -12,12 +12,12 @@ import java.rmi.RemoteException;
  */
 public class RemoteService {
     private static final int SERVICE_NAME_MAX_LEN = 1000;
-    public static final int INTERFACE_MAX_SIZE = 1 << 12;
+    private static final int INTERFACE_MAX_SIZE = 1 << 12;
     private final NetworkHelper networkHelper;
 
-    public RemoteService(InetSocketAddress remoteAddr) throws RemoteException {
+    public RemoteService(InetSocketAddress remoteAddr, boolean server) throws RemoteException {
         try {
-            networkHelper = new NetworkHelper(remoteAddr);
+            networkHelper = new NetworkHelper(remoteAddr, server);
         } catch (SocketException e) {
             throw new RemoteException("Invalid: ", e);
         }
@@ -25,8 +25,8 @@ public class RemoteService {
 
     public Object getService(String serviceName) throws IOException, ClassNotFoundException {
         byte[] data = fromObjToBytes(serviceName);
-        networkHelper.send(data);
-        byte[] tmp = networkHelper.receive(INTERFACE_MAX_SIZE);
+        networkHelper.clientSend(data);
+        byte[] tmp = networkHelper.clientReceive(INTERFACE_MAX_SIZE).getData();
         return fromBytesToObj(tmp);
     }
 
@@ -35,10 +35,22 @@ public class RemoteService {
         return inputStream.readObject();
     }
 
-    private byte[] fromObjToBytes(String serviceName) throws IOException {
+    private byte[] fromObjToBytes(Object serviceName) throws IOException {
         ByteArrayOutputStream out = new ByteArrayOutputStream(SERVICE_NAME_MAX_LEN);
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(out);
         objectOutputStream.writeObject(serviceName);
         return out.toByteArray();
+    }
+
+    public Request getRequest() throws IOException, ClassNotFoundException {
+        Request request = networkHelper.serverReceive(INTERFACE_MAX_SIZE);
+        request.setRequest((String) fromBytesToObj(request.getData()));
+        return request;
+    }
+
+    public void response(Object service, Request request) throws IOException {
+        if (service == null) {
+        }
+        networkHelper.serverSend(request, fromObjToBytes(service));
     }
 }

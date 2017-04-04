@@ -1,10 +1,8 @@
 package net.rmiImpl;
 
 import java.io.IOException;
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketException;
+import java.net.*;
+import java.util.Arrays;
 
 /**
  * Created by zzt on 4/3/17.
@@ -12,30 +10,51 @@ import java.net.SocketException;
  * <h3></h3>
  */
 public class UdpHelper {
-    private final InetSocketAddress addr;
-    private DatagramSocket client = new DatagramSocket();
+    private static final int SERVER_PORT = 9000;
+    private InetSocketAddress addr;
+    private DatagramSocket socket;
 
-    public UdpHelper(InetSocketAddress remoteAddr) throws SocketException {
-        this.addr = remoteAddr;
+    public UdpHelper(InetSocketAddress remoteAddr, boolean server) throws SocketException {
+        if (server) {
+            socket = new DatagramSocket(SERVER_PORT);
+        } else {
+            this.addr = remoteAddr;
+            socket = new DatagramSocket();
+        }
     }
 
     public void send(byte[] data) throws IOException {
+        isClient();
+        System.out.println(addr);
         DatagramPacket send = new DatagramPacket(data, data.length, addr);
-        client.send(send);
+        socket.send(send);
     }
 
-    public byte[] receive(int estimateSize) throws IOException {
-        byte[] res = new byte[estimateSize];
-        DatagramPacket receive = new DatagramPacket(res, estimateSize);
-        client.receive(receive);
-        return res;
+    private void isClient() {
+        if (addr == null) {
+            throw new IllegalArgumentException("server should not call send");
+        }
     }
 
-    public byte[] receiveTimeout(int estimateSize, int millisecond) throws IOException {
+    public Request receive(int estimateSize) throws IOException {
         byte[] res = new byte[estimateSize];
         DatagramPacket receive = new DatagramPacket(res, estimateSize);
-        client.setSoTimeout(millisecond);
-        client.receive(receive);
-        return res;
+        socket.receive(receive);
+        return new Request(Arrays.copyOf(res, receive.getLength()),
+                receive.getAddress(), receive.getPort());
+    }
+
+    public Request receiveTimeout(int estimateSize, int millisecond) throws IOException {
+        byte[] res = new byte[estimateSize];
+        DatagramPacket receive = new DatagramPacket(res, estimateSize);
+        socket.receive(receive);
+        return new Request(Arrays.copyOf(res, receive.getLength()),
+                receive.getAddress(), receive.getPort());
+    }
+
+
+    public void serverSend(InetAddress host, int port, byte[] bytes) throws IOException {
+        DatagramPacket datagramPacket = new DatagramPacket(bytes, bytes.length, host, port);
+        socket.send(datagramPacket);
     }
 }

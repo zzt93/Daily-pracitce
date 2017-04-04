@@ -3,6 +3,10 @@ package net.rmiImpl;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 /**
  * Created by zzt on 4/3/17.
  * <p>
@@ -14,13 +18,15 @@ public class RMIRegistryTest {
 
     @Before
     public void setUp() throws Exception {
-        localhost = RMIRegistry.getInstance("localhost");
+        localhost = RMIRegistry.getServer();
         localhost.register("test", new InterfaceImpl());
     }
 
     @Test
     public void getService() throws Exception {
-        RMIRegistry.getInstance("localhost").getService("test");
+        AInterface service = (AInterface) RMIRegistry.getClient("localhost").getService("test");
+        service.f();
+        service.str(12);
     }
 
 }
