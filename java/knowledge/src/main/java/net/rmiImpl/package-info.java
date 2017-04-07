@@ -10,6 +10,10 @@
  * <li>Understand why rmi method argument is all serializable</li>
  * <li>Understand that rmi actually has two directions:
  * <ul>
+ * <li>send argument to server, invoke on server, can differ the implementations while
+ * client have a single interface</li>
+ * <li>send class to client, invoke on client, meaningless -- client have to have the interface and
+ * implementation</li>
  * <li>send argument to server, invoke on server -- make use of server computational ability</li>
  * <li>send class to client, invoke on client -- like js, remote code</li>
  * </ul>
