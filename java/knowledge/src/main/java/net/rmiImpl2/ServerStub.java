@@ -7,16 +7,16 @@ import net.rmiImpl.RemoteObj;
  * <p>
  * <h3></h3>
  */
-public class ServerObj {
+public class ServerStub {
 
     private int port;
     private RemoteObj obj;
 
-    public ServerObj(RemoteObj obj) {
+    public ServerStub(RemoteObj obj) {
         this(9000, obj);
     }
 
-    public ServerObj(int port, RemoteObj obj) {
+    public ServerStub(int port, RemoteObj obj) {
         this.port = port;
         this.obj = obj;
     }
