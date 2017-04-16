@@ -19,22 +19,22 @@ public class TriChoice<F, S, T> extends Choice<F, S> {
     @Override
     public void setFirst(F f) {
         super.setFirst(f);
-        setThird(null);
+        third = null;
     }
 
     @Override
     public void setSecond(S s) {
         super.setSecond(s);
-        setThird(null);
+        third = null;
     }
 
     public void setThird(T third) {
         this.third = third;
-        setFirst(null);
-        setSecond(null);
+        super.setFirst(null);
+        super.setSecond(null);
     }
 
     public boolean isThird() {
-        return third == null;
+        return third != null;
     }
 }

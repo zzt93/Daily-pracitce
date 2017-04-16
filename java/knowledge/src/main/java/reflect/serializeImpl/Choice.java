@@ -14,12 +14,12 @@ public class Choice<F, S> {
 
     public void setFirst(F f) {
         this.f = f;
-        setSecond(null);
+        this.s = null;
     }
 
     public void setSecond(S s) {
         this.s = s;
-        setFirst(null);
+        this.f = null;
     }
 
     public F getFirst() {

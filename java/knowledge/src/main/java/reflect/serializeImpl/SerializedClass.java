@@ -59,9 +59,9 @@ public class SerializedClass {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder(name).append("\n");
+        StringBuilder sb = new StringBuilder(name).append(" {\n");
         if (choice.isFirst()) {
-            return sb.toString();
+            // primitive or boxing type, not show content in it
         } else if (choice.isThird()) {
             for (SerializedField serializedField : choice.getThird().values()) {
                 sb.append(serializedField.toString());
@@ -69,7 +69,7 @@ public class SerializedClass {
         } else {
             sb.append(choice.getSecond());
         }
-        sb.append("\n\n");
+        sb.append("}\n\n");
         return sb.toString();
     }
 }

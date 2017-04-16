@@ -1,7 +1,9 @@
 package reflect.serializeImpl;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -17,6 +19,10 @@ public class Serializer {
         return getSerializedObj(o);
     }
 
+    public SerializedClass getClass(Object o) {
+        return getSerializedClass(o.getClass());
+    }
+
     private SerializedObj getSerializedObj(Object o) throws IllegalAccessException {
         if (map.containsKey(o)) {
             return map.get(o);
@@ -24,7 +30,7 @@ public class Serializer {
         Class<?> aClass = o.getClass();
         SerializedClass serializedClass = getSerializedClass(aClass);
         SerializedObj serializedObj;
-        if (aClass.isPrimitive()) {
+        if (aClass.isPrimitive() || Wrapper.contains(aClass)) {
             serializedObj = new SerializedObj(serializedClass, o);
             map.put(o, serializedObj);
             return serializedObj;
@@ -37,7 +43,7 @@ public class Serializer {
             }
             return serializedObj;
         }
-        serializedObj = new SerializedObj(serializedClass);
+        serializedObj = new SerializedObj(true, serializedClass);
         map.put(o, serializedObj);
 
 
@@ -61,7 +67,7 @@ public class Serializer {
             return classes.get(aClass);
         }
         SerializedClass serializedClass;
-        if (aClass.isPrimitive()) {
+        if (aClass.isPrimitive() || Wrapper.contains(aClass)) {
             serializedClass = new SerializedClass(aClass);
             classes.put(aClass, serializedClass);
             return serializedClass;

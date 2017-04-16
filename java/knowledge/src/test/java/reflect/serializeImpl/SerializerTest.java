@@ -19,6 +19,14 @@ public class SerializerTest {
         serializer.serialize(new SerialClassA());
     }
 
+    @org.junit.Test
+    public void serializedClass() throws Exception {
+        System.out.println(serializer.getClass(new SerialClassA()).toString());
+        System.out.println(serializer.getClass(1));
+        System.out.println(serializer.getClass("string"));
+        System.out.println(serializer.getClass("string".toCharArray()));
+    }
+
     @Test
     public void test() throws IllegalAccessException, InstantiationException, ClassNotFoundException {
         int[] ints = new int[4];

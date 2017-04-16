@@ -20,9 +20,14 @@ public class SerializedObj {
         choice.setFirst(value);
     }
 
-    SerializedObj(SerializedClass serializedClass) {
-        this.serializedClass = serializedClass;
+    SerializedObj(SerializedClass elementClass) {
+        this.serializedClass = elementClass;
         choice.setSecond(new HashMap<>());
+    }
+
+    public SerializedObj(boolean third, SerializedClass serializedClass) {
+        this.serializedClass = serializedClass;
+        choice.setThird(new HashMap<>());
     }
 
     public SerializedObj put(SerializedField key, SerializedObj value) {
