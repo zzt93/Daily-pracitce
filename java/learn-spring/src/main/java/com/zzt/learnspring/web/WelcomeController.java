@@ -1,14 +1,7 @@
 package com.zzt.learnspring.web;
 
-/**
- * Created by zzt on 7/17/16.
- * <p>
- * <h3></h3>
- */
 
-import java.util.Map;
-import java.util.Random;
-
+import com.zzt.learnspring.service.HelloWorldService;
 import com.zzt.learnspring.service.UpdateService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zzt.learnspring.service.HelloWorldService;
+import java.util.Map;
+import java.util.Random;
 
+/**
+ * Created by zzt on 7/17/16.
+ * <p>
+ * <h3></h3>
+ */
 @Controller
 public class WelcomeController {
 
