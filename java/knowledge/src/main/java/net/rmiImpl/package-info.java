@@ -12,7 +12,7 @@
  * <ul>
  * <li>send argument to server, invoke on server, can differ the implementations while
  * client have a single interface -- make use of server computational ability</li>
- * <li>send class to client, invoke on client, meaningless -- client have to have the interface and
+ * <li>send class to client, invoke on client, somewhat meaningless -- client have to have the interface and
  * implementation -- -- like js, remote code</li>
  * </ul>
  * </li>
