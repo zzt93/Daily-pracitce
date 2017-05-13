@@ -16,6 +16,9 @@ import java.lang.invoke.MethodHandles;
 @Service
 public class FooService {
 
+    /**
+     * http://localhost:8080/hystrix.stream
+     */
     @HystrixCommand(fallbackMethod = "fallBack")
 //    @Retryable(include = BoomException.class)
     // timeout seems in millisecond
