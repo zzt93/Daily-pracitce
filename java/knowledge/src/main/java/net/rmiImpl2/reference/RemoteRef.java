@@ -15,13 +15,35 @@ import java.util.Set;
 public class RemoteRef {
     private InetAddress address;
     private int port;
+    private String className;
+    private String objHash;
 
-    private Set<Lease> holders = new HashSet<>();
+    public RemoteRef(InetAddress address, int port, String className, String objHash) {
+        this.address = address;
+        this.port = port;
+        this.className = className;
+        this.objHash = objHash;
+    }
 
-    public void remove(Lease lease) {
-        holders.remove(lease);
-        if (holders.isEmpty()) {
-            RemoteTable.remove(this);
-        }
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        RemoteRef remoteRef = (RemoteRef) o;
+
+        if (port != remoteRef.port) return false;
+        if (!address.equals(remoteRef.address)) return false;
+        if (!className.equals(remoteRef.className)) return false;
+        return objHash.equals(remoteRef.objHash);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = address.hashCode();
+        result = 31 * result + port;
+        result = 31 * result + className.hashCode();
+        result = 31 * result + objHash.hashCode();
+        return result;
     }
 }

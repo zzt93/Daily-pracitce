@@ -18,9 +18,13 @@ import java.util.HashMap;
  */
 public class RemoteTable {
 
-    private static HashMap<RemoteRef, Remote> refToProxy = new HashMap<>();
+    private static HashMap<ServerRemoteRef, Remote> refToProxy = new HashMap<>();
 
-    public static Remote remove(RemoteRef key) {
+    public static Remote remove(ServerRemoteRef key) {
         return refToProxy.remove(key);
+    }
+
+    public static Remote get(RemoteRef ref) {
+        return refToProxy.get(new ServerRemoteRef(ref));
     }
 }
