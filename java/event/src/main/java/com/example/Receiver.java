@@ -15,10 +15,13 @@ public class Receiver {
         this.context = context;
     }
 
-    public void receiveMessage(String message) {
+    private void receiveMessage(String message) throws InterruptedException {
         System.out.println("Received <" + message + ">");
         if (message.equals("end")) {
-            context.close();
+            // if close immediately, then last message will be consume multiple time
+            // may be because no ack is sent back?
+//            Thread.sleep(1000);
+//            context.close();
         }
     }
 
