@@ -12,9 +12,9 @@ import java.util.stream.Stream;
 public class SubTree {
 
     public static class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
+        public int val;
+        public TreeNode left;
+        public TreeNode right;
 
         TreeNode(int x) {
             val = x;
@@ -56,7 +56,7 @@ public class SubTree {
         ));
     }
 
-    private static TreeNode makeTree(String string) {
+    public static TreeNode makeTree(String string) {
         String[] ints = Stream.of(string.split(",")).map(String::trim).toArray(String[]::new);
         if (ints.length == 0) {
             return null;

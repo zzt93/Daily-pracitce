@@ -13,11 +13,6 @@
 
     <context:component-scan base-package="com.zzt.learnspring.service"/>
 
-    <aop:aspectj-autoproxy/>
-
-    <!-- Aspect -->
-    <bean id="logAspect" class="com.zzt.aspect.LoggingAspect"/>
-
     <!--autowire by id -->
     <bean id="retryStrategy" class="com.zzt.aspect.DefaultRetryStrategy">
         <constructor-arg index="0" value="4"/>
