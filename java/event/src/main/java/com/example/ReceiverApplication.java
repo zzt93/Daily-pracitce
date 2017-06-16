@@ -13,16 +13,16 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class ReceiverApplication {
     private final static String queueName = "first";
-    @Value("${mq.rabbit.host}")
-    private String mqRabbitHost;
-    @Value("${mq.rabbit.port}")
-    private Integer mqRabbitPort;
-    @Value("${mq.rabbit.username}")
-    private String mqRabbitUsername;
-    @Value("${mq.rabbit.password}")
-    private String mqRabbitPassword;
-    @Value("${mq.rabbit.virtualHost}")
-    private String mqRabbitVirtualHost;
+//    @Value("${mq.rabbit.host}")
+//    private String mqRabbitHost;
+//    @Value("${mq.rabbit.port}")
+//    private Integer mqRabbitPort;
+//    @Value("${mq.rabbit.username}")
+//    private String mqRabbitUsername;
+//    @Value("${mq.rabbit.password}")
+//    private String mqRabbitPassword;
+//    @Value("${mq.rabbit.virtualHost}")
+//    private String mqRabbitVirtualHost;
 
     public static void main(String[] args) {
         SpringApplication.run(ReceiverApplication.class, args);
@@ -43,18 +43,17 @@ public class ReceiverApplication {
         return BindingBuilder.bind(queue).to(exchange).with(queueName);
     }
 
-    // 建立一个连接容器，类型数据库的连接池。
-    @Bean
-    public ConnectionFactory connectionFactory() {
-        CachingConnectionFactory connectionFactory =
-                new CachingConnectionFactory(mqRabbitHost, mqRabbitPort);
-
-        connectionFactory.setUsername(mqRabbitUsername);
-        connectionFactory.setPassword(mqRabbitPassword);
-        connectionFactory.setVirtualHost(mqRabbitVirtualHost);
-
-        return connectionFactory;
-    }
+//    @Bean
+//    public ConnectionFactory connectionFactory() {
+//        CachingConnectionFactory connectionFactory =
+//                new CachingConnectionFactory(mqRabbitHost, mqRabbitPort);
+//
+//        connectionFactory.setUsername(mqRabbitUsername);
+//        connectionFactory.setPassword(mqRabbitPassword);
+//        connectionFactory.setVirtualHost(mqRabbitVirtualHost);
+//
+//        return connectionFactory;
+//    }
 
     @Bean
     SimpleMessageListenerContainer container(ConnectionFactory connectionFactory,
