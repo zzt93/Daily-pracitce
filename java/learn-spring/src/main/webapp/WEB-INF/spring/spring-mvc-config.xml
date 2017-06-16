@@ -19,6 +19,11 @@
         <property name="suffix" value=".jsp" />
     </bean>
 
+    <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basename" value="/resources/messages/message"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+    </bean>
+
     <mvc:resources mapping="/resources/**" location="/resources/" />
 
     <mvc:annotation-driven />
