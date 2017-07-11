@@ -12,33 +12,33 @@ import org.springframework.context.annotation.Bean;
 public class SenderApplication {
 
 	public static String queueName = "first";
-	@Value("${mq.rabbit.host}")
-	private String mqRabbitHost;
-	@Value("${mq.rabbit.port}")
-	private Integer mqRabbitPort;
-	@Value("${mq.rabbit.username}")
-	private String mqRabbitUsername;
-	@Value("${mq.rabbit.password}")
-	private String mqRabbitPassword;
-	@Value("${mq.rabbit.virtualHost}")
-	private String mqRabbitVirtualHost;
+//	@Value("${mq.rabbit.host}")
+//	private String mqRabbitHost;
+//	@Value("${mq.rabbit.port}")
+//	private Integer mqRabbitPort;
+//	@Value("${mq.rabbit.username}")
+//	private String mqRabbitUsername;
+//	@Value("${mq.rabbit.password}")
+//	private String mqRabbitPassword;
+//	@Value("${mq.rabbit.virtualHost}")
+//	private String mqRabbitVirtualHost;
 
     @Bean
     Queue queue() {
         return new Queue(queueName, true);
     }
 
-	@Bean
-	public ConnectionFactory connectionFactory() {
-		CachingConnectionFactory connectionFactory =
-				new CachingConnectionFactory(mqRabbitHost, mqRabbitPort);
-
-		connectionFactory.setUsername(mqRabbitUsername);
-		connectionFactory.setPassword(mqRabbitPassword);
-		connectionFactory.setVirtualHost(mqRabbitVirtualHost);
-
-		return connectionFactory;
-	}
+//	@Bean
+//	public ConnectionFactory connectionFactory() {
+//		CachingConnectionFactory connectionFactory =
+//				new CachingConnectionFactory(mqRabbitHost, mqRabbitPort);
+//
+//		connectionFactory.setUsername(mqRabbitUsername);
+//		connectionFactory.setPassword(mqRabbitPassword);
+//		connectionFactory.setVirtualHost(mqRabbitVirtualHost);
+//
+//		return connectionFactory;
+//	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(SenderApplication.class, args);
