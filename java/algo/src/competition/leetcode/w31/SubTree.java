@@ -16,7 +16,7 @@ public class SubTree {
         public TreeNode left;
         public TreeNode right;
 
-        TreeNode(int x) {
+        public TreeNode(int x) {
             val = x;
         }
     }
@@ -57,6 +57,9 @@ public class SubTree {
     }
 
     public static TreeNode makeTree(String string) {
+        if (string.trim().isEmpty()) {
+            return null;
+        }
         String[] ints = Stream.of(string.split(",")).map(String::trim).toArray(String[]::new);
         if (ints.length == 0) {
             return null;
