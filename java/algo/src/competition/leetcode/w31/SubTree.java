@@ -66,7 +66,8 @@ public class SubTree {
     }
 
     public static TreeNode makeTree(String string) {
-        if (string.trim().isEmpty()) {
+        String trim = string.trim();
+        if (trim.isEmpty() || trim.equals("null")) {
             return null;
         }
         String[] ints = Stream.of(string.split(",")).map(String::trim).toArray(String[]::new);
