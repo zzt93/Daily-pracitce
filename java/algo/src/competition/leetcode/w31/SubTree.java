@@ -98,4 +98,14 @@ public class SubTree {
         }
         return treeNode;
     }
+
+    public static TreeNode copy(TreeNode r) {
+        if (r == null) {
+            return null;
+        }
+        TreeNode res = new TreeNode(r.val);
+        res.left = copy(r.left);
+        res.right = copy(r.right);
+        return res;
+    }
 }
