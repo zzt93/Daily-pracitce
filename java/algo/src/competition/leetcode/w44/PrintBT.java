@@ -24,7 +24,22 @@ public class PrintBT {
         if (root == null) {
             return res;
         }
-        // bfs
+                bfs(root, depth, res);
+//        dfs(root, 0, 0, size, res);
+        return res;
+    }
+
+    private void dfs(TreeNode root, int depth, int s, int e, List<List<String>> res) {
+        if (root == null) {
+            return;
+        }
+        int mid = (s + e) / 2;
+        res.get(depth).set(mid, "" + root.val);
+        dfs(root.left, depth + 1, s, mid, res);
+        dfs(root.right, depth + 1, mid + 1, e, res);
+    }
+
+    private void bfs(TreeNode root, int depth, List<List<String>> res) {
         Deque<TreeNode> queue = new LinkedList<>();
         queue.addLast(root);
         int r = 0, sonI = 0;
@@ -46,7 +61,6 @@ public class PrintBT {
                 sonI = 0;
             }
         }
-        return res;
     }
 
     private int col(int d, int r, int sonI) {
