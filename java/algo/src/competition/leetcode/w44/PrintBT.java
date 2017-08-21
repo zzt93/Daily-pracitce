@@ -8,7 +8,10 @@ import static competition.leetcode.w31.SubTree.makeTree;
 /**
  * Created by zzt on 8/6/17.
  * <p>
- * <h3></h3>
+ * <h3>BFS</h3>
+ * <p>Count the index of node and set line by line</p>
+ * <h3>DFS</h3>
+ * <p>Just calculate the right position of cell, not care index of node</p>
  */
 public class PrintBT {
 
@@ -24,8 +27,8 @@ public class PrintBT {
         if (root == null) {
             return res;
         }
-                bfs(root, depth, res);
-//        dfs(root, 0, 0, size, res);
+//                bfs(root, depth, res);
+        dfs(root, 0, 0, size, res);
         return res;
     }
 
@@ -39,34 +42,34 @@ public class PrintBT {
         dfs(root.right, depth + 1, mid + 1, e, res);
     }
 
-    private void bfs(TreeNode root, int depth, List<List<String>> res) {
-        Deque<TreeNode> queue = new LinkedList<>();
-        queue.addLast(root);
-        int r = 0, sonI = 0;
-        int sum = 1;
-        while (r != depth) {
-            TreeNode poll = queue.pollFirst();
-            sonI++;
-            if (poll != null) {
-                res.get(r).set(col(depth, r, sonI - 1), "" + poll.val);
-                queue.addLast(poll.left);
-                queue.addLast(poll.right);
-            } else {
-                queue.addLast(null);
-                queue.addLast(null);
-            }
-            if (sonI == sum) {
-                r++;
-                sum *= 2;
-                sonI = 0;
-            }
-        }
-    }
+//    private void bfs(TreeNode root, int depth, List<List<String>> res) {
+//        Deque<TreeNode> queue = new LinkedList<>();
+//        queue.addLast(root);
+//        int r = 0, sonI = 0;
+//        int sum = 1;
+//        while (r != depth) {
+//            TreeNode poll = queue.pollFirst();
+//            sonI++;
+//            if (poll != null) {
+//                res.get(r).set(col(depth, r, sonI - 1), "" + poll.val);
+//                queue.addLast(poll.left);
+//                queue.addLast(poll.right);
+//            } else {
+//                queue.addLast(null);
+//                queue.addLast(null);
+//            }
+//            if (sonI == sum) {
+//                r++;
+//                sum *= 2;
+//                sonI = 0;
+//            }
+//        }
+//    }
 
-    private int col(int d, int r, int sonI) {
-        int unit = (int) (Math.pow(2, d - r) - 1);
-        return unit / 2 + sonI * unit + sonI;
-    }
+//    private int col(int d, int r, int sonI) {
+//        int unit = (int) (Math.pow(2, d - r) - 1);
+//        return unit / 2 + sonI * unit + sonI;
+//    }
 
     private int dep(TreeNode root) {
         if (root == null) {
