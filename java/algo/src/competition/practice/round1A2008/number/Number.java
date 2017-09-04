@@ -37,11 +37,12 @@ public class Number {
         double yn = 2 * ints[0] * ints[1];
         // TODO update last part
         double y5n = 0;//+ (2 * ints[0] * ints[1]);
-//        return new int[] {
-//            xn, yn, y5n
-//        };
+        //        return new int[] {
+        //            xn, yn, y5n
+        //        };
         return new int[]{};
     }
+
     private static int mid3(double d) {
         int res = ((int) d);
         return res % 1000;
@@ -59,10 +60,10 @@ public class Number {
         int trail = in.nextInt();
         for (int i = 0; i < trail; i++) {
             int res = 0;//TODO invoke some function
-            out.println("case #" + (i+1) + ": " + res);
+            out.println("case #" + (i + 1) + ": " + res);
         }
-//        BigDecimal bigDecimal = new BigDecimal(base);
-//        System.out.println(bigDecimal.pow(9999999));
-//        System.out.println(Math.pow(base, 5));
+        //        BigDecimal bigDecimal = new BigDecimal(base);
+        //        System.out.println(bigDecimal.pow(9999999));
+        //        System.out.println(Math.pow(base, 5));
     }
 }

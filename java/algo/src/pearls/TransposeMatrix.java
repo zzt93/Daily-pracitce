@@ -113,13 +113,13 @@ public class TransposeMatrix {
     }
 
     public static void main(String[] args) {
-//        correctnessTest();
-                timeTest();
+        //        correctnessTest();
+        timeTest();
     }
 
     private static void correctnessTest() {
         testList(10, true);
-//        testArray(10, true);
+        //        testArray(10, true);
     }
 
     private static void timeTest() {

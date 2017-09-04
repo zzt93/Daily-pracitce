@@ -73,7 +73,8 @@ public class Bins {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder().append("Bins(").append(size).append("):\n");
+        final StringBuilder builder = new StringBuilder().append("Bins(").append(size).append(")" +
+                ":\n");
         for (ListNode head : bin) {
             for (ListNode p = head; p != sentinel; p = p.getNext()) {
                 builder.append(p.getVal()).append("->");

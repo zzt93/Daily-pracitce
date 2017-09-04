@@ -1,10 +1,11 @@
 package interview.leetcode._10x;
 
+import competition.leetcode.TreeNode;
+
 import java.util.Collections;
 import java.util.List;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.makeTree;
+import static competition.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/30/17.
@@ -16,7 +17,7 @@ public class BTZigzagLevelOrder {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
         BinaryTreeLevelOrder order = new BinaryTreeLevelOrder();
         List<List<Integer>> lists = order.levelOrder(root);
-        for (int i = 1; i < lists.size(); i+=2) {
+        for (int i = 1; i < lists.size(); i += 2) {
             List<Integer> integers = lists.get(i);
             Collections.reverse(integers);
         }

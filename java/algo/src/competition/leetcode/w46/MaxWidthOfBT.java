@@ -1,11 +1,12 @@
 package competition.leetcode.w46;
 
+import competition.leetcode.TreeNode;
+
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.makeTree;
+import static competition.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/20/17.
@@ -13,6 +14,7 @@ import static competition.leetcode.w31.SubTree.makeTree;
  * <h3>Index of node in BT</h3>
  * <p>Count index of node by father index and isLeft</p>
  * <p>Different with {@link competition.leetcode.w44.PrintBT}</p>
+ *
  * @see competition.leetcode.w44.PrintBT
  */
 public class MaxWidthOfBT {

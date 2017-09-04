@@ -16,7 +16,7 @@ public class dijkstra {
     private static HashMap<Chars, String> map = new HashMap<Chars, String>(16);
 
     public static boolean dijkstra(String s, int times) {
-        StringBuilder builder = new StringBuilder(s.length()*times);
+        StringBuilder builder = new StringBuilder(s.length() * times);
         for (int i = 0; i < times; i++) {
             builder.append(s);
         }
@@ -51,7 +51,7 @@ public class dijkstra {
                 return true;
             }
 
-            forNow = minusCheck(multiply("i", ""+builder.charAt(lasti+1)));
+            forNow = minusCheck(multiply("i", "" + builder.charAt(lasti + 1)));
         }
         return false;
     }
@@ -98,9 +98,9 @@ public class dijkstra {
             String line = in.nextLine();
             boolean res = dijkstra(line, times);
             if (res) {
-                out.println("case #" + (i+1) + ": YES");
+                out.println("case #" + (i + 1) + ": YES");
             } else {
-                out.println("case #" + (i+1) + ": NO");
+                out.println("case #" + (i + 1) + ": NO");
             }
         }
     }

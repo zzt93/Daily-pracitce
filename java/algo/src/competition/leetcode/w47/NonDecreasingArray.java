@@ -24,7 +24,7 @@ public class NonDecreasingArray {
         if (x == 0 || x + 1 == n.length - 1) {
             return true;
         }
-        if (n[x-1] <= n[x+1] || n[x] <= n[x+2]) {
+        if (n[x - 1] <= n[x + 1] || n[x] <= n[x + 2]) {
             return true;
         }
         return false;

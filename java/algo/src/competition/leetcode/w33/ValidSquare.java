@@ -30,7 +30,8 @@ public class ValidSquare {
             }
         }
         if (map.size() == 2) {
-            return map.values().stream().findFirst().filter(integer -> integer == 2 || integer == 4).isPresent();
+            return map.values().stream().findFirst().filter(integer -> integer == 2 || integer ==
+                    4).isPresent();
         }
         return false;
     }
@@ -44,7 +45,9 @@ public class ValidSquare {
 
     public static void main(String[] args) {
         ValidSquare validSquare = new ValidSquare();
-        System.out.println(validSquare.validSquare(new int[]{0, 0}, new int[]{1, 1}, new int[]{1, 0}, new int[]{0, 1}));
-        System.out.println(validSquare.validSquare(new int[]{0, 0}, new int[]{1, 1}, new int[]{1, -1}, new int[]{2, 0}));
+        System.out.println(validSquare.validSquare(new int[]{0, 0}, new int[]{1, 1}, new int[]{1,
+                0}, new int[]{0, 1}));
+        System.out.println(validSquare.validSquare(new int[]{0, 0}, new int[]{1, 1}, new int[]{1,
+                -1}, new int[]{2, 0}));
     }
 }

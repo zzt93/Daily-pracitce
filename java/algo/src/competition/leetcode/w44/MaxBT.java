@@ -1,7 +1,7 @@
 package competition.leetcode.w44;
 
 
-import static competition.leetcode.w31.SubTree.TreeNode;
+import competition.leetcode.TreeNode;
 
 /**
  * Created by zzt on 8/6/17.

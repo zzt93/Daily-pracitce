@@ -20,8 +20,10 @@ public class SwapNonAdjacent {
         if (fs + fl > ss || ss + sl > a.length) {
             throw new IllegalArgumentException();
         }
-        RotateArray.recursiveRotate(a, fs, ss + sl, new RotateArray.Rotation(sl, RotateArray.Direction.RIGHT));
-        RotateArray.recursiveRotate(a, fs + sl, ss + sl, new RotateArray.Rotation(fl, RotateArray.Direction.LEFT));
+        RotateArray.recursiveRotate(a, fs, ss + sl, new RotateArray.Rotation(sl, RotateArray
+                .Direction.RIGHT));
+        RotateArray.recursiveRotate(a, fs + sl, ss + sl, new RotateArray.Rotation(fl, RotateArray
+                .Direction.LEFT));
     }
 
     public static void main(String[] args) {

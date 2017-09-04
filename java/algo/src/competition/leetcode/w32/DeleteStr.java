@@ -36,10 +36,10 @@ public class DeleteStr {
 
     public static void main(String[] args) {
         DeleteStr deleteStr = new DeleteStr();
-//        System.out.println(deleteStr.minDistance("abc", "aec"));
-//        System.out.println(deleteStr.minDistance("sea", "eat"));
-//        System.out.println(deleteStr.minDistance("sea", "eat"));
-//        System.out.println(deleteStr.minDistance("agcat", "gac"));
+        //        System.out.println(deleteStr.minDistance("abc", "aec"));
+        //        System.out.println(deleteStr.minDistance("sea", "eat"));
+        //        System.out.println(deleteStr.minDistance("sea", "eat"));
+        //        System.out.println(deleteStr.minDistance("agcat", "gac"));
         System.out.println(deleteStr.minDistance("xmjyauz", "mzjawxu"));
     }
 }

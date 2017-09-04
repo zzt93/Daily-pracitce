@@ -132,8 +132,9 @@ public class MaxOfSum {
     }
 
     public static void main(String[] args) {
-//        int[] t = {-8, 0, 16, 15, 48, -24, 14, -34, 33, -1, 30, -11, 4, 30, 27, -30, 3, 33, -6, -7, };
-//        showTest(t);
+        //        int[] t = {-8, 0, 16, 15, 48, -24, 14, -34, 33, -1, 30, -11, 4, 30, 27, -30, 3,
+        // 33, -6, -7, };
+        //        showTest(t);
         randomTest();
         //        testAll();
     }

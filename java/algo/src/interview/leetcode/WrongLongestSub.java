@@ -1,7 +1,5 @@
 package interview.leetcode;
 
-import competition.utility.RandomStr;
-
 /**
  * Created by zzt on 4/11/16.
  * <p>

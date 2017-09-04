@@ -18,7 +18,7 @@ public class cancake {
     public static int cancake(int size, ArrayList<Integer> diners) {
         assert size == diners.size();
         // if all of those are smaller than 3
-        Integer max = diners.get(size-1);
+        Integer max = diners.get(size - 1);
         if (max <= 3) {
             return max;
         }
@@ -41,7 +41,7 @@ public class cancake {
     }
 
     private static int maxHalf(ArrayList<Integer> diners) {
-        int half = (int) Math.ceil(diners.get(diners.size()-1) * 1.0/2);
+        int half = (int) Math.ceil(diners.get(diners.size() - 1) * 1.0 / 2);
         int count = 0;
         for (Integer diner : diners) {
             if (diner > half) {
@@ -60,9 +60,9 @@ public class cancake {
             if (diner == aim) {
                 res--;
                 count++;
-//            } else if (reminder >= diner) {
-//                res--;
-//                count++;
+                //            } else if (reminder >= diner) {
+                //                res--;
+                //                count++;
             }
         }
         if (ArrayUtility.binarySearch(diners, 0, diners.size(), reminder) != -1) {
@@ -101,7 +101,7 @@ public class cancake {
             ArrayList<Integer> diners = in.oneLineToInt(" ");
             Collections.sort(diners);
             int res = cancake(size, diners);
-            out.println("case #" + (i+1) + ": " + res);
+            out.println("case #" + (i + 1) + ": " + res);
         }
     }
 }

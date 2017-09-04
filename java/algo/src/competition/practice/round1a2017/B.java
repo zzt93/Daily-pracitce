@@ -42,7 +42,8 @@ public class B {
         }
     }
 
-    private static long kit(ArrayList<Integer> ingredients, ArrayList<ArrayList<Integer>> packages) {
+    private static long kit(ArrayList<Integer> ingredients, ArrayList<ArrayList<Integer>>
+            packages) {
         return 0;
     }
 

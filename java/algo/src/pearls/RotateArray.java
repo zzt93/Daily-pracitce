@@ -112,12 +112,12 @@ public class RotateArray<T> {
 
     private void reverse(T[] array, int start, int len) {
         reverseFor(array, start, len);
-//        if (len <= 1) {
-//            return;
-//        }
-//        int last = start + len - 1;
-//        swap(array, start, last);
-//        reverse(array, start + 1, len - 2);
+        //        if (len <= 1) {
+        //            return;
+        //        }
+        //        int last = start + len - 1;
+        //        swap(array, start, last);
+        //        reverse(array, start + 1, len - 2);
     }
 
     private void reverseFor(T[] array, int start, int len) {
@@ -259,7 +259,7 @@ public class RotateArray<T> {
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-//        System.in.read();
+        //        System.in.read();
 
         for (int i = 100; i < SIZE; i += 100) {
             timeTest(i, i / 3);
@@ -287,7 +287,7 @@ public class RotateArray<T> {
         start = System.nanoTime();
         rotateArray.rotate2(Direction.RIGHT, n);
         System.out.println("reverse  " + (System.nanoTime() - start));
-//                System.out.println(Arrays.toString(rotateArray.array));
+        //                System.out.println(Arrays.toString(rotateArray.array));
 
         Thread.sleep(100);
 

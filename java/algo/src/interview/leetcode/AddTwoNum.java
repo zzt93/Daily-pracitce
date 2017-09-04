@@ -44,12 +44,4 @@ public class AddTwoNum {
         return start.next;
     }
 
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 }

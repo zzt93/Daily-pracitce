@@ -8,7 +8,7 @@ import java.util.function.Consumer;
  * <p>
  * <h3></h3>
  */
-public class SortedList2 implements SortedList{
+public class SortedList2 implements SortedList {
 
     private static Random random = new Random(12);
     private int size;
@@ -32,7 +32,8 @@ public class SortedList2 implements SortedList{
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder().append("SortedList2(").append(size).append("):");
+        final StringBuilder builder = new StringBuilder().append("SortedList2(").append(size)
+                .append("):");
         for (ListNode p = head; p != sentinel; p = p.getNext()) {
             builder.append(p.getVal()).append("->");
         }

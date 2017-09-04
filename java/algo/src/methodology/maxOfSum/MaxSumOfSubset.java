@@ -2,7 +2,8 @@ package methodology.maxOfSum;
 /**
  * author:zzt
  * date:2014.7.10
- * description: find the maximum of sum of a successive subset in a set; eg.{21, -9, -4, 28, -29, 45, 83}
+ * description: find the maximum of sum of a successive subset in a set; eg.{21, -9, -4, 28, -29,
+ * 45, 83}
  * version:0.1 -- trimming algorithm
  * <p>
  * update:2014.9.28
@@ -47,7 +48,8 @@ public class MaxSumOfSubset {
             }
         }
 
-        //check whether it is all be trimed already -- all negative or all positive case or {-, - , +, +, ...,+ , +, -}
+        //check whether it is all be trimed already -- all negative or all positive case or {-, -
+        // , +, +, ...,+ , +, -}
         if (allPositive()) {
             return addAll(set);
         }
@@ -96,13 +98,16 @@ public class MaxSumOfSubset {
             for (int j = separator[i] + 1; j < separator[i + 1]; ++j) {
                 sum += set.get(j);
             }
-            if (separator[i] + 1 != separator[i + 1]) {//not the case of adjacent negative/positive number
+            if (separator[i] + 1 != separator[i + 1]) {//not the case of adjacent
+                // negative/positive number
                 temp.add(sum);
             }
-            if (separator[i + 1] != set.size()) {//keep the negative number in the mid of set and avoid adding the set.size()
+            if (separator[i + 1] != set.size()) {//keep the negative number in the mid of set and
+                // avoid adding the set.size()
                 temp.add(set.get(separator[i + 1]));
             } else {
-                break;// Usually, the i+1 is far smaller than separator.length, so let the set.size to be the sentinel
+                break;// Usually, the i+1 is far smaller than separator.length, so let the set
+                // .size to be the sentinel
             }
         }
         set.clear();
@@ -143,6 +148,7 @@ public class MaxSumOfSubset {
     }
 
     public static void main(String[] argv) {
-        new MaxSumOfSubset(new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0, -7.0, 8.0, 9.0))).parts();
+        new MaxSumOfSubset(new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0,
+                -7.0, 8.0, 9.0))).parts();
     }
 }

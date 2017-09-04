@@ -5,7 +5,7 @@ package pearls.searching;
  * <p>
  * <h3></h3>
  */
-public class SortedList0 implements SortedList{
+public class SortedList0 implements SortedList {
 
     private ListNode head;
     private int size = 0;
@@ -35,7 +35,8 @@ public class SortedList0 implements SortedList{
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder().append("SortedList0(").append(size).append("):");
+        final StringBuilder builder = new StringBuilder().append("SortedList0(").append(size)
+                .append("):");
         for (ListNode p = head; p != null; p = p.getNext()) {
             builder.append(p.getVal()).append("->");
         }

@@ -45,7 +45,8 @@ public class ClosestSum {
 
     /**
      * <h3>Answer for Variant</h3>
-     * <li>not closest, but largest possible which smaller than aim(<=) -- only find floor element</li>
+     * <li>not closest, but largest possible which smaller than aim(<=) -- only find floor
+     * element</li>
      * <li>(>=) -- only find ceiling element</li>
      * <li>not sub-vector, but sub-sequence
      * -- can't use this method, prefix sum is only apply to sub-vector</li>

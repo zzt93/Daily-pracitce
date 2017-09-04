@@ -33,7 +33,8 @@ public class Stall {
     }
 
     private static long[] stall(long n, long k) {
-        PriorityQueue<Long> heap = new PriorityQueue<>(Comparator.comparingLong(Long::longValue).reversed());
+        PriorityQueue<Long> heap = new PriorityQueue<>(Comparator.comparingLong(Long::longValue)
+                .reversed());
         heap.add(n);
         long gap = heap.poll();
         long l = 0;
@@ -49,7 +50,8 @@ public class Stall {
     }
 
     private static long[] stall2(long n, long k) {
-        PriorityQueue<Long> heap = new PriorityQueue<>(Comparator.comparingLong(Long::longValue).reversed());
+        PriorityQueue<Long> heap = new PriorityQueue<>(Comparator.comparingLong(Long::longValue)
+                .reversed());
         heap.add(n);
         long gap = heap.poll();
         long l = 0;

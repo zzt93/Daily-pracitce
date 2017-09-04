@@ -4,7 +4,10 @@ import competition.utility.MyIn;
 import competition.utility.MyOut;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.PriorityQueue;
 
 /**
  * Created by zzt on 5/9/16.
@@ -66,7 +69,7 @@ public class LaunchApp {
         return res;
     }
 
-    private static class Server implements Comparable<Server>{
+    private static class Server implements Comparable<Server> {
 
         private final Integer dis;
         private PriorityQueue<Integer> apps = new PriorityQueue<>();

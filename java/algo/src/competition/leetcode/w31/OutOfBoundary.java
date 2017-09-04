@@ -119,11 +119,11 @@ public class OutOfBoundary {
     public static void main(String[] args) {
         OutOfBoundary outOfBoundary = new OutOfBoundary();
         //                System.out.println(outOfBoundary.findPaths(2, 2, 2, 0, 0));
-//        System.out.println(outOfBoundary.findPaths(2, 3, 6, 0, 0));
-//        for (int i = 0; i < 6; i++) {
-//            System.out.println(outOfBoundary.findPaths(2, 3, i + 1, 0, 0));
-//        }
+        //        System.out.println(outOfBoundary.findPaths(2, 3, 6, 0, 0));
+        //        for (int i = 0; i < 6; i++) {
+        //            System.out.println(outOfBoundary.findPaths(2, 3, i + 1, 0, 0));
+        //        }
         //                System.out.println(outOfBoundary.findPaths(1, 3, 3, 0, 1));
-                        System.out.println(outOfBoundary.findPaths(8, 7, 16, 1, 5));
+        System.out.println(outOfBoundary.findPaths(8, 7, 16, 1, 5));
     }
 }

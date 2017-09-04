@@ -1,8 +1,8 @@
 package competition.leetcode.w46;
 
-import java.util.HashMap;
+import competition.leetcode.TreeNode;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
+import java.util.HashMap;
 
 
 /**

@@ -1,10 +1,8 @@
 package pearls;
 
 import com.google.common.collect.Ordering;
-import competition.utility.ArrayUtility;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -71,7 +69,7 @@ public class Heap {
                 if (a[ti] > a[i]) {
                     swap(i, ti);
                     i = ti;
-                }  else {
+                } else {
                     break;
                 }
             }
@@ -110,7 +108,8 @@ public class Heap {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder().append("Heap(").append(size).append("):\n");
+        final StringBuilder builder = new StringBuilder().append("Heap(").append(size).append(")" +
+                ":\n");
         int i = 1;
         int sum = i;
         for (int j = 1; j <= size; j++) {
@@ -125,6 +124,7 @@ public class Heap {
     }
 
     public static Random random = new Random(12);
+
     public static void main(String[] args) {
         final Heap heap = new Heap(1000);
         for (int i = 0; i < 100; i++) {

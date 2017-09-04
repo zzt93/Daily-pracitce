@@ -36,7 +36,8 @@ public class MedianOfTwoSorted {
     }
 
     private double getPlainMedian(int[] ints) {
-        return ints.length % 2 == 0 ? (ints[ints.length / 2] + ints[ints.length / 2 - 1]) / 2.0 : ints[ints.length / 2];
+        return ints.length % 2 == 0 ? (ints[ints.length / 2] + ints[ints.length / 2 - 1]) / 2.0 :
+                ints[ints.length / 2];
     }
 
     public double find(int[] half, int[] aim, int target) {
@@ -59,7 +60,8 @@ public class MedianOfTwoSorted {
             return find(subArray(aim, 0, lessMedianCount), subArray(half, 0, index), target);
         } else {
             // (lessMedianCount + index < target)
-            return find(subArray(aim, lessMedianCount, aim.length), subArray(half, index, half.length), target - lessMedianCount - index);
+            return find(subArray(aim, lessMedianCount, aim.length), subArray(half, index, half
+                    .length), target - lessMedianCount - index);
         }
     }
 

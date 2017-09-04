@@ -16,7 +16,7 @@ public class Chars {
 
     @Override
     public int hashCode() {
-        return f.charAt(f.length()-1) * 10 + s.charAt(s.length()-1);
+        return f.charAt(f.length() - 1) * 10 + s.charAt(s.length() - 1);
     }
 
     @Override

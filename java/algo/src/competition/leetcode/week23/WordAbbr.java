@@ -122,6 +122,7 @@ public class WordAbbr {
 
     public static void main(String[] args) {
         final WordAbbr wordAbbr = new WordAbbr();
-        System.out.println(wordAbbr.wordsAbbreviation(Lists.newArrayList("like", "god", "internal", "me", "internet", "interval", "intension", "face", "intrusion")));
+        System.out.println(wordAbbr.wordsAbbreviation(Lists.newArrayList("like", "god",
+                "internal", "me", "internet", "interval", "intension", "face", "intrusion")));
     }
 }

@@ -25,15 +25,16 @@ import java.util.Random;
  * <br>
  * Output
  * <br>
- * For each test case, output one line containing "Case #x: y", where x is the case number (starting from 1) and y is
- * either "Yes" or "No", depending on whether the League members mentioned in the input can be split into two groups
+ * For each test case, output one line containing "Case #x: y", where x is the case number (starting
+ * from 1) and y is
+ * either "Yes" or "No", depending on whether the League members mentioned in the input can be split
+ * into two groups
  * with neither of the groups containing a troublesome pair.
- *
+ * <p>
  * <p></p>
  * <strong>Better algo: coloring this graph</strong>
  * This algorithm can work for small input, but takes too long for
  * large input and may fail in large input.
- *
  */
 public class BadHorse {
 
@@ -42,56 +43,65 @@ public class BadHorse {
     public static final int TRIANGLE = 3;
     private static Random random = new Random(47);
 
-//    /**
-//     * This method is <strong>wrong</strong> for different merge orders will
-//     * give different results
-//     * <p>
-//     * merge vertex until only two edge or fail
-//     *
-//     * @param graph -- node represent by int index
-//     *              only the upper half triangle.
-//     *              <p>
-//     *              merge two vertices will update `a1 -> x1 ->c`
-//     *              <p>
-//     *              <pre>
-//     *                                                                                            0 ...... a1 ...b
-//     *                                                                                            0 x      .     .
-//     *                                                                                            .   \    .     .
-//     *                                                                                            .     \  .     .
-//     *                                                                                            a  ..... x1 ....c
-//     *                                                                                            .        . \   .
-//     *                                                                                            .        .   \ .
-//     *                                                                                            b .............x
-//     *                                                                                            </pre>
-//     * @return whether it can split into two class
-//     */
-//    private static boolean mergeGraph(ArrayList<int[]> graph) {
-//        int count = 0;
-//        for (int later = graph.size() - 1; later >= 0; later--) {
-//            int[] merge_from = graph.get(later);
-//            // loop over merge_from to find no edge vertex
-//            for (int target : merge_from) {
-//                if (target == NO_EDGE) {
-//                    // merge two vertices
-//                    final int[] to_merge = graph.get(target);
-//                    // change the merged target vertex
-//                    for (int k = 0; k < to_merge.length; k++) {
-//                        to_merge[k] += merge_from[k];
-//                    }
-//                    // change symmetric vertex and edges
-//                    for (int node = target + 1; node < later; node++) {
-//                        graph.get(node)[target] += merge_from[node];
-//                    }
-//                } else {
-//                    count++;
-//                }
-//                if (count >= 2) {
-//                    return false;
-//                }
-//            }
-//        }
-//        return false;
-//    }
+    //    /**
+    //     * This method is <strong>wrong</strong> for different merge orders will
+    //     * give different results
+    //     * <p>
+    //     * merge vertex until only two edge or fail
+    //     *
+    //     * @param graph -- node represent by int index
+    //     *              only the upper half triangle.
+    //     *              <p>
+    //     *              merge two vertices will update `a1 -> x1 ->c`
+    //     *              <p>
+    //     *              <pre>
+    //     *
+    //       0 ...... a1 ...b
+    //     *
+    //       0 x      .     .
+    //     *
+    //       .   \    .     .
+    //     *
+    //       .     \  .     .
+    //     *
+    //       a  ..... x1 ....c
+    //     *
+    //       .        . \   .
+    //     *
+    //       .        .   \ .
+    //     *
+    //       b .............x
+    //     *
+    //       </pre>
+    //     * @return whether it can split into two class
+    //     */
+    //    private static boolean mergeGraph(ArrayList<int[]> graph) {
+    //        int count = 0;
+    //        for (int later = graph.size() - 1; later >= 0; later--) {
+    //            int[] merge_from = graph.get(later);
+    //            // loop over merge_from to find no edge vertex
+    //            for (int target : merge_from) {
+    //                if (target == NO_EDGE) {
+    //                    // merge two vertices
+    //                    final int[] to_merge = graph.get(target);
+    //                    // change the merged target vertex
+    //                    for (int k = 0; k < to_merge.length; k++) {
+    //                        to_merge[k] += merge_from[k];
+    //                    }
+    //                    // change symmetric vertex and edges
+    //                    for (int node = target + 1; node < later; node++) {
+    //                        graph.get(node)[target] += merge_from[node];
+    //                    }
+    //                } else {
+    //                    count++;
+    //                }
+    //                if (count >= 2) {
+    //                    return false;
+    //                }
+    //            }
+    //        }
+    //        return false;
+    //    }
 
     public static int maxCut(LinkedList<FixedContainer<Integer>> matrix) {
         int cut = 0;
@@ -106,7 +116,8 @@ public class BadHorse {
         return cut;
     }
 
-    private static LinkedList<FixedContainer<Integer>> deepDupMatrix(LinkedList<FixedContainer<Integer>> matrix) {
+    private static LinkedList<FixedContainer<Integer>> deepDupMatrix
+            (LinkedList<FixedContainer<Integer>> matrix) {
         LinkedList<FixedContainer<Integer>> res = new LinkedList<>();
         for (FixedContainer<Integer> integerFixedContainer : matrix) {
             res.add(new FixedContainer<>(integerFixedContainer));
@@ -142,7 +153,8 @@ public class BadHorse {
         return matrix.get(1).get(0);
     }
 
-    private static int mergeVertices(LinkedList<FixedContainer<Integer>> matrix, int vertex1, int vertex2) {
+    private static int mergeVertices(LinkedList<FixedContainer<Integer>> matrix, int vertex1, int
+            vertex2) {
         int large = Math.max(vertex1, vertex2);
         int small = Math.min(vertex1, vertex2);
         FixedContainer<Integer> to_merge = matrix.get(small);
@@ -165,7 +177,7 @@ public class BadHorse {
     }
 
     public static void main(String[] args) {
-//        System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
+        //        System.out.println(Paths.get(".").toAbsolutePath().normalize().toString());
         MyIn in;
         MyOut out = new MyOut("res");
         try {
@@ -233,6 +245,7 @@ public class BadHorse {
      * count number of vertices which have edges to all other vertices
      *
      * @param matrix -- half of vertices
+     *
      * @return -- the number
      */
     private static long countAllEdgedVertex(LinkedList<FixedContainer<Integer>> matrix) {

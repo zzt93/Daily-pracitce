@@ -45,13 +45,15 @@ public class ShortestUnsortedSubArray {
 
     public static void main(String[] args) {
         ShortestUnsortedSubArray array = new ShortestUnsortedSubArray();
-//        System.out.println(array.findUnsortedSubarray(new int[]{2, 6, 4, 8, 10, 9, 15}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{1}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 5, 4, 3}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 5, 4, 3, 4, 5}));
-//        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 6, 5, 5, 4, 3, 4, 5}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{2, 6, 4, 8, 10, 9, 15}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{1}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 5, 4, 3}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 5, 4, 3,
+        // 4, 5}));
+        //        System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 4, 6, 6, 5, 5,
+        // 4, 3, 4, 5}));
         System.out.println(array.findUnsortedSubarray(new int[]{1, 2, 3, 3, 4, 6, 5, 4, 3, 4, 5}));
         System.out.println(array.findUnsortedSubarray(new int[]{3, 3, 3, 3, 4, 6, 5, 4, 3, 4, 5}));
         System.out.println(array.findUnsortedSubarray(new int[]{3, 3, 3, 3, 3}));

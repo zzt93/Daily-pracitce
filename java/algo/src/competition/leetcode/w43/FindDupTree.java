@@ -1,6 +1,6 @@
 package competition.leetcode.w43;
 
-import competition.leetcode.w31.SubTree;
+import competition.leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,14 +14,14 @@ import java.util.List;
  */
 public class FindDupTree {
 
-    public List<SubTree.TreeNode> findDuplicateSubtrees(SubTree.TreeNode root) {
-        ArrayList<SubTree.TreeNode> nodes = new ArrayList<>();
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        ArrayList<TreeNode> nodes = new ArrayList<>();
         if (root == null) {
             return nodes;
         }
-        HashMap<SubTree.TreeNode, Integer> height = new HashMap<>();
+        HashMap<TreeNode, Integer> height = new HashMap<>();
         dfs(root, nodes, height);
-        List<SubTree.TreeNode> res = new ArrayList<>();
+        List<TreeNode> res = new ArrayList<>();
         HashSet<Integer> toSkip = new HashSet<>();
 
         for (int i = 0; i < nodes.size(); i++) {
@@ -29,10 +29,10 @@ public class FindDupTree {
             if (toSkip.contains(i)) {
                 continue;
             }
-            SubTree.TreeNode node = nodes.get(i);
+            TreeNode node = nodes.get(i);
             for (int x = i + 1; x < nodes.size(); x++) {
-                SubTree.TreeNode inner = nodes.get(x);
-                if (height.get(node) != height.get(inner)){
+                TreeNode inner = nodes.get(x);
+                if (height.get(node) != height.get(inner)) {
                     continue;
                 }
                 if (same(node, inner)) {
@@ -49,7 +49,7 @@ public class FindDupTree {
         return res;
     }
 
-    private int dfs(SubTree.TreeNode root, ArrayList<SubTree.TreeNode> nodes, HashMap<SubTree.TreeNode, Integer> height) {
+    private int dfs(TreeNode root, ArrayList<TreeNode> nodes, HashMap<TreeNode, Integer> height) {
         if (root == null) {
             return 0;
         }
@@ -62,7 +62,7 @@ public class FindDupTree {
     }
 
 
-    private boolean same(SubTree.TreeNode r1, SubTree.TreeNode r2) {
+    private boolean same(TreeNode r1, TreeNode r2) {
         if (r1 == null && r2 == null) {
             return true;
         }
@@ -72,7 +72,8 @@ public class FindDupTree {
         return r1.val == r2.val && same(r1.left, r2.left) && same(r1.right, r2.right);
     }
 
-    //    private boolean same(SubTree.TreeNode r1, SubTree.TreeNode r2, HashMap<SubTree.TreeNode, HashMap<SubTree.TreeNode, Boolean>> dp) {
+    //    private boolean same(SubTree.TreeNode r1, SubTree.TreeNode r2, HashMap<SubTree
+    // .TreeNode, HashMap<SubTree.TreeNode, Boolean>> dp) {
     //        if (r1 == null && r2 == null) {
     //            return true;
     //        }
@@ -84,7 +85,8 @@ public class FindDupTree {
     //        } else if (dp.containsKey(r2) && dp.get(r2).containsKey(r1)) {
     //            return dp.get(r2).get(r1);
     //        }
-    //        boolean b = r1.val == r2.val && same(r1.left, r2.left, dp) && same(r1.right, r2.right, dp);
+    //        boolean b = r1.val == r2.val && same(r1.left, r2.left, dp) && same(r1.right,
+    // r2.right, dp);
     //        HashMap<SubTree.TreeNode, Boolean> value = new HashMap<>();
     //        HashMap<SubTree.TreeNode, Boolean> value2 = new HashMap<>();
     //        value.put(r2, b);
@@ -96,9 +98,175 @@ public class FindDupTree {
 
     public static void main(String[] args) {
         FindDupTree findDupTree = new FindDupTree();
-        System.out.println(findDupTree.findDuplicateSubtrees(SubTree.makeTree("0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,0")));
-        System.out.println(findDupTree.findDuplicateSubtrees(SubTree.makeTree("0,0,0,0,null,null,0,0,0,0,0")));
-        System.out.println(findDupTree.findDuplicateSubtrees(SubTree.makeTree("1,2,3,4,null,2,4,null,null,4")));
-        System.out.println(findDupTree.findDuplicateSubtrees(SubTree.makeTree("1,2,2")));
+        System.out.println(findDupTree.findDuplicateSubtrees(TreeNode.makeTree("0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0,null,0," +
+                "null,0,null,0,null,0,null,0,null,0,null,0,null,0,0")));
+        System.out.println(findDupTree.findDuplicateSubtrees(TreeNode.makeTree("0,0,0,0,null," +
+                "null,0,0,0,0,0")));
+        System.out.println(findDupTree.findDuplicateSubtrees(TreeNode.makeTree("1,2,3,4,null,2,4," +
+                "null,null,4")));
+        System.out.println(findDupTree.findDuplicateSubtrees(TreeNode.makeTree("1,2,2")));
     }
 }

@@ -4,7 +4,6 @@ import competition.utility.MyIn;
 import competition.utility.MyOut;
 
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.TreeSet;
 
@@ -73,7 +72,8 @@ public class SafeSquares {
         return sum;
     }
 
-    private static int findMax(int i, int j, int r, int c, TreeSet<Integer>[] rowMap, TreeSet<Integer>[] colMap, int[][] dp) {
+    private static int findMax(int i, int j, int r, int c, TreeSet<Integer>[] rowMap,
+                               TreeSet<Integer>[] colMap, int[][] dp) {
         if (i == r || j == c) {
             return 0;
         }

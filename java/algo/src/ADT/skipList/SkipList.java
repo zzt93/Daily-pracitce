@@ -224,6 +224,6 @@ public class SkipList<T extends Comparable<T>> {
             skipList.remove(i);
             assert !skipList.contain(i);
         }
-//        System.out.println(skipList.toString());
+        //        System.out.println(skipList.toString());
     }
 }

@@ -39,7 +39,7 @@ public class ovation {
         for (int i = 0; i < trail; i++) {
             in.next();
             int res = ovation(in.next());
-            out.println("case #" + (i+1) + ": " + res);
+            out.println("case #" + (i + 1) + ": " + res);
         }
     }
 }

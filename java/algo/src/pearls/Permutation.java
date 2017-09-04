@@ -38,12 +38,13 @@ public class Permutation {
     }
 
     /**
-     * @implNote Thought: every element in the array have two fate: selected or not
-     * @param list source
-     * @param resI result index
-     * @param srcI source index
+     * @param list      source
+     * @param resI      result index
+     * @param srcI      source index
      * @param remaining to finish
-     * @param res result
+     * @param res       result
+     *
+     * @implNote Thought: every element in the array have two fate: selected or not
      */
     private static void Cnm(ArrayList<Integer> list, int resI, int srcI, int remaining, int[] res) {
         if (remaining == 0) {

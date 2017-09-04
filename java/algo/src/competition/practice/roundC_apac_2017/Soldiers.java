@@ -12,7 +12,6 @@ import java.util.TreeSet;
  * <p>
  * <h3>Solution</h3>
  * 从结论推到条件：choose largest both in x, y -- win; largest in x or y -- lose;
- *
  */
 @Deprecated
 public class Soldiers {
@@ -110,7 +109,8 @@ public class Soldiers {
 
     }
 
-    private static boolean aTravel(NavigableSet<XView> xViews, NavigableSet<YView> yViews, XView xM, YView yM) {
+    private static boolean aTravel(NavigableSet<XView> xViews, NavigableSet<YView> yViews, XView
+            xM, YView yM) {
         final NavigableSet<XView> newXView = xViews.tailSet(xM, false);
         final NavigableSet<YView> newYView = yViews.tailSet(yM, false);
         int oldx = xM.getX();
@@ -136,7 +136,8 @@ public class Soldiers {
         return false;
     }
 
-    private static boolean bTravel(NavigableSet<XView> xViews, NavigableSet<YView> yViews, XView xM, YView yM) {
+    private static boolean bTravel(NavigableSet<XView> xViews, NavigableSet<YView> yViews, XView
+            xM, YView yM) {
         //        for (int i = 0; i < p.length; i++) {
         //            if (visited.contains(i)) {
         //                continue;

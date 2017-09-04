@@ -18,7 +18,8 @@ import java.util.concurrent.atomic.LongAdder;
 public class PhoneNumber {
 
     private static LinkedHashMap<Character, Integer> unique = new LinkedHashMap<>();
-    private static String[] numbers = {"ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE"};
+    private static String[] numbers = {"ZERO", "ONE", "TWO", "THREE", "FOUR", "FIVE", "SIX",
+            "SEVEN", "EIGHT", "NINE"};
 
     static {
         unique.put('Z', 0);

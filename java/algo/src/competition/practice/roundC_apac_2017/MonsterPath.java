@@ -61,7 +61,8 @@ public class MonsterPath {
     }
 
 
-    private static double monster(int r, int c, int x, int y, int s, double[][] constMap, double[][] map) {
+    private static double monster(int r, int c, int x, int y, int s, double[][] constMap,
+                                  double[][] map) {
         if (s == 0) {
             return 0;
         }

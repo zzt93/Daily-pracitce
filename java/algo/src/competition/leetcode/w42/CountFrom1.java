@@ -34,7 +34,8 @@ public class CountFrom1 {
 
     public static void main(String[] args) {
         CountFrom1 countFrom1 = new CountFrom1();
-        System.out.println(Arrays.toString(countFrom1.findErrorNums(new int[]{1, 5, 3, 2, 2, 7, 6, 4, 8, 9})));
+        System.out.println(Arrays.toString(countFrom1.findErrorNums(new int[]{1, 5, 3, 2, 2, 7,
+                6, 4, 8, 9})));
         System.out.println(Arrays.toString(countFrom1.findErrorNums(new int[]{1, 2, 2, 4})));
         System.out.println(Arrays.toString(countFrom1.findErrorNums(new int[]{1, 2, 4, 5, 5})));
         System.out.println(Arrays.toString(countFrom1.findErrorNums(new int[]{1, 1})));

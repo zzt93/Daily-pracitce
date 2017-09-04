@@ -5,9 +5,7 @@ import competition.utility.MyOut;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 
 /**
  * Created by zzt on 4/15/17.

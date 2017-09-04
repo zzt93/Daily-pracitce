@@ -4,11 +4,7 @@ import com.google.common.collect.Ordering;
 import competition.utility.ArrayUtility;
 import competition.utility.Swap;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-
-import static java.util.Collections.swap;
 
 /**
  * Created by zzt on 7/19/16.

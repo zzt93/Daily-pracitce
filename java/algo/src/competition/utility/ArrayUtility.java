@@ -39,9 +39,11 @@ public class ArrayUtility {
      *
      * @return -- the index of key or -1
      */
-    public static <T extends Comparable<T>> int binarySearch(ArrayList<T> ts, int from, int end, T key) {
+    public static <T extends Comparable<T>> int binarySearch(ArrayList<T> ts, int from, int end,
+                                                             T key) {
         if (from >= end) {
-            throw new IllegalArgumentException("From index:" + from + " is larger than ending index:" + end);
+            throw new IllegalArgumentException("From index:" + from + " is larger than ending " +
+                    "index:" + end);
         }
         while (from < end) {
             int mid = (from + end) / 2;
@@ -69,7 +71,8 @@ public class ArrayUtility {
         return -1;
     }
 
-    public static <T extends Comparable<? super T>> boolean isSorted(List<T> ts, boolean ascending) {
+    public static <T extends Comparable<? super T>> boolean isSorted(List<T> ts, boolean
+            ascending) {
         final ListIterator<T> it = ts.listIterator();
         it.next();
         while (it.hasNext()) {
@@ -107,8 +110,9 @@ public class ArrayUtility {
                 .toArray();
     }
 
-    public static ArrayList<Integer> randomIntList(long seed, long streamSize, int randomNumberOrigin,
-                                            int randomNumberBound) {
+    public static ArrayList<Integer> randomIntList(long seed, long streamSize, int
+            randomNumberOrigin,
+                                                   int randomNumberBound) {
         random.setSeed(seed);
         return random
                 .ints(streamSize, randomNumberOrigin, randomNumberBound)

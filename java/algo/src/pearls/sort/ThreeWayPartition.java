@@ -53,9 +53,9 @@ public class ThreeWayPartition {
     public static void main(String[] args) {
         for (int i = 0; i < 100; i++) {
             final Integer[] integers = ArrayUtility.randomIntegers(i, 1000, 0, 100);
-//            System.out.println(Arrays.toString(integers));
+            //            System.out.println(Arrays.toString(integers));
             quickSort(integers, 0, integers.length);
-//            System.out.println(Arrays.toString(integers));
+            //            System.out.println(Arrays.toString(integers));
             assert Ordering.natural().isOrdered(Arrays.asList(integers));
         }
     }

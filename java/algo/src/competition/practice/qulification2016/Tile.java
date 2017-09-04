@@ -4,7 +4,6 @@ import competition.utility.MyIn;
 import competition.utility.MyOut;
 
 import java.io.FileNotFoundException;
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 /**

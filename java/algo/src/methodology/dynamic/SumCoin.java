@@ -29,12 +29,14 @@ public class SumCoin {
 
     /**
      * backtrace to find the path
+     *
      * @param sum sum
+     *
      * @return
      */
     public ArrayList<String> sumWithSolution(int sum) {
         final int num = sum(sum);
-//        values[num]
+        //        values[num]
         ArrayList<String> res = new ArrayList<>();
         return res;
     }
@@ -84,7 +86,7 @@ public class SumCoin {
     }
 
     public static void main(String[] args) {
-//        testMoney();
+        //        testMoney();
         final int[] ints = {3, 7};
         final SumCoin sumCoin = new SumCoin(ints);
         for (int i = 0; i < 100; i++) {

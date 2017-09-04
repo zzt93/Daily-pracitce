@@ -37,7 +37,8 @@ public class AnagramFind {
 
     public static LinkedList<String> findOnce(ArrayList<String> dictionary, String target) {
         Anagrams.Word word = new Anagrams.Word(target);
-        return dictionary.stream().filter(word::lazyCompare).collect(Collectors.toCollection(LinkedList::new));
+        return dictionary.stream().filter(word::lazyCompare).collect(Collectors.toCollection
+                (LinkedList::new));
     }
 
     public static void main(String[] args) {

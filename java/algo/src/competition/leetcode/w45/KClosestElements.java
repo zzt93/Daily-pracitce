@@ -62,8 +62,11 @@ public class KClosestElements {
         System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 4, 5), 4, 3));
         System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 4, 5), 4, -1));
         System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 4, 5), 4, 6));
-        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 7,9), 4, 6));
-        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 7,9), 3, 6));
-        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 5,5,5,7,9), 3, 6));
+        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 7, 9), 4,
+                6));
+        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 7, 9), 3,
+                6));
+        System.out.println(elements.findClosestElements(Lists.newArrayList(1, 2, 3, 5, 5, 5, 5,
+                7, 9), 3, 6));
     }
 }

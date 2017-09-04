@@ -1,11 +1,12 @@
 package interview.leetcode;
 
+import competition.leetcode.TreeNode;
+
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.function.Consumer;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.makeTree;
+import static competition.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/6/17.

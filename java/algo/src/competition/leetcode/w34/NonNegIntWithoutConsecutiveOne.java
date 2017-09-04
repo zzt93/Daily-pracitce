@@ -1,11 +1,5 @@
 package competition.leetcode.w34;
 
-import org.codehaus.groovy.control.messages.Message;
-
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.TreeSet;
-
 /**
  * Created by zzt on 5/28/17.
  * <p>
@@ -25,10 +19,10 @@ public class NonNegIntWithoutConsecutiveOne {
 
     public static void main(String[] args) {
         NonNegIntWithoutConsecutiveOne one = new NonNegIntWithoutConsecutiveOne();
-//        System.out.println((one.findIntegers(0x1)));
-//        System.out.println((one.findIntegers(0x5)));
-//        System.out.println((one.findIntegers(0x6)));
-//        System.out.println((one.findIntegers(0x7)));
+        //        System.out.println((one.findIntegers(0x1)));
+        //        System.out.println((one.findIntegers(0x5)));
+        //        System.out.println((one.findIntegers(0x6)));
+        //        System.out.println((one.findIntegers(0x7)));
         System.out.println((one.findIntegers(0x8)));
         System.out.println((one.findIntegers(0x9)));
         System.out.println((one.findIntegers(0xf)));

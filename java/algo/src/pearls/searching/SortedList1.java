@@ -60,7 +60,8 @@ public class SortedList1 implements SortedList {
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder().append("SortedList1(").append(size).append("):");
+        final StringBuilder builder = new StringBuilder().append("SortedList1(").append(size)
+                .append("):");
         for (ListNode p = head; p != sentinel; p = p.getNext()) {
             builder.append(p.getVal()).append("->");
         }
@@ -75,9 +76,9 @@ public class SortedList1 implements SortedList {
         testInsert(l -> {
             l.insert(random.nextInt(100));
         });
-//        testInsert(l -> {
-//            l.recursiveInsert(random.nextInt(100));
-//        });
+        //        testInsert(l -> {
+        //            l.recursiveInsert(random.nextInt(100));
+        //        });
     }
 
     private static void testInsert(Consumer<SortedList> consumer) {

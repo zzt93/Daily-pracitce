@@ -61,11 +61,15 @@ public class LongestUncommonSubsequence2 {
 
     public static void main(String[] args) {
         LongestUncommonSubsequence2 subsequence2 = new LongestUncommonSubsequence2();
-        System.out.println(subsequence2.findLUSlength(new String[]{"aabbcc", "aabbcc","c","e","aabbcd"}));
+        System.out.println(subsequence2.findLUSlength(new String[]{"aabbcc", "aabbcc", "c", "e",
+                "aabbcd"}));
         System.out.println(subsequence2.findLUSlength(new String[]{"a", "b", "a", "b"}));
         System.out.println(subsequence2.findLUSlength(new String[]{"a", "aaa", "aaa"}));
-        System.out.println(subsequence2.findLUSlength(new String[]{"e", "ab", "aa", "ba", "aba", "aba"}));
-        System.out.println(subsequence2.findLUSlength(new String[]{"a", "ab", "aa", "ba", "aba", "aba"}));
-        System.out.println(subsequence2.findLUSlength(new String[]{"e", "ab", "aa", "ba", "aaa", "aaa"}));
+        System.out.println(subsequence2.findLUSlength(new String[]{"e", "ab", "aa", "ba", "aba",
+                "aba"}));
+        System.out.println(subsequence2.findLUSlength(new String[]{"a", "ab", "aa", "ba", "aba",
+                "aba"}));
+        System.out.println(subsequence2.findLUSlength(new String[]{"e", "ab", "aa", "ba", "aaa",
+                "aaa"}));
     }
 }

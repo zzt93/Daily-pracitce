@@ -86,7 +86,8 @@ public class ShortestPathWithMoney {
         // compute
         PriorityQueue<Edge> nowOutEdges = new PriorityQueue<>();
         // visit start point
-        if (vertices[0].tryIncludeThis(Vertex.vertexBeforeStart, Edge.edgeBeforeStart, sum, nowOutEdges)) {
+        if (vertices[0].tryIncludeThis(Vertex.vertexBeforeStart, Edge.edgeBeforeStart, sum,
+                nowOutEdges)) {
             res.add("0");
         }
         while (!nowOutEdges.isEmpty()) {
@@ -186,7 +187,8 @@ public class ShortestPathWithMoney {
             vertex.edges.add(e);
         }
 
-        boolean tryIncludeThis(Vertex from, Edge by, final int limit, PriorityQueue<Edge> nowOutEdges) {
+        boolean tryIncludeThis(Vertex from, Edge by, final int limit, PriorityQueue<Edge>
+                nowOutEdges) {
             if (limit > from.minMoney + money) {
                 updateMinDis(from, by);
                 updateMinMoney(from);

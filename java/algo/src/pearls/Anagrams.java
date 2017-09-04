@@ -4,8 +4,6 @@ import competition.utility.MyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.atomic.LongAdder;
 
@@ -13,8 +11,8 @@ import java.util.concurrent.atomic.LongAdder;
  * Created by zzt on 4/24/16.
  * <h2>Problem: classification</h2>
  * <p>
- *     given a dictionary, find all anagram(equivalent class in which words are
- *     permutations of each other.)
+ * given a dictionary, find all anagram(equivalent class in which words are
+ * permutations of each other.)
  * </p>
  * <h3>Core idea</h3>
  * make every equivalent class have the same signature so as to reduce the
@@ -121,16 +119,16 @@ public class Anagrams {
 
     public static void main(String[] args) throws FileNotFoundException {
         ArrayList<String> test = new ArrayList<>();
-//        Path path = Paths.get(".").toAbsolutePath().normalize();
-//        System.out.println(path);
+        //        Path path = Paths.get(".").toAbsolutePath().normalize();
+        //        System.out.println(path);
         MyIn in = new MyIn("testCase/words");
         int count = 0;
         while (in.hasNext()) {
             test.add(in.next());
-//            count++;
-//            if (count == 100000) {
-//                break;
-//            }
+            //            count++;
+            //            if (count == 100000) {
+            //                break;
+            //            }
         }
         System.out.println("-------Test begin--------");
         long start = System.nanoTime();

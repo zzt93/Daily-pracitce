@@ -37,13 +37,15 @@ public class ShellSort {
 
     public static void performanceWithSelection() {
         for (int i = 0; i < 100; i++) {
-            final Integer[] integers = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000, 200000);
+            final Integer[] integers = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000,
+                    200000);
 
             long start = System.nanoTime();
             SelectionSort.selectionSort(integers);
             System.out.println("selection: " + (System.nanoTime() - start));
 
-            final Integer[] integers2 = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000, 200000);
+            final Integer[] integers2 = ArrayUtility.randomIntegers(i, 100 + i * 1000, -100000,
+                    200000);
 
             start = System.nanoTime();
             shell(integers2);
@@ -53,7 +55,7 @@ public class ShellSort {
 
     public static void main(String[] args) {
         performanceWithSelection();
-//        correctionTest();
+        //        correctionTest();
     }
 
     private static void correctionTest() {

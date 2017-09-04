@@ -59,6 +59,6 @@ public class RankAndFile {
             }
         }
         Collections.sort(res);
-        return  res;
+        return res;
     }
 }

@@ -19,9 +19,11 @@ import java.util.List;
  * For each customer, you make at least one milkshake type that they like.
  * The minimum possible number of batches are malted.
  * <p/>
- * Find whether it is possible to satisfy all your customers given these constraints, and if it is, what milkshake types you should make.
+ * Find whether it is possible to satisfy all your customers given these constraints, and if it is,
+ * what milkshake types you should make.
  * <p/>
- * If it is possible to satisfy all your customers, there will be only one answer which minimizes the number of malted batches.
+ * If it is possible to satisfy all your customers, there will be only one answer which minimizes
+ * the number of malted batches.
  * <p/>
  * Input
  * <p/>
@@ -33,17 +35,22 @@ import java.util.List;
  * One line containing the integer M, the number of customers.
  * M lines, one for each customer, each containing:
  * An integer T >= 1, the number of milkshake types the customer likes, followed by
- * T pairs of integers "X Y", one for each type the customer likes, where X is the milkshake flavor between 1 and N inclusive, and Y is either 0 to indicate unmalted, or 1 to indicated malted. Note that:
+ * T pairs of integers "X Y", one for each type the customer likes, where X is the milkshake flavor
+ * between 1 and N inclusive, and Y is either 0 to indicate unmalted, or 1 to indicated malted. Note
+ * that:
  * No pair will occur more than once for a single customer.
  * Each customer will have at least one flavor that they like (T >= 1).
- * Each customer will like at most one malted flavor. (At most one pair for each customer has Y = 1).
+ * Each customer will like at most one malted flavor. (At most one pair for each customer has Y =
+ * 1).
  * All of these numbers are separated by single spaces.
  * <p/>
  * Output
  * <p/>
- * C lines, one for each test case in the order they occur in the input file, each containing the string "Case #X: " where X is the number of the test case, starting from 1, followed by:
+ * C lines, one for each test case in the order they occur in the input file, each containing the
+ * string "Case #X: " where X is the number of the test case, starting from 1, followed by:
  * The string "IMPOSSIBLE", if the customers' preferences cannot be satisfied; OR
- * N space-separated integers, one for each flavor from 1 to N, which are 0 if the corresponding flavor should be prepared unmalted, and 1 if it should be malted.
+ * N space-separated integers, one for each flavor from 1 to N, which are 0 if the corresponding
+ * flavor should be prepared unmalted, and 1 if it should be malted.
  */
 public class Milkshakes {
 
@@ -91,31 +98,32 @@ public class Milkshakes {
         for (int i = flavorCount; i < flavor; i++) {
             res.append("0 ");
         }
-//        for (int i = 0; i < flavor; i++) {
-//            while (flavorCount < orders.size() && orders.get(flavorCount).getFlavor() < i + 1) {
-//                flavorCount++;
-//            }
-//
-//            if (flavorCount >= orders.size()) {
-//                res.append("0 ");
-//                continue;
-//            }
-//            Order order = orders.get(flavorCount);
-//            if (order.getFlavor() != i + 1) {
-//                assert order.getFlavor() > i + 1;
-//                res.append("0 ");
-//                continue;
-//            }
-//            if (!order.isRemoved() && order.getUnmalt() == 1) {
-//                if (solved(order)) {
-//                    res.append("0 ");
-//                } else {
-//                    res.append("1 ");
-//                }
-//            } else if (!order.isRemoved()) {
-//                res.append("0 ");
-//            }
-//        }
+        //        for (int i = 0; i < flavor; i++) {
+        //            while (flavorCount < orders.size() && orders.get(flavorCount).getFlavor() <
+        // i + 1) {
+        //                flavorCount++;
+        //            }
+        //
+        //            if (flavorCount >= orders.size()) {
+        //                res.append("0 ");
+        //                continue;
+        //            }
+        //            Order order = orders.get(flavorCount);
+        //            if (order.getFlavor() != i + 1) {
+        //                assert order.getFlavor() > i + 1;
+        //                res.append("0 ");
+        //                continue;
+        //            }
+        //            if (!order.isRemoved() && order.getUnmalt() == 1) {
+        //                if (solved(order)) {
+        //                    res.append("0 ");
+        //                } else {
+        //                    res.append("1 ");
+        //                }
+        //            } else if (!order.isRemoved()) {
+        //                res.append("0 ");
+        //            }
+        //        }
         return res.toString();
     }
 
@@ -141,7 +149,8 @@ public class Milkshakes {
                 }
             }
 
-            if (!conflict && !conflict(orders, removeCount + con)) { // if delete the latter can solve the problem
+            if (!conflict && !conflict(orders, removeCount + con)) { // if delete the latter can
+                // solve the problem
                 return false;
             }
 
@@ -181,6 +190,7 @@ public class Milkshakes {
      * Invoke when this order is malted
      *
      * @param order this order
+     *
      * @return whether this can be replaced by other order -- for one customer only have
      * one order that is malted, so if it exist, it must be better
      */
@@ -210,15 +220,15 @@ public class Milkshakes {
     }
 
     /**
-     *
      * @param index  -- starting (inclusive) or ending (exclusive) index depending on @parm after
      * @param orders -- collections of order
      * @param after  -- mark it as removed after this index or before
-     *
      * @param remove -- whether set it as removed or ...
+     *
      * @return count of removed/recover item
      */
-    private static int removeOrRecover(int index, ArrayList<Order> orders, boolean after, boolean remove) {
+    private static int removeOrRecover(int index, ArrayList<Order> orders, boolean after, boolean
+            remove) {
         if (after) {
             Order aim = orders.get(index);
             aim.setRemoved(remove);
@@ -261,6 +271,7 @@ public class Milkshakes {
      *
      * @param orders -- collections of order
      * @param start  -- start index to check
+     *
      * @return the index where conflict happen
      */
     private static int hasConflict(ArrayList<Order> orders, int start) {
@@ -285,11 +296,11 @@ public class Milkshakes {
 
     public static void main(String[] args) {
 
-//        try {
-//            System.in.read();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        //        try {
+        //            System.in.read();
+        //        } catch (IOException e) {
+        //            e.printStackTrace();
+        //        }
         MyIn in;
         MyOut out = new MyOut("res");
         try {

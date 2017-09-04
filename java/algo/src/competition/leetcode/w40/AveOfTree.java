@@ -1,6 +1,6 @@
 package competition.leetcode.w40;
 
-import competition.leetcode.w31.SubTree;
+import competition.leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -14,19 +14,19 @@ import java.util.Queue;
  */
 public class AveOfTree {
 
-    public List<Double> averageOfLevels(SubTree.TreeNode root) {
-        Queue<SubTree.TreeNode> queue = new LinkedList<>();
+    public List<Double> averageOfLevels(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
         List<Double> res = new ArrayList<>();
         if (root == null) {
             return res;
         }
         queue.add(root);
-        SubTree.TreeNode split = new SubTree.TreeNode(0);
+        TreeNode split = new TreeNode(0);
         long sum = 0, c = 0;
         while (!queue.isEmpty()) {
             queue.add(split);
             while (queue.peek() != split) {
-                SubTree.TreeNode head = queue.poll();
+                TreeNode head = queue.poll();
                 if (head.left != null) {
                     queue.add(head.left);
                 }
@@ -44,7 +44,7 @@ public class AveOfTree {
     }
 
     public static void main(String[] args) {
-        System.out.println(new AveOfTree().averageOfLevels(SubTree.makeTree("3,9,20,15,7,-1")));
+        System.out.println(new AveOfTree().averageOfLevels(TreeNode.makeTree("3,9,20,15,7,-1")));
         System.out.println(new AveOfTree().averageOfLevels(null));
     }
 }

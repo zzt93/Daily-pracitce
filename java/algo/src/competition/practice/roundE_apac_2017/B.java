@@ -53,13 +53,13 @@ public class B {
         int l = (int) DoubleMath.log2(x + 1) + 1;
         final double root = Math.sqrt(x);
         for (int i = l; i > 0; i--) {
-            int sj = (int) Math.pow(x + 1, 1.0/i);
+            int sj = (int) Math.pow(x + 1, 1.0 / i);
             int j = sj > 2 ? sj : 2;
             for (; j < root; j++) {
                 final double v = (Math.pow(j, i) - 1) / (j - 1);
                 if (v > x) {
                     break;
-                } else if (v == x){
+                } else if (v == x) {
                     return j;
                 }
             }
@@ -76,6 +76,7 @@ public class B {
     }
 
     private static Table<Long, Long, Boolean> table = HashBasedTable.create();
+
     private static boolean allOne(long x, long j) {
         long t = x - 1;
         while (t != 0) {

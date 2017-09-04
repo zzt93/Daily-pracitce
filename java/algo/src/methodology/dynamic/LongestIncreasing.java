@@ -25,7 +25,7 @@ import java.util.Arrays;
  * <ul>convert to lcs</ul>
  * <li>sort the input to produce an increasing sequence</li>
  * <li>compute the lcs of this two sequence</li>
- *
+ * <p>
  * <ul>dynamic way</ul>
  * <li>provided lis[0...i], lis[i+1] can be computed by try to become the last
  * element of all previous lis

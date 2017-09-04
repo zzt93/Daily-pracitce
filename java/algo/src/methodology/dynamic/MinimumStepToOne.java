@@ -55,6 +55,7 @@ public class MinimumStepToOne {
 
     private static int[] dp = new int[SIZE];
     private static int max = 1;
+
     public static int minimumStepDP(int origin) {
         if (origin == 1) {
             return 1;

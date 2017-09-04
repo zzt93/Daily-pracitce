@@ -59,7 +59,8 @@ public class MinTimeDiff {
     public static void main(String[] args) {
         final MinTimeDiff minTimeDiff = new MinTimeDiff();
         System.out.println(minTimeDiff.findMinDifference(Lists.newArrayList("23:59", "00:00")));
-        System.out.println(minTimeDiff.findMinDifference(Lists.newArrayList("23:25", "00:00", "12:00", "23:23", "02:30")));
+        System.out.println(minTimeDiff.findMinDifference(Lists.newArrayList("23:25", "00:00",
+                "12:00", "23:23", "02:30")));
     }
 
 }

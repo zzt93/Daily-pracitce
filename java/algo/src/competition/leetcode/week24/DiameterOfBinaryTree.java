@@ -7,7 +7,7 @@ package competition.leetcode.week24;
  */
 public class DiameterOfBinaryTree {
 
-   private class TreeNode {
+    private class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;

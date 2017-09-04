@@ -23,7 +23,7 @@ public class RandomStr {
     private static String produce(Random random, int len) {
         StringBuilder sb = new StringBuilder(len);
         for (int i = 0; i < len; i++) {
-            char c = (char)(random.nextInt(26) + 'a');
+            char c = (char) (random.nextInt(26) + 'a');
             sb.append(c);
         }
         return sb.toString();

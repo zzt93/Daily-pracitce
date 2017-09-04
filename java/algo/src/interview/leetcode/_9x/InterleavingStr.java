@@ -6,10 +6,10 @@ package interview.leetcode._9x;
  * <h3>Similarity: LCSe</h3>
  * <h3>DP: sub-problem: can s1[0,x] & s2[0,y] compose s3[0, x+y]?</h3>
  * <p>
- *     Simulation will be 2**n in some corner case, which can be seen as
- *     the enumeration of all paths from DP's matrix[0]0] to matrix[m][n].
- *
- *     In other word, two dimensional DP matrix == 2**n simulation.
+ * Simulation will be 2**n in some corner case, which can be seen as
+ * the enumeration of all paths from DP's matrix[0]0] to matrix[m][n].
+ * <p>
+ * In other word, two dimensional DP matrix == 2**n simulation.
  * </p>
  */
 public class InterleavingStr {

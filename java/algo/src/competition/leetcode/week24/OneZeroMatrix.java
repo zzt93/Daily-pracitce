@@ -2,7 +2,6 @@ package competition.leetcode.week24;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Created by zzt on 3/19/17.

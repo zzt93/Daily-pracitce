@@ -1,16 +1,14 @@
 package interview.leetcode._10x;
 
-import competition.leetcode.w31.SubTree;
-
-import static competition.leetcode.w31.SubTree.TreeNode;
+import competition.leetcode.TreeNode;
 
 /**
  * Created by zzt on 8/28/17.
  * <p>
  * <h3>Divide and Conquer</h3>
  * <ul>
- *     <li>mirror the tree</li>
- *     <li>is the same with original</li>
+ * <li>mirror the tree</li>
+ * <li>is the same with original</li>
  * </ul>
  */
 public class SymmetricTree {
@@ -27,7 +25,8 @@ public class SymmetricTree {
         if (root == null || mirror == null) {
             return false;
         }
-        return root.val == mirror.val && isSame(root.left, mirror.left) && isSame(root.right, mirror.right);
+        return root.val == mirror.val && isSame(root.left, mirror.left) && isSame(root.right,
+                mirror.right);
     }
 
     private TreeNode mirror(TreeNode node) {
@@ -39,5 +38,5 @@ public class SymmetricTree {
         res.right = mirror(node.left);
         return res;
     }
-    
+
 }

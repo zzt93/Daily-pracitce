@@ -20,8 +20,8 @@ public class MergeSortedArray {
             } else {
                 swap(n1, i, n2, 0);
                 for (int x = 1; x < n; x++) {
-                    if (n2[x] < n2[x-1]) {
-                        swap(n2, x, n2, x-1);
+                    if (n2[x] < n2[x - 1]) {
+                        swap(n2, x, n2, x - 1);
                     } else {
                         break;
                     }
@@ -40,9 +40,13 @@ public class MergeSortedArray {
     public static void main(String[] args) {
         MergeSortedArray array = new MergeSortedArray();
         int[] n1 = new int[6];
-        n1[0] = 1; n1[1] = 3; n1[2] = 5;
+        n1[0] = 1;
+        n1[1] = 3;
+        n1[2] = 5;
         int[] n2 = new int[3];
-        n2[0] = 2; n2[1] = 4; n2[2] = 5;
+        n2[0] = 2;
+        n2[1] = 4;
+        n2[2] = 5;
         array.merge(n1, 3, n2, 3);
         System.out.println(Arrays.toString(n1));
     }

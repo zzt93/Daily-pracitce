@@ -149,7 +149,8 @@ public class SuffixTree {
             Node newThis = new Node(getStartIndex(), current.substring(getStartIndex(), endIndex));
             // newThis should have the same labels with original one
             newThis.markLabel(this.getLabels());
-            // remove current label from new son: it's not appear in the new string for the time being
+            // remove current label from new son: it's not appear in the new string for the time
+            // being
             // TODO: 4/19/16 wrong
             //            this.removeLabel();
 

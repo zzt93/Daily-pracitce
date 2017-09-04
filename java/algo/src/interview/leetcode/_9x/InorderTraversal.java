@@ -1,6 +1,6 @@
 package interview.leetcode._9x;
 
-import static competition.leetcode.w31.SubTree.*;
+import competition.leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -32,11 +32,14 @@ public class InorderTraversal {
 
     public static void main(String[] args) {
         InorderTraversal traversal = new InorderTraversal();
-        System.out.println(traversal.inorderTraversal(makeTree("1,null,2,3")));
-        System.out.println(traversal.inorderTraversal(makeTree("1")));
-        System.out.println(traversal.inorderTraversal(makeTree("1,2,null,3,null,4,null,5,6,null,null,7,null,8,null")));
-        System.out.println(traversal.inorderTraversal(makeTree("1,2,null,3,null,4,5,6,null,null,7,null,8,null")));
-        System.out.println(traversal.inorderTraversal(makeTree("null")));
-        System.out.println(traversal.inorderTraversal(makeTree("1,null,2,null,3,null,4,null,5")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("1,null,2,3")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("1")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("1,2,null,3,null,4,null," +
+                "5,6,null,null,7,null,8,null")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("1,2,null,3,null,4,5,6," +
+                "null,null,7,null,8,null")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("null")));
+        System.out.println(traversal.inorderTraversal(TreeNode.makeTree("1,null,2,null,3,null,4," +
+                "null,5")));
     }
 }

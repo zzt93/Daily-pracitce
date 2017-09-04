@@ -46,7 +46,8 @@ public class LCSequence {
         @Override
         public String toString() {
             return "Outcome{" +
-                    "builders=" + builders.stream().map(StringBuilder::toString).collect(Collectors.joining("; ")) +
+                    "builders=" + builders.stream().map(StringBuilder::toString).collect
+                    (Collectors.joining("; ")) +
                     ", count=" + count +
                     '}';
         }

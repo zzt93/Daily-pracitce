@@ -12,15 +12,15 @@ import java.util.*;
  * <h3>DP: </h3>
  * <p>sub-problem!!!: sentence = words + sentence</p>
  * <p>
- *     then the crucial part now is to divide the sentence to word,
- *     which can be done by reverse visiting.
+ * then the crucial part now is to divide the sentence to word,
+ * which can be done by reverse visiting.
  * </p>
  * <code>    e.g. 'isthisa' [this, is, a]
  * at 4: w[1, 4] can in a 'this', can't split;
  * at 6: w[5, 6] make no word, split between 5 and 6
- *
+ * <p>
  * </code>
- *
+ * <p>
  * <h3>Similar:</h3>
  * <p>pinyin => word: separate pinyin, count possibility</p>
  */

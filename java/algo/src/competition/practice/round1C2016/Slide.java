@@ -58,7 +58,8 @@ public class Slide {
         return res;
     }
 
-    private static void Cnm(final ArrayList<Integer> list, int resI, int srcI, int remaining, int[] res, ArrayList<int[]> ints) {
+    private static void Cnm(final ArrayList<Integer> list, int resI, int srcI, int remaining,
+                            int[] res, ArrayList<int[]> ints) {
         if (remaining == 0) {
             ints.add(Arrays.copyOf(res, res.length));
             return;

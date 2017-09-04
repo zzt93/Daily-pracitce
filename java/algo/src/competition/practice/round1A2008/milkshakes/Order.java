@@ -3,7 +3,7 @@ package competition.practice.round1A2008.milkshakes;
 /**
  * Created by zzt on 3/30/15.
  */
-public class Order implements Comparable<Order>{
+public class Order implements Comparable<Order> {
     private boolean removed = false;
     private int flavor;
     private int unmalt;
@@ -63,7 +63,7 @@ public class Order implements Comparable<Order>{
         if (obj == null || obj.getClass() != Order.class) {
             throw new IllegalArgumentException("The object to compare is null");
         }
-        Order o = (Order)obj;
+        Order o = (Order) obj;
         if (o.flavor == flavor && o.unmalt == unmalt) {
             return true;
         }

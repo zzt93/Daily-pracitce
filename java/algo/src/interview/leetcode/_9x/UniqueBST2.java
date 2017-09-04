@@ -1,11 +1,12 @@
 package interview.leetcode._9x;
 
+import competition.leetcode.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.copy;
+import static competition.leetcode.TreeNode.copy;
 
 /**
  * Created by zzt on 8/5/17.

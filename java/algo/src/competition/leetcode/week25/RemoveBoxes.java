@@ -80,7 +80,8 @@ public class RemoveBoxes {
             return dp[start][end][otherLen] = 0;
         } else {
             Color last = list.get(end - 1);
-            dp[start][end][otherLen] = solve(dp, start, end - 1, 0, list) + last.getCountSquare(otherLen);
+            dp[start][end][otherLen] = solve(dp, start, end - 1, 0, list) + last.getCountSquare
+                    (otherLen);
 
             for (int i = start; i < end - 1; i++) {
                 if (last.equals(list.get(i))) {

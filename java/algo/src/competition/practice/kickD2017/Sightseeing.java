@@ -66,11 +66,13 @@ public class Sightseeing {
     private static int maxCities(int n, int sight, int finish, ArrayList<Bus> buses) {
         int now = 0;
         Comparator<int[]> objectComparator = Comparator.comparingInt(a -> -a[0]);
-        PriorityQueue<int[]> queue = new PriorityQueue<>(objectComparator.thenComparingInt(a -> -a[1]));
+        PriorityQueue<int[]> queue = new PriorityQueue<>(objectComparator.thenComparingInt(a ->
+                -a[1]));
         for (int i = 0; i < buses.size(); i++) {
             Bus bus = buses.get(i);
             int time = sight + bus.waiting(now + sight) + bus.d;
-            queue.add(new int[]{bus.waiting(now + sight), bus.waiting(now), i, now, bus.d, sight, bus.f});
+            queue.add(new int[]{bus.waiting(now + sight), bus.waiting(now), i, now, bus.d, sight,
+                    bus.f});
             now += time;
             while (now > finish) {
                 ArrayList<int[]> polls = new ArrayList<>();

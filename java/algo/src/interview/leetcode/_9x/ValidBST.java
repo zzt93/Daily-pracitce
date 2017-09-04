@@ -1,8 +1,9 @@
 package interview.leetcode._9x;
 
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.makeTree;
+import competition.leetcode.TreeNode;
+
+import static competition.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/10/17.
@@ -32,7 +33,7 @@ public class ValidBST {
         if (root.right == null) {
             int[] left = recur(root.left);
             boolean b = left[0] == 1 && root.val > left[1];
-            return new int[]{b?1:0, max, min = left[2]};
+            return new int[]{b ? 1 : 0, max, min = left[2]};
         }
         int[] left = recur(root.left);
         if (left[0] == 1) {

@@ -45,7 +45,8 @@ public class MaxSumOfSubset2 {
             }
         }
 
-        //check whether it is all be trimed already -- all negative or all positive case or {-, - , +, +, ...,+ , +, -}
+        //check whether it is all be trimed already -- all negative or all positive case or {-, -
+        // , +, +, ...,+ , +, -}
         if (allPositive()) {
             return addAll(set);
         }
@@ -114,6 +115,7 @@ public class MaxSumOfSubset2 {
     }
 
     public static void main(String[] argv) {
-        new MaxSumOfSubset2(new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0, -7.0, 8.0, 9.0))).parts();
+        new MaxSumOfSubset2(new ArrayList<Double>(Arrays.asList(12.0, 2.0, 3.0, -4.0, 5.0, -6.0,
+                -7.0, 8.0, 9.0))).parts();
     }
 }

@@ -6,7 +6,7 @@ package pearls;
  * <h3>Problem:</h3>
  * <li>rules for words end in 'c' is defined in testCase/word_hyphenation</li>
  * <li>rules must be applied in order in file, i.e. the previous rule have high priority</li>
- *
+ * <p>
  * <h3>Solution</h3>
  * <ui>A reversed mapping trie of all rules: suffix => priority</ui>
  * <li>if the word can reach the end: finish</li>

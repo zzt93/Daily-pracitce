@@ -3,7 +3,8 @@ package methodology.maxOfSum;
 /**
  * author:zzt
  * date:2014.8.13, 9.28
- * description: find the maximum of sum of a successive subset in a set; eg.{21, -9, -4, 28, -29, 45, 83}
+ * description: find the maximum of sum of a successive subset in a set; eg.{21, -9, -4, 28, -29,
+ * 45, 83}
  * version:0.3 -- collapse algorithm -- can also return the index of begin and end
  */
 
@@ -45,7 +46,8 @@ public class MaxSumOfSubset3 {
                 sum = 0;
             } else if (number > 0 && !sign) {
                 sign = true;
-                tMap.put(sum, new double[]{j, i});//optional: save this value can help to check the program
+                tMap.put(sum, new double[]{j, i});//optional: save this value can help to check
+                // the program
                 temp.add(sum);
                 j = i;
                 sum = 0;
@@ -68,7 +70,8 @@ public class MaxSumOfSubset3 {
                 sum = set.get(i + 1);
             } else {
                 sum = number + set.get(i + 1) + sum;
-                if (tMap.get(sum)[1] == tMap.get(number)[0] && tMap.get(set.get(i + 1))[0] == tMap.get(number)[1]) {
+                if (tMap.get(sum)[1] == tMap.get(number)[0] && tMap.get(set.get(i + 1))[0] ==
+                        tMap.get(number)[1]) {
                     tMap.put(sum, new double[]{tMap.get(sum)[0], tMap.get(set.get(i + 1))[1]});
                 } else {
                     System.err.println("wrong in concatenation");
@@ -88,6 +91,7 @@ public class MaxSumOfSubset3 {
     }
 
     public static void main(String[] argv) {
-        new MaxSumOfSubset(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, -4.0, 7.0, -6.0, -7.0, 8.0))).parts();
+        new MaxSumOfSubset(new ArrayList<Double>(Arrays.asList(1.0, 2.0, 3.0, -4.0, 7.0, -6.0,
+                -7.0, 8.0))).parts();
     }
 }

@@ -57,8 +57,10 @@ public class A {
             int n = in.nextInt();
             int k = in.nextInt();
             Cake max = new Cake(0, 0);
-            PriorityQueue<Cake> cakes2 = new PriorityQueue<>(Comparator.comparingDouble(Cake::getRH).reversed());
-            PriorityQueue<Cake> cakes3 = new PriorityQueue<>(Comparator.comparingInt(Cake::getR2).reversed());
+            PriorityQueue<Cake> cakes2 = new PriorityQueue<>(Comparator.comparingDouble
+                    (Cake::getRH).reversed());
+            PriorityQueue<Cake> cakes3 = new PriorityQueue<>(Comparator.comparingInt(Cake::getR2)
+                    .reversed());
             for (int x = 0; x < n; x++) {
                 int r = in.nextInt();
                 int h = in.nextInt();

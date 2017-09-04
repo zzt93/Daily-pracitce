@@ -29,6 +29,7 @@ public class Squirrel {
 
     public static void main(String[] args) {
         Squirrel squirrel = new Squirrel();
-        System.out.println(squirrel.minDistance(5, 7, new int[]{2, 2}, new int[]{4, 4}, new int[][]{{3, 0}, {2, 5}}));
+        System.out.println(squirrel.minDistance(5, 7, new int[]{2, 2}, new int[]{4, 4}, new
+                int[][]{{3, 0}, {2, 5}}));
     }
 }

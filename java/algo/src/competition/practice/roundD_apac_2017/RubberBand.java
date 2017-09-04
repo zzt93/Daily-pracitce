@@ -66,7 +66,7 @@ public class RubberBand implements Comparable<RubberBand> {
                 }
                 for (int y = 0; y <= index; y++) {
                     final RubberBand band = bands.get(y);
-//                    if (band.y - x)
+                    //                    if (band.y - x)
                 }
             }
             money[l] = min;

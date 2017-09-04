@@ -1,6 +1,9 @@
 package competition.leetcode.week25;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -25,7 +28,8 @@ public class BoundaryOfBinaryTree {
         left(set, root);
         leaves(set, root);
         right(set, root);
-        return set.stream().map(treeNode -> treeNode.val).collect(Collectors.toCollection(ArrayList::new));
+        return set.stream().map(treeNode -> treeNode.val).collect(Collectors.toCollection
+                (ArrayList::new));
     }
 
     private void leaves(LinkedHashSet<TreeNode> set, TreeNode root) {

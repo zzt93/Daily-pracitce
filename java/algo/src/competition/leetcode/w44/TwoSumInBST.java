@@ -1,11 +1,11 @@
 package competition.leetcode.w44;
 
+import competition.leetcode.TreeNode;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-
-import static competition.leetcode.w31.SubTree.TreeNode;
 
 /**
  * Created by zzt on 8/6/17.
@@ -24,7 +24,7 @@ public class TwoSumInBST {
             int t = k - val;
             int x = Arrays.binarySearch(treeNodes, i + 1, len, new TreeNode(t), Comparator
                     .comparingInt
-                    (n -> n.val));
+                            (n -> n.val));
             if (x > 0) {
                 return true;
             }

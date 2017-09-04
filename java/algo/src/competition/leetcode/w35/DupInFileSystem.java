@@ -61,7 +61,9 @@ public class DupInFileSystem {
 
     public static void main(String[] args) {
         DupInFileSystem system = new DupInFileSystem();
-        System.out.println(system.findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efgh)", "root/c 3.txt(abcd)", "root/c/d 4.txt(efgh)", "root 4.txt(efgh)"}));
-        System.out.println(system.findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efsfgh)","root/c 3.txt(abdfcd)","root/c/d 4.txt(efggdfh)"}));
+        System.out.println(system.findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efgh)",
+                "root/c 3.txt(abcd)", "root/c/d 4.txt(efgh)", "root 4.txt(efgh)"}));
+        System.out.println(system.findDuplicate(new String[]{"root/a 1.txt(abcd) 2.txt(efsfgh)",
+                "root/c 3.txt(abdfcd)", "root/c/d 4.txt(efggdfh)"}));
     }
 }

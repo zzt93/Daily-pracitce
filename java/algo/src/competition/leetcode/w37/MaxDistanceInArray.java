@@ -43,6 +43,7 @@ public class MaxDistanceInArray {
 
     public static void main(String[] args) {
         MaxDistanceInArray array = new MaxDistanceInArray();
-        System.out.println(array.maxDistance(new int[][]{new int[]{1, 2, 3}, new int[]{4, 5}, new int[]{1, 2, 3}}));
+        System.out.println(array.maxDistance(new int[][]{new int[]{1, 2, 3}, new int[]{4, 5}, new
+                int[]{1, 2, 3}}));
     }
 }

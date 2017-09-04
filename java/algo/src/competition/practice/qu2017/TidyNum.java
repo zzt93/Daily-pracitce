@@ -34,9 +34,9 @@ public class TidyNum {
         char[] s = Long.toString(i).toCharArray();
         boolean tidy = true;
         for (int x = s.length - 1; x >= 1; x--) {
-            if (s[x] < s[x-1]) {
+            if (s[x] < s[x - 1]) {
                 tidy = false;
-                s[x-1]--;
+                s[x - 1]--;
                 for (int y = x; y < s.length; y++) {
                     s[y] = '9';
                 }

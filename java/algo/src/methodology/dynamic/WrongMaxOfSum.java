@@ -1,14 +1,6 @@
 package methodology.dynamic;
 
-import competition.utility.ArrayUtility;
-import methodology.maxOfSum.MaxSumOfSubset;
-import methodology.maxOfSum.MaxSumOfSubset2;
-import methodology.maxOfSum.MaxSumOfSubset3;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 4/4/16.

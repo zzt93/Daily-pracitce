@@ -1,7 +1,8 @@
 package competition.leetcode.w48;
 
-import static competition.leetcode.w31.SubTree.TreeNode;
-import static competition.leetcode.w31.SubTree.makeTree;
+import competition.leetcode.TreeNode;
+
+import static competition.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 9/3/17.
@@ -47,7 +48,8 @@ public class SecondMinimumValue {
 
     public static void main(String[] args) {
         SecondMinimumValue val = new SecondMinimumValue();
-        System.out.println(val.findSecondMinimumValue(makeTree("1,1,3,1,1,3,4,3,1,1,1,3,8,4,8,3,3,1,6,2,1")));
+        System.out.println(val.findSecondMinimumValue(makeTree("1,1,3,1,1,3,4,3,1,1,1,3,8,4,8,3," +
+                "3,1,6,2,1")));
         System.out.println(val.findSecondMinimumValue(makeTree("2,2,2,2,5")));
         System.out.println(val.findSecondMinimumValue(makeTree("2,2,5,null,null,5,7")));
         System.out.println(val.findSecondMinimumValue(makeTree("2,2,2")));

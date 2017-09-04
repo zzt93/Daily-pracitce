@@ -13,7 +13,6 @@ import java.util.Random;
  * <h3>Solution</h3>
  * <li>Similarity: produce valid parenthesis, check number when solve smaller problem</li>
  * <li>Path from [0, 0] to [x, y] is the vote order</li>
- *
  */
 public class Vote {
 

@@ -30,7 +30,8 @@ public class Selection {
      *
      * @return
      */
-    private static <T> int partition(ArrayList<T> ts, int from, int to, Comparator<? super T> comparator) {
+    private static <T> int partition(ArrayList<T> ts, int from, int to, Comparator<? super T>
+            comparator) {
         T p = ts.get(from);
         int le = from + 1;
         int great = --to;
@@ -71,7 +72,8 @@ public class Selection {
      *
      * @return
      */
-    private static <T> T selection(ArrayList<T> ts, int k, int from, int to, Comparator<? super T> comparator) {
+    private static <T> T selection(ArrayList<T> ts, int k, int from, int to, Comparator<? super
+            T> comparator) {
         if (from + 1 == to) {
             return ts.get(from);
         }

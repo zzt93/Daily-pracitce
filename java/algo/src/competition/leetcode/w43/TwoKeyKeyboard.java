@@ -15,7 +15,7 @@ public class TwoKeyKeyboard {
         dp[1] = 0;
         for (int i = 1; i < dp.length; i++) {
             int time = 0;
-            for (int x = i+i; x < dp.length; x+=i) {
+            for (int x = i + i; x < dp.length; x += i) {
                 time++;
                 dp[x] = Math.min(dp[x], dp[i] + time + 1);
             }
