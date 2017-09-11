@@ -20,6 +20,7 @@ public class BulbSwitcher2 {
         if (m == 0) {
             return 1;
         } else if (m > 4){
+            // either same with (4 * k - 1), or (4 * k)
             r = (m % 2 == 0 ? 3 : 2);
         } else {
             r = m - 1;
