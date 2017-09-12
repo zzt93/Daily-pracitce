@@ -1,4 +1,4 @@
-package interview.leetcode;
+package interview.leetcode.before;
 
 /**
  * Created by zzt on 3/20/16.

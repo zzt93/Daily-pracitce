@@ -1,6 +1,6 @@
 package competition.leetcode.w31;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.ArrayDeque;
 import java.util.Queue;

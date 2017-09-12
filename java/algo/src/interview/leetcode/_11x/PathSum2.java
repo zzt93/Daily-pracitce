@@ -1,11 +1,11 @@
 package interview.leetcode._11x;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static competition.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 9/5/17.

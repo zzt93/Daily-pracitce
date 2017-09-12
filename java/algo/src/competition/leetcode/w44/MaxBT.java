@@ -1,7 +1,7 @@
 package competition.leetcode.w44;
 
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 /**
  * Created by zzt on 8/6/17.

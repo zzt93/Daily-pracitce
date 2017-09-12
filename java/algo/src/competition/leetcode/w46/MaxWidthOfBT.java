@@ -1,12 +1,12 @@
 package competition.leetcode.w46;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import static competition.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/20/17.

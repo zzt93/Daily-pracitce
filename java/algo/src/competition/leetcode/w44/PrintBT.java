@@ -1,12 +1,12 @@
 package competition.leetcode.w44;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static competition.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/6/17.

@@ -1,6 +1,6 @@
 package competition.leetcode.w46;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.HashMap;
 

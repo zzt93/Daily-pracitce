@@ -1,4 +1,6 @@
-package interview.leetcode;
+package interview.leetcode.before;
+
+import interview.leetcode.ListNode;
 
 /**
  * Created by zzt on 3/19/16.

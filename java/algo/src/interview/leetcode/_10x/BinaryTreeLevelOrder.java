@@ -1,12 +1,12 @@
 package interview.leetcode._10x;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 import interview.leetcode.BFS;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static competition.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 8/29/17.

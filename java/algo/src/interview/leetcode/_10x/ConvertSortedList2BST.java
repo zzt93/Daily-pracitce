@@ -1,9 +1,9 @@
 package interview.leetcode._10x;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 import interview.leetcode.ListNode;
 
-import static competition.leetcode.TreeNode.printBT;
+import static interview.leetcode.TreeNode.printBT;
 import static interview.leetcode.ListNode.makeList;
 
 /**

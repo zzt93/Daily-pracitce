@@ -1,8 +1,8 @@
 package competition.leetcode.w48;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
-import static competition.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.makeTree;
 
 /**
  * Created by zzt on 9/3/17.

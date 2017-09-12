@@ -1,4 +1,4 @@
-package interview.leetcode;
+package interview.leetcode.before;
 
 import competition.utility.MyIn;
 

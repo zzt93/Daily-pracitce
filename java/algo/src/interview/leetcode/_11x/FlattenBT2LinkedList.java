@@ -1,9 +1,9 @@
 package interview.leetcode._11x;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
-import static competition.leetcode.TreeNode.makeTree;
-import static competition.leetcode.TreeNode.printBT;
+import static interview.leetcode.TreeNode.makeTree;
+import static interview.leetcode.TreeNode.printBT;
 
 /**
  * Created by zzt on 9/6/17.

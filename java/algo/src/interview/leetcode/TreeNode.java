@@ -1,4 +1,4 @@
-package competition.leetcode;
+package interview.leetcode;
 
 import competition.leetcode.w44.PrintBT;
 

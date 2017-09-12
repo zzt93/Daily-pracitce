@@ -1,6 +1,6 @@
 package competition.leetcode.w35;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 /**
  * Created by zzt on 6/4/17.

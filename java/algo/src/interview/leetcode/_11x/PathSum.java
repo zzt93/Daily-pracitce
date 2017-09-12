@@ -1,6 +1,6 @@
 package interview.leetcode._11x;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 /**
  * Created by zzt on 9/5/17.

@@ -1,6 +1,6 @@
 package competition.leetcode.w40;
 
-import competition.leetcode.TreeNode;
+import interview.leetcode.TreeNode;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
