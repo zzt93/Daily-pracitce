@@ -88,5 +88,6 @@ public class PrintBT {
         System.out.println(printBT.printTree(makeTree("1,2")));
         System.out.println(printBT.printTree(makeTree("1,2,3,null,4")));
         System.out.println(printBT.printTree(makeTree("1,2,3,4,null,null,null,5,null")));
+        System.out.println(printBT.printTree(makeTree("5, 4, 5, 1, 1, null, 5, null, null, 1, 2, null, 3, 1,null,2,2,null,3,null,null,2,null,null,null,3,null,null,2,null,null,null,3,null,null,2,null,null,null,3,null,null,2,null,null,3,2,null,null,null,3,null,null,2,null,null,3")));
     }
 }
