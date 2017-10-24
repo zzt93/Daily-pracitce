@@ -23,7 +23,7 @@ public class PrintBT {
         List<List<String>> res = new ArrayList<>(depth);
         int size = (int) Math.pow(2, depth) - 1;
         String[] strings = new String[size];
-        Arrays.fill(strings, "");
+        Arrays.fill(strings, "' '");
         for (int i = 0; i < depth; i++) {
             res.add(new ArrayList<>(Arrays.asList(strings)));
         }
@@ -40,7 +40,7 @@ public class PrintBT {
             return;
         }
         int mid = (s + e) / 2;
-        res.get(depth).set(mid, "" + root.val);
+        res.get(depth).set(mid, "'" + root.val + "'");
         dfs(root.left, depth + 1, s, mid, res);
         dfs(root.right, depth + 1, mid + 1, e, res);
     }
@@ -83,7 +83,7 @@ public class PrintBT {
 
     public static void main(String[] args) {
         PrintBT printBT = new PrintBT();
-        System.out.println(printBT.printTree(makeTree("3,null,30,10,null,null,15,null,45")));
+                System.out.println(printBT.printTree(makeTree("3,null,0,1,null,null,5,null,4")));
         System.out.println(printBT.printTree(makeTree("")));
         System.out.println(printBT.printTree(makeTree("1,2")));
         System.out.println(printBT.printTree(makeTree("1,2,3,null,4")));

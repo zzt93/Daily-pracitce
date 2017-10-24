@@ -7,7 +7,7 @@ import org.apache.spark.sql.SparkSession
   * <h3></h3>
   */
 
-object SimpleApp {
+object CountApp {
   def main(args: Array[String]) {
     val logFile = "/usr/local/spark/README.md" // Should be some file on your system
     val spark = SparkSession.builder.appName("Simple Application").master("local").getOrCreate()
