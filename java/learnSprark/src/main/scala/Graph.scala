@@ -34,8 +34,9 @@ object GraphXTest {
 //    vertices2.filter { case (id, st:String) => id == 149}.foreach(println)
 //    edges.filter(ed => ed.srcId == 149).foreach(println)
     val graph = Graph(vertices.union(vertices2), edges, "")
-    val value = graph.subgraph(vpred = (v, attr) => (attr.length > 1 ) || v > 22528068)
-    value.vertices.foreach(println)
-    value.edges.foreach(println)
+    val value = graph.subgraph(vpred = (v, attr) => (attr.length > 1 ) || v < 500)
+    value.vertices.foreach(v => printf("%s ", v))
+    println()
+    value.edges.foreach(v => printf("%s ", v))
   }
 }
