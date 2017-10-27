@@ -10,15 +10,17 @@ import org.springframework.scheduling.annotation.ScheduledAnnotationBeanPostProc
 
 @SpringBootApplication
 @EnableScheduling
-public class ScheduleApplication implements CommandLineRunner {
+public class TestSpringBootApplication implements CommandLineRunner {
 
     @Autowired
     private ScheduledAnnotationBeanPostProcessor postProcessor;
     @Autowired
     private TestSchedule test;
+    @Autowired
+    private YmlConfig ymlConfig;
 
     public static void main(String[] args) {
-        SpringApplication.run(ScheduleApplication.class, "--debug").close();
+        SpringApplication.run(TestSpringBootApplication.class, "--debug").close();
     }
 
     @Bean
