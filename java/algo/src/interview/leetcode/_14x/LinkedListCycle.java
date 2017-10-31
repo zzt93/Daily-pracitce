@@ -14,11 +14,23 @@ public class LinkedListCycle {
         ListNode now = head.next;
         ListNode pre = head;
         while(now != null && now != head) {
-            ListNode tmp = now.next;
+            ListNode next = now.next;
             now.next = pre;
             pre = now;
-            now = tmp;
+            now = next;
         }
         return now == head;
     }
+
+//    public boolean hasCycle(ListNode head) {
+//        if(head==null) return false;
+//        ListNode walker = head;
+//        ListNode runner = head;
+//        while(runner.next!=null && runner.next.next!=null) {
+//            walker = walker.next;
+//            runner = runner.next.next;
+//            if(walker==runner) return true;
+//        }
+//        return false;
+//    }
 }
