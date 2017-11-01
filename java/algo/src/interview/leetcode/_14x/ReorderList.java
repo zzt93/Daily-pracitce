@@ -29,7 +29,7 @@ public class ReorderList {
             return;
         }
         ListNode now = head.next;
-        ListNode midNode = null;
+        ListNode midNode = head;
         int i = 0;
         while (now != null) {
             i++;
@@ -46,9 +46,19 @@ public class ReorderList {
         ListNode first = head, last = pre;
         while (last != midNode) {
             ListNode tmp = first.next;
+            ListNode next = last.next;
             first.next = last;
+            last.next = tmp;
             first = tmp;
-            last = last.next;
+            last = next;
         }
+        midNode.next = null;
+    }
+
+    public static void main(String[] args) {
+        ReorderList re = new ReorderList();
+        re.reorderList(ListNode.makeList("1"));
+        re.reorderList(ListNode.makeList("0,1,2,3,4,5"));
+        re.reorderList(ListNode.makeList("0,1,2,3,4"));
     }
 }
