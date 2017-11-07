@@ -1,9 +1,7 @@
 package interview.leetcode._14x;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.TreeMap;
 
 /**
@@ -26,7 +24,7 @@ public class MaxPointOnLine {
                     start++;
                     continue;
                 }
-                Rate rate = new Rate(points[x],points[i]);
+                Rate rate = new Rate(points[x], points[i]);
                 if (c.containsKey(rate)) {
                     c.put(rate, c.get(rate) + 1);
                 } else {
@@ -46,8 +44,8 @@ public class MaxPointOnLine {
         private long dx;
 
         public Rate(Point f, Point s) {
-            this.dx = f.x-s.x;
-            this.dy = f.y-s.y;
+            this.dx = f.x - s.x;
+            this.dy = f.y - s.y;
             if (dx < 0) {
                 dx = -dx;
                 dy = -dy;
@@ -58,7 +56,7 @@ public class MaxPointOnLine {
         public int compareTo(Rate o) {
             if (dx == 0) {
                 if (o.dx == 0) {
-                    assert o.dy!=0;
+                    assert o.dy != 0;
                     return 0;
                 } else {
                     return 1;
