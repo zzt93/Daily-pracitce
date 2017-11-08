@@ -8,9 +8,13 @@ object ReadCsv {
   def main(args: Array[String]) {
     val spark = SparkSession.builder.appName("Spark SQL basic example").master("local").getOrCreate()
 
-    val payDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/user_pay.txt")
-//    val shopDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/shop_info.txt")
-//    shopDF.write.csv("hdfs://master:9000/shop/")
+//    val payDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/user_pay.txt")
+    val shopDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/shop_info.txt")
+    import spark.implicits._
+    val set = Array(1,2,3).toList
+    val shopsTypes = shopDF.filter($"_c0".isin(set: _*) && ($"_c9" isNotNull)).select("_c9").distinct().map(r => r.getAs[String](0)).collect()
+    print(shopsTypes)
+    //    shopDF.write.csv("hdfs://master:9000/shop/")
 
 //    val shopCount = payDF.select("_c1").distinct().count()
 //    println(shopCount)
@@ -19,7 +23,7 @@ object ReadCsv {
     //    payDF.show()
 //    payDF.printSchema()
     //    payDF.select("_c1").show()
-        payDF.groupBy("_c1", "_c8").count().show()
+//        payDF.groupBy("_c1", "_c8").count().show()
 //    payDF.groupBy("_c0", "_c1").count().write.csv("hdfs://master:9000/count2")
 //    payDF.select("_c0").distinct().write.csv("hdfs://master:9000/user/")
 //    import spark.implicits._
