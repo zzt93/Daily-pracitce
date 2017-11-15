@@ -18,10 +18,18 @@ public class ExcelTitle {
                 res.insert(0, 'Z');
             } else {
                 r--;
-                res.insert(0, (char)(r + 'A'));
+                res.insert(0, (char) (r + 'A'));
             }
         }
         return res.toString();
+    }
+
+    public int titleToNumber(String s) {
+        int sum = 0;
+        for (char c : s.toCharArray()) {
+            sum = (c - 'A' + 1) + sum * 26;
+        }
+        return sum;
     }
 
     public static void main(String[] args) {
