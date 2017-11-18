@@ -11,13 +11,16 @@ object ReadCsv {
 
     val payDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/user_pay.txt")
 //    val payDF = spark.read.option("header", "false").csv("hdfs://master:9000/count2/*.csv")
-//    val viewDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/user_view.txt")
+    val viewDF = spark.read.option("header", "false").csv("/home/zzt/mis/NJU/研一/cloud/IJCAI17_data/dataset/user_view.txt")
 
 //    payDF.groupBy("_c0", "_c1").count().write.csv("hdfs://master:9000/count2")
 //    payDF.select("_c0").distinct().write.csv("hdfs://master:9000/user/")
     import spark.implicits._
-    payDF.filter($"_c2" > "2016-06-22" && $"_c2" < "2016-08-30").sort("_c2").write.csv("hdfs://master:9000/ml/pay/")
-//    viewDF.filter($"_c2" > "2016-06-22" && $"_c2" < "2016-08-30").sort("_c2").write.csv("hdfs://master:9000/ml/view/")
+    payDF.filter($"_c2" > "2016-06-22" && $"_c2" < "2016-07-21").sort("_c2").write.csv("hdfs://master:9000/ml/pay/06")
+    payDF.filter($"_c2" > "2016-07-29" && $"_c2" < "2016-08-28").sort("_c2").write.csv("hdfs://master:9000/ml/pay/07")
+    payDF.filter($"_c2" > "2016-08-22" && $"_c2" < "2016-09-07").sort("_c2").write.csv("hdfs://master:9000/ml/pay/08")
+    viewDF.filter($"_c2" > "2016-07-22" && $"_c2" < "2016-08-21").sort("_c2").write.csv("hdfs://master:9000/ml/view/07")
+    viewDF.filter($"_c2" > "2016-08-22" && $"_c2" < "2016-08-31").sort("_c2").write.csv("hdfs://master:9000/ml/view/08")
   }
 
   private def showShop(payDF: DataFrame, spark: SparkSession) = {
