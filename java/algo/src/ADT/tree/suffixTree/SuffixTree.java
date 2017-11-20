@@ -1,4 +1,4 @@
-package ADT.suffixTree;
+package ADT.tree.suffixTree;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package ADT.trie;
+package ADT.tree.trie;
 
 import org.junit.Test;
 

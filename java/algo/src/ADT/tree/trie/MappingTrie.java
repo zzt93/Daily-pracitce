@@ -1,4 +1,4 @@
-package ADT.trie;
+package ADT.tree.trie;
 
 import java.util.List;
 import java.util.TreeMap;

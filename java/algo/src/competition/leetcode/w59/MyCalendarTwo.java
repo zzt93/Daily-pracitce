@@ -9,7 +9,8 @@ import java.util.TreeSet;
  * Created by zzt on 11/19/17.
  * <p>
  * <h3>Range problem:</h3>
- * <li>Segment tree</li>
+ * <li>Segment tree -- find point in range: static structure, every node has range and the interval it belongs to</li>
+ * <li>Interval tree -- find range in range</li>
  * <li>Axis: convert range to point (1) start is 1, end is -1, count from left to right (2) remember count at point </li>
  */
 public class MyCalendarTwo {
@@ -38,6 +39,7 @@ public class MyCalendarTwo {
         int[] se = {end, 0};
         int[] es = {0, start + 1};
         int[] ee = {0, end + 1};
+        // lack one situation, (start,end) is entirely enclosed by another range
         SortedSet<int[]> los = levelOneS.subSet(ss, se);
         SortedSet<int[]> loe = levelOneE.subSet(es, ee);
         if (!los.isEmpty()

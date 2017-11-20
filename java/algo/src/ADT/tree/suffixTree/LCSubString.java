@@ -1,4 +1,4 @@
-package ADT.suffixTree;
+package ADT.tree.suffixTree;
 
 /**
  * Created by zzt on 4/6/16.

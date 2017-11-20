@@ -1,4 +1,4 @@
-package ADT.trie;
+package ADT.tree.trie;
 
 /**
  * Created by zzt on 1/27/16.
