@@ -3,12 +3,13 @@
   *
   * <h3></h3>
   */
+import org.apache.spark.ml.classification.LogisticRegression
 import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
 import org.apache.spark.mllib.evaluation.{BinaryClassificationMetrics, MulticlassMetrics}
 import org.apache.spark.mllib.feature.StandardScaler
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.sql.{Encoders, SparkSession}
+import org.apache.spark.sql.{DataFrame, Encoders, SparkSession}
 
 object Classify {
   def main(args: Array[String]): Unit = {
@@ -36,6 +37,8 @@ object Classify {
 
     val model_log=new LogisticRegressionWithLBFGS().setNumClasses(2).run(data_train.rdd)
 
+    new LogisticRegression().setWeightCol("classWeightCol").setLabelCol("label").setFeaturesCol("features").fit(data_train)
+
     /*在使用模型做预测时，如何知道预测到底好不好呢？换句话说，应该知道怎么评估模型性能。
     通常在二分类中使用的评估方法包括：预测正确率和错误率、准确率和召回率、准确率  召回率
     曲线下方的面积、 ROC 曲线、 ROC 曲线下的面积和 F-Measure*/
@@ -51,5 +54,24 @@ object Classify {
     allMetrics.foreach{ case (m, pr, roc) =>
       println(f"$m, Area under PR: ${pr * 100.0}%2.4f%%, Area under ROC: ${roc * 100.0}%2.4f%%")
     }
+  }
+
+  def balanceDataset(dataset: DataFrame): DataFrame = {
+    // Re-balancing (weighting) of records to be used in the logistic loss objective function
+    val numNegatives = dataset.filter(dataset("label") === 0).count
+    val datasetSize = dataset.count
+    val balancingRatio = (datasetSize - numNegatives).toDouble / datasetSize
+
+    val calculateWeights = udf { d: Double =>
+      if (d == 0.0) {
+        1 * balancingRatio
+      }
+      else {
+        (1 * (1.0 - balancingRatio))
+      }
+    }
+
+    val weightedDataset = dataset.withColumn("classWeightCol", calculateWeights(dataset("label")))
+    weightedDataset
   }
 }
