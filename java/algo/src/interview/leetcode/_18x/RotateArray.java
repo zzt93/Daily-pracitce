@@ -48,7 +48,7 @@ public class RotateArray {
         for (int i = 0; i < mid / 2; i++) {
             swap(n, i, mid - 1 - i);
         }
-        for (int i = mid; i < l / 2; i++) {
+        for (int i = mid; i < (l + mid) / 2; i++) {
             swap(n, i, l - 1 + mid - i);
         }
         for (int i = 0; i < l / 2; i++) {
@@ -61,6 +61,9 @@ public class RotateArray {
         if (k > l - k) {
             k = l - k;
             dir = dir.reverse();
+        }
+        if (k==0) {
+            return;
         }
 
         if (l <= 1) {
@@ -85,8 +88,14 @@ public class RotateArray {
     }
 
     public static void main(String[] args) {
-//        test(new int[]{1},1);
-//        test(new int[]{1},123);
-        test(new int[]{1,2,3,4,5,6,7,8,9,10},123);
+        //        test(new int[]{1},1);
+        //        test(new int[]{1},123);
+        test(new int[]{1, 2, 3, 4, 5, 6,}, 2);
+        test(new int[]{1, 2, 3, 4, 5, 6,}, 0);
+        test(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 123);
+        test(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 23);
+        test(new int[]{1, 2, 3}, 23);
+        test(new int[]{1, 2, 3}, 21);
+        test(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}, 1);
     }
 }
