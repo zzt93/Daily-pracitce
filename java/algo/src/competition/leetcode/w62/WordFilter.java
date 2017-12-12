@@ -1,6 +1,5 @@
 package competition.leetcode.w62;
 
-import interview.leetcode._2xx._20x.Trie;
 
 import java.util.ArrayList;
 import java.util.Comparator;
