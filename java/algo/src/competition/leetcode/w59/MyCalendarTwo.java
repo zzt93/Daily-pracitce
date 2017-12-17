@@ -10,7 +10,7 @@ import java.util.TreeSet;
  * <p>
  * <h3>Range problem:</h3>
  * <li>Segment tree -- find point in range: static structure, every node has range and the interval it belongs to</li>
- * <li>Interval tree -- find range in range</li>
+ * <li>Interval tree -- find all intervals that overlap with any given interval or point</li>
  * <li>Axis: convert range to point (1) start is 1, end is -1, count from left to right (2) remember count at point </li>
  */
 public class MyCalendarTwo {
