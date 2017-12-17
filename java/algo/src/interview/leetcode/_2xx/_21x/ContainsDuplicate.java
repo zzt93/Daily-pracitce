@@ -11,6 +11,6 @@ import java.util.stream.Collectors;
 public class ContainsDuplicate {
 
     public boolean containsDuplicate(int[] nums) {
-        return Arrays.stream(nums).boxed().collect(Collectors.toSet()).size() == nums.length;
+        return Arrays.stream(nums).boxed().collect(Collectors.toSet()).size() != nums.length;
     }
 }
