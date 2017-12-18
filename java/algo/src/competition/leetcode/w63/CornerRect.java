@@ -6,7 +6,7 @@ import java.util.Collections;
 /**
  * Created by zzt on 12/17/17.
  * <p>
- * <h3></h3>
+ * <h3>find a line segment in row, then try to find same segment in another row</h3>
  */
 public class CornerRect {
 
