@@ -13,17 +13,14 @@ package competition.leetcode.w63;
  */
 public class ContainVirus {
 
-    private static final int UP = 0;
-    private static final int DOWN = 1;
-    private static final int LEFT = 2;
-    private static final int RIGHT = 3;
-    public static final int VISITED = -1;
+    private static final int VISITED = -1;
 
     public int containVirus(int[][] grid) {
         if (grid.length == 0) return 0;
 
         int m = grid.length, n = grid[0].length;
         boolean[][][] wall = new boolean[m][n][4];
+        int[][][] col = new int[m][n][4];
         int last = 0, now = 0;
         do {
             last = now;
@@ -31,7 +28,8 @@ public class ContainVirus {
             int color = 2, maxCount = 0, maxColor = color;
             for (int x = 0; x < m; x++) {
                 for (int y = 0; y < n; y++) {
-                    int c = findRegion(grid, m, n, x, y, color++, wall);
+                    if (grid[x][y] != 1) continue;
+                    int c = findRegion(grid, m, n, x, y, col, color++, wall);
                     if (c > maxCount) {
                         maxCount = c;
                         maxColor = color - 1;
@@ -41,38 +39,38 @@ public class ContainVirus {
 
             for (int x = 0; x < m; x++) {
                 for (int y = 0; y < n; y++) {
-                    if (grid[x][y] == VISITED) {
+                    if (grid[x][y] == VISITED) { // reset to revisit
                         grid[x][y] = 1;
                     }
                 }
             }
             for (int x = 0; x < m; x++) {
                 for (int y = 0; y < n; y++) {
-                    if (grid[x][y] == maxColor) {
-                        grid[x][y] = 0;
-                        if (x > 0 && grid[x - 1][y] == 1) {
-                            wall[x][y][UP] = true;
-                            now++;
-                        }
-                        if (x < m - 1 && grid[x + 1][y] == 1) {
-                            wall[x][y][DOWN] = true;
-                            now++;
-                        }
-                        if (y > 0 && grid[x][y - 1] == 1) {
-                            wall[x][y][LEFT] = true;
-                            now++;
-                        }
-                        if (y < n - 1 && grid[x][y + 1] == 1) {
-                            wall[x][y][RIGHT] = true;
-                            now++;
+                    if (grid[x][y] == 1) {
+                        for (int d = 0; d < 4; d++) {
+                            if (col[x][y][d] == maxColor) {
+                                grid[x + dir[d][0]][y + dir[d][1]] = 0;
+                                // setup wall
+                                wall[x][y][d] = true;
+                                now++;
+                                // clear to avoid future entrance
+                                col[x][y][d] = 0;
+                            }
                         }
                     }
                 }
             }
             for (int x = 0; x < m; x++) {
                 for (int y = 0; y < n; y++) {
-                    if (grid[x][y] > 1) {
-                        grid[x][y] = 1;
+                    if (grid[x][y] == 1) {
+                        for (int d = 0; d < 4; d++) {
+                            if (col[x][y][d] != 0 && !wall[x][y][d]) {
+                                // infect
+                                grid[x + dir[d][0]][y + dir[d][1]] = 1;
+                                // clear to avoid future entrance
+                                col[x][y][d] = 0;
+                            }
+                        }
                     }
                 }
             }
@@ -80,51 +78,46 @@ public class ContainVirus {
         return now;
     }
 
-    private int findRegion(int[][] grid, int m, int n, int x, int y, int col, boolean[][][] wall) {
-        if (grid[x][y] != 1) {
-            return 0;
-        }
+    private int[][] dir = {
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+    };
+
+    private int findRegion(int[][] grid, int m, int n, int x, int y, int[][][] colors, int col,
+                           boolean[][][] wall) {
+        assert grid[x][y] == 1;
         grid[x][y] = VISITED;
         int sum = 0;
-        if (x > 0)
-            if (grid[x - 1][y] == 1) {
-                sum += findRegion(grid, m, n, x - 1, y, col, wall);
-            } else if (grid[x - 1][y] == 0 && !wall[x - 1][y][DOWN]) {
-                grid[x - 1][y] = col;
-                sum++;
+        for (int d = 0; d < 4; d++) {
+            int tx = x + dir[d][0];
+            int ty = y + dir[d][1];
+            if (tx >= 0 && tx < m && ty >= 0 && ty < n) {
+                if (grid[tx][ty] == 1 && !wall[x][y][d]) {
+                    sum += findRegion(grid, m, n, tx, ty, colors, col, wall);
+                } else if (grid[tx][ty] != VISITED && !wall[x][y][d]) {
+                    if ((grid[tx][ty] >= 0 && grid[tx][ty] < col)) {
+                        grid[tx][ty] = col;
+                        sum++;
+                    }
+                    colors[x][y][d] = col;
+                }
             }
-        if (x < m - 1)
-            if (grid[x + 1][y] == 1) {
-                sum += findRegion(grid, m, n, x + 1, y, col, wall);
-            } else if (grid[x + 1][y] == 0 && !wall[x + 1][y][UP]) {
-                grid[x + 1][y] = col;
-                sum++;
-            }
-        if (y > 0)
-            if (grid[x][y - 1] == 1) {
-                sum += findRegion(grid, m, n, x, y - 1, col, wall);
-            } else if (grid[x][y - 1] == 0 && !wall[x][y - 1][RIGHT]) {
-                grid[x][y - 1] = col;
-                sum++;
-            }
-
-        if (y < n - 1)
-            if (grid[x][y + 1] == 1) {
-                sum += findRegion(grid, m, n, x, y + 1, col, wall);
-            } else if (grid[x][y + 1] == 0 && !wall[x][y + 1][LEFT]) {
-                grid[x][y + 1] = col;
-                sum++;
-            }
+        }
 
         return sum;
     }
 
     public static void main(String[] args) {
         ContainVirus c = new ContainVirus();
-//        System.out.println(c.containVirus(new int[][]{new int[]{0, 1, 0, 0, 0, 0, 0, 1}, new
-//                int[]{0, 1, 0, 0, 0, 0, 0, 1}, new int[]{0, 0, 0, 0, 0, 0, 0, 1}, new int[]{0, 0, 0, 0, 0, 0, 0, 0}}));
-//        System.out.println(c.containVirus(new int[][]{}));
-        System.out.println(c.containVirus(new int[][]{new int[]{1,1,1,0,0,0,0,0,0},new int[]{1,0,1,0,1,1,1,1,1},new int[]{1,1,1,0,0,0,0,0,0}}));
+        System.out.println(c.containVirus(new int[][]{new int[]{0, 1, 0, 0, 0, 0, 0, 1},
+                new int[]{0, 1, 0, 0, 0, 0, 0, 1}, new int[]{0, 0, 0, 0, 0, 0, 0, 1},
+                new int[]{0, 0, 0, 0, 0, 0, 0, 0}}));
+        System.out.println(c.containVirus(new int[][]{}));
+        System.out.println(c.containVirus(new int[][]{new int[]{1, 1, 1, 0, 0, 0, 0, 0, 0},
+                new int[]{1, 0, 1, 0, 1, 1, 1, 1, 1}, new int[]{1, 1, 1, 0, 0, 0, 0, 0, 0}}));
+        System.out.println(c.containVirus(new int[][]{new int[]{1, 1, 1}, new int[]{1, 0, 1},
+                new int[]{1, 1, 1}}));
+        System.out.println(c.containVirus(new int[][]{new int[]{0, 1, 0, 0, 0, 0, 0, 1}, new
+                int[]{0, 1, 0, 1, 0, 0, 0, 1}, new int[]{0, 0, 0, 0, 0, 0, 0, 1}}));
     }
 
 }
