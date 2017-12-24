@@ -54,6 +54,9 @@ public class Calculator {
                         }
                         operator.add(c);
                         state = FIND_TOKEN;
+                    } else if (c == ')') {
+                        cal(operand, operator);
+                        operator.removeLast();
                     }
                     break;
             }
@@ -66,6 +69,9 @@ public class Calculator {
     }
 
     private void cal(LinkedList<Integer> operand, LinkedList<Character> operator) {
+        if (operator.isEmpty() || operator.peekLast() == '(') {
+            return;
+        }
         char op = operator.removeLast();
         int s = operand.removeLast();
         int f = operand.removeLast();
@@ -74,12 +80,17 @@ public class Calculator {
 
     public static void main(String[] args) {
         Calculator c = new Calculator();
+        System.out.println(c.calculate("(5-(1+(5)))"));
+        System.out.println(c.calculate("1 "));
+        System.out.println(c.calculate("(1) "));
         System.out.println(c.calculate("1 ++1"));
         System.out.println(c.calculate("1 +-1"));
         System.out.println(c.calculate("1 + -1"));
         System.out.println(c.calculate("1 + - 1"));
+        System.out.println(c.calculate("(1) + (- 1)"));
         System.out.println(c.calculate("1 + (- 1 + 1)"));
         System.out.println(c.calculate(" 2-1 + 2 "));
+        System.out.println(c.calculate(" 21-11 + 2 "));
         System.out.println(c.calculate("(1+(4+5+2)-3)+(6+8)"));
     }
 }
