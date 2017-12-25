@@ -17,6 +17,7 @@ public class CrackSafe {
         }
         HashSet<String> seen = new HashSet<>();
         seen.add(sb.toString());
+        //        dfs(seen, kn, sb, n, k);
         while (seen.size() < kn) {
             for (int i = k - 1; i >= 0; i--) {
                 sb.append(((char) ('0' + i)));
@@ -31,6 +32,31 @@ public class CrackSafe {
             }
         }
         return sb.toString();
+    }
+
+    /**
+     * Overflow for n=4,k=8
+     * -Xss4096k
+     */
+    private boolean dfs(HashSet<String> seen, int kn, StringBuilder sb, int n, int k) {
+        if (seen.size() == kn) return true;
+
+        for (int i = k - 1; i >= 0; i--) {
+            sb.append(((char) ('0' + i)));
+            int l = sb.length();
+            String sub = sb.substring(l - n);
+            if (seen.contains(sub)) {
+                sb.deleteCharAt(l - 1);
+            } else {
+                seen.add(sub);
+                if (dfs(seen, kn, sb, n, k)) {
+                    return true;
+                }
+                seen.remove(sub);
+                sb.deleteCharAt(l - 1);
+            }
+        }
+        return false;
     }
 
     public static void main(String[] args) {
