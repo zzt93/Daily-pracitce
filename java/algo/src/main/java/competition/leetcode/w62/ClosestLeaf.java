@@ -4,7 +4,6 @@ import interview.leetcode.TreeNode;
 
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 
 import static interview.leetcode.TreeNode.makeTree;
 

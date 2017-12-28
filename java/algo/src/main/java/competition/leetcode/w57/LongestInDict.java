@@ -1,6 +1,6 @@
 package competition.leetcode.w57;
 
-import java.util.*;
+import java.util.TreeMap;
 
 /**
  * Created by zzt on 11/5/17.

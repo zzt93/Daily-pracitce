@@ -1,9 +1,6 @@
 package competition.leetcode.w49;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 
 /**
  * Created by zzt on 9/10/17.

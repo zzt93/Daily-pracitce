@@ -1,7 +1,7 @@
 package competition.leetcode.w48;
 
-import interview.leetcode.TreeNode;
 import competition.leetcode.w44.PrintBT;
+import interview.leetcode.TreeNode;
 
 import static interview.leetcode.TreeNode.makeTree;
 

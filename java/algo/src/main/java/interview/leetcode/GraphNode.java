@@ -2,7 +2,6 @@ package interview.leetcode;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * Created by zzt on 9/21/17.

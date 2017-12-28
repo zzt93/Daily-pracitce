@@ -5,7 +5,6 @@ import interview.leetcode.ListNode;
 import java.util.Arrays;
 
 import static interview.leetcode.ListNode.makeList;
-import static interview.leetcode.ListNode.print;
 
 /**
  * Created by zzt on 11/12/17.
