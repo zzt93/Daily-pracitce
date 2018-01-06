@@ -1,5 +1,6 @@
 package ADT.tree.trie;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public class MappingTrieTest {
     private MappingTrie<Character, String> trie;
     private ArrayList<String> tests;
 
-    @org.junit.Before
+    @Before
     public void setUp() throws Exception {
         trie = new MappingTrie<>('\0', '\0');
         String allow = "allow";
