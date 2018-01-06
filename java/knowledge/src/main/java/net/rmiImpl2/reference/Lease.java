@@ -17,7 +17,7 @@ public class Lease {
     public void decrease() {
         lease--;
         if (lease == 0) {
-            ref.remove(this);
+//            ref.remove(this);
         }
     }
 
