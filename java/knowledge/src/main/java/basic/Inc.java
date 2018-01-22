@@ -1,4 +1,4 @@
-package java;
+package basic;
 
 /**
  * @author zzt
