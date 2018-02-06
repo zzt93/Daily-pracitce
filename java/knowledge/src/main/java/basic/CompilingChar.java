@@ -1,4 +1,4 @@
-package java;
+package basic;
 
 /**
  * Created by zzt on 10/5/16.
