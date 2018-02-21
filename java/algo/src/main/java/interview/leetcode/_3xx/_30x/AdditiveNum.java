@@ -1,4 +1,4 @@
-package interview.leetcode;
+package interview.leetcode._3xx._30x;
 
 /**
  * Created by zzt on 2/2/18.
