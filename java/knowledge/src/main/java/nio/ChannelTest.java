@@ -10,6 +10,8 @@ import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 import java.nio.channels.WritableByteChannel;
 import java.util.Iterator;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zzt
@@ -17,12 +19,13 @@ import java.util.Iterator;
 public class ChannelTest {
 
   public static void main(String[] args) throws IOException {
-    blockClient();
+    Executors.newScheduledThreadPool(1).scheduleAtFixedRate(ChannelTest::blockClient, 2, 2,
+        TimeUnit.SECONDS);
 
-    Selector selector = Selector.open();
     ServerSocketChannel server = ServerSocketChannel.open();
     server.bind(new InetSocketAddress(9300));
     server.configureBlocking(false);
+    Selector selector = Selector.open();
     server.register(selector, SelectionKey.OP_ACCEPT);
 
     byte[] rotation = new byte[95 * 2];
@@ -40,6 +43,7 @@ public class ChannelTest {
           if (next.isAcceptable()) {
             ServerSocketChannel channel = (ServerSocketChannel) next.channel();
             SocketChannel accept = channel.accept();
+            // have to config blocking mode or IllegalBlockingModeException
             accept.configureBlocking(false);
             SelectionKey key2 = accept.register(selector, SelectionKey.OP_WRITE);
             ByteBuffer buffer = ByteBuffer.allocate(74);
@@ -52,15 +56,18 @@ public class ChannelTest {
             SocketChannel client = ((SocketChannel) next.channel());
             ByteBuffer buffer = (ByteBuffer) next.attachment();
             if (!buffer.hasRemaining()) {
+//              System.out.println(client.toString() + "re-fill");
               buffer.rewind();
               int first = buffer.get();
               buffer.rewind();
               int position = first - ' ' + 1;
               buffer.put(rotation, position, 72);
+              buffer.put((byte) '\r');
               buffer.put((byte) '\n');
               buffer.flip();
             }
             client.write(buffer);
+//            System.out.println(client.toString() + "write");
           }
         } catch (IOException e) {
           next.cancel();
@@ -70,14 +77,23 @@ public class ChannelTest {
     }
   }
 
-  private static void blockClient() throws IOException {
+  private static void blockClient() {
     InetSocketAddress addr = new InetSocketAddress(9300);
-    SocketChannel in = SocketChannel.open(addr);
-    ByteBuffer buffer = ByteBuffer.allocate(100);
-    int read = in.read(buffer);
-    WritableByteChannel out = Channels.newChannel(System.out);
-    buffer.flip();
-    out.write(buffer);
+    try {
+      SocketChannel in = SocketChannel.open(addr);
+      ByteBuffer buffer = ByteBuffer.allocate(100);
+      for (int i = 0; i < 5; i++) {
+        buffer.rewind();
+        // may read two times output, i.e. write faster than read
+        int read = in.read(buffer);
+        System.out.println("Read " + read);
+        WritableByteChannel out = Channels.newChannel(System.out);
+        buffer.flip();
+        out.write(buffer);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
 }
