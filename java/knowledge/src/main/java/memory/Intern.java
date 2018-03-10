@@ -20,8 +20,9 @@ public class Intern {
 
         String s3 = new String("1") + new String("1");
         String s4 = "11";
-        s3.intern();
+        String s5 = s3.intern();
         System.out.println(s3 == s4);
+        System.out.println(s5 == s4);
     }
 
     private static void InternFirst() {
@@ -31,8 +32,9 @@ public class Intern {
         System.out.println(s1 == s2);
 
         String s3 = new String("1") + new String("1");
-        s3.intern();
+        String s5 = s3.intern();
         String s4 = "11";
         System.out.println(s3 == s4);
+        System.out.println(s3 == s5);
     }
 }
