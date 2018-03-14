@@ -9,6 +9,7 @@ public class HandWrite {
   public static String toHex(int r, int g, int b) {
     return String.format("%02x%02x%02x", r, g, b);
   }
+
   public static String hex(int i) {
     if (i > 255 || i < 0) {
       throw new IllegalArgumentException();
@@ -18,12 +19,12 @@ public class HandWrite {
     if (f >= 0 && f <= 9) {
       res += f;
     } else {
-      res += (char)('A' + (f - 10));
+      res += (char) ('A' + (f - 10));
     }
     if (s >= 0 && s <= 9) {
       res += s;
     } else {
-      res += (char)('A' + (s - 10));
+      res += (char) ('A' + (s - 10));
     }
     return res;
   }
@@ -32,7 +33,7 @@ public class HandWrite {
     for (int i = 0; i < 256; i++) {
       System.out.println(hex(i));
     }
-    System.out.println(toHex(255,0,255));
+    System.out.println(toHex(255, 0, 255));
   }
 
 }
