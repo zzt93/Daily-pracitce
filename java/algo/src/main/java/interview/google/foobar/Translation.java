@@ -1,4 +1,4 @@
-package interview.foobar;
+package interview.google.foobar;
 
 /**
  * @author zzt

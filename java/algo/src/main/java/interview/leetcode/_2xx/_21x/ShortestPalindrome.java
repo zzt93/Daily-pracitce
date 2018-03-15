@@ -75,7 +75,7 @@ public class ShortestPalindrome {
         return new StringBuilder(s.substring(table[l-1])).reverse().append(s).toString();
     }
 
-    private int[] kmp(String temp) {
+    public static int[] kmp(String temp) {
         int[] res = new int[temp.length()];
         char[] cs = temp.toCharArray();
         res[0] = 0;
