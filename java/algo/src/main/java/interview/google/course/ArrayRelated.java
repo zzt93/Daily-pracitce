@@ -2,6 +2,9 @@ package interview.google.course;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 /**
  * Created by zzt on 3/15/18.
@@ -35,6 +38,18 @@ public class ArrayRelated {
             sum[i] = sum[i-1] + nums[i];
         }
         return (sum[nums.length-1]&1) == 0 && Arrays.binarySearch(sum, sum[nums.length-1]/2) >= 0;
+    }
+
+    public static int[] sort(int[] a) {
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int i: a) {
+            set.add(i);
+        }
+        return set.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    public Map<String, Integer> word0(String[] strings) {
+        return Arrays.stream(strings).collect(Collectors.toMap(s -> s, s -> 0, (k1, k2) -> k1));
     }
 
     public static void main(String[] args) {
