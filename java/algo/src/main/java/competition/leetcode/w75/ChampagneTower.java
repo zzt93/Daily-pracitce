@@ -1,7 +1,5 @@
 package competition.leetcode.w75;
 
-import java.util.LinkedList;
-
 /**
  * @author zzt
  */
@@ -32,7 +30,18 @@ public class ChampagneTower {
   }
 
   public double champagneTower(int poured, int query_row, int query_glass) {
-    return 0;
+    double[][] dp = new double[101][101];
+    dp[0][0] = poured;
+    for (int i = 0; i <= query_row; i++) {
+      for (int j = 0; j < i+1; j++) {
+        if (dp[i][j] > 1) {
+          dp[i+1][j] += (dp[i][j]-1)/2;
+          dp[i+1][j+1] += (dp[i][j]-1)/2;
+          dp[i][j] = 1;
+        }
+      }
+    }
+    return dp[query_row][query_glass];
   }
 
 }
