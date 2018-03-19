@@ -16,7 +16,7 @@ public class MaxSumVariant {
         int maxEndHere = 0;
         for (int anInt : ints) {
             maxEndHere = Math.max(anInt, maxEndHere + anInt);
-            /**
+            /*
              * @see methodology.dynamic.MaxOfSumOpt
              *
              * verification:
