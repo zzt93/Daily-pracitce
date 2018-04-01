@@ -10,10 +10,10 @@ import java.util.Set;
 /**
  * @author zzt
  */
-public class RussianDollEnv {
+public class RussianDollEnv_354 {
 
   public static void main(String[] args) {
-    RussianDollEnv r = new RussianDollEnv();
+    RussianDollEnv_354 r = new RussianDollEnv_354();
     System.out.println(r.maxEnvelopes(
         new int[][]{new int[]{2, 100}, new int[]{3, 200}, new int[]{4, 300}, new int[]{5, 500},
             new int[]{5, 400}, new int[]{5, 250}, new int[]{6, 370}, new int[]{6, 360},
