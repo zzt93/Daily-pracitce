@@ -9,6 +9,10 @@ import java.util.PriorityQueue;
  * Created by zzt on 3/23/18.
  * <p>
  * <h3></h3>
+ * <ul>
+ *     <li>Use Queue to hold multiple edges between nodes & every edge visit once (dfs or bfs)</li>
+ *     <li></li>
+ * </ul>
  */
 public class Reconstruct_332 {
 
