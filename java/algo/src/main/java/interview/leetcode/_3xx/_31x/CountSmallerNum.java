@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 /**
  * Created by zzt on 2/17/18.
  * <p>
- * <h3></h3>
+ * <h3>Similarity: sort -- reverse pair; bst</h3>
  */
 public class CountSmallerNum {
 
@@ -34,7 +34,7 @@ public class CountSmallerNum {
     public List<Integer> countSmaller(int[] n) {
         TNode[] nodes = new TNode[n.length];
         TNode now = new TNode(Integer.MIN_VALUE);
-        for (int i = 0; i < n.length; i++) {
+        for (int i = n.length; i > 0; i--) {
             nodes[i] = new TNode(n[i]);
             makeTree(now, nodes[i]);
         }

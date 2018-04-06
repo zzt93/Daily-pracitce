@@ -32,11 +32,13 @@ public class MaxOfSumOpt {
         int max = 0;
         int maxEndHere = 0;
         for (int num : nums) {
-            /**
+            /*
              * update now state from last max:
+             * original: maxEndHere = Math.max(0, Math.max(maxEndHere + num, num));
+             * because maxEndHere >= 0, so simplify to following
              */
             maxEndHere = Math.max(0, maxEndHere + num);
-            /**
+            /*
              * verification:
              * i == 0, maxEndHere is max sum end at 0
              * suppose i == k-1, maxEndHere is max sum end at i-1

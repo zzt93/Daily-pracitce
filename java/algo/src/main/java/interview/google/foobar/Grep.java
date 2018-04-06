@@ -1,4 +1,4 @@
-package interview.foobar;
+package interview.google.foobar;
 
 import java.io.IOException;
 import java.nio.file.Files;
