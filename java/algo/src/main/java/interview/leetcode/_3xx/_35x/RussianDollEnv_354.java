@@ -8,66 +8,46 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * two dimensional LIS
+ * @see interview.leetcode._3xx._30x.LongestIncreasingSubsequence
  * @author zzt
  */
 public class RussianDollEnv_354 {
 
   public static void main(String[] args) {
     RussianDollEnv_354 r = new RussianDollEnv_354();
+    System.out.println(r.maxEnvelopes(new int[][]{new int[]{1, 1}}));
+    System.out.println(r.maxEnvelopes(new int[][]{new int[]{1, 1}, new int[]{2, 2}}));
+    System.out.println(r.maxEnvelopes(new int[][]{new int[]{1, 1}, new int[]{2, 1}}));
+    System.out.println(r.maxEnvelopes(
+        new int[][]{new int[]{5, 4}, new int[]{6, 7}, new int[]{2, 3}}));
     System.out.println(r.maxEnvelopes(
         new int[][]{new int[]{2, 100}, new int[]{3, 200}, new int[]{4, 300}, new int[]{5, 500},
             new int[]{5, 400}, new int[]{5, 250}, new int[]{6, 370}, new int[]{6, 360},
             new int[]{7, 380}}));
     System.out.println(r.maxEnvelopes(
         new int[][]{new int[]{5, 4}, new int[]{6, 4}, new int[]{6, 7}, new int[]{2, 3}}));
-    System.out.println(r.maxEnvelopes(
-        new int[][]{new int[]{5, 4}, new int[]{6, 7}, new int[]{2, 3}}));
   }
 
-//  public int maxEnvelopes(int[][] es) {
-//    int n = es.length;
-//    if (n == 0) {
-//      return 0;
-//    }
-//    Comparator<int[]> c1 = Comparator.comparingInt(is -> is[0]);
-//    Comparator<int[]> c2 = c1.thenComparingInt(is -> is[1]);
-//    Arrays.sort(es, c2);
-//
-//    // TODO 18/3/28 min height
-//    int c, lastJ = 0;
-//    for (c = 0; c < n - 1; c++) {
-//      boolean has = false;
-//      OUT:
-//      for (int i = lastJ; i < n; i++) {
-//        int[] key = {es[i][0] + 1, es[i][1] + 1};
-//        int j = Arrays.binarySearch(es, i + 1, n, key, c2);
-//        if (j < 0) {
-//          j = -j - 1;
-//        }
-//        if (i == lastJ) {
-//          lastJ = j;
-//        }
-//        while (j < n) {
-//          if (es[j][1] > es[i][1]) {
-//            has = true;
-//            break OUT;
-//          } else {
-//            key[0] = es[j][0];
-//            j = Arrays.binarySearch(es, j + 1, n, key, c2);
-//            if (j < 0) {
-//              j = -j - 1;
-//            }
-//          }
-//        }
-//      }
-//      if (!has) {
-//        break;
-//      }
-//    }
-//    return c + 1;
-//  }
-
   public int maxEnvelopes(int[][] es) {
+    Comparator<int[]> c1 = Comparator.comparingInt(is -> is[0]);
+    Comparator<int[]> c2 = c1.thenComparingInt(is -> is[1]);
+    Arrays.sort(es, c2);
+    int[] dp = new int[es.length];
+    Arrays.fill(dp, 1);
+    int max = es.length > 0 ? 1 : 0;
+    for (int i = 0; i < es.length; i++) {
+      for (int x = i+1; x < es.length; x++) {
+        if (es[i][0] < es[x][0] && es[i][1] < es[x][1]) {
+          dp[x] = Math.max(dp[x], dp[i] + 1);
+          max = Math.max(dp[x], max);
+        }
+      }
+    }
+    return max;
+  }
+
+  public int maxEnvelopesTLE2(int[][] es) {
     int n = es.length;
     if (n == 0) {
       return 0;

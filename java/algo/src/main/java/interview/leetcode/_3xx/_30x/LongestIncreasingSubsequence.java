@@ -28,14 +28,14 @@ public class LongestIncreasingSubsequence {
   }
 
   public int lengthOfLIS2(int[] nums) {
-    int[] dp = new int[nums.length];
+    int[] lisEnd = new int[nums.length];
     int size = 0;
     for (int n : nums) {
-      int i = Arrays.binarySearch(dp, 0, size, n);
+      int i = Arrays.binarySearch(lisEnd, 0, size, n);
       if (i < 0) {
         i = -(i + 1);
       }
-      dp[i] = n;
+      lisEnd[i] = n;
       if (i == size) size++;
     }
     return size;
