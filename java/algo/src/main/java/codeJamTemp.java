@@ -1,6 +1,5 @@
 import competition.utility.MyIn;
 import competition.utility.MyOut;
-
 import java.io.FileNotFoundException;
 
 /**
@@ -16,7 +15,7 @@ public class codeJamTemp {
         MyIn in;
         MyOut out = new MyOut("res");
         try {
-            in = new MyIn("testCase/-small-practice.in");//TODO add file name
+            in = new MyIn("testCase/.in");//TODO add file name
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             return;
