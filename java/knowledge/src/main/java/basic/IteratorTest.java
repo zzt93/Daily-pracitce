@@ -16,14 +16,14 @@ public class IteratorTest {
     TreeSet<Integer> set = new TreeSet<>(
         Arrays.asList(10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 1, 2, 3, 4, 5, 6, 7, 8, 9));
     Spliterator<Integer> spliterator = set.spliterator();
-//    Spliterator<Integer> f = spliterator.trySplit();
-//    print(spliterator, "old");
-//    print(f, "new");
-//
-//    f = set.spliterator().trySplit();
-//    Spliterator<Integer> f2 = f.trySplit();
-//    print(f, "new-old");
-//    print(f2, "new-new");
+    Spliterator<Integer> f = spliterator.trySplit();
+    print(spliterator, "old");
+    print(f, "new");
+
+    f = set.spliterator().trySplit();
+    Spliterator<Integer> f2 = f.trySplit();
+    print(f, "new-old");
+    print(f2, "new-new");
 
     spliterator = set.spliterator();
     spliterator.trySplit();

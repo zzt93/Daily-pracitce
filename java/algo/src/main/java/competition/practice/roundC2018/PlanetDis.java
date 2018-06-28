@@ -18,7 +18,7 @@ public class PlanetDis {
     MyIn in;
     MyOut out = new MyOut("res");
     try {
-      in = new MyIn("testCase/PlanetDis.bin");//TODO add file name
+      in = new MyIn("testCase/PlanetDis.bin");
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return;
