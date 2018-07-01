@@ -34,6 +34,9 @@ public class UptimeClient {
           protected void initChannel(SocketChannel ch) throws Exception {
             ChannelPipeline p = ch.pipeline();
             p.addLast(new LoggingHandler(LogLevel.INFO));
+            // Triggers an IdleStateEvent when a Channel has not performed
+            // read, write, or both operation for a while.
+            // Use context's executor to schedule task to repeat check
             p.addLast(new IdleStateHandler(READ_TIMEOUT, 0, 0), handler);
           }
         });

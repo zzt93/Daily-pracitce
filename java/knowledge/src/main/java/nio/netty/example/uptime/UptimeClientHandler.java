@@ -30,6 +30,7 @@ public class UptimeClientHandler extends SimpleChannelInboundHandler<Object> {
 
   @Override
   public void channelUnregistered(ChannelHandlerContext ctx) throws Exception {
+    // invoked when fail to connect to remote address
     println("Sleeping for: " + UptimeClient.RECONNECT_DELAY + 's');
 
     ctx.channel().eventLoop().schedule(() -> {
