@@ -48,6 +48,7 @@ public class TelnetServerHandler extends SimpleChannelInboundHandler<String> {
     // We know the encoder inserted at TelnetPipelineFactory will do the conversion.
     ChannelFuture future = ctx.write(res);
     if (close) {
+      // after write is finished, then close
       future.addListener(ChannelFutureListener.CLOSE);
     }
   }
