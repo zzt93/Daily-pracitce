@@ -18,6 +18,7 @@ public class QuoteOfTheMomentServer {
     try {
       Bootstrap b = new Bootstrap();
       b.group(group)
+          // use UDP, so no need to use `ServerBootstrap`
           .channel(NioDatagramChannel.class)
           .option(ChannelOption.SO_BROADCAST, true)
           .handler(new QuoteOfTheMomentServerHandler());

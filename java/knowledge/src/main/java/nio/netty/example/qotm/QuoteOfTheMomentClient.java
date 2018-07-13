@@ -27,10 +27,12 @@ public class QuoteOfTheMomentClient {
           .option(ChannelOption.SO_BROADCAST, true)
           .handler(new QuoteOfTheMomentClientHandler());
 
+      // because using broadcast, using bind rather than connect
       Channel channel = b.bind(0).sync().channel();
 
       channel.writeAndFlush(new DatagramPacket(
           Unpooled.copiedBuffer("QOTM?", CharsetUtil.UTF_8),
+          // broadcast to PORT
           SocketUtils.socketAddress("255.255.255.255", PORT)
       )).sync();
 
