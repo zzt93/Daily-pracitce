@@ -14,6 +14,7 @@ import io.netty.handler.logging.LoggingHandler;
 import io.netty.handler.ssl.SslContext;
 import io.netty.handler.ssl.SslContextBuilder;
 import io.netty.handler.ssl.util.InsecureTrustManagerFactory;
+import io.netty.handler.ssl.util.SelfSignedCertificate;
 
 /**
  * @author zzt
@@ -25,8 +26,8 @@ public class DiscardServer {
   public static void main(String[] args) throws Exception {
     final SslContext sslContext;
     if (SSL) {
-      sslContext = SslContextBuilder.forClient()
-          .trustManager(InsecureTrustManagerFactory.INSTANCE).build();
+      SelfSignedCertificate ssc = new SelfSignedCertificate();
+      sslContext = SslContextBuilder.forServer(ssc.certificate(), ssc.privateKey()).build();
     } else {
       sslContext = null;
     }
