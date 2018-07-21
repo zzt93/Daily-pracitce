@@ -1,7 +1,5 @@
 package nio.netty.example.objectecho;
 
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import java.util.ArrayList;
@@ -42,6 +40,7 @@ public class ObjectEchoClientHandler extends ChannelInboundHandlerAdapter {
 
   @Override
   public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+    System.out.println("client received: " + msg);
     ctx.write(msg);
   }
 

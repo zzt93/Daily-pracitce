@@ -1,8 +1,6 @@
 package nio.netty.example.securechat;
 
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -13,7 +11,6 @@ import io.netty.util.concurrent.Future;
 import io.netty.util.concurrent.GenericFutureListener;
 import io.netty.util.concurrent.GlobalEventExecutor;
 import java.net.InetAddress;
-import java.util.Date;
 
 /**
  * @author zzt
@@ -21,6 +18,7 @@ import java.util.Date;
 @Sharable
 public class SecureChatServerHandler extends SimpleChannelInboundHandler<String> {
 
+  // all remote peers
   private static final ChannelGroup channels = new DefaultChannelGroup(
       GlobalEventExecutor.INSTANCE);
 
