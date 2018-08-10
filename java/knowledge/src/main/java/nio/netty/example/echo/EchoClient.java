@@ -52,6 +52,7 @@ public class EchoClient {
             }
           });
       ChannelFuture f = b.connect(HOST, PORT).sync();
+//      f.channel().deregister();
       f.channel().closeFuture().sync();
 //      f.channel().closeFuture().get();
     } catch (Exception e) {
