@@ -26,9 +26,9 @@ public class MatrixChain {
    */
   private static int minCost(int[] a, int s, int e, int[][] dp) {
     if (dp[s][e] != 0) return dp[s][e];
-    if (s + 1 == e) {
+    if (s + 1 == e) { // only one matrix
       return 0;
-    } else if (s + 2 == e) {
+    } else if (s + 2 == e) { // two matrix, base case
       return dp[s][e] = a[s] * a[e] * a[s + 1];
     }
     int min = Integer.MAX_VALUE;
