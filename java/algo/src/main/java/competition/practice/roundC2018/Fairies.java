@@ -28,7 +28,7 @@ public class Fairies {
   }
 
   private static long choose() {
-
+    return 0;
   }
 
 }

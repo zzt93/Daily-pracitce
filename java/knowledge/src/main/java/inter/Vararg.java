@@ -8,6 +8,15 @@ package inter;
 public interface Vararg {
 
     void hello(String... strings);
+
+
+    public static void main(String[] args) {
+        String[] strings = {"a", "b"};
+        Object[] objects = {new Object(), new Object()};
+        new VarargImpl2().hello(strings);
+        System.out.println(objects.getClass());
+        System.out.println(strings.getClass());
+    }
 }
 
 class VarargImpl implements Vararg {

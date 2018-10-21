@@ -8,9 +8,10 @@ import java.nio.file.Paths;
 /**
  * Example demonstrating a ClassLoader leak.
  * <p>
- * <p>To see it in action, copy this file to a temp directory somewhere,
+ * <p>To see it in command line, copy this file to a temp directory somewhere,
  * and then run:
  * <pre>{@code
+ *   // remove package & change path to load class
  *   javac ClassLoaderLeakExample.java
  *   java -cp . ClassLoaderLeakExample
  * }</pre>
@@ -87,11 +88,15 @@ public final class ClassLoaderLeakExample {
                 return super.loadClass(name, resolve);
             }
             try {
+
+//                Path path = Paths.get(LoadedInChildClassLoader.class.getName()
+//                    + ".class");
+
 //                Path cwd = Paths.get(".").toAbsolutePath().normalize();
 
                 String className = LoadedInChildClassLoader.class.getName();
                 className = className.replace('.', '/');
-                Path path = Paths.get("./out/production/knowledge/" +
+                Path path = Paths.get("./target/classes/" +
                         className
                         + ".class");
                 byte[] classBytes = Files.readAllBytes(path);
@@ -129,9 +134,9 @@ public final class ClassLoaderLeakExample {
      * <h3>Explanation for why can't be GCed</h3>
      * <li>`-=` represent the reference direction</li>
      * <pre>
-     * Thread -= ThreadLocalMap -= Entry -= ThreadLocal =---
-     *                                 \                    \
-     *                                  -= LargeClassObj -= LargeClass -= ClassLoader</pre>
+     * Thread -= ThreadLocalMap -= Entry
+     *                             \
+     *                            -= LargeClassObj -= moreBytesToLeak -= LargeClass -= threadLocal</pre>
      */
     public static final class LoadedInChildClassLoader {
         // Grab a bunch of bytes. This isn't necessary for the leak, it just
@@ -140,7 +145,7 @@ public final class ClassLoaderLeakExample {
         // creating a new instance of this static final field on each iteration!
         static final byte[] moreBytesToLeak = new byte[1024 * 1024 * 10];
 
-        private static final ThreadLocal<LoadedInChildClassLoader> threadLocal
+        private final ThreadLocal<LoadedInChildClassLoader> threadLocal
                 = new ThreadLocal<>();
 
         public LoadedInChildClassLoader() {
