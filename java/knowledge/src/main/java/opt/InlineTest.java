@@ -5,7 +5,8 @@ import java.util.Random;
 /**
  * Created by zzt on 1/4/17.
  * <p>
- * <h3></h3>
+ * -XX:+CITime -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining -XX:+PrintCompilation -XX:CompileCommand=dontinline,opt.InlineTest::fib
+ * <p>-XX:+CITime -XX:+UnlockDiagnosticVMOptions -XX:+PrintInlining -XX:+PrintCompilation  </p>
  */
 public class InlineTest {
 
@@ -19,7 +20,7 @@ public class InlineTest {
     public static void main(String[] args) {
         Random random = new Random();
         long startTime = System.nanoTime();
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10000; i++) {
             //            fib(random.nextInt(5) + 25);
             fib(28);
         }
